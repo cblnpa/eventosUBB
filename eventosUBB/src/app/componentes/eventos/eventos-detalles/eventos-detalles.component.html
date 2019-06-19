@@ -1,0 +1,233 @@
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Detalles del evento</h3>
+    </div>
+    <!-- breadcrumb -->
+    <div class="col-md-7 align-self-center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="inicioEncargado">Inicio</a></li>
+            <li class="breadcrumb-item active">Detalles Evento</li>
+        </ol>
+    </div>
+    <div class="">
+        <button
+            class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i
+                class="ti-settings text-white"></i></button>
+    </div>
+</div>
+
+<!-- Row -->
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-4 col-xlg-3 col-md-5">
+        <div class="card"> <img class="card-img" src="../../../assets/images/socialbg.jpg" alt="Card image">
+            <!-- evento.imagen -->
+            <div class="card-img-overlay card-inverse social-profile d-flex">
+                <div class="align-self-center">
+                    <h1 class="card-title">Seminario de ejemplo</h1> <!-- evento.nombre -->
+                    <hr>
+                    <h4 class="card-subtitle"><i class="fa fa-calendar"></i> Jueves 23 de Julio, 2019</h4>
+                    <!-- jornada.fecha -->
+                </div>
+            </div>
+        </div>
+
+        <!-- agregar ngIf a este botón -->
+        <button class="btn btn-block btn-outline-info"><i class="mdi mdi-pencil"></i> Editar evento</button>
+
+        <!-- información del evento -->
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fa fa-users"></i> Cupos</h5>
+                <h6>120</h6> <!-- evento.capacidad -->
+                <hr>
+                <h5><i class="mdi mdi-home-map-marker"></i> Ubicación</h5>
+                <h6>Salón Andrés Bello, Centro de extensión UBB</h6> <!-- evento.ubicacion -->
+                <hr>
+                <h5><i class="mdi mdi-map-marker"></i> Dirección</h5>
+                <h6>Calle 18 de Septiembre 580</h6>
+                <hr>
+                <h5><i class="mdi mdi-information"></i> Descripción</h5>
+                <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, reiciendis animi, expedita dicta
+                    voluptatum a ipsa corporis sequi nisi, aperiam praesentium. Nam illum nostrum perspiciatis nesciunt
+                    quia aliquam minima qui!</h6> <!-- evento.detalles -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Column -->
+    <div class="col-lg-8 col-xlg-9 col-md-7">
+        <div class="card">
+            <!-- barra de tabs -->
+            <ul class="nav nav-tabs profile-tab" role="tablist">
+                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#jornadas"
+                        role="tab">Jornadas</a> </li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#expositores"
+                        role="tab">Expositores</a> </li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#colaboradores"
+                        role="tab">Colaboradores</a> </li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#material" role="tab">Material</a>
+                </li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#participantes"
+                        role="tab">Participantes</a> </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- jornadas tab -->
+                <div class="tab-pane active" id="jornadas" role="tabpanel">
+                    <div class="card-body">
+                        <h1>Jornadas works!</h1>
+                    </div>
+                </div>
+                <!-- expositores tab -->
+                <div class="tab-pane" id="expositores" role="tabpanel">
+                    <h2>Expositores</h2>
+                    <br>
+                    <div class="row el-element-overlay">
+                        <div class="col-lg-4 col-xlg-3 col-md-3"> <!-- agregar a este div un ngFor por cada expositor -->
+                            <div class="card">
+                                <div class="el-card-item">
+                                    <div class="el-card-avatar el-overlay-1">
+                                        <!-- expositor.foto -->
+                                        <img src="../../../assets/images/user.png" alt="user">
+                                        <div class="el-overlay">
+                                            <!-- overlay son efectos al pasar sobre la foto -->
+                                            <ul class="el-info">
+                                                <li><a class="btn default btn-outline image-popup-vertical-fit"
+                                                        href="../../../assets/images/user.png"><i
+                                                            class="icon-magnifier"></i></a></li>
+                                                <!-- este li contiene el link -->
+                                                <!-- expositor.empresa -->
+                                                <li><a class="btn default btn-outline" target="_blank" href="http://www.nixlabs.cl/"><i
+                                                            class="icon-link"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="el-card-content">
+                                        <h3 class="box-tittle">Juan Carlos Figueroa</h3> <!-- expositor.nombre expositor.apellido -->
+                                        <h6><i class="fa fa-envelope"></i> juancarlos@correo.cl</h6> <!-- expositor.correo -->
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="colaboradores" role="tabpanel">
+                    <h2>Colaboradores</h2>
+                    <br>
+                    <div class="row el-element-overlay">
+                            <div class="col-lg-4 col-xlg-3 col-md-3"> <!-- agregar a este div un ngFor por cada expositor -->
+                                <div class="card">
+                                    <div class="el-card-item">
+                                        <div class="el-card-avatar el-overlay-1">
+                                            <!-- expositor.foto -->
+                                            <img src="../../../assets/images/user.png" alt="user">
+                                            <div class="el-overlay">
+                                                <!-- overlay son efectos al pasar sobre la foto -->
+                                                <ul class="el-info">
+                                                    <li><a class="btn default btn-outline image-popup-vertical-fit"
+                                                            href="../../../assets/images/user.png"><i
+                                                                class="icon-magnifier"></i></a></li>
+                                                    <!-- este li contiene el link -->
+                                                    <!-- expositor.empresa -->
+                                                    <li><a class="btn default btn-outline" target="_blank" href="http://www.nixlabs.cl/"><i
+                                                                class="icon-link"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="el-card-content">
+                                            <h3 class="box-tittle">Juan Carlos Figueroa</h3> <!-- expositor.nombre expositor.apellido -->
+                                            <h6><i class="fa fa-envelope"></i> juancarlos@correo.cl</h6> <!-- expositor.correo -->
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <h2>Auspiciadores</h2>
+                    <br>
+                    <div class="row el-element-overlay">
+                            <div class="col-lg-4 col-xlg-3 col-md-3"> <!-- agregar a este div un ngFor por cada expositor -->
+                                <div class="card">
+                                    <div class="el-card-item">
+                                        <div class="el-card-avatar el-overlay-1">
+                                            <!-- expositor.foto -->
+                                            <img src="../../../assets/images/user.png" alt="user">
+                                            <div class="el-overlay">
+                                                <!-- overlay son efectos al pasar sobre la foto -->
+                                                <ul class="el-info">
+                                                    <li><a class="btn default btn-outline image-popup-vertical-fit"
+                                                            href="../../../assets/images/user.png"><i
+                                                                class="icon-magnifier"></i></a></li>
+                                                    <!-- este li contiene el link -->
+                                                    <!-- expositor.empresa -->
+                                                    <li><a class="btn default btn-outline" target="_blank" href="http://www.nixlabs.cl/"><i
+                                                                class="icon-link"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="el-card-content">
+                                            <h3 class="box-tittle">Juan Carlos Figueroa</h3> <!-- expositor.nombre expositor.apellido -->
+                                            <h6><i class="fa fa-envelope"></i> juancarlos@correo.cl</h6> <!-- expositor.correo -->
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <h2>Patrocinadores</h2>
+                    <br>
+                    <div class="row el-element-overlay">
+                            <div class="col-lg-4 col-xlg-3 col-md-3"> <!-- agregar a este div un ngFor por cada expositor -->
+                                <div class="card">
+                                    <div class="el-card-item">
+                                        <div class="el-card-avatar el-overlay-1">
+                                            <!-- expositor.foto -->
+                                            <img src="../../../assets/images/user.png" alt="user">
+                                            <div class="el-overlay">
+                                                <!-- overlay son efectos al pasar sobre la foto -->
+                                                <ul class="el-info">
+                                                    <li><a class="btn default btn-outline image-popup-vertical-fit"
+                                                            href="../../../assets/images/user.png"><i
+                                                                class="icon-magnifier"></i></a></li>
+                                                    <!-- este li contiene el link -->
+                                                    <!-- expositor.empresa -->
+                                                    <li><a class="btn default btn-outline" target="_blank" href="http://www.nixlabs.cl/"><i
+                                                                class="icon-link"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="el-card-content">
+                                            <h3 class="box-tittle">Juan Carlos Figueroa</h3> <!-- expositor.nombre expositor.apellido -->
+                                            <h6><i class="fa fa-envelope"></i> juancarlos@correo.cl</h6> <!-- expositor.correo -->
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="tab-pane" id="material" role="tabpanel">
+                    <div class="card-body">
+                        <h1>Material works!</h1>
+                    </div>
+                </div>
+                <div class="tab-pane" id="participantes" role="tabpanel">
+                    <h1>Participantes works!</h1>
+                    <table>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+</div>
+<!-- Row -->
