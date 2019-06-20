@@ -10,7 +10,7 @@
                         <li class="user-profile">
                             <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="../../../assets/images/sin-imagen.png" alt="user" /><span class="hide-menu">Gastón Lara</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="javascript:void()">Cerrar sesión</a></li>
+                                <li><a routerLink="/login">Cerrar sesión</a></li>
                             </ul>
                         </li>
                         <li> 
@@ -20,13 +20,25 @@
                           </a>
                         </li>
                         <li class="nav-small-cap">ENCARGADO</li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-view-grid"></i><span class="hide-menu">Eventos</span></a>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-view-grid"></i><span class="hide-menu">Eventos originales </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="inicioEncargado">Ver eventos</a></li>
+                                <li><a routerLinkActive="active" routerLink="/inicioEncargado">Ver eventos</a></li>
                                 <li><a href="#">Mis eventos</a></li>
                                 <li><a href="eventosDetalles">Eventos detalles</a></li>
                             </ul>
                         </li>
+
+                        <li *ngFor="let menu of _sidebar.menu"> 
+                            <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i [class]="menu.icono"></i><span class="hide-menu"> {{menu.titulo}} </span></a>
+                            <ul aria-expanded="false" class="collapse">
+
+                                <li *ngFor="let submenu of menu.submenu">
+                                    <a routerLinkActive="active" [routerLink]="[ submenu.url ]"> {{ submenu.titulo}} </a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Comisión</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="app-email.html">Ver comisiones</a></li>
