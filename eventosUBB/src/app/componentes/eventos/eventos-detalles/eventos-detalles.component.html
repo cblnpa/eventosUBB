@@ -6,13 +6,14 @@
             <!-- evento.imagen -->
             <div class="card-img-overlay card-inverse social-profile d-flex">
                 <div class="align-self-center">
-                    <h1 class="card-title">Seminario de ejemplo</h1> <!-- evento.nombre -->
+                    <h1 class="card-title" *ngFor="let evento of eventos"> {{evento.nombre}} </h1> <!-- evento.nombre -->
                     <hr>
                     <h4 class="card-subtitle"><i class="fa fa-calendar"></i> Jueves 23 de Julio, 2019</h4>
                     <!-- jornada.fecha -->
                 </div>
             </div>
         </div>
+    
 
         <!-- agregar ngIf a este botón -->
         <button class="btn btn-block btn-outline-info"><i class="mdi mdi-pencil"></i> Editar evento</button>
@@ -21,18 +22,16 @@
         <div class="card">
             <div class="card-body">
                 <h5><i class="fa fa-users"></i> Cupos</h5>
-                <h6>120</h6> <!-- evento.capacidad -->
+                <h6>  </h6> <!-- evento.capacidad -->
                 <hr>
                 <h5><i class="mdi mdi-home-map-marker"></i> Ubicación</h5>
-                <h6>Salón Andrés Bello, Centro de extensión UBB</h6> <!-- evento.ubicacion -->
+                <h6> </h6> <!-- evento.ubicacion -->
                 <hr>
                 <h5><i class="mdi mdi-map-marker"></i> Dirección</h5>
-                <h6>Calle 18 de Septiembre 580</h6>
+                <h6> </h6>
                 <hr>
                 <h5><i class="mdi mdi-information"></i> Descripción</h5>
-                <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, reiciendis animi, expedita dicta
-                    voluptatum a ipsa corporis sequi nisi, aperiam praesentium. Nam illum nostrum perspiciatis nesciunt
-                    quia aliquam minima qui!</h6> <!-- evento.detalles -->
+                <h6> </h6> <!-- evento.detalles -->
             </div>
         </div>
     </div>

@@ -1,0 +1,58 @@
+<div class="col-md-12">
+  <h2>Ingresar un evento tipo postman</h2>
+
+  <form class="col-md-5" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" name="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="evento.nombre" required>
+      <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
+        El nombre no puede ser vacío
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="ubicacion">Ubicación</label>
+      <input type="text" name="ubicacion" class="form-control" #ubicacion="ngModel" [(ngModel)]="evento.ubicacion" required>
+      <small *ngIf="!ubicacion.valid && ubicacion.touched" class="invalid-feedback d-block">
+          La ubicación no puede ser vacío
+        </small>
+    </div>
+
+    <div class="form-group">
+      <label for="direccion">Dirección</label>
+      <input type="text" name="direccion" class="form-control" #direccion="ngModel" [(ngModel)]="evento.direccion" required>
+      <small *ngIf="!direccion.valid && direccion.touched" class="invalid-feedback d-block">
+          La dirección no puede ser vacío
+        </small>
+    </div>
+
+    <div class="form-group">
+      <label for="detalles">Detalles</label>
+      <input type="text" name="detalles" class="form-control" #detalles="ngModel" [(ngModel)]="evento.detalles" required>
+      <small *ngIf="!detalles.valid &&detalles.touched" class="invalid-feedback d-block">
+          El detalle no puede ser vacío
+        </small>
+    </div>
+
+    <div class="form-group">
+      <label for="imagen">Imagen</label>
+      <input type="text" name="imagen" class="form-control" #imagen="ngModel" [(ngModel)]="evento.imagen" required>
+      <small *ngIf="!imagen.valid && imagen.touched" class="invalid-feedback d-block">
+          La imagen no puede ser vacío
+        </small>
+    </div>
+
+    <div class="form-group">
+      <label for="capacidad">Capacidad</label>
+      <input type="number" name="capacidad" class="form-control" #capacidad="ngModel" [(ngModel)]="evento.capacidad" required>
+      <small *ngIf="!capacidad.valid && capacidad.touched" class="invalid-feedback d-block">
+          La capacidad no puede ser vacío
+        </small>
+    </div>
+
+    <input type="submit" value="registrar" class="btn btn-success" [disabled]="registerForm.invalid">
+
+  </form>
+
+</div>
