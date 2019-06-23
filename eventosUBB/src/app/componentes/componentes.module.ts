@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 
+// Formularios
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatStepperModule, MatInputModule, MatButtonModule} from '@angular/material'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 // Módulos
 import { UtilidadesModule } from '../utilidades/utilidades.module';
-
 
 // Componentes
 import { InicioEncargadoComponent } from '../componentes/encargado/inicio-encargado/inicio-encargado.component';
@@ -30,6 +34,12 @@ import { BrowserModule } from '@angular/platform-browser';
     imports: [
         UtilidadesModule,
         BrowserModule,
+        BrowserAnimationsModule,
+        MatStepperModule, 
+        MatInputModule, 
+        MatButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
         COMPONENTES_ROUTES
     ]
 })
