@@ -8,9 +8,12 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="user-profile">
-                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="../../../assets/images/sin-imagen.png" alt="user" /><span class="hide-menu">Gastón Lara</span></a>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                                <img src="../../../assets/images/sin-imagen.png" alt="user"/>
+                                <span class="hide-menu"> {{identity.nombre + ' ' + identity.apellido}} </span>
+                            </a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a routerLink="/login">Cerrar sesión</a></li>
+                                <li><a>Cerrar sesión</a></li>
                             </ul>
                         </li>
                         <li> 

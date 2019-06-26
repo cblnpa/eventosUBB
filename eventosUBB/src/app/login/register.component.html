@@ -6,44 +6,39 @@
           <form class="form p-t-20" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
 
               <div class="form-group">
-                  <label for="exampleInputuname">Nombre</label>
+                  <label nombre="exampleInputuname">Nombre</label>
                   <div class="input-group">
                       <div class="input-group-addon"><i class="ti-user"></i></div>
-                      <input type="text" class="form-control" required placeholder="ingresa tu nombre" #nombre="ngModel" [(ngModel)]="evento.nombre">
-                      <small *ngIf="!name.valid && nombre.touched" class="invalid-feedback d-block">El nombre no es válido</small>
+                      <input type="text" name="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="user.nombre" required>
                   </div>
               </div>
 
               <div class="form-group">
-                  <label for="exampleInputEmail1">Correo</label>
+                  <label for="apellido">Apellido</label>
                   <div class="input-group">
-                      <div class="input-group-addon"><i class="ti-email"></i></div>
-                      <input type="email" class="form-control" required placeholder="ingresa tu correo">
+                        <div class="input-group-addon"><i class="ti-user"></i></div>
+                      <input type="text" name="apellido" class="form-control" #apellido="ngModel" [(ngModel)]="user.apellido" required>
                   </div>
               </div>
               <div class="form-group">
-                  <label for="pwd1">Contraseña</label>
+                  <label for="correo">Correo</label>
+                  <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-email"></i></div>
+                      <input type="email" name="email" class="form-control" #email="ngModel" [(ngModel)]="user.email" required>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="password">Contraseña</label>
                   <div class="input-group">
                       <div class="input-group-addon"><i class="ti-lock"></i></div>
-                      <input type="password" class="form-control" id="pwd1" placeholder="Enter email">
+                      <input type="password" name="password" class="form-control" #password="ngModel" [(ngModel)]="user.password" required>
                   </div>
               </div>
-              <div class="form-group">
-                  <label for="pwd2">Confirmar contraseña</label>
-                  <div class="input-group">
-                      <div class="input-group-addon"><i class="ti-lock"></i></div>
-                      <input type="password" class="form-control" id="pwd2" placeholder="Enter email">
-                  </div>
-              </div>
-              <div class="form-group">
-                  <div class="checkbox checkbox-success">
-                      <input id="checkbox1" type="checkbox">
-                      <label for="checkbox1"> Remember me </label>
-                  </div>
-              </div>
-              <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
+
+              <button type="submit" class="btn btn-success waves-effect waves-light m-r-10" [disabled]="registerForm.invalid">Registrar</button>
               <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancel</button>
           </form>
+
       </div>
   </div>
 </div>

@@ -16,6 +16,13 @@ export class EventoService {
     this.url = global.url; 
   }
 
+  getIdEvento(evento): Observable<any>{
+    let json = JSON.stringify(evento);
+    let params = 'json='+json;
+
+    return this.http.get(this.url+'evento');
+  }
+
   guardarEvento(evento): Observable<any>{
     let json = JSON.stringify(evento); //convierte el evento que se pasa por parámetro a un tipo JSON
     let params = 'json='+json; //se definene los parametros que se mandan al api
@@ -27,6 +34,11 @@ export class EventoService {
     //(http://localhost:8000/api/evento) y el params le pasa lo que obtiene el json
     //los headers son las cabeceras que se mandan y así se mandan los métodos
     return this.http.post(this.url+'evento', params, {headers: headers});
+  }
+
+  getEventos():Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'evento', {headers: headers});
   }
 
 }

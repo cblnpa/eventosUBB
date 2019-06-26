@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import {
   SidebarService,
-  EventoService
+  EventoService,
+  ColaboradorService,
+  UserService
  } from './servicio.index';
 
 @NgModule({
@@ -12,7 +14,9 @@ import {
   ],
   providers: [
     SidebarService,
-    EventoService
+    EventoService,
+    ColaboradorService,
+    UserService
   ],
   declarations: [],
   

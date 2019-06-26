@@ -5,32 +5,32 @@
         <div class="login-register">
             <div class="login-box card">
                 <div class="card-body">
+
                     <!-- form para el inicio de sesión -->
-                    <form class="form-horizontal form-material" (ngSubmit)="ingresar()">
+                    <form class="form-horizontal form-material" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+
                         <h3 class="box-title m-b-20">Iniciar sesión</h3>
+
                         <div class="form-group ">
+                            <label for="email"> Ingresa tu correo </label>
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" placeholder="correo"> </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <input class="form-control" type="password" placeholder="contraseña"> </div>
-                        </div>
-                        <!-- opción de "recordarme" -->
-                        <!--
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <div class="checkbox checkbox-info pull-left p-t-0">
-                                    <input id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue">
-                                    <label for="checkbox-signup"> Recordarme </label>
-                                </div> <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> ¿Olvidaste tu contraseña? </a> </div>
-                        </div>
-                        -->
-                        <div class="form-group text-center">
-                            <div class="col-xs-12 p-b-20">
-                                <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">Entrar</button>
+                                <input class="form-control" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" placeholder="correo"> 
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="password"> Ingresa tu contraseña </label>
+                            <div class="col-xs-12">
+                                <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="contraseña"> 
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <div class="col-xs-12 p-b-20">
+                                <button class="btn btn-block btn-lg btn-info btn-rounded" [disabled]="loginForm.invalid" routerLink="/inicioEncargado" >Iniciar sesión</button>
+                            </div>
+                        </div>
+
                         <!-- iniciar sesión con Google -->
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
@@ -39,12 +39,17 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- registrarse -->
                         <div class="form-group m-b-0">
                             <div class="col-sm-12 text-center">
-                                ¿No tienes una cuenta? <a class="text-info m-l-5"><b>Regístrate</b></a>
+                                ¿No tienes una cuenta? 
+                                <a class="text-info m-l-5">
+                                    <b>Regístrate</b>
+                                </a>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>

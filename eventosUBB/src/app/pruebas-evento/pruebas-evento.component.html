@@ -1,22 +1,24 @@
 <div class="col-md-12">
-  <h2>Ingresar un evento tipo postman</h2>
+  <h2>Crear evento con datos del colaborador</h2>
 
-  <form class="col-md-5" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+  <label *ngFor="let i of eventos"> {{i.idEvento}} , </label>
+
+
+  <form class="col-md-5" #registerEventoForm="ngForm" (ngSubmit)="onSubmit(registerEventoForm)">
+    <h4>Datos del evento</h4>
+    <br>
 
     <div class="form-group">
       <label for="nombre">Nombre</label>
       <input type="text" name="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="evento.nombre" required>
-      <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
+      <!-- <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
         El nombre no puede ser vacío
-      </small>
+      </small> -->
     </div>
 
     <div class="form-group">
       <label for="ubicacion">Ubicación</label>
       <input type="text" name="ubicacion" class="form-control" #ubicacion="ngModel" [(ngModel)]="evento.ubicacion" required>
-      <small *ngIf="!ubicacion.valid && ubicacion.touched" class="invalid-feedback d-block">
-          La ubicación no puede ser vacío
-        </small>
     </div>
 
     <div class="form-group">
@@ -30,28 +32,64 @@
     <div class="form-group">
       <label for="detalles">Detalles</label>
       <input type="text" name="detalles" class="form-control" #detalles="ngModel" [(ngModel)]="evento.detalles" required>
-      <small *ngIf="!detalles.valid &&detalles.touched" class="invalid-feedback d-block">
-          El detalle no puede ser vacío
-        </small>
     </div>
 
     <div class="form-group">
       <label for="imagen">Imagen</label>
       <input type="text" name="imagen" class="form-control" #imagen="ngModel" [(ngModel)]="evento.imagen" required>
-      <small *ngIf="!imagen.valid && imagen.touched" class="invalid-feedback d-block">
-          La imagen no puede ser vacío
-        </small>
     </div>
 
     <div class="form-group">
       <label for="capacidad">Capacidad</label>
       <input type="number" name="capacidad" class="form-control" #capacidad="ngModel" [(ngModel)]="evento.capacidad" required>
-      <small *ngIf="!capacidad.valid && capacidad.touched" class="invalid-feedback d-block">
-          La capacidad no puede ser vacío
-        </small>
     </div>
 
-    <input type="submit" value="registrar" class="btn btn-success" [disabled]="registerForm.invalid">
+    <input type="submit" value="siguiente" class="btn btn-success" [disabled]="registerEventoForm.invalid">
+
+  </form>
+  <hr><hr>
+
+  <form class="col-md-5" #registerForm="ngForm" (ngSubmit)="onSubmit2(registerForm)">
+
+    <h4>Agregar colaborador del evento</h4>
+    <br>
+
+    <div class="form-group">
+      <label for="nombre">Nombre colaborador</label>
+      <input type="text" name="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="colaborador.nombre" required>
+    </div>
+
+    <div class="form-group">
+      <label for="nombreRepresentate">Nombre representante</label>
+      <input type="text" name="nombreRepresentate" class="form-control" #nombreRepresentate="ngModel" [(ngModel)]="colaborador.nombreRepresentate" required>
+    </div>
+
+    <div class="form-group">
+      <label for="telefono">Teléfono</label>
+      <input type="number" name="telefono" class="form-control" #telefono="ngModel" [(ngModel)]="colaborador.telefono" required>
+    </div>
+
+    <div class="form-group">
+      <label for="correo">Correo</label>
+      <input type="text" name="correo" class="form-control" #correo="ngModel" [(ngModel)]="colaborador.correo" required>
+    </div>
+
+    <div class="form-group">
+      <label for="sitioWeb">Sitio web del colaborador</label>
+      <input type="text" name="sitioWeb" class="form-control" #sitioWeb="ngModel" [(ngModel)]="colaborador.sitioWeb" required>
+    </div>
+
+    <div class="form-group">
+      <label for="logo">Logo colaborador</label>
+      <input type="text" name="logo" class="form-control" #logo="ngModel" [(ngModel)]="colaborador.logo" required>
+    </div>
+
+    <div class="form-group">
+      <label for="Evento_idEvento">Evento asociado</label>
+      <select name="Evento_idEvento" #Evento_idEvento="ngModel" [(ngModel)]="colaborador.Evento_idEvento" class="form-control">
+        <option> </option>
+      </select>
+    </div>
 
   </form>
 
