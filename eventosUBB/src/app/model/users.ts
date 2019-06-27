@@ -1,7 +1,7 @@
 export class users {
     constructor(
-        public nombre: string,
-        public apellido: string,
+        public nombreUsuario: string,
+        public apellidoUsuario: string,
         public email: string,
         public password: string,
         public avatar: string

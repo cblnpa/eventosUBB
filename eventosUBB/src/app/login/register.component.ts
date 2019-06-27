@@ -31,6 +31,7 @@ export class RegisterComponent implements OnInit {
         if(response.status == "success"){
           this.status = response.status;
           form.reset();
+          console.log(response);
 
         } else {
           this.status = 'error';
