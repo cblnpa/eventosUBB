@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { EventoService } from '../../../servicios/backend/evento/evento.service';
+import { EventoService } from '../../servicios/servicio.index';
 
-import { evento } from '../../../model/evento';
+import { evento } from '../../model/evento';
 
 @Component({
-  selector: 'app-inicio-encargado',
-  templateUrl: './inicio-encargado.component.html',
-  styleUrls: ['./inicio-encargado.component.css'],
+  selector: 'app-inicio',
+  templateUrl: './inicio.component.html',
+  styleUrls: ['./inicio.component.css'],
   providers: [ EventoService ]
 })
-export class InicioEncargadoComponent implements OnInit {
+export class InicioComponent implements OnInit {
 
   public eventos;
 
   constructor( private eventoService: EventoService ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.getEventos();
   }
 

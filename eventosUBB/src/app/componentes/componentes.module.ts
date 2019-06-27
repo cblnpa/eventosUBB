@@ -9,7 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UtilidadesModule } from '../utilidades/utilidades.module';
 
 // Componentes
-import { InicioEncargadoComponent } from '../componentes/encargado/inicio-encargado/inicio-encargado.component';
+import { InicioComponent } from './inicio/inicio.component';
 import { EventosDetallesComponent } from '../componentes/eventos/eventos-detalles/eventos-detalles.component';
 import { ComponentesComponent } from './componentes.component';
 import { EventosEditarComponent } from './eventos/eventos-editar/eventos-editar.component';
@@ -19,14 +19,13 @@ import { BrowserModule } from '@angular/platform-browser';
 @NgModule({
     declarations: [
         ComponentesComponent,
-        InicioEncargadoComponent,
         EventosDetallesComponent,
-        EventosEditarComponent
+        EventosEditarComponent,
+        InicioComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
         ComponentesComponent,
-        InicioEncargadoComponent,
         EventosDetallesComponent,
         EventosEditarComponent
     ],

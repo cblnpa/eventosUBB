@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../servicios/servicio.index';
 
 @Component({
@@ -7,7 +7,7 @@ import { UserService } from '../../servicios/servicio.index';
   styleUrls: ['./header.component.css'],
   providers: [ UserService ]
 })
-export class HeaderComponent implements OnInit, DoCheck {
+export class HeaderComponent implements OnInit {
 
   public identity;
   public token;
@@ -19,8 +19,4 @@ export class HeaderComponent implements OnInit, DoCheck {
   ngOnInit() {
   }
 
-  ngDoCheck(){
-    
   }
-
-}
