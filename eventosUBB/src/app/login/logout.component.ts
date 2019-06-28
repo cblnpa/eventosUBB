@@ -24,11 +24,22 @@ export class LogoutComponent implements OnInit {
 
   logout(){
 
-    localStorage.removeItem('identity');
-    localStorage.removeItem('token');
+    // this.route.params.subscribe(params => {
+    //   // el + convierte string a entero 
+    //   let logout = +params['sure'];
 
-    // this.identity = null;
-    // this.token = null;
+    //   if( logout == 1 ) {
+
+    //     localStorage.removeItem('identity');
+    //     localStorage.removeItem('token');
+
+    //     this.identity = null;
+    //     this.token = null;
+
+    //     // redirección a login
+    //     this.router.navigate(['/login']);
+    //   }
+    // });
 
   }
 

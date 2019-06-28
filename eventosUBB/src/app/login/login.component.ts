@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms/';
+import { Router } from '@angular/router';
 
 import { users } from '../model/users';
 import { UserService } from '../servicios/servicio.index';
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   public token;
   public identity;
 
-  constructor( private userService: UserService ) {
+  constructor( private userService: UserService, private router: Router ) {
     this.user = new users('','','','','');
    }
 
@@ -50,6 +51,8 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('token',this.token);
               localStorage.setItem('identity', JSON.stringify(this.identity));
 
+              this.router.navigate(['/inicio']);
+
             },
             error => {
               this.status = 'error';
@@ -59,11 +62,17 @@ export class LoginComponent implements OnInit {
         } else {
           this.status = 'error';
         }
+
+        // this.router.navigate(['/login']);
+
       },
       error => {
         console.log(<any>error);
       }
+
     );
+
+    // this.router.navigate(['/login']);
 
   }
 

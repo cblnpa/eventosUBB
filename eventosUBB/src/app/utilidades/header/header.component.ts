@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   public identity;
   public token;
 
-  constructor( private userService: UserService ) { 
+  constructor( public userService: UserService ) { 
     this.identity = this.userService.getIdentity();
   }
 

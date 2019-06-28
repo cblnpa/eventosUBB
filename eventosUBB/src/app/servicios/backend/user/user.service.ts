@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { global } from '../../global';
+import { Router } from '@angular/router';
 
 import { users } from '../../../model/users';
 
@@ -14,7 +15,7 @@ export class UserService {
   public identity;
   public token;
 
-  constructor( private http: HttpClient ) { 
+  constructor( private http: HttpClient, private router: Router ) { 
     this.url = global.url;
   }
 
@@ -59,5 +60,17 @@ export class UserService {
       this.token = null;
     }
     return this.token;
+  }
+
+  logout(){
+
+    this.token = null;
+    this.identity = null;
+
+    localStorage.removeItem('identity');
+    localStorage.removeItem('token');
+
+    this.router.navigate(['/login']);
+
   }
 }
