@@ -7,8 +7,8 @@ import { LogoutComponent } from './login/logout.component';
 import { PruebasEventoComponent } from './pruebas-evento/pruebas-evento.component';
 
 const appRoutes: Routes = [
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+    { path: 'login', component: LoginComponent, data: { titulo: 'Iniciar sesión' } },
+    { path: 'register', component: RegisterComponent, data: { titulo: 'Regístrate' }  },
     { path: 'logout', component: LogoutComponent },
     { path: 'pruebasEventos', component: PruebasEventoComponent},
     { path: '**', component: NotfoundComponent}

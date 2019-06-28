@@ -1,62 +1,63 @@
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
-    <section id="wrapper">
-        <div class="login-register">
-            <div class="login-box card">
-                <div class="card-body">
+<section id="wrapper">
+    <div class="login-register" style="background-image:url(../assets/images/login-register.jpg);">
+        <div class="login-box card">
+            <div class="card-body">
 
-                    <!-- form para el inicio de sesión -->
-                    <form class="form-horizontal form-material" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+                <form class="form-horizontal form-material" id="loginform" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
 
-                        <h3 class="box-title m-b-20">Iniciar sesión</h3>
+                    <h3 class="box-title m-b-20">Iniciar sesión</h3>
 
-                        <div class="form-group ">
-                            <label for="email"> Ingresa tu correo </label>
-                            <div class="col-xs-12">
-                                <input class="form-control" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" placeholder="correo"> 
+                    <div class="form-group ">
+                        <label for="email">Ingresa tu correo</label>
+                        <div class="col-xs-12">
+                            <input class="form-control" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" placeholder="correo"> 
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Ingresa tu contraseña</label>
+                        <div class="col-xs-12">
+                            <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="contraseña"> 
+                        </div>
+                    </div>
+
+                    <!-- remember me group -->
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-info pull-left p-t-0">
+                                <input id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue">
+                                <label for="checkbox-signup"> Recuérdame </label>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="password"> Ingresa tu contraseña </label>
-                            <div class="col-xs-12">
-                                <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="contraseña"> 
+
+                    <div class="form-group text-center">
+                        <div class="col-xs-12 p-b-20">
+                            <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">Entrar</button>
+                        </div>
+                    </div>
+
+                    <!-- google sign in -->
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
+                            <div class="social">
+                                <button type="button" class="btn btn-googleplus" id="btnGoogle" data-toggle="tooltip" title="Iniciar sesión con google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </button>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <div class="checkbox checkbox-primary pull-left p-t-0">
-                                    <input id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue">
-                                    <label for="checkbox-signup"> Recordarme </label>
-                                </div>
-                            </div>
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            ¿No tienes una cuenta? 
+                            <a routerLink="/register" class="text-info m-l-5">
+                                <b>Regístrate aquí</b>
+                            </a>
                         </div>
-
-                        <div class="form-group text-center">
-                            <div class="col-xs-12 p-b-20">
-                                <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">Iniciar sesión</button>
-                            </div>
-                        </div>
-
-                        <!-- registrarse -->
-                        <div class="form-group m-b-0">
-                            <div class="col-sm-12 text-center">
-                                ¿No tienes una cuenta? 
-                                <a routerLink="/register" class="text-info m-l-5">
-                                    <b>Regístrate</b>
-                                </a>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
+                    </div>
+                    
+                </form>
             </div>
         </div>
-    </section>
-    
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-  
+    </div>
+</section>

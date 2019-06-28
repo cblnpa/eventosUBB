@@ -28,6 +28,12 @@ export class UserService {
     return this.http.post(this.url+'register', params, {headers: headers});
   }
 
+  signUpGoogle(gettoken:string): Observable<any>{
+    
+    return this.http.post(this.url+'login/google/callback', gettoken);
+
+  }
+
   signUp(users, gettoken = null): Observable<any>{
     if(gettoken != null){
       users.gettoken = 'true';
