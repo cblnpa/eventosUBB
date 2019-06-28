@@ -1,6 +1,3 @@
-<!-- ============================================================== -->
-<!-- Topbar header - style you can find in pages.scss -->
-<!-- ============================================================== -->
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-light">
         <!-- ============================================================== -->
@@ -26,47 +23,16 @@
                   -->
                 </span> </a>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Logo -->
-        <!-- ============================================================== -->
+
         <div class="navbar-collapse">
-            <!-- ============================================================== -->
-            <!-- toggle and nav items -->
-            <!-- ============================================================== -->
+
             <ul class="navbar-nav mr-auto">
-                <!-- This is  -->
                 <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                 <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                 <li class="nav-item hidden-sm-down"></li>
             </ul>
-            <!-- ============================================================== -->
-            <!-- User profile and search -->
-            <!-- ============================================================== -->
+
             <ul class="navbar-nav my-lg-0">
-                <!-- ============================================================== -->
-                <!-- Search -->
-                <!-- ============================================================== -->
-
-                <!-- ============================================================== -->
-                <!-- Comment -->
-                <!-- ============================================================== -->
-
-                
-                <!-- ============================================================== -->
-                <!-- Messages -->
-                <!-- ============================================================== -->
-
-                <!-- ============================================================== -->
-                <!-- mega menu -->
-                <!-- ============================================================== -->
-
-                <!-- ============================================================== -->
-                <!-- Language -->
-                <!-- ============================================================== -->
-
-                <!-- ============================================================== -->
-                <!-- Profile -->
-                <!-- ============================================================== -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../../assets/images/user.png" alt="user" class="profile-pic" /></a>
                     <div class="dropdown-menu dropdown-menu-right animated fadeIn">
@@ -75,8 +41,8 @@
                                 <div class="dw-user-box">
                                     <div class="u-img"><img src="../../../assets/images/user.png" alt="user"></div>
                                     <div class="u-text">
-                                        <h4>  </h4>
-                                        <p class="text-muted"> </p>
+                                        <h4> {{ identity.nombreUsuario + ' ' + identity.apellidoUsuario }} </h4>
+                                        <p class="text-muted"> {{ identity.email }} </p>
                                       </div>
                                 </div>
                             </li>
