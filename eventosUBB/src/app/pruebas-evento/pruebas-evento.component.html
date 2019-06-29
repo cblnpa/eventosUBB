@@ -1,96 +1,184 @@
 <div class="col-md-12">
-  <h2>Crear evento con datos del colaborador</h2>
 
-  <label *ngFor="let i of eventos"> {{i.idEvento}} , </label>
-
-
-  <form class="col-md-5" #registerEventoForm="ngForm" (ngSubmit)="onSubmit(registerEventoForm)">
-    <h4>Datos del evento</h4>
-    <br>
+  <form class="col-md-5" #eventoPojoForm="ngForm" (ngSubmit)="onSubmit(eventoPojoForm)">
 
     <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input type="text" name="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="evento.nombre" required>
-      <!-- <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
-        El nombre no puede ser vacío
-      </small> -->
+      <label for="nombreEvento">Nombre</label>
+      <input type="text" name="nombreEvento" class="form-control" #nombreEvento="ngModel" [(ngModel)]="eventoPojo.nombreEvento" required>
     </div>
 
     <div class="form-group">
       <label for="ubicacion">Ubicación</label>
-      <input type="text" name="ubicacion" class="form-control" #ubicacion="ngModel" [(ngModel)]="evento.ubicacion" required>
+      <input type="text" name="ubicacion" class="form-control" #ubicacion="ngModel" [(ngModel)]="eventoPojo.ubicacion" required>
     </div>
 
     <div class="form-group">
       <label for="direccion">Dirección</label>
-      <input type="text" name="direccion" class="form-control" #direccion="ngModel" [(ngModel)]="evento.direccion" required>
-      <small *ngIf="!direccion.valid && direccion.touched" class="invalid-feedback d-block">
-          La dirección no puede ser vacío
-        </small>
+      <input type="text" name="direccion" class="form-control" #direccion="ngModel" [(ngModel)]="eventoPojo.direccion" required>
     </div>
 
     <div class="form-group">
       <label for="detalles">Detalles</label>
-      <input type="text" name="detalles" class="form-control" #detalles="ngModel" [(ngModel)]="evento.detalles" required>
+      <input type="text" name="detalles" class="form-control" #detalles="ngModel" [(ngModel)]="eventoPojo.detalles" required>
     </div>
 
     <div class="form-group">
       <label for="imagen">Imagen</label>
-      <input type="text" name="imagen" class="form-control" #imagen="ngModel" [(ngModel)]="evento.imagen" required>
+      <input type="text" name="imagen" class="form-control" #imagen="ngModel" [(ngModel)]="eventoPojo.imagen" required>
     </div>
 
     <div class="form-group">
       <label for="capacidad">Capacidad</label>
-      <input type="number" name="capacidad" class="form-control" #capacidad="ngModel" [(ngModel)]="evento.capacidad" required>
+      <input type="number" name="capacidad" class="form-control" #capacidad="ngModel" [(ngModel)]="eventoPojo.capacidad" required>
     </div>
 
-    <input type="submit" value="siguiente" class="btn btn-success" [disabled]="registerEventoForm.invalid">
+    <div class="form-group">
+      <label for="nombreEventoInterno">Nombre evento interno</label>
+      <input type="text" name="nombreEventoInterno" class="form-control" #nombreEventoInterno="ngModel" [(ngModel)]="eventoPojo.nombreEventoInterno" required>
+    </div>
+
+    <div class="form-group">
+      <label for="idCiudad">Ciudad</label>
+      <input type="number" name="idCiudad" class="form-control" #idCiudad="ngModel" [(ngModel)]="eventoPojo.ciudad_idCiudad" required>
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="nombreMaterial">Nombre material</label>
+      <input type="text" name="nombreMaterial" class="form-control" #nombreMaterial="ngModel" [(ngModel)]="eventoPojo.nombreMaterial" required>
+    </div>
+
+    <div class="form-group">
+      <label for="archivo">Archivo</label>
+      <input type="text" name="archivo" class="form-control" #archivo="ngModel" [(ngModel)]="eventoPojo.archivo" required>
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="nombreColaborador">Nombre colaborador</label>
+      <input type="text" name="nombreColaborador" class="form-control" #nombreColaborador="ngModel" [(ngModel)]="eventoPojo.nombreColaborador" required>
+    </div>
+
+    <div class="form-group">
+      <label for="nombreRepresentante">Nombre representante</label>
+      <input type="text" name="nombreRepresentante" class="form-control" #nombreRepresentante="ngModel" [(ngModel)]="eventoPojo.nombreRepresentante" required>
+    </div>
+
+    <div class="form-group">
+      <label for="telefonoColaborador">Telefono</label>
+      <input type="number" name="telefonoColaborador" class="form-control" #telefono="ngModel" [(ngModel)]="eventoPojo.telefonoColaborador" required>
+    </div>
+
+    <div class="form-group">
+      <label for="correoColaborador">Correo</label>
+      <input type="email" name="correoColaborador" class="form-control" #correoColaborador="ngModel" [(ngModel)]="eventoPojo.correoColaborador" required>
+    </div>
+
+    <div class="form-group">
+      <label for="sitioWeb">Sitio web</label>
+      <input type="text" name="sitioWeb" class="form-control" #sitioWeb="ngModel" [(ngModel)]="eventoPojo.sitioWeb" required>
+    </div>
+
+    <div class="form-group">
+        <label for="logo">Logo</label>
+        <input type="text" name="logo" class="form-control" #logo="ngModel" [(ngModel)]="eventoPojo.logo" required>
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="nombreJornada">Nombre jornada</label>
+      <input type="text" name="nombreJornada" class="form-control" #nombreJornada="ngModel" [(ngModel)]="eventoPojo.nombreJornada" required>
+    </div>
+
+    <div class="form-group">
+      <label for="fechaJornada">Fecha jornada</label>
+      <input type="date" name="fechaJornada" class="form-control" #fechaJornada="ngModel" [(ngModel)]="eventoPojo.fechaJornada" required>
+    </div>
+
+    <div class="form-group">
+      <label for="horaInicioJornada">Hora inicio</label>
+      <input type="time" name="horaInicioJornada" class="form-control" #horaInicioJornada="ngModel" [(ngModel)]="eventoPojo.horaInicioJornada" required>
+    </div>
+
+    <div class="form-group">
+      <label for="horaFinJornada">Hora fin</label>
+      <input type="time" name="horaFinJornada" class="form-control" #horaFinJornada="ngModel" [(ngModel)]="eventoPojo.horaFinJornada" required>
+    </div>
+
+    <div class="form-group">
+      <label for="ubicacionJornada">Ubicacion jornada</label>
+      <input type="text" name="ubicacionJornada" class="form-control" #ubicacionJornada="ngModel" [(ngModel)]="eventoPojo.ubicacionJornada" required>
+    </div>
+
+    <div class="form-group">
+      <label for="descripcionJornada">Descripción jornada</label>
+      <input type="text" name="descripcionJornada" class="form-control" #descripcionJornada="ngModel" [(ngModel)]="eventoPojo.descripcionJornada" required>
+    </div>
+
+
+    <div class="form-group">
+      <label for="nombreExpositor">Nombre expositor</label>
+      <input type="text" name="nombreExpositor" class="form-control" #nombreExpositor="ngModel" [(ngModel)]="eventoPojo.nombreExpositor" required>
+    </div>
+
+    <div class="form-group">
+      <label for="apellidoExpositor">Apellido expositor</label>
+      <input type="text" name="apellidoExpositor" class="form-control" #apellidoExpositor="ngModel" [(ngModel)]="eventoPojo.apellidoExpositor" required>
+    </div>
+
+    <div class="form-group">
+      <label for="sexo">Sexo</label>
+      <input type="text" name="sexo" class="form-control" #sexo="ngModel" [(ngModel)]="eventoPojo.sexo" required>
+    </div>
+
+    <div class="form-group">
+      <label for="correoExpositor">Correo</label>
+      <input type="email" name="correoExpositor" class="form-control" #correoExpositor="ngModel" [(ngModel)]="eventoPojo.correoExpositor" required>
+    </div>
+
+    <div class="form-group">
+      <label for="empresa">Empresa</label>
+      <input type="text" name="empresa" class="form-control" #empresa="ngModel" [(ngModel)]="eventoPojo.empresa" required>
+    </div>
+
+    <div class="form-group">
+        <label for="foto">Foto</label>
+        <input type="text" name="foto" class="form-control" #foto="ngModel" [(ngModel)]="eventoPojo.foto" required>
+    </div>
+
+    
+
+    <div class="form-group">
+      <label for="nombreActividad">Nombre actividad</label>
+      <input type="text" name="nombreActividad" class="form-control" #nombreActividad="ngModel" [(ngModel)]="eventoPojo.nombreActividad" required>
+    </div>
+
+    <div class="form-group">
+      <label for="horaInicioActividad">Hora inicio</label>
+      <input type="time" name="horaInicioActividad" class="form-control" #horaInicioActividad="ngModel" [(ngModel)]="eventoPojo.horaInicioActividad" required>
+    </div>
+
+    <div class="form-group">
+      <label for="horaFinActividad">Hora fin</label>
+      <input type="time" name="horaFinActividad" class="form-control" #horaFinActividad="ngModel" [(ngModel)]="eventoPojo.horaFinActividad" required>
+    </div>
+
+    <div class="form-group">
+      <label for="ubicacionActividad">Ubicacion actividad</label>
+      <input type="text" name="ubicacionActividad" class="form-control" #ubicacionActividad="ngModel" [(ngModel)]="eventoPojo.ubicacionActividad" required>
+    </div>
+
+    <div class="form-group">
+      <label for="descripcionActividad">Descripción actividad</label>
+      <input type="text" name="descripcionActividad" class="form-control" #descripcionActividad="ngModel" [(ngModel)]="eventoPojo.descripcionActividad" required>
+    </div>
+
+    <button type="submit" class="btn-block btn-primary">Enviar</button>
 
   </form>
-  <hr><hr>
 
-  <form class="col-md-5" #registerForm="ngForm" (ngSubmit)="onSubmit2(registerForm)">
-
-    <h4>Agregar colaborador del evento</h4>
-    <br>
-
-    <div class="form-group">
-      <label for="nombre">Nombre colaborador</label>
-      <input type="text" name="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="colaborador.nombre" required>
-    </div>
-
-    <div class="form-group">
-      <label for="nombreRepresentate">Nombre representante</label>
-      <input type="text" name="nombreRepresentate" class="form-control" #nombreRepresentate="ngModel" [(ngModel)]="colaborador.nombreRepresentate" required>
-    </div>
-
-    <div class="form-group">
-      <label for="telefono">Teléfono</label>
-      <input type="number" name="telefono" class="form-control" #telefono="ngModel" [(ngModel)]="colaborador.telefono" required>
-    </div>
-
-    <div class="form-group">
-      <label for="correo">Correo</label>
-      <input type="text" name="correo" class="form-control" #correo="ngModel" [(ngModel)]="colaborador.correo" required>
-    </div>
-
-    <div class="form-group">
-      <label for="sitioWeb">Sitio web del colaborador</label>
-      <input type="text" name="sitioWeb" class="form-control" #sitioWeb="ngModel" [(ngModel)]="colaborador.sitioWeb" required>
-    </div>
-
-    <div class="form-group">
-      <label for="logo">Logo colaborador</label>
-      <input type="text" name="logo" class="form-control" #logo="ngModel" [(ngModel)]="colaborador.logo" required>
-    </div>
-
-    <div class="form-group">
-      <label for="Evento_idEvento">Evento asociado</label>
-      <select name="Evento_idEvento" #Evento_idEvento="ngModel" [(ngModel)]="colaborador.Evento_idEvento" class="form-control">
-        <option> </option>
-      </select>
-    </div>
-
-  </form>
 
 </div>

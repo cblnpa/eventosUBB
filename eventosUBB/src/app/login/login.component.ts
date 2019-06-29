@@ -63,10 +63,10 @@ export class LoginComponent implements OnInit {
       //let profile = googleUser.getBasicProfile();
       let token = googleUser.getAuthResponse().id_token;
 
-      this.userService.signUpGoogle(token).subscribe( response => {
+      this.userService.signUpGoogle().subscribe( response => {
         console.log(response);
       })
-      
+
     });
   }
 

@@ -14,10 +14,9 @@ export class EventoPojoService {
     this.url = global.url; 
   }
 
-  guardarEventoPojo(evento,material,colaborador,jornada,expositor,actividad): Observable<any>{
-    let json = JSON.stringify(evento,material,colaborador); //convierte el evento que se pasa por parámetro a un tipo JSON
-    let json2 = JSON.stringify(jornada,expositor,actividad);
-    let params = 'json='+json+json2; //se definene los parametros que se mandan al api
+  guardarEventoPojo(eventoPojo): Observable<any>{
+    let json = JSON.stringify(eventoPojo); //convierte el evento que se pasa por parámetro a un tipo JSON
+    let params = 'json='+json; //se definene los parametros que se mandan al api
     
     //se le pasa tal como se ingresan los datos por postman
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'); //tipo de peticion
@@ -28,9 +27,9 @@ export class EventoPojoService {
     return this.http.post(this.url+'eventoPojo', params, {headers: headers});
   }
 
-  getEventosPojo():Observable<any>{
-    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.url+'evento', {headers: headers});
-  }
+  // getEventosPojo():Observable<any>{
+  //   let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+  //   return this.http.get(this.url+'evento', {headers: headers});
+  // }
 
 }

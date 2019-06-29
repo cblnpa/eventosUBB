@@ -1,24 +1,24 @@
-<mat-horizontal-stepper [linear] = "isLinear" #stepper>
+<!-- <mat-horizontal-stepper labelPosition="bottom" [linear] = "isLinear" #stepper>
     <mat-step [stepControl] = "firstFormGroup">
        <form [formGroup] = "firstFormGroup">
-          <ng-template matStepLabel>Enter your name</ng-template>
+          <ng-template matStepLabel >Datos básicos del evento</ng-template>
           <mat-form-field>
              <input matInput placeholder = "Last name, First name" formControlName = "firstCtrl" required>
           </mat-form-field>
           <div>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
           </div>
        </form>
     </mat-step>
-    <mat-step [stepControl] = "secondFormGroup">
+    <mat-step [stepControl]  = "secondFormGroup">
        <form [formGroup] = "secondFormGroup">
-          <ng-template matStepLabel>Enter your address</ng-template>
+          <ng-template matStepperIcon="done" matStepLabel>Enter your address</ng-template>
           <mat-form-field>
             <input matInput placeholder = "Address" formControlName = "secondCtrl" required>
           </mat-form-field>
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
+            <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
           </div>
        </form>
     </mat-step>
@@ -26,8 +26,58 @@
        <ng-template matStepLabel>Done</ng-template>
           Details taken.
        <div>
-          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperPrevious type="button">Back</button>
           <button mat-button (click) = "stepper.reset()">Reset</button>
        </div>
     </mat-step>
- </mat-horizontal-stepper>
+ </mat-horizontal-stepper> -->
+
+ <nb-card>
+      <nb-card-body>
+        <nb-stepper orientation="horizontal">
+          <nb-step [label]="labelOne">
+            <ng-template #labelOne>First step</ng-template>
+            <h4>Step content #1</h4>
+            <p class="lorem">
+              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
+              gravida vizzle, dang.
+            </p>
+            <button nbButton disabled nbStepperNext>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </nb-step>
+          <nb-step [label]="labelTwo">
+            <ng-template #labelTwo>Second step</ng-template>
+            <h4>Step content #2</h4>
+            <p class="lorem">
+              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
+              gravida vizzle, dang.
+            </p>
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </nb-step>
+          <nb-step label="Third step">
+            <h4>Step content #3</h4>
+            <p class="lorem">
+              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
+              gravida vizzle, dang.
+            </p>
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </nb-step>
+          <nb-step [label]="labelFour">
+            <ng-template #labelFour>Fourth step</ng-template>
+            <h4>Step content #4</h4>
+            <p class="lorem">
+              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
+              gravida vizzle, dang.
+            </p>
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton disabled nbStepperNext>next</button>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>

@@ -2,8 +2,11 @@ import { NgModule } from '@angular/core';
 
 // Formularios
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatStepperModule, MatInputModule, MatButtonModule} from '@angular/material'
+import {MatStepperModule, MatInputModule, MatCardModule, MatButtonModule} from '@angular/material'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { NbThemeModule, NbStepperModule, NbCardModule } from '@nebular/theme';
 
 // Módulos
 import { UtilidadesModule } from '../utilidades/utilidades.module';
@@ -14,7 +17,6 @@ import { EventosDetallesComponent } from '../componentes/eventos/eventos-detalle
 import { ComponentesComponent } from './componentes.component';
 import { EventosEditarComponent } from './eventos/eventos-editar/eventos-editar.component';
 import { COMPONENTES_ROUTES } from './componentes.routes';
-import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
     declarations: [
@@ -39,6 +41,10 @@ import { BrowserModule } from '@angular/platform-browser';
         MatButtonModule,
         FormsModule,
         ReactiveFormsModule,
+        MatCardModule,
+        NbStepperModule,
+        NbThemeModule,
+        NbCardModule,
         COMPONENTES_ROUTES
     ]
 })

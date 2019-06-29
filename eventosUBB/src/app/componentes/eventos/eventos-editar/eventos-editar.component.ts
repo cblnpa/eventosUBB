@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { evento } from '../../../model/evento';
-import { EventoService } from '../../../servicios/servicio.index';
+import { eventoPojo } from '../../../model/eventoPojo';
+import { EventoPojoService } from '../../../servicios/servicio.index';
+
+
 
 @Component({
   selector: 'app-eventos-editar',
   templateUrl: './eventos-editar.component.html',
-  styleUrls: ['./eventos-editar.component.css']
+  styleUrls: ['./eventos-editar.component.css'],
+  providers: [ EventoPojoService ]
+
 })
 export class EventosEditarComponent implements OnInit {
 
-  public evento: evento; 
-
+  public eventoPojo: eventoPojo;
   firstFormGroup: FormGroup;
-   secondFormGroup: FormGroup;
-   isLinear: false;
+  secondFormGroup: FormGroup;
+  isLinear: false;
 
-  constructor(private _formBuilder: FormBuilder, private eventoService: EventoService) {
-    this.evento = new evento('','','','','',null);
+  constructor( private _formBuilder: FormBuilder, private eventoPojoService: EventoPojoService ) {
+    this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','');
    }
 
   ngOnInit() {
@@ -29,16 +32,27 @@ export class EventosEditarComponent implements OnInit {
    });
   }
 
-  guardarEvento(form){
-    this.eventoService.guardarEvento(this.evento).subscribe(
+  /*
+    this.eventoPojoService.guardarEventoPojo(this.eventoPojo).subscribe(
       response => {
         console.log(response);
-        form.reset();
       },
       error => {
         console.log(<any>error);
       }
-    );
+    )
+  */
+
+  guardarEvento(form){
+    // this.eventoService.guardarEvento(this.evento).subscribe(
+    //   response => {
+    //     console.log(response);
+    //     form.reset();
+    //   },
+    //   error => {
+    //     console.log(<any>error);
+    //   }
+    // );
   }
 
 }
