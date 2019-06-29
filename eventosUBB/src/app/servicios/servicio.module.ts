@@ -5,7 +5,9 @@ import {
   SidebarService,
   EventoService,
   ColaboradorService,
-  UserService
+  UserService,
+  EventoPojoService,
+  CiudadService
  } from './servicio.index';
 
 @NgModule({
@@ -16,7 +18,9 @@ import {
     SidebarService,
     EventoService,
     ColaboradorService,
-    UserService
+    UserService,
+    EventoPojoService,
+    CiudadService
   ],
   declarations: [],
   

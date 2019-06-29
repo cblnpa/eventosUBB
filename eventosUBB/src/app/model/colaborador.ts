@@ -1,11 +1,10 @@
 export class colaborador {
     constructor(
-        public nombre: string,
+        public nombreColaborador: string,
         public nombreRepresentate: string,
-        public telefono: number,
-        public correo: string,
+        public telefonoColaborador: number,
+        public correoColaborador: string,
         public sitioWeb: string,
-        public logo: string,
-        public Evento_idEvento: number
+        public logo: string
     ){}
 }

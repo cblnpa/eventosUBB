@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
+import { EventoPojoService, CiudadService } from '../servicios/servicio.index';
+
+
 import { evento } from '../model/evento';
 import { colaborador } from '../model/colaborador';
-
-import { EventoService, ColaboradorService } from '../servicios/servicio.index';
+import { jornada } from '../model/jornada';
+import { expositor } from '../model/expositor';
+import { material } from '../model/material';
+import { actividad } from '../model/actividad';
+import { ciudad } from '../model/ciudad';
 
 declare function init_plugins();
 
@@ -11,81 +17,71 @@ declare function init_plugins();
   selector: 'app-pruebas-evento',
   templateUrl: './pruebas-evento.component.html',
   styleUrls: ['./pruebas-evento.component.css'],
-  providers: [ EventoService, ColaboradorService ]
+  providers: [ EventoPojoService, CiudadService ]
 })
 export class PruebasEventoComponent implements OnInit {
 
-  public evento: evento; 
+  public evento: evento;
+  public jornada: jornada;
+  public actividad: actividad;
+  public expositor: expositor;
   public colaborador: colaborador;
-  public eventos;
+  public material: material;
+  public ciudad: Array<ciudad>;
 
-  public contadorId;
 
-  constructor( private eventoService: EventoService,
-    private colaboradorService: ColaboradorService ) { 
-    //crear un objeto vacío, el formulario se va a encargar de guardar esto en el back
-    this.evento = new evento('','','','','',null);
-
-    //crear un colaborador vacío
-    this.colaborador = new colaborador('','',null,'','','',null);
-
-    this.contadorId = 0; 
-
+  constructor( private eventoPojoService: EventoPojoService, private ciudadService: CiudadService ) { 
+    this.evento = new evento('','','','','',null,null);
+    this.jornada = new jornada('',null,null,null,'','');
+    this.actividad = new actividad('',null,null,'','');
+    this.expositor = new expositor('','','','','','');
+    this.colaborador = new colaborador('','',null,'','','',);
+    this.material = new material('',null,'');
+    // this.ciudad = new ciudad(null,'');
   }
 
   ngOnInit() {
     init_plugins();
-    this.getEventos();
-    this.getIdEvento();
-    console.log('inicio console log valor del contadorId: ');
-    console.log(this.getIdEvento());
-    console.log(' fin console log');
+    this.getCiudad();
   }
 
-  getEventos(){
-    this.eventoService.getEventos().subscribe(
+  getCiudad(){
+    this.ciudadService.getCiudades().subscribe(
       response => {
         if(response.status == 'success'){
-          this.eventos = response.eventos;
-          console.log(this.eventos);
+          this.ciudad = [];
         }
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  getIdEvento(){
-    
-    return this.contadorId;
-  }
-
-  onSubmit(form){
-
-    this.eventoService.guardarEvento(this.evento).subscribe(
-      response => {
-        console.log(response);
-        // form.reset();
       },
       error => {
         console.log(<any>error);
       }
-    );
+    )
+  }
+
+  onSubmit(form){
+
+    this.eventoPojoService.guardarEventoPojo(evento,material,colaborador,jornada,expositor,actividad).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
 
   }
 
   onSubmit2(form2){
 
-    this.colaboradorService.guardarColaborador(this.colaborador).subscribe(
-      response => {
-        console.log(response);
-        form2.reset();
-      },
-      error => {
-        console.log(<any>error);
-      }
-    );
+    // this.colaboradorService.guardarColaborador(this.colaborador).subscribe(
+    //   response => {
+    //     console.log(response);
+    //     form2.reset();
+    //   },
+    //   error => {
+    //     console.log(<any>error);
+    //   }
+    // );
 
   }
 
