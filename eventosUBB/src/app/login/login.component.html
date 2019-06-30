@@ -8,17 +8,19 @@
                     <h3 class="box-title m-b-20">Iniciar sesión</h3>
 
                     <div class="form-group ">
-                        <label for="email">Ingresa tu correo</label>
-                        <div class="col-xs-12">
-                            <input class="form-control" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" placeholder="correo"> 
-                        </div>
+                        <mat-form-field>
+                            <input matInput placeholder="Ingresa tu email" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required>
+                            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                        </mat-form-field>
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Ingresa tu contraseña</label>
-                        <div class="col-xs-12">
-                            <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="contraseña"> 
-                        </div>
+                        <mat-form-field>
+                            <input matInput placeholder="Ingresa la contraseña" [type]="hide ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
                     </div>
 
                     <!-- remember me group -->
@@ -49,13 +51,13 @@
 
                     <div class="form-group m-b-0">
                         <div class="col-sm-12 text-center">
-                            ¿No tienes una cuenta? 
+                            ¿No tienes una cuenta?
                             <a routerLink="/register" class="text-info m-l-5">
                                 <b>Regístrate aquí</b>
                             </a>
                         </div>
                     </div>
-                    
+
                 </form>
             </div>
         </div>

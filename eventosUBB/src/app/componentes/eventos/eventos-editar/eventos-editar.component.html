@@ -1,5 +1,5 @@
 <mat-horizontal-stepper labelPosition="bottom" [linear]="isLinear">
-    <mat-step [stepControl]="firstFormGroup">
+    <mat-step label="Step 1">
         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
             <ng-template matStepLabel>Datos del evento</ng-template>
 
@@ -63,7 +63,7 @@
 
     </mat-step>
 
-    <mat-step [stepControl]="secondFormGroup">
+    <mat-step label="Step 2">
         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
             <ng-template matStepperIcon="done" matStepLabel>Material</ng-template>
             <p>
@@ -88,7 +88,7 @@
         </form>
     </mat-step>
 
-    <mat-step [stepControl]="thirdFormGroup">
+    <mat-step label="Step 3">
         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
             <ng-template matStepperIcon="done" matStepLabel>Colaboradores</ng-template>
             <p>
@@ -139,7 +139,7 @@
         </form>
     </mat-step>
 
-    <mat-step [stepControl]="fourthFormGroup">
+    <mat-step label="Step 4">
         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
             <ng-template matStepperIcon="done" matStepLabel>Jornadas</ng-template>
             <p>
@@ -187,7 +187,7 @@
         </form>
     </mat-step>
 
-    <mat-step [stepControl]="fifthFormGroup">
+    <mat-step label="Step 5">
         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
             <ng-template matStepperIcon="done" matStepLabel>Expositores</ng-template>
             <p>
@@ -235,7 +235,7 @@
         </form>
     </mat-step>
 
-    <mat-step [stepControl]="sixthFormGroup">
+    <mat-step label="Step 6">
         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
             <ng-template matStepperIcon="done" matStepLabel>Actividades</ng-template>
             <p>
@@ -277,7 +277,7 @@
         </form>
     </mat-step>
 
-    <mat-step>
+    <mat-step label="Step 7">
         <ng-template matStepLabel>¡Listo!</ng-template>
         Ya hemos terminado de registrar todos los datos que necesitas para tu evento, ahora solo falta guardar los datos.
         <div>

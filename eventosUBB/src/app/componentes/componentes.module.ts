@@ -7,6 +7,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatStepperModule, MatInputModule, MatCardModule, MatButtonModule} from '@angular/material'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import {MatNativeDateModule,MatRippleModule} from '@angular/material/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 
 // Módulos
@@ -44,6 +48,10 @@ import { COMPONENTES_ROUTES } from './componentes.routes';
         ReactiveFormsModule,
         MatCardModule,
         HttpClientModule,
+        MatNativeDateModule,
+        MatRippleModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
         COMPONENTES_ROUTES
     ]
 })

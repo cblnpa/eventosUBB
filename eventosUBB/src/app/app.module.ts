@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {MatStepperModule, MatInputModule, MatCardModule, MatButtonModule} from '@angular/material'
+import {MatIconModule} from '@angular/material/icon';
 
 // Rutas
 import { APP_ROUTES } from './app.routes';
@@ -30,7 +32,12 @@ import { ServicioModule } from './servicios/servicio.module';
     APP_ROUTES,
     ComponentesModule,
     ServicioModule,
-    HttpClientModule
+    HttpClientModule,
+    MatStepperModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

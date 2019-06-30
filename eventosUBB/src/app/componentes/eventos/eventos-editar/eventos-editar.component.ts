@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 
 import { eventoPojo } from '../../../model/eventoPojo';
 import { EventoPojoService } from '../../../servicios/servicio.index';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 
 
@@ -11,13 +12,13 @@ import { EventoPojoService } from '../../../servicios/servicio.index';
   selector: 'app-eventos-editar',
   templateUrl: './eventos-editar.component.html',
   styleUrls: ['./eventos-editar.component.css'],
-  providers: [ EventoPojoService ]
+  providers: [EventoPojoService,{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
 
 })
 export class EventosEditarComponent implements OnInit {
-
   public eventoPojo: eventoPojo;
-
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -69,6 +70,7 @@ export class EventosEditarComponent implements OnInit {
       }
     )
   */
+
 
   guardarEvento(form){
     this.eventoPojoService.guardarEventoPojo(this.eventoPojo).subscribe(
