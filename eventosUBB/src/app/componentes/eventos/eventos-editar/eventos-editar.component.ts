@@ -27,6 +27,12 @@ export class EventosEditarComponent implements OnInit {
   isLinear: false;
 
   constructor( private _formBuilder: FormBuilder, private eventoPojoService: EventoPojoService ) {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
     this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','');
    }
 
