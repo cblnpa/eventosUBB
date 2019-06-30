@@ -1,83 +1,196 @@
-<!-- <mat-horizontal-stepper labelPosition="bottom" [linear] = "isLinear" #stepper>
+<mat-horizontal-stepper labelPosition="bottom" [linear] = "isLinear">
     <mat-step [stepControl] = "firstFormGroup">
-       <form [formGroup] = "firstFormGroup">
-          <ng-template matStepLabel >Datos básicos del evento</ng-template>
+       <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+          <ng-template matStepLabel >Datos del evento</ng-template>
           <mat-form-field>
-             <input matInput placeholder = "Last name, First name" formControlName = "firstCtrl" required>
+
+             <label for="nombreEvento">Nombre del evento</label>
+             <input matInput type="text" name="nombreEvento" #nombreEvento="ngModel" [(ngModel)]="eventoPojo.nombreEvento" required>
+             <!-- <input matInput placeholder = "Last name, First name" formControlName = "firstCtrl" required> -->
+
+             <label for="ubicacion">Ubicación</label>
+             <input matInput type="text" name="ubicacion"  #ubicacion="ngModel" [(ngModel)]="eventoPojo.ubicacion" required>
+    
+             <label for="direccion">Dirección</label>
+             <input matInput type="text" name="direccion" #direccion="ngModel" [(ngModel)]="eventoPojo.direccion" required>
+    
+             <label for="detalles">Detalles</label>
+             <input matInput type="text" name="detalles" #detalles="ngModel" [(ngModel)]="eventoPojo.detalles" required>
+
+             <label for="imagen">Imagen</label>
+             <input matInput type="text" name="imagen"  #imagen="ngModel" [(ngModel)]="eventoPojo.imagen" required>
+
+             <label for="capacidad">Capacidad</label>
+             <input matInput type="number" name="capacidad"  #capacidad="ngModel" [(ngModel)]="eventoPojo.capacidad" required>
+
+             <label for="nombreEventoInterno">Nombre evento interno</label>
+             <input matInput type="text" name="nombreEventoInterno"  #nombreEventoInterno="ngModel" [(ngModel)]="eventoPojo.nombreEventoInterno" required>
+
+             <label for="idCiudad">Ciudad</label>
+             <input matInput type="number" name="idCiudad"  #idCiudad="ngModel" [(ngModel)]="eventoPojo.ciudad_idCiudad" required>
+    
           </mat-form-field>
           <div>
+             <br>
             <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
           </div>
        </form>
+
     </mat-step>
+
     <mat-step [stepControl]  = "secondFormGroup">
-       <form [formGroup] = "secondFormGroup">
-          <ng-template matStepperIcon="done" matStepLabel>Enter your address</ng-template>
+       <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+          <ng-template matStepperIcon="done" matStepLabel>Material</ng-template>
           <mat-form-field>
-            <input matInput placeholder = "Address" formControlName = "secondCtrl" required>
+
+             <label for="nombreMaterial">Nombre material</label>
+             <input matInput type="text" name="nombreMaterial" #nombreMaterial="ngModel" [(ngModel)]="eventoPojo.nombreMaterial" required>
+
+             <label for="archivo">Archivo</label>
+             <input matInput type="text" name="archivo" #archivo="ngModel" [(ngModel)]="eventoPojo.archivo" required>
+           
           </mat-form-field>
           <div>
+             <br>
             <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
             <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
           </div>
        </form>
     </mat-step>
+
+    <mat-step [stepControl]  = "thirdFormGroup">
+         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+            <ng-template matStepperIcon="done" matStepLabel>Colaboradores</ng-template>
+            <mat-form-field>
+               
+               <label for="nombreColaborador">Nombre colaborador</label>
+               <input matInput type="text" name="nombreColaborador" #nombreColaborador="ngModel" [(ngModel)]="eventoPojo.nombreColaborador" required>
+
+               <label for="nombreRepresentante">Nombre representante</label>
+               <input matInput type="text" name="nombreRepresentante" #nombreRepresentante="ngModel" [(ngModel)]="eventoPojo.nombreRepresentante" required>
+
+               <label for="telefonoColaborador">Telefono</label>
+               <input matInput type="number" name="telefonoColaborador" #telefono="ngModel" [(ngModel)]="eventoPojo.telefonoColaborador" required>
+
+               <label for="correoColaborador">Correo</label>
+               <input matInput type="email" name="correoColaborador" #correoColaborador="ngModel" [(ngModel)]="eventoPojo.correoColaborador" required>
+
+               <label for="sitioWeb">Sitio web</label>
+               <input matInput type="text" name="sitioWeb" #sitioWeb="ngModel" [(ngModel)]="eventoPojo.sitioWeb" required>
+               
+               <label for="logo">Logo</label>
+               <input matInput type="text" name="logo" #logo="ngModel" [(ngModel)]="eventoPojo.logo" required>
+
+            </mat-form-field>
+            <div>
+               <br>
+               <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
+               <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+            </div>
+         </form>
+    </mat-step>
+
+    <mat-step [stepControl]  = "fourthFormGroup">
+         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+            <ng-template matStepperIcon="done" matStepLabel>Jornadas</ng-template>
+            <mat-form-field>
+
+               <label for="nombreJornada">Nombre jornada</label>
+               <input matInput type="text" name="nombreJornada" #nombreJornada="ngModel" [(ngModel)]="eventoPojo.nombreJornada" required>
+             
+               <label for="fechaJornada">Fecha jornada</label>
+               <input matInput type="date" name="fechaJornada" #fechaJornada="ngModel" [(ngModel)]="eventoPojo.fechaJornada" required>
+             
+               <label for="horaInicioJornada">Hora inicio</label>
+               <input matInput type="time" name="horaInicioJornada" #horaInicioJornada="ngModel" [(ngModel)]="eventoPojo.horaInicioJornada" required>
+             
+               <label for="horaFinJornada">Hora fin</label>
+               <input matInput type="time" name="horaFinJornada" #horaFinJornada="ngModel" [(ngModel)]="eventoPojo.horaFinJornada" required>
+             
+               <label for="ubicacionJornada">Ubicacion jornada</label>
+               <input matInput type="text" name="ubicacionJornada" #ubicacionJornada="ngModel" [(ngModel)]="eventoPojo.ubicacionJornada" required>
+             
+               <label for="descripcionJornada">Descripción jornada</label>
+               <input matInput type="text" name="descripcionJornada" #descripcionJornada="ngModel" [(ngModel)]="eventoPojo.descripcionJornada" required>
+             
+            </mat-form-field>
+            <div>
+               <br>
+               <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
+               <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+            </div>
+         </form>
+    </mat-step>
+
+    <mat-step [stepControl]  = "fifthFormGroup">
+         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+            <ng-template matStepperIcon="done" matStepLabel>Expositores</ng-template>
+            <mat-form-field>
+
+               <label for="nombreExpositor">Nombre expositor</label>
+               <input matInput type="text" name="nombreExpositor" #nombreExpositor="ngModel" [(ngModel)]="eventoPojo.nombreExpositor" required>
+
+               <label for="apellidoExpositor">Apellido expositor</label>
+               <input matInput type="text" name="apellidoExpositor" #apellidoExpositor="ngModel" [(ngModel)]="eventoPojo.apellidoExpositor" required>
+
+               <label for="sexo">Sexo</label>
+               <input matInput type="text" name="sexo" #sexo="ngModel" [(ngModel)]="eventoPojo.sexo" required>
+
+               <label for="correoExpositor">Correo</label>
+               <input matInput type="email" name="correoExpositor" #correoExpositor="ngModel" [(ngModel)]="eventoPojo.correoExpositor" required>
+
+               <label for="empresa">Empresa</label>
+               <input matInput type="text" name="empresa" #empresa="ngModel" [(ngModel)]="eventoPojo.empresa" required>
+
+               <label for="foto">Foto</label>
+               <input matInput type="text" name="foto" #foto="ngModel" [(ngModel)]="eventoPojo.foto" required>
+    
+            </mat-form-field>
+            <div>
+               <br>
+               <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
+               <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+            </div>
+         </form>
+    </mat-step>
+
+    <mat-step [stepControl]  = "sixthFormGroup">
+         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+            <ng-template matStepperIcon="done" matStepLabel>Actividades</ng-template>
+            <mat-form-field>
+
+               <label for="nombreActividad">Nombre actividad</label>
+               <input matInput type="text" name="nombreActividad" #nombreActividad="ngModel" [(ngModel)]="eventoPojo.nombreActividad" required>
+
+               <label for="horaInicioActividad">Hora inicio</label>
+               <input matInput type="time" name="horaInicioActividad" #horaInicioActividad="ngModel" [(ngModel)]="eventoPojo.horaInicioActividad" required>
+
+               <label for="horaFinActividad">Hora fin</label>
+               <input matInput type="time" name="horaFinActividad" #horaFinActividad="ngModel" [(ngModel)]="eventoPojo.horaFinActividad" required>
+
+               <label for="ubicacionActividad">Ubicacion actividad</label>
+               <input matInput type="text" name="ubicacionActividad" #ubicacionActividad="ngModel" [(ngModel)]="eventoPojo.ubicacionActividad" required>
+
+               <label for="descripcionActividad">Descripción actividad</label>
+               <input matInput type="text" name="descripcionActividad" #descripcionActividad="ngModel" [(ngModel)]="eventoPojo.descripcionActividad" required>
+
+            </mat-form-field>
+            <div>
+               <br>
+               <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
+               <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+            </div>
+         </form>
+    </mat-step>
+
     <mat-step>
-       <ng-template matStepLabel>Done</ng-template>
-          Details taken.
+       <ng-template matStepLabel>¡Listo!</ng-template>
+          Ya hemos terminado de registrar todos los datos que necesitas para tu evento, ahora solo falta
+          guardar los datos. 
        <div>
-          <button mat-button matStepperPrevious type="button">Back</button>
-          <button mat-button (click) = "stepper.reset()">Reset</button>
+          <button mat-button matStepperPrevious type="button btn-primary" type="button">Anterior</button>
+          <button type="submit" (click)="guardarEvento(eventoPojoForm)" class="btn btn-success">Guardar</button>
        </div>
     </mat-step>
- </mat-horizontal-stepper> -->
+ </mat-horizontal-stepper>
 
- <nb-card>
-      <nb-card-body>
-        <nb-stepper orientation="horizontal">
-          <nb-step [label]="labelOne">
-            <ng-template #labelOne>First step</ng-template>
-            <h4>Step content #1</h4>
-            <p class="lorem">
-              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
-              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
-              gravida vizzle, dang.
-            </p>
-            <button nbButton disabled nbStepperNext>prev</button>
-            <button nbButton nbStepperNext>next</button>
-          </nb-step>
-          <nb-step [label]="labelTwo">
-            <ng-template #labelTwo>Second step</ng-template>
-            <h4>Step content #2</h4>
-            <p class="lorem">
-              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
-              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
-              gravida vizzle, dang.
-            </p>
-            <button nbButton nbStepperPrevious>prev</button>
-            <button nbButton nbStepperNext>next</button>
-          </nb-step>
-          <nb-step label="Third step">
-            <h4>Step content #3</h4>
-            <p class="lorem">
-              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
-              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
-              gravida vizzle, dang.
-            </p>
-            <button nbButton nbStepperPrevious>prev</button>
-            <button nbButton nbStepperNext>next</button>
-          </nb-step>
-          <nb-step [label]="labelFour">
-            <ng-template #labelFour>Fourth step</ng-template>
-            <h4>Step content #4</h4>
-            <p class="lorem">
-              Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
-              Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the shizzle up,
-              gravida vizzle, dang.
-            </p>
-            <button nbButton nbStepperPrevious>prev</button>
-            <button nbButton disabled nbStepperNext>next</button>
-          </nb-step>
-        </nb-stepper>
-      </nb-card-body>
-    </nb-card>

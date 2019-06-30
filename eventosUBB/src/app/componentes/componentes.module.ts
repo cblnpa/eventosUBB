@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
 
 // Formularios
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -6,7 +8,6 @@ import {MatStepperModule, MatInputModule, MatCardModule, MatButtonModule} from '
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { NbThemeModule, NbStepperModule, NbCardModule } from '@nebular/theme';
 
 // Módulos
 import { UtilidadesModule } from '../utilidades/utilidades.module';
@@ -42,9 +43,7 @@ import { COMPONENTES_ROUTES } from './componentes.routes';
         FormsModule,
         ReactiveFormsModule,
         MatCardModule,
-        NbStepperModule,
-        NbThemeModule,
-        NbCardModule,
+        HttpClientModule,
         COMPONENTES_ROUTES
     ]
 })
