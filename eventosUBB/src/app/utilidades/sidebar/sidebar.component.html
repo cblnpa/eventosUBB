@@ -9,26 +9,19 @@
                     <ul id="sidebarnav">
                         <li class="user-profile">
                             <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                                <img src="../../../assets/images/sin-imagen.png" alt="user"/>
-                                <span class="hide-menu">  </span>
+                                <img src="../../../assets/images/user.png" alt="user"/>
+                                <span class="hide-menu"> {{ identity.nombreUsuario + ' ' + identity.apellidoUsuario }} </span>
                             </a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a>Cerrar sesión</a></li>
                             </ul>
                         </li>
-                        <li> 
-                          <a class="waves-effect waves-dark" href="#" aria-expanded="false">
+
+                        <li routerLink="/inicio"> 
+                          <a class="waves-effect waves-dark" aria-expanded="false">
                             <i class="mdi mdi-home"></i>
                             <span class="hide-menu">Inicio</span>
                           </a>
-                        </li>
-                        <li class="nav-small-cap">ENCARGADO</li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-view-grid"></i><span class="hide-menu">Eventos originales </span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a routerLinkActive="active" routerLink="/inicioEncargado">Ver eventos</a></li>
-                                <li><a href="#">Mis eventos</a></li>
-                                <li><a href="eventosDetalles">Eventos detalles</a></li>
-                            </ul>
                         </li>
 
                         <li *ngFor="let menu of _sidebar.menu"> 
@@ -44,8 +37,8 @@
 
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Comisión</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="app-email.html">Ver comisiones</a></li>
-                                <li><a href="app-email-detail.html">Agregar comisión</a></li>
+                                <li><a>Ver comisiones</a></li>
+                                <li><a>Agregar comisión</a></li>
                             </ul>
                         </li>
                        

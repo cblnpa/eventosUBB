@@ -1,4 +1,3 @@
-<!-- Row -->
 <div class="row">
     <!-- Column -->
     <div class="col-lg-4 col-xlg-3 col-md-5">
@@ -14,9 +13,8 @@
             </div>
         </div>
     
-
         <!-- agregar ngIf a este botón -->
-        <button class="btn btn-block btn-outline-info"><i class="mdi mdi-pencil"></i> Editar evento</button>
+        <button class="btn btn-block btn-outline-info"><i class="mdi mdi-pencil"></i> Editar evento</button><br>
 
         <!-- información del evento -->
         <div class="card">
@@ -41,8 +39,8 @@
         <div class="card">
             <!-- barra de tabs -->
             <ul class="nav nav-tabs profile-tab" role="tablist">
-                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#jornadas"
-                        role="tab">Jornadas</a> </li>
+                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#jornada"
+                        role="tab">Jornada</a> </li>
                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#expositores"
                         role="tab">Expositores</a> </li>
                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#colaboradores"
@@ -54,10 +52,76 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-                <!-- jornadas tab -->
-                <div class="tab-pane active" id="jornadas" role="tabpanel">
-                    <div class="card-body">
-                        <h1>Jornadas works!</h1>
+                <!-- jornada tab -->
+                <div class="tab-pane active" id="jornada" role="tabpanel">
+                    <div class="card-body">  
+                        
+                        <div class="d-flex flex-row">
+                            <div class="p-10 bg-inverse">
+                                <h3 class="text-white box m-b-0"><i class="mdi mdi-clipboard-text"></i></h3>
+                            </div>
+                            <div class="align-self-center m-l-20">
+                                <h3 class="m-b-0 text-info">Jornada muy bonita</h3>
+                                <h5 class="text-muted m-b-0">nombre de la jornada</h5>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="d-flex flex-row">
+                                <div class="p-10 bg-inverse">
+                                    <h3 class="text-white box m-b-0"><i class="mdi mdi-calendar-check"></i></h3>
+                                </div>
+                                <div class="align-self-center m-l-20">
+                                    <h3 class="m-b-0 text-info">Lunes 20 de Septiembre 2019</h3>
+                                    <h5 class="text-muted m-b-0">fecha de la jornada</h5>
+                                </div>
+                        </div>
+                        <hr>
+
+                        <div class="d-flex flex-row">
+                                <div class="p-10 bg-inverse">
+                                    <h3 class="text-white box m-b-0"><i class="mdi mdi-clock"></i></h3>
+                                </div>
+                                <div class="align-self-center m-l-20">
+                                    <h3 class="m-b-0 text-info">10:00</h3>
+                                    <h5 class="text-muted m-b-0">hora inicio de la jornada</h5>
+                                </div>
+                        </div>
+                        <hr>
+
+                        <div class="d-flex flex-row">
+                                <div class="p-10 bg-inverse">
+                                    <h3 class="text-white box m-b-0"><i class="mdi mdi-clock"></i></h3>
+                                </div>
+                                <div class="align-self-center m-l-20">
+                                    <h3 class="m-b-0 text-info">19:00</h3>
+                                    <h5 class="text-muted m-b-0">hora fin de la jornada</h5>
+                                </div>
+                        </div>
+                        <hr>
+
+                        <div class="d-flex flex-row">
+                                <div class="p-10 bg-inverse">
+                                    <h3 class="text-white box m-b-0"><i class="mdi mdi-map-marker-radius"></i></h3>
+                                </div>
+                                <div class="align-self-center m-l-20">
+                                    <h3 class="m-b-0 text-info">Aula magna</h3>
+                                    <h5 class="text-muted m-b-0">ubicación de la jornada</h5>
+                                </div>
+                        </div>
+                        <hr>
+
+                        <div class="d-flex flex-row">
+                                <div class="p-10 bg-inverse">
+                                    <h3 class="text-white box m-b-0"><i class="mdi mdi-lead-pencil"></i></h3>
+                                </div>
+                                <div class="align-self-center m-l-20">
+                                    <h3 class="m-b-0 text-info">Esta jornada tiene como objetivo bla bla </h3>
+                                    <h5 class="text-muted m-b-0">descripción de la jornada</h5>
+                                </div>
+                        </div>
+                        <hr>
+
                     </div>
                 </div>
                 <!-- expositores tab -->
@@ -197,12 +261,45 @@
                 </div>
                 <div class="tab-pane" id="material" role="tabpanel">
                     <div class="card-body">
-                        <h1>Material works!</h1>
+                        <table class="table color-table inverse-table full-inverse-table full-color-table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre archivo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Afiche publicitario</td>
+                                    <td><i class="mdi mdi-download"></i> <a>Descargar</a> </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="tab-pane" id="participantes" role="tabpanel">
-                    <h1>Participantes works!</h1>
-                    <table>
+                    <table class="table color-table inverse-table full-inverse-table full-color-table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Camila Lelén</td>
+                                <th><i class="mdi mdi-delete"></i></th>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Gaston Lara</td>
+                                <th><i class="mdi mdi-delete"></i></th>
+                                </tr>
+                        </tbody>
 
                     </table>
                 </div>

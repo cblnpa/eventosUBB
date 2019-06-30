@@ -8,20 +8,39 @@
     <div class="col-lg-3 col-md-6" *ngFor="let e of eventos">
       <div class="card">
         <div class="el-card-item">
-          <div class="el-card-avatar el-overlay-1"> <img src="../../../../assets/images/sin-imagen.png" alt="user" />
+          <div class="el-card-avatar el-overlay-1"> 
+            <img src="../../../../assets/images/sin-imagen.png" alt="user" />
             <div class="el-overlay">
               <ul class="el-info">
-                <li><a class="btn default btn-outline" href="eventosDetalles">ver más</a></li>
+                <li>
+                  <a class="btn default btn-outline">ver más</a>
+                </li>
               </ul>
             </div>
           </div>
           <div class="el-card-content">
-            <h3 class="box-title"> {{e.nombre}} </h3> <small> {{e.detalles}} </small>
+            <h3 class="box-title"> <strong> {{e.nombreEvento}} </strong>  </h3> <small> {{e.detalles}} </small>
             <br/>
           </div>
         </div>
       </div>
     </div>
+
+    <nav aria-label="...">
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
 
   </div>
 

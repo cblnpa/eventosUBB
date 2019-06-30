@@ -11,8 +11,6 @@ import { APP_ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './login/register.component';
 import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './login/logout.component';
-
 
 // Módulos
 import { ComponentesModule } from './componentes/componentes.module';
@@ -20,16 +18,11 @@ import { ComponentesModule } from './componentes/componentes.module';
 // Servicios
 import { ServicioModule } from './servicios/servicio.module';
 
-
-import { PruebasEventoComponent } from './pruebas-evento/pruebas-evento.component';
-
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent,
-    PruebasEventoComponent,
-    LogoutComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
