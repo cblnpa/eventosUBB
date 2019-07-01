@@ -50,9 +50,12 @@
 
             <p>
                 <mat-form-field>
-                    <mat-label for="idCiudad">Ciudad</mat-label>
-                    <input matInput type="number" name="idCiudad" #idCiudad="ngModel" [(ngModel)]="eventoPojo.ciudad_idCiudad">
-
+                    <mat-label for="ciudad_idCiudad">Ciudad</mat-label>
+                    <mat-select name="ciudad_idCiudad" #ciudad="ngModel" [(ngModel)]="eventoPojo.ciudad_idCiudad">
+                        <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.idCiudad">
+                            {{ciudad.nombreCiudad}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </p>
             <div>

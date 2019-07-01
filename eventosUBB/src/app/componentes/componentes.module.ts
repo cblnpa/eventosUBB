@@ -11,10 +11,9 @@ import {MatNativeDateModule,MatRippleModule} from '@angular/material/core';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
-
-
 // Módulos
 import { UtilidadesModule } from '../utilidades/utilidades.module';
+import { MatSelectModule } from '@angular/material/select';
 
 // Componentes
 import { InicioComponent } from './inicio/inicio.component';
@@ -52,6 +51,7 @@ import { COMPONENTES_ROUTES } from './componentes.routes';
         MatRippleModule,
         MatProgressBarModule,
         MatProgressSpinnerModule,
+        MatSelectModule,
         COMPONENTES_ROUTES
     ]
 })
