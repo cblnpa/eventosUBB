@@ -13,6 +13,7 @@ import { APP_ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './login/register.component';
 import { LoginComponent } from './login/login.component';
+import { EditLoginComponent } from './login/edit-login/edit-login.component';
 
 // Módulos
 import { ComponentesModule } from './componentes/componentes.module';
@@ -24,7 +25,8 @@ import { ServicioModule } from './servicios/servicio.module';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    EditLoginComponent
   ],
   imports: [
     BrowserModule,
