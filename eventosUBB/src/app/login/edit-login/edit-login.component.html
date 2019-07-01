@@ -40,17 +40,7 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="register">
-                        <mat-form-field>
-                            <mat-label for="password">Ingresa tu contraseña</mat-label>
 
-                            <input matInput placeholder="Ingresa tu nombre" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required>
-                            <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
-                              La password no es valido
-                          </small>
-                        </mat-form-field>
-
-                    </div>
                     <!--    <div class="register">
                         <label for="password">Avatar</label>
 
