@@ -43,8 +43,7 @@
 
                     <div class="register">
                         <label for="avatar">Avatar</label>
-
-                        <angular-file-uploader [config]="afuConfig" (ApiResponse)="avatarUpload($event)">
+                        <angular-file-uploader #fileUpload1 [config]="afuConfig" (ApiResponse)="avatarUpload($event)">
                         </angular-file-uploader>
                     </div>
 

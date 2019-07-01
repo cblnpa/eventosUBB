@@ -26,7 +26,7 @@ export class EditLoginComponent implements OnInit {
   public token;
   public afuConfig = {
     multiple: false,
-    formatsAllowed: ".jpg,.png, .jpeg, .gif",
+    formatsAllowed: ".jpg,.jpeg,.png,.gif",
     maxSize: "50",
     uploadAPI:  {
       url:global.url+'user/upload',
