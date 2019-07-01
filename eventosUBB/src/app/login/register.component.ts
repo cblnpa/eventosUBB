@@ -7,6 +7,8 @@ import { Title } from '@angular/platform-browser';
 import { UserService } from '../servicios/servicio.index';
 import { users } from '../model/users';
 
+import swal from 'sweetalert';
+
 declare function init_plugins();
 
 @Component({
@@ -64,6 +66,10 @@ export class RegisterComponent implements OnInit {
         console.log(<any>error);
       }
     ); 
+
+    swal('Registro exitoso','Te has registrado exitosamente','success');
+
+    this.router.navigate(['/login']);
 
   }
 
