@@ -24,6 +24,7 @@ export class EditLoginComponent implements OnInit {
   public status: string;
   public identity;
   public token;
+  public url;
   public afuConfig = {
     multiple: false,
     formatsAllowed: ".jpg,.jpeg,.png,.gif",
@@ -44,6 +45,7 @@ export class EditLoginComponent implements OnInit {
     this.user = new users('','','','',''); 
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
+    this.url = global.url;
     //rellena objeto usuario
     this.user = new users (
       this.identity.nombreUsuario,
@@ -109,6 +111,7 @@ export class EditLoginComponent implements OnInit {
   }
   avatarUpload(datos){
     let data =JSON.parse(datos.response);
+    console.log(datos.response);
     this.user.avatar = data.avatar;
   }
 

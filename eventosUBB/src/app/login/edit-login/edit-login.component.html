@@ -43,6 +43,10 @@
 
                     <div class="register">
                         <label for="avatar">Avatar</label>
+                        <div *ngIf="identity && identity.avatar">
+                            <img src="{{url + 'user/avatar/' + identity.avatar}}">
+
+                        </div>
                         <angular-file-uploader #fileUpload1 [config]="afuConfig" (ApiResponse)="avatarUpload($event)">
                         </angular-file-uploader>
                     </div>
