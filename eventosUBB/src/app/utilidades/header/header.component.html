@@ -25,11 +25,18 @@
             <ul class="navbar-nav my-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="../../../assets/images/user.png" alt="user" class="profile-pic" />
+                        <img *ngIf="!identity.avatar" src="../../../assets/images/user.png" alt="user" class="profile-pic" />
+                        <li *ngIf="identity && identity.avatar" class="nav-item">
+                            <div class="avatar_mask">
+                                <img src="{{url + 'user/avatar/' + identity.avatar}}" class="avatar">
+                            </div>
+                        </li>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right animated fadeIn">
                         <ul class="dropdown-user">
+
                             <li>
+
                                 <div class="dw-user-box">
                                     <div class="u-img"> <img src="../../../assets/images/user.png" alt="user"> </div>
                                     <div class="u-text">
@@ -39,6 +46,9 @@
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
+                            <!--mostramos imagen de usuario-->
+
+
                             <li><a class="dropdown-item" [routerLink]="['/edit']">Ajustes</a> </li>
                             <li><a (click)="userService.logout()"><i class="fa fa-power-off"></i> Cerrar sesión </a></li>
                         </ul>

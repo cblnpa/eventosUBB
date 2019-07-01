@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { Router, ActivationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { AngularFileUploaderModule } from "angular-file-uploader";
 
 import { UserService } from '../../servicios/servicio.index';
 import { users } from '../../model/users';
@@ -91,9 +90,7 @@ export class EditLoginComponent implements OnInit {
           if(response.changes.email){
             this.user.email = response.changes.email;
           }
-          if(response.changes.password){
-            this.user.password = response.changes.password;
-          }
+      
           if(response.changes.avatar){
             this.user.avatar = response.changes.avatar;
           }
@@ -112,7 +109,9 @@ export class EditLoginComponent implements OnInit {
   avatarUpload(datos){
     let data =JSON.parse(datos.response);
     console.log(datos.response);
-    this.user.avatar = data.avatar;
+    this.user.avatar = data.image;
+    console.log(this.user.avatar);
+
   }
 
 }

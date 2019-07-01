@@ -14,3 +14,15 @@ body {
     font-size: 8pt;
     float: right;
 }
+
+.avatar {
+    width: 60px;
+    margin-bottom: 10px;
+}
+
+.avatar_mask {
+    width: 60px;
+    height: 60px;
+    border-radius: 900px;
+    overflow: hidden;
+}
