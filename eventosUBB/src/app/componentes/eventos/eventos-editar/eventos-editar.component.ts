@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { eventoPojo } from '../../../model/eventoPojo';
-import { EventoPojoService } from '../../../servicios/servicio.index';
+import { ciudad } from '../../../model/ciudad';
+import { EventoPojoService, CiudadService } from '../../../servicios/servicio.index';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-
-
 
 @Component({
   selector: 'app-eventos-editar',
   templateUrl: './eventos-editar.component.html',
   styleUrls: ['./eventos-editar.component.css'],
-  providers: [EventoPojoService,{
+  providers: [ CiudadService, EventoPojoService,{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
   }]
 
 })
 export class EventosEditarComponent implements OnInit {
+
   public eventoPojo: eventoPojo;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -27,12 +26,18 @@ export class EventosEditarComponent implements OnInit {
   sixthFormGroup: FormGroup;
   isLinear: false;
 
-  constructor( private _formBuilder: FormBuilder, private eventoPojoService: EventoPojoService ) {
+  public ciudad: ciudad;
+  public ciudades;
+
+  constructor( private _formBuilder: FormBuilder, private eventoPojoService: EventoPojoService, 
+    private ciudadService: CiudadService) {
 
     this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','');
    }
 
   ngOnInit() {
+    this.getCiudades();
+
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
@@ -57,20 +62,21 @@ export class EventosEditarComponent implements OnInit {
       fifthCtrl: ['', Validators.required]
     });
 
-
   }
 
-  /*
-    this.eventoPojoService.guardarEventoPojo(this.eventoPojo).subscribe(
+  getCiudades(){
+    this.ciudadService.getCiudades().subscribe(
       response => {
-        console.log(response);
+        if( response.status == 'success' ){
+          this.ciudades = response.ciudad;
+          console.log(this.ciudades);
+        }
       },
       error => {
-        console.log(<any>error);
+        console.log(error);
       }
-    )
-  */
-
+    );
+  }
 
   guardarEvento(form){
     this.eventoPojoService.guardarEventoPojo(this.eventoPojo).subscribe(
