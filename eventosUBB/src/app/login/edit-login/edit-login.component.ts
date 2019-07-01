@@ -34,19 +34,11 @@ export class EditLoginComponent implements OnInit {
      "Authorization" : this.userService.getToken()
       }
     },
-    theme: "attachPin",
-    hideProgressBar: false,
-    hideResetBtn: true,
-    hideSelectBtn: false,
-    replaceTexts: {
-      selectFileBtn: 'Select Files',
-      resetBtn: 'Reset',
-      uploadBtn: 'Upload',
-      dragNDropBox: 'Drag N Drop',
-      attachPinBtn: 'Attach Files...',
-      afterUploadMsg_success: 'Successfully Uploaded !',
-      afterUploadMsg_error: 'Upload Failed !'
-    }
+     theme: "attachPin",
+     hideProgressBar: false,
+     hideResetBtn: true,
+     hideSelectBtn: false,
+     attachPinText: 'sube avatar'
 };
   constructor( private userService: UserService, private router: Router, private title: Title ) { 
     this.user = new users('','','','',''); 
@@ -114,6 +106,10 @@ export class EditLoginComponent implements OnInit {
           console.log(<any>error);
       }
     );
+  }
+  avatarUpload(datos){
+    let data =JSON.parse(datos.response);
+    this.user.avatar = data.avatar;
   }
 
 }
