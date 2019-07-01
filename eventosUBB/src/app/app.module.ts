@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatStepperModule, MatInputModule, MatCardModule, MatButtonModule} from '@angular/material'
 import {MatIconModule} from '@angular/material/icon';
+// uploader
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 // Rutas
 import { APP_ROUTES } from './app.routes';
@@ -40,6 +42,7 @@ import { ServicioModule } from './servicios/servicio.module';
     MatCardModule,
     MatButtonModule,
     ReactiveFormsModule,
+    AngularFileUploaderModule,
     MatIconModule
   ],
   providers: [],

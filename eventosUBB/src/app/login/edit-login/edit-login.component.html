@@ -41,15 +41,12 @@
                     </div>
 
 
-                    <!--    <div class="register">
-                        <label for="password">Avatar</label>
+                    <div class="register">
+                        <label for="avatar">Avatar</label>
 
-                        <input type="file" name="file" #file="ngModel" [(ngModel)]="user.avatar" required>
-                        <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
-                            La password no es valido
-                        </small>
-
-                    </div>-->
+                        <angular-file-uploader [config]="afuConfig" [resetUpload]=resetVar (ApiResponse)="avatarUpload($event)">
+                        </angular-file-uploader>
+                    </div>
 
                     <!-- aceptar términos y condiciones -->
                     <!-- <div class="register row">
