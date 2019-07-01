@@ -74,33 +74,11 @@ Login register and recover password Page
     height: 100%;
 }
 
-.example-container {
+.login {
     display: flex;
     flex-direction: column;
 }
 
-.example-container>* {
-    width: 100%;
-}
-
-.example-right-align {
-    text-align: right;
-}
-
-input.example-right-align::-webkit-outer-spin-button,
-input.example-right-align::-webkit-inner-spin-button {
-    display: none;
-}
-
-input.example-right-align {
-    -moz-appearance: textfield;
-}
-
-.example-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.example-container>* {
+.login>* {
     width: 100%;
 }

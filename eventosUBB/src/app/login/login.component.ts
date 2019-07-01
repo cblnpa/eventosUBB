@@ -5,7 +5,6 @@ import { filter, map } from 'rxjs/operators';
 import { Router, ActivationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { users } from '../model/users';
 import { UserService } from '../servicios/servicio.index';
@@ -27,7 +26,6 @@ export class LoginComponent implements OnInit {
   public token;
   public identity;
   auth2: any; //declarar objeto con info de google
-  email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor( private userService: UserService, private router: Router, private title: Title ) {
     this.user = new users('','','','','');
@@ -47,11 +45,7 @@ export class LoginComponent implements OnInit {
     
   }
 
-  getErrorMessage() {
-    return this.email.hasError('required') ? 'Ingresa un correo' :
-        this.email.hasError('email') ? 'Not a valid email' :
-            '';
-  }
+  
   googleInit(){
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatStepperModule, MatInputModule, MatCardModule, MatButtonModule} from '@angular/material'
 import {MatIconModule} from '@angular/material/icon';
@@ -37,6 +37,7 @@ import { ServicioModule } from './servicios/servicio.module';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
+    ReactiveFormsModule,
     MatIconModule
   ],
   providers: [],
