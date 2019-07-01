@@ -23,18 +23,17 @@ export class EditLoginComponent implements OnInit {
   public identity;
   public token;
   constructor( private userService: UserService, private router: Router, private title: Title ) { 
-    this.user = new users(4,'','','','',''); 
+    this.user = new users('','','','',''); 
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
     //rellena objeto usuario
     this.user = new users (
-      this.identity.sub,
       this.identity.nombreUsuario,
       this.identity.apellidoUsuario,
       this.identity.email,
       this.identity.password,
-      this.identity.avatar
-
+      this.identity.avatar,
+      this.identity.sub
     );
     this.getDataRoute()
     .subscribe( data => {

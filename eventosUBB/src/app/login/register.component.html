@@ -33,7 +33,7 @@
                         <mat-form-field>
                             <mat-label for="correo">Ingresa tu correo</mat-label>
 
-                            <input matInput placeholder="Ingresa tu nombre" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                            <input matInput placeholder="Ingresa tu correo" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                             <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
                                 El email no es valido
                             </small>
@@ -45,7 +45,7 @@
                         <mat-form-field>
                             <mat-label for="password">Ingresa tu contraseña</mat-label>
 
-                            <input matInput placeholder="Ingresa tu nombre" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required>
+                            <input matInput placeholder="Ingresa tu contraseña" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required>
                             <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
                                 La password no es valido
                             </small>
