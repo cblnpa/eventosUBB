@@ -30,38 +30,41 @@
                 </mat-form-field>
             </p>
             <p>
-                <mat-form-field>
-                    <mat-label for="imagen">Imagen</mat-label>
-                    <input matInput type="text" name="imagen" #imagen="ngModel" [(ngModel)]="eventoPojo.imagen">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="capacidad">Capacidad</mat-label>
-                    <input matInput type="number" name="capacidad" #capacidad="ngModel" [(ngModel)]="eventoPojo.capacidad">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="nombreEventoInterno">Nombre evento interno</mat-label>
-                    <input matInput type="text" name="nombreEventoInterno" #nombreEventoInterno="ngModel" [(ngModel)]="eventoPojo.nombreEventoInterno">
-                </mat-form-field>
-            </p>
+                <mat-label for="imagen">Imagen</mat-label>
+                <div *ngIf="identity && identity.imagen">
+                    <img src="{{url + 'image/' + identity.imagen}}" class="img-fluid" alt="Responsive image">
 
-            <p>
-                <mat-form-field>
-                    <mat-label for="ciudad_idCiudad">Ciudad</mat-label>
-                    <mat-select name="ciudad_idCiudad" #ciudad="ngModel" [(ngModel)]="eventoPojo.ciudad_idCiudad">
-                        <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.idCiudad">
-                            {{ciudad.nombreCiudad}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </p>
-            <div>
-                <br>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
-            </div>
+                </div>
+                <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="imagenUpload($event)">
+                </angular-file-uploader>
+
+                <p>
+                    <mat-form-field>
+                        <mat-label for="capacidad">Capacidad</mat-label>
+                        <input matInput type="number" name="capacidad" #capacidad="ngModel" [(ngModel)]="eventoPojo.capacidad">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field>
+                        <mat-label for="nombreEventoInterno">Nombre evento interno</mat-label>
+                        <input matInput type="text" name="nombreEventoInterno" #nombreEventoInterno="ngModel" [(ngModel)]="eventoPojo.nombreEventoInterno">
+                    </mat-form-field>
+                </p>
+
+                <p>
+                    <mat-form-field>
+                        <mat-label for="ciudad_idCiudad">Ciudad</mat-label>
+                        <mat-select name="ciudad_idCiudad" #ciudad="ngModel" [(ngModel)]="eventoPojo.ciudad_idCiudad">
+                            <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.idCiudad">
+                                {{ciudad.nombreCiudad}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </p>
+                <div>
+                    <br>
+                    <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+                </div>
         </form>
 
     </mat-step>

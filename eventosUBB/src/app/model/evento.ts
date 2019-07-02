@@ -6,6 +6,7 @@ export class evento {
         public detalles: string,
         public imagen: string,
         public capacidad: number,
+        public nombreEventoInterno: string,
         public ciudad_idCiudad: number
     ){}
 }

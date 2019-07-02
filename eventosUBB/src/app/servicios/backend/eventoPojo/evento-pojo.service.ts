@@ -14,12 +14,13 @@ export class EventoPojoService {
     this.url = global.url; 
   }
 
-  guardarEventoPojo(eventoPojo): Observable<any>{
+  guardarEventoPojo(token,eventoPojo): Observable<any>{
     let json = JSON.stringify(eventoPojo); //convierte el evento que se pasa por parámetro a un tipo JSON
     let params = 'json='+json; //se definene los parametros que se mandan al api
     
     //se le pasa tal como se ingresan los datos por postman
-    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'); //tipo de peticion
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization',token);; //tipo de peticion
     
     //petición ajax, se manda el post al backend, manda la url + el evento + los parámetros
     //(http://localhost:8000/api/evento) y el params le pasa lo que obtiene el json

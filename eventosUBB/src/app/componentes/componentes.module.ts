@@ -14,7 +14,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 // Módulos
 import { UtilidadesModule } from '../utilidades/utilidades.module';
 import { MatSelectModule } from '@angular/material/select';
-
+// uploader
+import { AngularFileUploaderModule } from "angular-file-uploader";
 // Componentes
 import { InicioComponent } from './inicio/inicio.component';
 import { EventosDetallesComponent } from '../componentes/eventos/eventos-detalles/eventos-detalles.component';
@@ -52,6 +53,7 @@ import { COMPONENTES_ROUTES } from './componentes.routes';
         MatProgressBarModule,
         MatProgressSpinnerModule,
         MatSelectModule,
+        AngularFileUploaderModule,
         COMPONENTES_ROUTES
     ]
 })
