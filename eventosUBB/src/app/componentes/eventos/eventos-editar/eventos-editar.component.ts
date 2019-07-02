@@ -119,4 +119,11 @@ export class EventosEditarComponent implements OnInit {
     console.log(this.eventoPojo.imagen);
 
   }
+  logoUpload(datos){
+    let data =JSON.parse(datos.response);
+    console.log(datos.response);
+    this.eventoPojo.logo = data.image;
+    console.log(this.eventoPojo.logo);
+
+  }
 }
