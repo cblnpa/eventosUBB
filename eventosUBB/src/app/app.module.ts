@@ -3,10 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {MatStepperModule, MatInputModule, MatCardModule, MatButtonModule} from '@angular/material'
-import {MatIconModule} from '@angular/material/icon';
+import { MatStepperModule, MatInputModule, MatCardModule, MatButtonModule } from '@angular/material'
+import { MatIconModule } from '@angular/material/icon';
+
 // uploader
 import { AngularFileUploaderModule } from "angular-file-uploader";
+
+// sweet alert 2
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 // Rutas
 import { APP_ROUTES } from './app.routes';
@@ -43,7 +47,8 @@ import { ServicioModule } from './servicios/servicio.module';
     MatButtonModule,
     ReactiveFormsModule,
     AngularFileUploaderModule,
-    MatIconModule
+    MatIconModule,
+    SweetAlert2Module
   ],
   providers: [],
   bootstrap: [AppComponent]
