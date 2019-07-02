@@ -24,6 +24,7 @@
     "@sweetalert2/ngx-sweetalert2": "^5.1.0",
     "angular-file-uploader": "^5.0.2",
     "core-js": "^2.5.4",
+    "ngx-pagination": "^4.0.0",
     "rxjs": "~6.3.3",
     "sweetalert2": "^8.13.0",
     "tslib": "^1.9.0",

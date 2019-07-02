@@ -1,19 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { UserService } from '../../../servicios/servicio.index';
+
 import { eventoPojo } from '../../../model/eventoPojo';
 import { ciudad } from '../../../model/ciudad';
-import { EventoPojoService, CiudadService } from '../../../servicios/servicio.index';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import {global} from '../../../servicios/global'
 import { evento } from '../../../model/evento';
+import { EventoPojoService, CiudadService, UserService } from '../../../servicios/servicio.index';
 
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+
+import {global} from '../../../servicios/global'
+
+import { Router } from '@angular/router';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-eventos-editar',
   templateUrl: './eventos-editar.component.html',
   styleUrls: ['./eventos-editar.component.css'],
-  providers: [ CiudadService, EventoPojoService,UserService ,{
+  providers: [ CiudadService, EventoPojoService, UserService ,{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
   }]
 
@@ -51,7 +57,8 @@ export class EventosEditarComponent implements OnInit {
   public ciudad: ciudad;
   public ciudades;
 
-  constructor( private _formBuilder: FormBuilder, private userService: UserService,private eventoPojoService: EventoPojoService, 
+  constructor( private _formBuilder: FormBuilder, private userService: UserService,
+    private eventoPojoService: EventoPojoService, private router: Router, 
     private ciudadService: CiudadService) {
       this.identity = this.userService.getIdentity();
       this.token = this.userService.getToken();
@@ -106,6 +113,14 @@ export class EventosEditarComponent implements OnInit {
     this.eventoPojoService.guardarEventoPojo(this.token,this.eventoPojo).subscribe(
       response => {
         console.log(response);
+
+        Swal.fire({
+          type: 'success',
+          title: '¡Registro exitoso!'
+        });
+
+        this.router.navigate(['/inicio']);
+
       },
       error => {
         console.log(<any>error);

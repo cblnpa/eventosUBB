@@ -13,6 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // Módulos
 import { UtilidadesModule } from '../utilidades/utilidades.module';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // uploader
 import { AngularFileUploaderModule } from "angular-file-uploader";
@@ -60,6 +61,7 @@ import { COMPONENTES_ROUTES } from './componentes.routes';
         MatProgressSpinnerModule,
         MatSelectModule,
         AngularFileUploaderModule,
+        NgxPaginationModule,
         COMPONENTES_ROUTES
     ]
 })
