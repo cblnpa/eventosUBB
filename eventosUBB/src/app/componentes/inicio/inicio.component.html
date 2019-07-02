@@ -1,34 +1,36 @@
 <body class="fix-header card-no-border fix-sidebar">
 
-  <div class="row el-element-overlay">
-    <div class="col-md-12">
-      <h1>Aquí se puede hacer el buscador</h1>
-    </div>
-
-    <div class="col-lg-3 col-md-6" *ngFor="let e of eventos">
-      <div class="card">
-        <div class="el-card-item">
-          <div class="el-card-avatar el-overlay-1"> 
-            <img src="../../../../assets/images/sin-imagen.png" alt="user" />
-            <div class="el-overlay">
-              <ul class="el-info">
-                <li>
-                  <a class="btn default btn-outline">ver más</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="el-card-content">
-            <h3 class="box-title"> <strong> {{e.nombreEvento}} </strong>  </h3> <small> {{e.detalles}} </small>
-            <br/>
-          </div>
+    <div class="row el-element-overlay">
+        <div class="col-md-12">
+            <h1>Aquí se puede hacer el buscador</h1>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- ============================================================== -->
-  <!-- End Page Content -->
-  <!-- ============================================================== -->
-  
+        <div class="col-lg-3 col-md-6" *ngFor="let e of eventos">
+            <div class="card">
+                <div class="el-card-item">
+                    <div class="el-card-avatar el-overlay-1">
+                        <img *ngIf="!e.imagen" src="../../../../assets/images/sin-imagen.png" alt="user" />
+                        <img *ngIf="e.imagen" src="{{url + 'image/' + e.imagen}}" alt="user" />
+
+                        <div class="el-overlay">
+                            <ul class="el-info">
+                                <li>
+                                    <a class="btn default btn-outline">ver más</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="el-card-content">
+                        <h3 class="box-title"> <strong> {{e.nombreEvento}} </strong> </h3> <small> {{e.detalles}} </small>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page Content -->
+    <!-- ============================================================== -->
+
 </body>
