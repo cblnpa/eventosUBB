@@ -19,7 +19,6 @@ import { APP_ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './login/register.component';
 import { LoginComponent } from './login/login.component';
-import { EditLoginComponent } from './login/edit-login/edit-login.component';
 
 // Módulos
 import { ComponentesModule } from './componentes/componentes.module';
@@ -31,15 +30,14 @@ import { ServicioModule } from './servicios/servicio.module';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent,
-    EditLoginComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    APP_ROUTES,
-    ComponentesModule,
-    ServicioModule,
+    APP_ROUTES, /* importa rutas hijas de todo el proyecto */ 
+    ComponentesModule, /* importa los modulos importados dentro del componente de la carpeta componentes */ 
+    ServicioModule, /* importa los servicios utilizados en el proyecto */ 
     HttpClientModule,
     MatStepperModule,
     MatInputModule,

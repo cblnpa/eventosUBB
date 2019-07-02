@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { UserService } from '../servicios/servicio.index';
 import { users } from '../model/users';
 
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 declare function init_plugins();
 

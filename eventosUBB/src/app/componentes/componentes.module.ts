@@ -13,13 +13,18 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // Módulos
 import { UtilidadesModule } from '../utilidades/utilidades.module';
 import { MatSelectModule } from '@angular/material/select';
+
 // uploader
 import { AngularFileUploaderModule } from "angular-file-uploader";
+
 // Componentes
 import { InicioComponent } from './inicio/inicio.component';
 import { EventosDetallesComponent } from '../componentes/eventos/eventos-detalles/eventos-detalles.component';
 import { ComponentesComponent } from './componentes.component';
 import { EventosEditarComponent } from './eventos/eventos-editar/eventos-editar.component';
+import { EditLoginComponent } from './edit-login/edit-login.component';
+
+//Rutas
 import { COMPONENTES_ROUTES } from './componentes.routes';
 
 @NgModule({
@@ -27,13 +32,15 @@ import { COMPONENTES_ROUTES } from './componentes.routes';
         ComponentesComponent,
         EventosDetallesComponent,
         EventosEditarComponent,
+        EditLoginComponent,
         InicioComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
         ComponentesComponent,
         EventosDetallesComponent,
-        EventosEditarComponent
+        EventosEditarComponent,
+        EditLoginComponent
     ],
     //acá se agregan los módulos de utilidades, ya que estos se utilizan en componentes.component.html
     imports: [

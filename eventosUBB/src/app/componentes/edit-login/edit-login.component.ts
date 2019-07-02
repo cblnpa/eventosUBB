@@ -5,9 +5,11 @@ import { Title } from '@angular/platform-browser';
 
 import { UserService } from '../../servicios/servicio.index';
 import { users } from '../../model/users';
-import {global} from '../../servicios/global'
+import { global } from '../../servicios/global'
+import Swal from 'sweetalert2';
 
 declare function init_plugins();
+
 @Component({
   selector: 'app-edit-login',
   templateUrl: './edit-login.component.html',
@@ -38,8 +40,13 @@ export class EditLoginComponent implements OnInit {
      hideProgressBar: false,
      hideResetBtn: true,
      hideSelectBtn: false,
-     attachPinText: 'sube avatar'
+     attachPinText: 'sube avatar',
+     replaceTexts: {
+       attachPinBtn: 'Seleccionar archivo',
+       afterUploadMsg_success: 'Archivo seleccionado exitosamente'
+     }
 };
+
   constructor( private userService: UserService, private router: Router, private title: Title ) { 
     this.user = new users('','','','',''); 
     this.identity = this.userService.getIdentity();
@@ -65,8 +72,8 @@ export class EditLoginComponent implements OnInit {
 
   ngOnInit() {
     init_plugins();
-
   }
+
   getDataRoute(){
     return this.router.events.pipe(
       filter(evento => evento instanceof ActivationEnd ),
@@ -74,6 +81,7 @@ export class EditLoginComponent implements OnInit {
       map( (evento:ActivationEnd) => evento.snapshot.data )
     )
   }
+
   onSubmit(form){
     this.userService.update(this.token, this.user).subscribe(
       response => {
@@ -97,21 +105,34 @@ export class EditLoginComponent implements OnInit {
 
           this.identity = this.user;
           localStorage.setItem('identity', JSON.stringify(this.identity));
-        }
 
+          Swal.fire({
+            type: 'success',
+            title: 'Imagen agregada exitosamente'
+          })
+
+          this.router.navigate(['/inicio']);
+
+        }
       },
       error =>{
         this.status='error';
-          console.log(<any>error);
+        console.log(<any>error);
+
+        Swal.fire({
+          type: 'error',
+          title: 'Error al agregar la imagen'
+        })
+
       }
     );
   }
+
   avatarUpload(datos){
     let data =JSON.parse(datos.response);
     console.log(datos.response);
     this.user.avatar = data.image;
     console.log(this.user.avatar);
-
   }
 
 }
