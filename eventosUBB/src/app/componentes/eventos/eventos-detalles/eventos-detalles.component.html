@@ -1,13 +1,14 @@
 <div class="row">
     <!-- Column -->
     <div class="col-lg-4 col-xlg-3 col-md-5">
-        <div class="card"> <img class="card-img" src="../../../assets/images/socialbg.jpg" alt="Card image">
+        <div class="card">
+            <img class="card-img" src="../../../assets/images/socialbg.jpg" alt="Card image">
             <!-- evento.imagen -->
             <div class="card-img-overlay card-inverse social-profile d-flex">
                 <div class="align-self-center">
-                    <h1 class="card-title" *ngFor="let evento of eventos"> {{evento.nombre}} </h1> <!-- evento.nombre -->
+                    <h1 class="card-title"> {{evento.nombreEvento}}  </h1> <!-- evento.nombre -->
                     <hr>
-                    <h4 class="card-subtitle"><i class="fa fa-calendar"></i> Jueves 23 de Julio, 2019</h4>
+                    <h4 class="card-subtitle"><i class="fa fa-calendar"></i> {{jornada.fechaJornada}} </h4>
                     <!-- jornada.fecha -->
                 </div>
             </div>
@@ -20,16 +21,16 @@
         <div class="card">
             <div class="card-body">
                 <h5><i class="fa fa-users"></i> Cupos</h5>
-                <h6>  </h6> <!-- evento.capacidad -->
+                <h6> {{evento.capacidad}} </h6> <!-- evento.capacidad -->
                 <hr>
                 <h5><i class="mdi mdi-home-map-marker"></i> Ubicación</h5>
-                <h6> </h6> <!-- evento.ubicacion -->
+                <h6> {{evento.ubicacion}}  </h6> <!-- evento.ubicacion -->
                 <hr>
                 <h5><i class="mdi mdi-map-marker"></i> Dirección</h5>
-                <h6> </h6>
+                <h6> {{evento.direccion}}  </h6>
                 <hr>
                 <h5><i class="mdi mdi-information"></i> Descripción</h5>
-                <h6> </h6> <!-- evento.detalles -->
+                <h6> {{evento.detalles}}   </h6> <!-- evento.detalles -->
             </div>
         </div>
     </div>
@@ -39,17 +40,26 @@
         <div class="card">
             <!-- barra de tabs -->
             <ul class="nav nav-tabs profile-tab" role="tablist">
-                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#jornada"
-                        role="tab">Jornada</a> </li>
-                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#expositores"
-                        role="tab">Expositores</a> </li>
-                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#colaboradores"
-                        role="tab">Colaboradores</a> </li>
-                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#material" role="tab">Material</a>
+                <li class="nav-item"> 
+                    <a class="nav-link active" data-toggle="tab" href="#jornada" role="tab">Jornada</a> 
                 </li>
-                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#participantes"
-                        role="tab">Participantes</a> </li>
+                <li class="nav-item"> 
+                    <a class="nav-link" data-toggle="tab" href="#actividad" role="tab">Actividades</a> 
+                </li>
+                <li class="nav-item"> 
+                    <a class="nav-link" data-toggle="tab" href="#expositores" role="tab">Expositores</a> 
+                </li>
+                <li class="nav-item"> 
+                    <a class="nav-link" data-toggle="tab" href="#colaboradores" role="tab">Colaboradores</a> 
+                </li>
+                <li class="nav-item"> 
+                    <a class="nav-link" data-toggle="tab" href="#material" role="tab">Material</a>
+                </li>
+                <li class="nav-item"> 
+                    <a class="nav-link" data-toggle="tab" href="#participantes" role="tab">Participantes</a> 
+                </li>
             </ul>
+
             <!-- Tab panes -->
             <div class="tab-content">
                 <!-- jornada tab -->
@@ -61,7 +71,7 @@
                                 <h3 class="text-white box m-b-0"><i class="mdi mdi-clipboard-text"></i></h3>
                             </div>
                             <div class="align-self-center m-l-20">
-                                <h3 class="m-b-0 text-info">Jornada muy bonita</h3>
+                                <h3 class="m-b-0 text-info"> {{jornada.nombreJornada}} </h3> <!-- jornada.nombre -->
                                 <h5 class="text-muted m-b-0">nombre de la jornada</h5>
                             </div>
                         </div>
@@ -72,7 +82,7 @@
                                     <h3 class="text-white box m-b-0"><i class="mdi mdi-calendar-check"></i></h3>
                                 </div>
                                 <div class="align-self-center m-l-20">
-                                    <h3 class="m-b-0 text-info">Lunes 20 de Septiembre 2019</h3>
+                                    <h3 class="m-b-0 text-info"> {{jornada.fechaJornada}} </h3> <!-- jornada.fecha -->
                                     <h5 class="text-muted m-b-0">fecha de la jornada</h5>
                                 </div>
                         </div>
@@ -83,7 +93,7 @@
                                     <h3 class="text-white box m-b-0"><i class="mdi mdi-clock"></i></h3>
                                 </div>
                                 <div class="align-self-center m-l-20">
-                                    <h3 class="m-b-0 text-info">10:00</h3>
+                                    <h3 class="m-b-0 text-info"> {{jornada.horaInicioJornada}} </h3>
                                     <h5 class="text-muted m-b-0">hora inicio de la jornada</h5>
                                 </div>
                         </div>
@@ -94,7 +104,7 @@
                                     <h3 class="text-white box m-b-0"><i class="mdi mdi-clock"></i></h3>
                                 </div>
                                 <div class="align-self-center m-l-20">
-                                    <h3 class="m-b-0 text-info">19:00</h3>
+                                    <h3 class="m-b-0 text-info"> {{jornada.horaFinJornada}} </h3>
                                     <h5 class="text-muted m-b-0">hora fin de la jornada</h5>
                                 </div>
                         </div>
@@ -105,7 +115,7 @@
                                     <h3 class="text-white box m-b-0"><i class="mdi mdi-map-marker-radius"></i></h3>
                                 </div>
                                 <div class="align-self-center m-l-20">
-                                    <h3 class="m-b-0 text-info">Aula magna</h3>
+                                    <h3 class="m-b-0 text-info"> {{jornada.ubicacionJornada}} </h3>
                                     <h5 class="text-muted m-b-0">ubicación de la jornada</h5>
                                 </div>
                         </div>
@@ -116,7 +126,7 @@
                                     <h3 class="text-white box m-b-0"><i class="mdi mdi-lead-pencil"></i></h3>
                                 </div>
                                 <div class="align-self-center m-l-20">
-                                    <h3 class="m-b-0 text-info">Esta jornada tiene como objetivo bla bla </h3>
+                                    <h3 class="m-b-0 text-info"> {{jornada.descripcionJornada}} </h3>
                                     <h5 class="text-muted m-b-0">descripción de la jornada</h5>
                                 </div>
                         </div>
@@ -124,6 +134,69 @@
 
                     </div>
                 </div>
+
+                <!-- actividades tab -->
+                <div class="tab-pane" id="actividad" role="tabpanel">
+                        <div class="card-body">  
+                            
+                            <div class="d-flex flex-row">
+                                <div class="p-10 bg-inverse">
+                                    <h3 class="text-white box m-b-0"><i class="mdi mdi-clipboard-text"></i></h3>
+                                </div>
+                                <div class="align-self-center m-l-20">
+                                    <h3 class="m-b-0 text-info"> {{actividad.nombreActividad}} </h3> <!--  actividad.nombreActividad -->
+                                    <h5 class="text-muted m-b-0">nombre de la actividad</h5>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="d-flex flex-row">
+                                    <div class="p-10 bg-inverse">
+                                        <h3 class="text-white box m-b-0"><i class="mdi mdi-clock"></i></h3>
+                                    </div>
+                                    <div class="align-self-center m-l-20">
+                                        <h3 class="m-b-0 text-info"> {{actividad.horaInicioActividad}} </h3>
+                                        <h5 class="text-muted m-b-0">hora inicio de la actividad</h5>
+                                    </div>
+                            </div>
+                            <hr>
+    
+                            <div class="d-flex flex-row">
+                                    <div class="p-10 bg-inverse">
+                                        <h3 class="text-white box m-b-0"><i class="mdi mdi-clock"></i></h3>
+                                    </div>
+                                    <div class="align-self-center m-l-20">
+                                        <h3 class="m-b-0 text-info"> {{actividad.horaFinActividad}} </h3>
+                                        <h5 class="text-muted m-b-0">hora fin de la actividad</h5>
+                                    </div>
+                            </div>
+                            <hr>
+    
+                            <div class="d-flex flex-row">
+                                    <div class="p-10 bg-inverse">
+                                        <h3 class="text-white box m-b-0"><i class="mdi mdi-map-marker-radius"></i></h3>
+                                    </div>
+                                    <div class="align-self-center m-l-20">
+                                        <h3 class="m-b-0 text-info"> {{actividad.ubicacionActividad}} </h3>
+                                        <h5 class="text-muted m-b-0">ubicación de la actividad</h5>
+                                    </div>
+                            </div>
+                            <hr>
+    
+                            <div class="d-flex flex-row">
+                                    <div class="p-10 bg-inverse">
+                                        <h3 class="text-white box m-b-0"><i class="mdi mdi-lead-pencil"></i></h3>
+                                    </div>
+                                    <div class="align-self-center m-l-20">
+                                        <h3 class="m-b-0 text-info"> {{actividad.descripcionActividad}} </h3>
+                                        <h5 class="text-muted m-b-0">descripción de la actividad</h5>
+                                    </div>
+                            </div>
+                            <hr>
+    
+                        </div>
+                    </div>
+
                 <!-- expositores tab -->
                 <div class="tab-pane" id="expositores" role="tabpanel">
                     <h2>Expositores</h2>
@@ -150,8 +223,8 @@
                                         </div>
                                     </div>
                                     <div class="el-card-content">
-                                        <h3 class="box-tittle">Juan Carlos Figueroa</h3> <!-- expositor.nombre expositor.apellido -->
-                                        <h6><i class="fa fa-envelope"></i> juancarlos@correo.cl</h6> <!-- expositor.correo -->
+                                        <h3 class="box-tittle"> {{expositor.nombreExpositor + ' ' + expositor.apellidoExpositor}} </h3> <!-- expositor.nombre expositor.apellido -->
+                                        <h6><i class="fa fa-envelope"></i> {{expositor.correoExpositor}}  </h6> <!-- expositor.correo -->
                                         <br>
                                     </div>
                                 </div>
@@ -159,6 +232,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="tab-pane" id="colaboradores" role="tabpanel">
                     <h2>Colaboradores</h2>
                     <br>
@@ -184,8 +258,8 @@
                                             </div>
                                         </div>
                                         <div class="el-card-content">
-                                            <h3 class="box-tittle">Juan Carlos Figueroa</h3> <!-- expositor.nombre expositor.apellido -->
-                                            <h6><i class="fa fa-envelope"></i> juancarlos@correo.cl</h6> <!-- expositor.correo -->
+                                            <h3 class="box-tittle"> {{colaborador.nombreRepresentate}} </h3> <!-- expositor.nombre expositor.apellido -->
+                                            <h6><i class="fa fa-envelope"></i> {{colaborador.correoColaborador}}  </h6> <!-- expositor.correo -->
                                             <br>
                                         </div>
                                     </div>
@@ -217,8 +291,8 @@
                                             </div>
                                         </div>
                                         <div class="el-card-content">
-                                            <h3 class="box-tittle">Juan Carlos Figueroa</h3> <!-- expositor.nombre expositor.apellido -->
-                                            <h6><i class="fa fa-envelope"></i> juancarlos@correo.cl</h6> <!-- expositor.correo -->
+                                            <h3 class="box-tittle">  </h3> <!-- colaborador.nombre expositor.apellido -->
+                                            <h6><i class="fa fa-envelope"></i>  </h6> <!-- colaborador.correo -->
                                             <br>
                                         </div>
                                     </div>
@@ -250,8 +324,8 @@
                                             </div>
                                         </div>
                                         <div class="el-card-content">
-                                            <h3 class="box-tittle">Juan Carlos Figueroa</h3> <!-- expositor.nombre expositor.apellido -->
-                                            <h6><i class="fa fa-envelope"></i> juancarlos@correo.cl</h6> <!-- expositor.correo -->
+                                            <h3 class="box-tittle"> </h3> <!-- colaborador.nombre expositor.apellido -->
+                                            <h6><i class="fa fa-envelope"></i>  </h6> <!-- colaborador.correo -->
                                             <br>
                                         </div>
                                     </div>
@@ -265,14 +339,16 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nombre archivo</th>
+                                    <th>Nombre material</th>
+                                    <th>Fecha de subida</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>Afiche publicitario</td>
+                                    <td> {{material.nombreMaterial}} </td>
+                                    <td> {{material.fechaCreacion}}  </td>
                                     <td><i class="mdi mdi-download"></i> <a>Descargar</a> </td>
                                 </tr>
                             </tbody>
@@ -303,7 +379,7 @@
 
                     </table>
                 </div>
-            </div>
+            </div> <!-- div final de los tab -->
         </div>
     </div>
     <!-- Column -->

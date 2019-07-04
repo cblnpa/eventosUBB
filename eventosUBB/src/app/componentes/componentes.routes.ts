@@ -15,7 +15,7 @@ const componentesRoutes: Routes = [
         component: ComponentesComponent,
         children: [
             { path: 'inicio', component: InicioComponent , data: { titulo: 'Inicio' } },
-            { path: 'eventosDetalles', component: EventosDetallesComponent, data: { titulo: 'Detalles evento' } },
+            { path: 'eventoDetalle/:id', component: EventosDetallesComponent, data: { titulo: 'Detalles evento' } },
             { path: 'eventosEditar', component: EventosEditarComponent, data: { titulo: 'Editar evento' } },
             { path: 'editLogin', component: EditLoginComponent, data: { titulo: 'Editar Perfil' }  },
 

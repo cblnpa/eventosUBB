@@ -7,6 +7,7 @@ export class evento {
         public imagen: string,
         public capacidad: number,
         public nombreEventoInterno: string,
-        public ciudad_idCiudad: number
+        public ciudad_idCiudad: number,
+        public idEvento?: number
     ){}
 }

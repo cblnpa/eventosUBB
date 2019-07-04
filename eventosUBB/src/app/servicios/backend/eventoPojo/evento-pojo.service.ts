@@ -28,9 +28,10 @@ export class EventoPojoService {
     return this.http.post(this.url+'eventoPojo', params, {headers: headers});
   }
 
-  // getEventosPojo():Observable<any>{
-  //   let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-  //   return this.http.get(this.url+'evento', {headers: headers});
-  // }
+  //Obtener el evento del id indicado
+  getEventoPojoById(id): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'eventoPojo/' + id, {headers: headers});
+  }
 
 }

@@ -1,20 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { EventoService } from '../../servicios/servicio.index';
+import { EventoService, EventoPojoService } from '../../servicios/servicio.index';
 import {global} from '../../servicios/global'
 
 import { evento } from '../../model/evento';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.css'],
-  providers: [ EventoService ]
+  providers: [ EventoService, EventoPojoService ]
 })
 export class InicioComponent implements OnInit {
+
   public url;
   public eventos;
+  public id; 
 
-  constructor( private eventoService: EventoService ) { 
+  constructor( private eventoService: EventoService, private eventoPojoService: EventoPojoService,
+    private router: Router ) { 
     this.url = global.url;
   }
 
@@ -35,5 +39,10 @@ export class InicioComponent implements OnInit {
       }
     );
   }
+
+  eventosDetalles(idEvento: number){
+    this.router.navigate(['/eventoDetalle/' + idEvento]);
+  }
+
 
 }
