@@ -7,3 +7,4 @@ export { expositor } from './expositor';
 export { jornada } from './jornada';
 export { material } from './material';
 export { users } from './users';
+export { evento_users } from './evento_users';

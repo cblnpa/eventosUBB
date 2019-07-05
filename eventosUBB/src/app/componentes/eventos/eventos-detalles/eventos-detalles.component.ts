@@ -2,20 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { global } from '../../../servicios/global';
 
-import { EventoPojoService } from '../../../servicios/servicio.index';
-import { evento, material, colaborador, jornada, expositor, actividad } from '../../../model/model.index';
+import { EventoPojoService, EventoUsersService, UserService } from '../../../servicios/servicio.index';
+import { evento, material, colaborador, jornada, expositor, actividad, evento_users } from '../../../model/model.index';
 
 @Component({
   selector: 'app-eventos-detalles',
   templateUrl: './eventos-detalles.component.html',
   styleUrls: ['./eventos-detalles.component.css'],
-  providers: [ EventoPojoService ]
+  providers: [ EventoPojoService, EventoUsersService, UserService ]
 })
 export class EventosDetallesComponent implements OnInit {
 
   public url: string;
   public id: number;
 
+  public token;
+  public idEventoUsers: number;
+
+  public eventoUsers: evento_users;
   public actividad: actividad;
   public evento: evento;
   public material: material;
@@ -23,10 +27,12 @@ export class EventosDetallesComponent implements OnInit {
   public jornada: jornada;
   public expositor: expositor;
 
-  constructor( private eventoPojoService: EventoPojoService, private route: ActivatedRoute, 
-    private router: Router ) { 
+  constructor( private eventoPojoService: EventoPojoService, private eventoUsersService: EventoUsersService,
+    private userService: UserService, private route: ActivatedRoute, private router: Router ) { 
 
     this.url = global.url;
+    this.token = this.userService.getToken();
+    this.eventoUsers = new evento_users(null,this.idEventoUsers,null,this.token);
 
   }
 
@@ -38,39 +44,24 @@ export class EventosDetallesComponent implements OnInit {
     this.route.params.subscribe( params => {
 
       let idEvento = +params['id'];
-
+      this.idEventoUsers = idEvento;
+      
       this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
 
         response => {
           if(response.status == 'success'){
-            console.log('response !!!!!');
-            console.log(response);
+            // console.log('response !!!!!');
+            // console.log(response);
 
             this.jornada = response.Jornada;
-            console.log('JORNADA !!');
-            console.log(this.jornada);
+            // console.log('JORNADA !!');
+            // console.log(this.jornada);
 
             this.actividad = response.actividad;
-            console.log('ACTIVIDAD !!');
-            console.log(this.actividad);
-
             this.expositor = response.expositor;
-            console.log('EXPOSITOR!!');
-            console.log(this.expositor);
-
             this.colaborador = response.colaborador;
-            console.log('COLABORADORES !!');
-            console.log(this.colaborador);
-
             this.evento = response.evento;
-            console.log('EVENTO !!');
-            console.log(this.evento);
-
             this.material = response.material;
-            console.log('MATERIAL !!');
-            console.log(this.material);
-
-
 
           } else {
             this.router.navigate(['/inicio']);
@@ -81,6 +72,29 @@ export class EventosDetallesComponent implements OnInit {
         }   
       )
     })
+  }
+
+  participarEvento(){
+
+    this.route.params.subscribe( params => {
+
+      let idEvento = +params['id'];
+
+      // this.eventoUsers = new evento_users(null,idEvento,null);
+      // console.log('eventousers');
+      // console.log(this.eventoUsers);
+
+      this.eventoUsersService.guardarEventoUsers(this.token, this.eventoUsers).subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(<any>error);
+        }
+      )
+
+    })
+
   }
 
 }
