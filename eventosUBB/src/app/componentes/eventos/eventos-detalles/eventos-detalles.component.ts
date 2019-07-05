@@ -17,9 +17,12 @@ export class EventosDetallesComponent implements OnInit {
   public id: number;
 
   public token;
-  public idEventoUsers: number;
+  public identity;
+  public idEventoUsers: number; /* este es el id del evento para el eventousers */
+  public status;
 
   public eventoUsers: evento_users;
+
   public actividad: actividad;
   public evento: evento;
   public material: material;
@@ -32,12 +35,13 @@ export class EventosDetallesComponent implements OnInit {
 
     this.url = global.url;
     this.token = this.userService.getToken();
-    this.eventoUsers = new evento_users(null,this.idEventoUsers,null,this.token);
+    this.identity = this.userService.getIdentity();
 
   }
 
   ngOnInit(): void {
     this.getEventosDetalle();
+    this.eventoUsers = new evento_users(null,this.idEventoUsers,null,this.identity.sub);
   }
 
   getEventosDetalle(){
@@ -50,13 +54,7 @@ export class EventosDetallesComponent implements OnInit {
 
         response => {
           if(response.status == 'success'){
-            // console.log('response !!!!!');
-            // console.log(response);
-
             this.jornada = response.Jornada;
-            // console.log('JORNADA !!');
-            // console.log(this.jornada);
-
             this.actividad = response.actividad;
             this.expositor = response.expositor;
             this.colaborador = response.colaborador;
@@ -76,25 +74,19 @@ export class EventosDetallesComponent implements OnInit {
 
   participarEvento(){
 
-    this.route.params.subscribe( params => {
+    this.eventoUsersService.participarEvento(this.token, this.eventoUsers, this.idEventoUsers).subscribe(
+      response => {
+        console.log(response);
+        console.log('identity:');
+        console.log(this.identity);
+        console.log('id');
+        console.log(this.idEventoUsers);
+      },
+      error => {
 
-      let idEvento = +params['id'];
+      }
+    )
 
-      // this.eventoUsers = new evento_users(null,idEvento,null);
-      // console.log('eventousers');
-      // console.log(this.eventoUsers);
-
-      this.eventoUsersService.guardarEventoUsers(this.token, this.eventoUsers).subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log(<any>error);
-        }
-      )
-
-    })
-
-  }
+    }
 
 }

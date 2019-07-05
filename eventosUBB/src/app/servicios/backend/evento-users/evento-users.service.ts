@@ -15,14 +15,26 @@ export class EventoUsersService {
    }
 
 
-  guardarEventoUsers(token,eventoUsers): Observable<any>{
-    let json = JSON.stringify(eventoUsers); 
+  // guardarEventoUsers(token,eventoUsers): Observable<any>{
+  //   let json = JSON.stringify(eventoUsers); 
+  //   let params = 'json='+json;
+    
+  //   let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+  //   .set('Authorization',token);
+    
+  //   return this.http.put(this.url+'evento_users', params, {headers: headers});
+  // }
+
+
+  participarEvento(token, eventoUsers, id): Observable<any>{
+    let json = JSON.stringify(eventoUsers);
     let params = 'json='+json;
-    
+
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    .set('Authorization',token);;
-    
-    return this.http.put(this.url+'evento_users', params, {headers: headers});
+    .set('Authorization',token);
+
+    return this.http.put(this.url+'evento_users/' + id, {headers: headers});
   }
+
 
 }
