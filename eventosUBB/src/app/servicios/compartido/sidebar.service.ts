@@ -12,7 +12,7 @@ export class SidebarService {
       icono: 'mdi mdi-view-grid',
       submenu: [
         { titulo: 'Ver eventos', url: '/inicio'},
-        { titulo: 'Detalles evento', url: '/eventosDetalles'},
+        { titulo: 'Mis eventos', url: '/misEventos'},
         { titulo: 'Editar evento', url: '/eventosEditar'}
       ]
     }

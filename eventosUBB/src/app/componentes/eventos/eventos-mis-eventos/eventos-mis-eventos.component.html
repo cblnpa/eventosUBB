@@ -1,0 +1,33 @@
+<body class="fix-header card-no-border fix-sidebar">
+  <div class="row el-element-overlay">
+      <div class="col-md-12">
+    <h2> A continuación se listan los eventos asociados a su usuario</h2>
+    <h3> Acá también se puede implementar un buscador </h3>
+
+    <table class="table color-table info-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre evento</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td> Nombre del evento </td> <!-- evento.nombreEvento -->
+          <td> <i class="mdi mdi-pencil"></i> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="col-md-12">
+        <ul class="pagination justify-content-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </ul>
+    </div>
+
+      </div>
+  </div>
+</body>
+

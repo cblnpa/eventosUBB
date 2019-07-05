@@ -7,6 +7,7 @@ import { EventosDetallesComponent } from './eventos/eventos-detalles/eventos-det
 import { EventosEditarComponent } from './eventos/eventos-editar/eventos-editar.component';
 import { LoginComponent } from '../login/login.component';
 import { EditLoginComponent } from '../componentes/edit-login/edit-login.component';
+import { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/eventos-mis-eventos.component';
 
 const componentesRoutes: Routes = [
     { path: '', component: LoginComponent, data: { titulo: 'Iniciar sesión'}},
@@ -16,6 +17,7 @@ const componentesRoutes: Routes = [
         children: [
             { path: 'inicio', component: InicioComponent , data: { titulo: 'Inicio' } },
             { path: 'eventoDetalle/:id', component: EventosDetallesComponent, data: { titulo: 'Detalles evento' } },
+            { path: 'misEventos', component: EventosMisEventosComponent, data: { titulo: 'Mis eventos' } },
             { path: 'eventosEditar', component: EventosEditarComponent, data: { titulo: 'Editar evento' } },
             { path: 'editLogin', component: EditLoginComponent, data: { titulo: 'Editar Perfil' }  },
 

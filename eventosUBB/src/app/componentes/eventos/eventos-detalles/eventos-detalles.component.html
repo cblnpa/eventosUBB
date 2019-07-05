@@ -16,7 +16,8 @@
     
         <!-- agregar ngIf a este botón -->
         <button class="btn btn-block btn-outline-info"><i class="mdi mdi-pencil"></i> Editar evento</button><br>
-        <button class="btn btn-block btn-outline-info" (click)="participarEvento()"><i class="mdi mdi-plus"></i>Participar</button><br>
+        <button class="btn btn-block btn-outline-info" (click)="participarEvento()" *ngIf="evento.capacidad >index" ><i class="mdi mdi-plus"></i>Participar</button><br>
+        <button class="btn btn-block btn-outline-danger" *ngIf="evento.capacidad == index" disabled><i class="mdi mdi-close-circle"></i>Sin cupos disponibles</button><br>
 
         <!-- información del evento -->
         <div class="card">
@@ -366,16 +367,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Camila Lelén</td>
+                            <tr *ngFor="let persona of participantes; let i = index">
+                                <td> {{i+1}} </td>
+                                <td> {{persona.users.nombreUsuario + ' ' + persona.users.apellidoUsuario}} </td>
                                 <th><i class="mdi mdi-delete"></i></th>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Gaston Lara</td>
-                                <th><i class="mdi mdi-delete"></i></th>
-                                </tr>
                         </tbody>
 
                     </table>

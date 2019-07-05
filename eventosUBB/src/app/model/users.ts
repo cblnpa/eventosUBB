@@ -6,6 +6,7 @@ export class users {
         public email: string,
         public password: string,
         public avatar: string,
+        public perfil_idPerfil: number,
         public id?: number
     ){} 
 }

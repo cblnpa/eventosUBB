@@ -12,7 +12,14 @@ export class EventoUsersService {
 
   constructor( private http: HttpClient ) {
     this.url = global.url; 
-   }
+  }
+
+  // obtener eventos
+  getEventoUsersById(id): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    
+    return this.http.get(this.url+'evento_users/' + id, {headers: headers});
+  }
 
    guardarEventoUser(token,eventoUsers): Observable<any>{
     let json = JSON.stringify(eventoUsers); //convierte el evento que se pasa por parámetro a un tipo JSON

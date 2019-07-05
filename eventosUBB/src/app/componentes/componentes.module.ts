@@ -27,6 +27,7 @@ import { EditLoginComponent } from './edit-login/edit-login.component';
 
 //Rutas
 import { COMPONENTES_ROUTES } from './componentes.routes';
+import { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/eventos-mis-eventos.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { COMPONENTES_ROUTES } from './componentes.routes';
         EventosDetallesComponent,
         EventosEditarComponent,
         EditLoginComponent,
-        InicioComponent
+        InicioComponent,
+        EventosMisEventosComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { global } from '../../../servicios/global';
 
 import { EventoPojoService, EventoUsersService, UserService } from '../../../servicios/servicio.index';
-import { evento, material, colaborador, jornada, expositor, actividad, evento_users } from '../../../model/model.index';
+import { evento, material, colaborador, jornada, expositor, actividad, evento_users, users } from '../../../model/model.index';
 
 @Component({
   selector: 'app-eventos-detalles',
@@ -16,10 +16,15 @@ export class EventosDetallesComponent implements OnInit {
   public url: string;
   public id: number;
 
+  public index: number; //contador de cantidad de personas
+
   public token;
   public identity;
   public idEventoUsers: number; /* este es el id del evento para el eventousers */
   public status;
+
+  // atributos para mostrar participantes
+  public participantes: users;
 
   public eventoUsers: evento_users;
 
@@ -41,12 +46,13 @@ export class EventosDetallesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEventosDetalle();
-    this.eventoUsers = new evento_users(null,this.idEventoUsers,null,this.identity.sub);
     console.log('ng on init !!');
     console.log(this.idEventoUsers);
     console.log(this.identity.sub);
-  }
+    this.getEventoUsers();
 
+  }
+  
   getEventosDetalle(){
     this.route.params.subscribe( params => {
 
@@ -75,20 +81,30 @@ export class EventosDetallesComponent implements OnInit {
     })
   }
 
+  getEventoUsers(){
+  
+    this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
+      response => {
+        console.log(response);
+        this.participantes = response.evento;
+        console.log(this.participantes);
+
+        this.index = (response.evento).length;
+        console.log('get event');
+        console.log(this.index);
+
+        this.eventoUsers = new evento_users(this.index,this.idEventoUsers,null,this.identity.sub);
+        console.log('dentro del coso, imprimir el model');
+        console.log(this.eventoUsers);
+
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
   participarEvento(){
-
-    // this.eventoUsersService.participarEvento(this.token, this.eventoUsers, this.idEventoUsers).subscribe(
-    //   response => {
-    //     console.log(response);
-    //     console.log('identity:');
-    //     console.log(this.identity);
-    //     console.log('id');
-    //     console.log(this.idEventoUsers);
-    //   },
-    //   error => {
-
-    //   }
-    // )
 
     this.eventoUsersService.guardarEventoUser(this.token, this.eventoUsers).subscribe(
       response => {
