@@ -3,7 +3,7 @@
       <div class="col-md-12">
     <h2> A continuación se listan los eventos asociados a su usuario</h2>
     <h3> Acá también se puede implementar un buscador </h3>
-
+    
     <table class="table color-table info-table">
       <thead>
         <tr>
@@ -12,10 +12,11 @@
           <th></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngFor="let e of misEventos | paginate: { itemsPerPage: 10,
+        currentPage: p} ; let i = index ">
         <tr>
-          <td>1</td>
-          <td> Nombre del evento </td> <!-- evento.nombreEvento -->
+          <td> {{i+1}} </td>
+          <td> {{e.evento.nombreEvento}} </td> <!-- evento.nombreEvento -->
           <td> <i class="mdi mdi-pencil"></i> </td>
         </tr>
       </tbody>
@@ -30,4 +31,3 @@
       </div>
   </div>
 </body>
-

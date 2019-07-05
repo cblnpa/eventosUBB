@@ -21,6 +21,14 @@ export class EventoUsersService {
     return this.http.get(this.url+'evento_users/' + id, {headers: headers});
   }
 
+  // obtener mis eventos
+  getMisEventos(token): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization',token);
+
+    return this.http.get(this.url+'misEventos', {headers: headers});
+  }
+
    guardarEventoUser(token,eventoUsers): Observable<any>{
     let json = JSON.stringify(eventoUsers); //convierte el evento que se pasa por parámetro a un tipo JSON
     let params = 'json='+json;

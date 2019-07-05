@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   auth2: any; //declarar objeto con info de google
 
   constructor( private userService: UserService, private router: Router, private title: Title ) {
-    this.user = new users('','','','','');
+    this.user = new users('','','','','',null);
 
     this.getDataRoute()
     .subscribe( data => {
