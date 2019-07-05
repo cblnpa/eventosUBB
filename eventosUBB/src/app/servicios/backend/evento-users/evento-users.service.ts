@@ -33,7 +33,7 @@ export class EventoUsersService {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     .set('Authorization',token);
 
-    return this.http.put(this.url+'evento_users/' + id, {headers: headers});
+    return this.http.put(this.url+'evento_users/' + id, params, {headers: headers});
   }
 
 
