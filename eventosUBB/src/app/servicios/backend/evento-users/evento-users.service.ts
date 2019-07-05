@@ -14,6 +14,16 @@ export class EventoUsersService {
     this.url = global.url; 
    }
 
+   guardarEventoUser(token,eventoUsers): Observable<any>{
+    let json = JSON.stringify(eventoUsers); //convierte el evento que se pasa por parámetro a un tipo JSON
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization',token);
+    
+    return this.http.post(this.url+'evento_users', params, {headers: headers});
+  }
+
 
   // guardarEventoUsers(token,eventoUsers): Observable<any>{
   //   let json = JSON.stringify(eventoUsers); 

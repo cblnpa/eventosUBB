@@ -42,6 +42,9 @@ export class EventosDetallesComponent implements OnInit {
   ngOnInit(): void {
     this.getEventosDetalle();
     this.eventoUsers = new evento_users(null,this.idEventoUsers,null,this.identity.sub);
+    console.log('ng on init !!');
+    console.log(this.idEventoUsers);
+    console.log(this.identity.sub);
   }
 
   getEventosDetalle(){
@@ -74,16 +77,26 @@ export class EventosDetallesComponent implements OnInit {
 
   participarEvento(){
 
-    this.eventoUsersService.participarEvento(this.token, this.eventoUsers, this.idEventoUsers).subscribe(
+    // this.eventoUsersService.participarEvento(this.token, this.eventoUsers, this.idEventoUsers).subscribe(
+    //   response => {
+    //     console.log(response);
+    //     console.log('identity:');
+    //     console.log(this.identity);
+    //     console.log('id');
+    //     console.log(this.idEventoUsers);
+    //   },
+    //   error => {
+
+    //   }
+    // )
+
+    this.eventoUsersService.guardarEventoUser(this.token, this.eventoUsers).subscribe(
       response => {
+        console.log('es response');
         console.log(response);
-        console.log('identity:');
-        console.log(this.identity);
-        console.log('id');
-        console.log(this.idEventoUsers);
       },
       error => {
-
+        console.log(<any>error);
       }
     )
 
