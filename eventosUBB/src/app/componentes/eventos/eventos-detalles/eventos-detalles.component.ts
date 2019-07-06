@@ -5,6 +5,8 @@ import { global } from '../../../servicios/global';
 import { EventoPojoService, EventoUsersService, UserService } from '../../../servicios/servicio.index';
 import { evento, material, colaborador, jornada, expositor, actividad, evento_users, users } from '../../../model/model.index';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-eventos-detalles',
   templateUrl: './eventos-detalles.component.html',
@@ -15,6 +17,8 @@ export class EventosDetallesComponent implements OnInit {
 
   public url: string;
   public id: number;
+  public esteEvento;
+  public idEsteEvento;
 
   public index: number; //contador de cantidad de personas
 
@@ -119,7 +123,29 @@ export class EventosDetallesComponent implements OnInit {
     }
 
     editarEvento(id: number){
-      this.router.navigate(['/eventosEditar/' + this.idEventoUsers]);
+
+      this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
+        response => {
+          console.log('dentro del editar evento');
+          console.log(response);
+
+          this.esteEvento = response.evento;
+          console.log(this.esteEvento);
+
+          this.idEsteEvento = this.esteEvento[0].users_id;
+
+          if(this.idEsteEvento != this.identity.sub){
+            Swal.fire({
+              type: 'warning',
+              title: '¡Este evento no es tuyo!'
+            })
+          } else {
+            this.router.navigate(['/eventosEditar/' + this.idEventoUsers]);
+          }
+
+        }
+      )
+
     }
 
 }
