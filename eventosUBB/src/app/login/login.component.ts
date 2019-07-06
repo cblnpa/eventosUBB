@@ -9,6 +9,8 @@ import { Title } from '@angular/platform-browser';
 import { users } from '../model/users';
 import { UserService } from '../servicios/servicio.index';
 
+import Swal from 'sweetalert2';
+
 declare function init_plugins();
 declare const gapi: any;
 
@@ -28,7 +30,7 @@ export class LoginComponent implements OnInit {
   auth2: any; //declarar objeto con info de google
 
   constructor( private userService: UserService, private router: Router, private title: Title ) {
-    this.user = new users('','','','','',null);
+    this.user = new users('','','','','',null,null);
 
     this.getDataRoute()
     .subscribe( data => {
@@ -114,17 +116,17 @@ export class LoginComponent implements OnInit {
         } else {
           this.status = 'error';
         }
-
-        // this.router.navigate(['/login']);
-
       },
       error => {
         console.log(<any>error);
+        Swal.fire({
+          type: 'error',
+          title: 'Datos incorrectos',
+          text: 'ingrese su email y contraseña correctamente',
+        })
       }
 
     );
-
-    // this.router.navigate(['/login']);
   }
 
   // Iniciar sesión con google
