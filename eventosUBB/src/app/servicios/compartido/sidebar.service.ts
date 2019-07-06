@@ -13,7 +13,7 @@ export class SidebarService {
       submenu: [
         { titulo: 'Ver eventos', url: '/inicio'},
         { titulo: 'Mis eventos', url: '/misEventos'},
-        { titulo: 'Editar evento', url: '/eventosEditar'}
+        { titulo: 'Crear evento', url: '/crearEvento'},
       ]
     }
   ];

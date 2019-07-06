@@ -1,0 +1,298 @@
+<mat-horizontal-stepper labelPosition="bottom" [linear]="isLinear">
+  <mat-step label="Step 1">
+      <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+          <ng-template matStepLabel>Datos del evento</ng-template>
+
+          <p>
+              <mat-form-field>
+                  <mat-label for="nombreEvento">Nombre del evento</mat-label>
+                  <input matInput type="text" name="nombreEvento" #nombreEvento="ngModel" [(ngModel)]="eventoPojo.nombreEvento">
+              </mat-form-field>
+          </p>
+
+          <p>
+              <mat-form-field>
+                  <mat-label for="ubicacion">Ubicación</mat-label>
+                  <input matInput type="text" name="ubicacion" #ubicacion="ngModel" [(ngModel)]="eventoPojo.ubicacion">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="direccion">Dirección</mat-label>
+                  <input matInput type="text" name="direccion" #direccion="ngModel" [(ngModel)]="eventoPojo.direccion">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="detalles">Detalles</mat-label>
+                  <input matInput type="text" name="detalles" #detalles="ngModel" [(ngModel)]="eventoPojo.detalles">
+              </mat-form-field>
+          </p>
+
+          <label for="imagen">Imagen</label>
+          <div *ngIf="identity && identity.imagen">
+              <img src="{{url + 'image/' + identity.imagen}}" class="img-fluid" alt="Responsive image">
+
+          </div>
+          <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="imagenUpload($event)">
+          </angular-file-uploader>
+
+          <p>
+              <mat-form-field>
+                  <mat-label for="capacidad">Capacidad</mat-label>
+                  <input matInput type="number" name="capacidad" #capacidad="ngModel" [(ngModel)]="eventoPojo.capacidad">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="nombreEventoInterno">Nombre evento interno</mat-label>
+                  <input matInput type="text" name="nombreEventoInterno" #nombreEventoInterno="ngModel" [(ngModel)]="eventoPojo.nombreEventoInterno">
+              </mat-form-field>
+          </p>
+
+          <p>
+              <mat-form-field>
+                  <mat-label for="ciudad_idCiudad">Ciudad</mat-label>
+                  <mat-select name="ciudad_idCiudad" #ciudad="ngModel" [(ngModel)]="eventoPojo.ciudad_idCiudad">
+                      <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.idCiudad">
+                          {{ciudad.nombreCiudad}}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+          </p>
+          <div>
+              <br>
+              <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+          </div>
+      </form>
+
+  </mat-step>
+
+  <mat-step label="Step 2">
+      <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+          <ng-template matStepperIcon="done" matStepLabel>Material</ng-template>
+          <p>
+              <mat-form-field>
+
+                  <mat-label for="nombreMaterial">Nombre material</mat-label>
+                  <input matInput type="text" name="nombreMaterial" #nombreMaterial="ngModel" [(ngModel)]="eventoPojo.nombreMaterial">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="archivo">Archivo</mat-label>
+                  <input matInput type="text" name="archivo" #archivo="ngModel" [(ngModel)]="eventoPojo.archivo">
+
+              </mat-form-field>
+          </p>
+          <div>
+              <br>
+              <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
+              <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+          </div>
+      </form>
+  </mat-step>
+
+  <mat-step label="Step 3">
+      <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+          <ng-template matStepperIcon="done" matStepLabel>Colaboradores</ng-template>
+          <p>
+              <mat-form-field>
+
+                  <mat-label for="nombreColaborador">Nombre colaborador</mat-label>
+                  <input matInput type="text" name="nombreColaborador" #nombreColaborador="ngModel" [(ngModel)]="eventoPojo.nombreColaborador">
+              </mat-form-field>
+          </p>
+
+          <p>
+              <mat-form-field>
+                  <mat-label for="nombreRepresentante">Nombre representante</mat-label>
+                  <input matInput type="text" name="nombreRepresentante" #nombreRepresentante="ngModel" [(ngModel)]="eventoPojo.nombreRepresentante">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="telefonoColaborador">Telefono</mat-label>
+                  <input matInput type="number" name="telefonoColaborador" #telefono="ngModel" [(ngModel)]="eventoPojo.telefonoColaborador">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="correoColaborador">Correo</mat-label>
+                  <input matInput type="email" name="correoColaborador" #correoColaborador="ngModel" [(ngModel)]="eventoPojo.correoColaborador">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="sitioWeb">Sitio web</mat-label>
+                  <input matInput type="text" name="sitioWeb" #sitioWeb="ngModel" [(ngModel)]="eventoPojo.sitioWeb">
+              </mat-form-field>
+          </p>
+
+
+          <label for="logo">Logo</label>
+          <div *ngIf="identity && identity.logo">
+              <img src="{{url + 'image/' + identity.logo}}" class="img-fluid" alt="Responsive image">
+
+          </div>
+          <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="logoUpload($event)">
+          </angular-file-uploader>
+
+          <div>
+              <br>
+              <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
+              <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+          </div>
+      </form>
+  </mat-step>
+
+  <mat-step label="Step 4">
+      <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+          <ng-template matStepperIcon="done" matStepLabel>Jornadas</ng-template>
+          <p>
+              <mat-form-field>
+                  <mat-label for="nombreJornada">Nombre jornada</mat-label>
+                  <input matInput type="text" name="nombreJornada" #nombreJornada="ngModel" [(ngModel)]="eventoPojo.nombreJornada">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="fechaJornada">Fecha jornada</mat-label>
+                  <input matInput type="date" name="fechaJornada" #fechaJornada="ngModel" [(ngModel)]="eventoPojo.fechaJornada">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="horaInicioJornada">Hora inicio</mat-label>
+                  <input matInput type="time" name="horaInicioJornada" #horaInicioJornada="ngModel" [(ngModel)]="eventoPojo.horaInicioJornada">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="horaFinJornada">Hora fin</mat-label>
+                  <input matInput type="time" name="horaFinJornada" #horaFinJornada="ngModel" [(ngModel)]="eventoPojo.horaFinJornada">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="ubicacionJornada">Ubicacion jornada</mat-label>
+                  <input matInput type="text" name="ubicacionJornada" #ubicacionJornada="ngModel" [(ngModel)]="eventoPojo.ubicacionJornada">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="descripcionJornada">Descripción jornada</mat-label>
+                  <input matInput type="text" name="descripcionJornada" #descripcionJornada="ngModel" [(ngModel)]="eventoPojo.descripcionJornada">
+
+              </mat-form-field>
+          </p>
+          <div>
+              <br>
+              <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
+              <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+          </div>
+      </form>
+  </mat-step>
+
+  <mat-step label="Step 5">
+      <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+          <ng-template matStepperIcon="done" matStepLabel>Expositores</ng-template>
+          <p>
+              <mat-form-field>
+                  <mat-label for="nombreExpositor">Nombre expositor</mat-label>
+                  <input matInput type="text" name="nombreExpositor" #nombreExpositor="ngModel" [(ngModel)]="eventoPojo.nombreExpositor">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="apellidoExpositor">Apellido expositor</mat-label>
+                  <input matInput type="text" name="apellidoExpositor" #apellidoExpositor="ngModel" [(ngModel)]="eventoPojo.apellidoExpositor">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="sexo">Sexo</mat-label>
+                  <input matInput type="text" name="sexo" #sexo="ngModel" [(ngModel)]="eventoPojo.sexo">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="correoExpositor">Correo</mat-label>
+                  <input matInput type="email" name="correoExpositor" #correoExpositor="ngModel" [(ngModel)]="eventoPojo.correoExpositor">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="empresa">Empresa</mat-label>
+                  <input matInput type="text" name="empresa" #empresa="ngModel" [(ngModel)]="eventoPojo.empresa">
+              </mat-form-field>
+          </p>
+
+          <label for="foto">Foto</label>
+          <div *ngIf="identity && identity.foto">
+              <img src="{{url + 'image/' + identity.foto}}" class="img-fluid" alt="Responsive image">
+
+          </div>
+          <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="fotoUpload($event)">
+          </angular-file-uploader>
+          <div>
+              <br>
+              <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
+              <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+          </div>
+      </form>
+  </mat-step>
+
+  <mat-step label="Step 6">
+      <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+          <ng-template matStepperIcon="done" matStepLabel>Actividades</ng-template>
+          <p>
+              <mat-form-field>
+                  <mat-label for="nombreActividad">Nombre actividad</mat-label>
+                  <input matInput type="text" name="nombreActividad" #nombreActividad="ngModel" [(ngModel)]="eventoPojo.nombreActividad">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="horaInicioActividad">Hora inicio</mat-label>
+                  <input matInput type="time" name="horaInicioActividad" #horaInicioActividad="ngModel" [(ngModel)]="eventoPojo.horaInicioActividad">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="horaFinActividad">Hora fin</mat-label>
+                  <input matInput type="time" name="horaFinActividad" #horaFinActividad="ngModel" [(ngModel)]="eventoPojo.horaFinActividad">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="ubicacionActividad">Ubicacion actividad</mat-label>
+                  <input matInput type="text" name="ubicacionActividad" #ubicacionActividad="ngModel" [(ngModel)]="eventoPojo.ubicacionActividad">
+              </mat-form-field>
+          </p>
+          <p>
+              <mat-form-field>
+                  <mat-label for="descripcionActividad">Descripción actividad</mat-label>
+                  <input matInput type="text" name="descripcionActividad" #descripcionActividad="ngModel" [(ngModel)]="eventoPojo.descripcionActividad">
+
+              </mat-form-field>
+          </p>
+          <div>
+              <br>
+              <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
+              <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+          </div>
+      </form>
+  </mat-step>
+
+  <mat-step label="Step 7">
+      <ng-template matStepLabel>¡Listo!</ng-template>
+        <h2> Si ya has terminado de llenar los campos </h2>       
+        <h3> Presiona el botón <strong>Agregar</strong> para guardar los datos del nuevo evento </h3>
+      <div>
+          <br>
+          <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button> <br>
+          <br><button type="submit" (click)="guardarEvento(eventoPojoForm)" class="btn btn-success btn-block">Agregar</button>
+      </div>
+  </mat-step>
+</mat-horizontal-stepper>

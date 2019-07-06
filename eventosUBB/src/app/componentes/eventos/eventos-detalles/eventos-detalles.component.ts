@@ -118,4 +118,8 @@ export class EventosDetallesComponent implements OnInit {
 
     }
 
+    editarEvento(id: number){
+      this.router.navigate(['/eventosEditar/' + this.idEventoUsers]);
+    }
+
 }

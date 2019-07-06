@@ -24,10 +24,11 @@ import { EventosDetallesComponent } from '../componentes/eventos/eventos-detalle
 import { ComponentesComponent } from './componentes.component';
 import { EventosEditarComponent } from './eventos/eventos-editar/eventos-editar.component';
 import { EditLoginComponent } from './edit-login/edit-login.component';
+import { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/eventos-mis-eventos.component';
+import { EventosCrearComponent } from './eventos/eventos-crear/eventos-crear.component';
 
 //Rutas
 import { COMPONENTES_ROUTES } from './componentes.routes';
-import { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/eventos-mis-eventos.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/evento
         EventosEditarComponent,
         EditLoginComponent,
         InicioComponent,
-        EventosMisEventosComponent
+        EventosMisEventosComponent,
+        EventosCrearComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [

@@ -34,4 +34,14 @@ export class EventoPojoService {
     return this.http.get(this.url+'eventoPojo/' + id, {headers: headers});
   }
 
+  updateEventoPojo(token, eventoPojo, id): Observable<any>{
+    let json = JSON.stringify(eventoPojo);
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization',token);
+
+    return this.http.put(this.url+'eventoPojo/' + id, params, {headers: headers});
+  }
+
 }
