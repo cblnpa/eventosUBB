@@ -10,11 +10,14 @@ import { EditLoginComponent } from '../componentes/edit-login/edit-login.compone
 import { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/eventos-mis-eventos.component';
 import { EventosCrearComponent } from './eventos/eventos-crear/eventos-crear.component';
 
+import { LoginGuard } from '../servicios/servicio.index';
+
 const componentesRoutes: Routes = [
     { path: '', component: LoginComponent, data: { titulo: 'Iniciar sesión'}},
     {
         path: '',
         component: ComponentesComponent,
+        canActivate: [ LoginGuard ],
         children: [
             { path: 'inicio', component: InicioComponent , data: { titulo: 'Inicio' } },
             { path: 'eventoDetalle/:id', component: EventosDetallesComponent, data: { titulo: 'Detalles evento' } },

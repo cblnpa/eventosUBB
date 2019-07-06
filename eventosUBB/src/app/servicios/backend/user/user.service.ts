@@ -16,7 +16,10 @@ export class UserService {
   public token;
 
   constructor( private http: HttpClient, private router: Router ) { 
+    
+    this.cargarStorage();
     this.url = global.url;
+    
   }
 
   register(users): Observable<any>{
@@ -88,5 +91,19 @@ export class UserService {
 
     this.router.navigate(['/login']);
 
+  }
+
+  statusLogin(){
+    return ( this.token.length > 5 ) ? true: false;
+  }
+
+  cargarStorage(){
+    if (localStorage.getItem('token')){
+      this.token =  localStorage.getItem('token');
+      this.identity = JSON.parse(localStorage.getItem('users'));
+    } else {
+      this.token = '';
+      this.identity = null;
+    }
   }
 }
