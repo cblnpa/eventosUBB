@@ -10,7 +10,7 @@ import { EditLoginComponent } from '../componentes/edit-login/edit-login.compone
 import { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/eventos-mis-eventos.component';
 import { EventosCrearComponent } from './eventos/eventos-crear/eventos-crear.component';
 
-import { LoginGuard } from '../servicios/servicio.index';
+import { LoginGuard } from '../servicios/guards/login.guard';
 
 const componentesRoutes: Routes = [
     { path: '', component: LoginComponent, data: { titulo: 'Iniciar sesión'}},

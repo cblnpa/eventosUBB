@@ -8,8 +8,7 @@ import {
   UserService,
   EventoPojoService,
   CiudadService,
-  EventoUsersService,
-  LoginGuard
+  EventoUsersService
  } from './servicio.index';
 
 @NgModule({
@@ -23,8 +22,7 @@ import {
     UserService,
     EventoPojoService,
     CiudadService,
-    EventoUsersService,
-    LoginGuard
+    EventoUsersService
   ],
   declarations: [],
   
