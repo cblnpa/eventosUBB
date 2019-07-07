@@ -14,12 +14,17 @@ export class SidebarComponent implements OnInit {
   public token;
   public url;
 
+  public idPerfil; //perfil del usuario que está activo
+
   constructor( public _sidebar: SidebarService, private userService: UserService ) { 
     this.identity = this.userService.getIdentity();
     this.url = global.url;
   }
 
   ngOnInit() {
+
+    this.idPerfil = this.identity.perfil_idPerfil;
+
   }
 
 }

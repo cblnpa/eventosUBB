@@ -34,11 +34,12 @@ export class EventosMisEventosComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.getMisEventos();
     this.getMisEventosAdmin();
 
     this.perfil = this.identity.perfil_idPerfil;
-    console.log(this.perfil);
+
   }
 
   getMisEventos(){
@@ -65,36 +66,5 @@ export class EventosMisEventosComponent implements OnInit {
       }
     )
   }
-
-  /*
-  getEventosDetalle(){
-    this.route.params.subscribe( params => {
-
-      let idEvento = +params['id'];
-      this.idEventoUsers = idEvento;
-      
-      this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
-
-        response => {
-          if(response.status == 'success'){
-            this.jornada = response.Jornada;
-            this.actividad = response.actividad;
-            this.expositor = response.expositor;
-            this.colaborador = response.colaborador;
-            this.evento = response.evento;
-            this.material = response.material;
-
-          } else {
-            this.router.navigate(['/inicio']);
-          }
-        },
-        error => {
-          console.log(error);
-        }   
-      )
-    })
-  }
-
-  */
 
 }
