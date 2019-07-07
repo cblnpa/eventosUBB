@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
 
     this.getDataRoute()
     .subscribe( data => {
-      console.log(data);
       this.titulo = data.titulo;
       this.title.setTitle('EventosUBB - ' + this.titulo);
     });
@@ -96,11 +95,7 @@ export class LoginComponent implements OnInit {
           // Objeto usuario identificado 
           this.userService.signUp(this.user, true).subscribe(
             response => {
-              console.log(response);
               this.identity = response; 
-
-              console.log(this.token);
-              console.log(this.identity);
 
               localStorage.setItem('token',this.token);
               localStorage.setItem('identity', JSON.stringify(this.identity));

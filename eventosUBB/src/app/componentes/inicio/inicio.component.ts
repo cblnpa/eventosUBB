@@ -31,7 +31,6 @@ export class InicioComponent implements OnInit {
       response => {
         if(response.status == 'success'){
           this.eventos = response.eventos;
-          console.log(this.eventos);
         }
       },
       error => {
