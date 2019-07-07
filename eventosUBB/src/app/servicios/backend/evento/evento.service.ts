@@ -16,6 +16,7 @@ export class EventoService {
     this.url = global.url; 
   }
 
+  // Obtener el ID del evento 
   getIdEvento(evento): Observable<any>{
     let json = JSON.stringify(evento);
     let params = 'json='+json;
@@ -23,6 +24,7 @@ export class EventoService {
     return this.http.get(this.url+'evento');
   }
 
+  // Guardar un evento
   guardarEvento(evento): Observable<any>{
     let json = JSON.stringify(evento); //convierte el evento que se pasa por parámetro a un tipo JSON
     let params = 'json='+json; //se definene los parametros que se mandan al api
@@ -36,6 +38,7 @@ export class EventoService {
     return this.http.post(this.url+'evento', params, {headers: headers});
   }
 
+  // Obtener todos los eventos -> utilizado en el inicio para listar todos los eventos existentes
   getEventos():Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.url+'evento', {headers: headers});

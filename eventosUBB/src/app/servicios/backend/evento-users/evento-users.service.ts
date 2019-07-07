@@ -14,14 +14,14 @@ export class EventoUsersService {
     this.url = global.url; 
   }
 
-  // obtener eventos
+  // Obtener eventos de dicho usuario con su id
   getEventoUsersById(id): Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     
     return this.http.get(this.url+'evento_users/' + id, {headers: headers});
   }
 
-  // obtener mis eventos
+  // Obtener mis eventos usuario-> participante (eventos en los que se participa)
   getMisEventos(token): Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     .set('Authorization',token);
@@ -29,8 +29,17 @@ export class EventoUsersService {
     return this.http.get(this.url+'misEventos', {headers: headers});
   }
 
-   guardarEventoUser(token,eventoUsers): Observable<any>{
-    let json = JSON.stringify(eventoUsers); //convierte el evento que se pasa por parámetro a un tipo JSON
+  // Obtener mis eventos usuario-> administrador (eventos que administra)
+  getMisEventosAdmin(token): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization',token);
+    
+    return this.http.get(this.url+'misEventosAdmin', {headers: headers});
+  }
+
+  // Crear una tupla en la tabla evento_users -> también lo utiliza el ParticiparEvento para guardar el participante 
+  guardarEventoUser(token,eventoUsers): Observable<any>{
+    let json = JSON.stringify(eventoUsers); 
     let params = 'json='+json;
 
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
@@ -38,28 +47,5 @@ export class EventoUsersService {
     
     return this.http.post(this.url+'evento_users', params, {headers: headers});
   }
-
-
-  // guardarEventoUsers(token,eventoUsers): Observable<any>{
-  //   let json = JSON.stringify(eventoUsers); 
-  //   let params = 'json='+json;
-    
-  //   let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-  //   .set('Authorization',token);
-    
-  //   return this.http.put(this.url+'evento_users', params, {headers: headers});
-  // }
-
-
-  participarEvento(token, eventoUsers, id): Observable<any>{
-    let json = JSON.stringify(eventoUsers);
-    let params = 'json='+json;
-
-    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    .set('Authorization',token);
-
-    return this.http.put(this.url+'evento_users/' + id, params, {headers: headers});
-  }
-
 
 }
