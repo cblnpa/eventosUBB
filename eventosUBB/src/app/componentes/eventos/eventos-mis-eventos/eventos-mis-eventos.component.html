@@ -1,41 +1,122 @@
 <body class="fix-header card-no-border fix-sidebar">
   <div class="row el-element-overlay">
-      <div class="col-md-12">
-    <h2> A continuación se listan los eventos asociados a su usuario</h2>
-
     <div class="col-md-12">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Buscar un evento" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2"> <i class="mdi mdi-search-web"></i> </button>
+
+      <div class="col-md-12 mt-4 mb-4">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Buscar un evento" aria-label="Recipient's username"
+            aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-info" type="button" id="button-addon2"> <i class="fa fa-search"></i>
+            </button>
+          </div>
         </div>
       </div>
-    </div> <br><hr>
-    
-    <table class="table color-table info-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre evento</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let e of misEventos | paginate: { itemsPerPage: 10,
-        currentPage: p} ; let i = index ">
-        <tr>
-          <td> {{i+1}} </td>
-          <td> {{e.evento.nombreEvento}} </td> <!-- evento.nombreEvento -->
-          <td> <i class="mdi mdi-pencil"></i> </td>
-        </tr>
-      </tbody>
-    </table>
 
-    <div class="col-md-12">
-        <ul class="pagination justify-content-center">
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </ul>
-    </div>
+      <div class="card">
+        <div class="card-body">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item"> 
+              <a class="nav-link active" data-toggle="tab" href="#eventos-participante" role="tab">
+                <span class="hidden-sm-up"></span> 
+                <span class="hidden-xs-down">Mis eventos</span>
+              </a> 
+            </li>
+            <li class="nav-item"> 
+              <a class="nav-link" data-toggle="tab" href="#eventos-admin" role="tab">
+                <span class="hidden-sm-up"></span> 
+                <span class="hidden-xs-down">Administrar eventos</span></a>
+            </li>
+          </ul>
+
+          <div class="tab-content tabcontent-border">
+            <div class="tab-pane active" id="eventos-participante" role="tabpanel">
+              <div class="p-20">
+                <h3>Eventos en los que estoy participando</h3>
+
+                <table class="table color-table info-table mt-3">
+                  <thead>
+                    <tr>
+                      <th class="text-center"> # </th>
+                      <th>Nombre del evento</th>
+                      <th class="text-center">Ir al evento</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center"></td>
+                      <td></td>
+                      <td class="text-center"></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
+              <!-- pagination -->
+              <ul class="pagination justify-content-center">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </ul>
+
+            </div>
+
+            <div class="tab-pane  p-20" id="eventos-admin" role="tabpanel">
+              <h3> Eventos que administro </h3>
+
+              <table class="table color-table info-table mt-3">
+                  <thead>
+                    <tr>
+                      <th class="text-center"> # </th>
+                      <th>Nombre del evento</th>
+                      <th class="text-center">Ir al evento</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center"></td>
+                      <td></td>
+                      <td class="text-center"></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
+              <!-- pagination -->
+              <ul class="pagination justify-content-center">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </ul>
+
+            </div>
+
+          </div>
+        </div>
 
       </div>
+
+      <!-- <table class="table color-table info-table">
+        <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th>Nombre del evento</th>
+            <th class="text-center">Ver evento</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let e of misEventos | paginate: { itemsPerPage: 10,
+        currentPage: p} ; let i = index ">
+          <tr>
+            <td class="text-center" > {{i+1}} </td>
+            <td> {{e.evento.nombreEvento}} </td> 
+            <td class="text-center"> <button class="btn btn-primary" type="button"> <i class="mdi mdi-eye"></i> </button> </td>
+          </tr>
+        </tbody>
+      </table> -->
+<!-- 
+      <div class="col-md-12">
+        <ul class="pagination justify-content-center">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </ul>
+      </div> -->
+
+    </div>
   </div>
 </body>
