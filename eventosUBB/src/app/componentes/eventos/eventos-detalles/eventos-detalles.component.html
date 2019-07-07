@@ -17,8 +17,8 @@
         <!-- agregar ngIf a este botón -->
         <button class="btn btn-block btn-outline-info" (click)="editarEvento(evento.idEvento)" ><i class="mdi mdi-pencil"></i> Editar evento </button><br>
         
-        <button class="btn btn-block btn-outline-info" (click)="participarEvento()" *ngIf="evento.capacidad > index" ><i class="mdi mdi-plus"></i>Participar</button><br>
-        <button class="btn btn-block btn-outline-danger" *ngIf="evento.capacidad == index" disabled><i class="mdi mdi-close-circle"></i>Sin cupos disponibles</button><br>
+        <button class="btn btn-block btn-outline-info" (click)="participarEvento()" *ngIf="evento.capacidad+1 > index" ><i class="mdi mdi-plus"></i>Participar</button><br>
+        <button class="btn btn-block btn-outline-danger" *ngIf="evento.capacidad+1 == index" disabled><i class="mdi mdi-close-circle"></i>Sin cupos disponibles</button><br>
 
         <!-- información del evento -->
         <div class="card">
