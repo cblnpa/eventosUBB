@@ -16,13 +16,15 @@
       <div class="card">
         <div class="card-body">
           <ul class="nav nav-tabs" role="tablist">
+
             <li class="nav-item"> 
               <a class="nav-link active" data-toggle="tab" href="#eventos-participante" role="tab">
                 <span class="hidden-sm-up"></span> 
                 <span class="hidden-xs-down">Mis eventos</span>
               </a> 
             </li>
-            <li class="nav-item"> 
+
+            <li class="nav-item" *ngIf="perfil == 1" > 
               <a class="nav-link" data-toggle="tab" href="#eventos-admin" role="tab">
                 <span class="hidden-sm-up"></span> 
                 <span class="hidden-xs-down">Administrar eventos</span></a>
@@ -42,10 +44,11 @@
                       <th class="text-center">Ir al evento</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngFor="let e of misEventos | paginate: { itemsPerPage: 10,
+                    currentPage: p} ; let i = index">
                     <tr>
-                      <td class="text-center"></td>
-                      <td></td>
+                      <td class="text-center"> {{i+1}} </td>
+                      <td> {{e.evento.nombreEvento}} </td>
                       <td class="text-center"></td>
                     </tr>
                   </tbody>
@@ -71,10 +74,11 @@
                       <th class="text-center">Ir al evento</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngFor="let eadmin of misEventosAdmin | paginate: { itemsPerPage: 10,
+                    currentPage: p} ; let i = index">
                     <tr>
-                      <td class="text-center"></td>
-                      <td></td>
+                      <td class="text-center"> {{i+1}} </td>
+                      <td> {{eadmin.evento.nombreEvento}} </td>
                       <td class="text-center"></td>
                     </tr>
                   </tbody>

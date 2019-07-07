@@ -3,8 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global';
 
 import { EventoUsersService, UserService, EventoPojoService } from '../../../servicios/servicio.index';
-import { evento, evento_users, users } from '../../../model/model.index';
-
 
 @Component({
   selector: 'app-eventos-mis-eventos',
@@ -21,7 +19,10 @@ export class EventosMisEventosComponent implements OnInit {
 
   public idEvento: number;
 
-  public misEventos: evento;
+  public misEventos; // guarda los eventos en los que participa el usuario
+  public misEventosAdmin; //  guarda los eventos que administra el usuario admin
+
+  public perfil; // id del perfil del usuario activo
 
   constructor( private eventoUsersService: EventoUsersService,  private userService: UserService, 
     private eventoPojoService: EventoPojoService, private route: ActivatedRoute, private router: Router ) {
@@ -34,6 +35,10 @@ export class EventosMisEventosComponent implements OnInit {
 
   ngOnInit() {
     this.getMisEventos();
+    this.getMisEventosAdmin();
+
+    this.perfil = this.identity.perfil_idPerfil;
+    console.log(this.perfil);
   }
 
   getMisEventos(){
@@ -47,7 +52,18 @@ export class EventosMisEventosComponent implements OnInit {
       }
     )
 
-    
+  }
+
+  getMisEventosAdmin(){
+
+    this.eventoUsersService.getMisEventosAdmin(this.token).subscribe(
+      response => {
+        this.misEventosAdmin = response.eventos;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   /*
