@@ -17,7 +17,7 @@
         <!-- agregar ngIf a este botón -->
         <button class="btn btn-block btn-outline-info" (click)="editarEvento(evento.idEvento)" ><i class="mdi mdi-pencil"></i> Editar evento </button><br>
         
-        <button class="btn btn-block btn-outline-info" (click)="participarEvento()" *ngIf="evento.capacidad >index" ><i class="mdi mdi-plus"></i>Participar</button><br>
+        <button class="btn btn-block btn-outline-info" (click)="participarEvento()" *ngIf="evento.capacidad > index" ><i class="mdi mdi-plus"></i>Participar</button><br>
         <button class="btn btn-block btn-outline-danger" *ngIf="evento.capacidad == index" disabled><i class="mdi mdi-close-circle"></i>Sin cupos disponibles</button><br>
 
         <!-- información del evento -->
@@ -261,7 +261,7 @@
                                             </div>
                                         </div>
                                         <div class="el-card-content">
-                                            <h3 class="box-tittle"> {{colaborador.nombreRepresentate}} </h3> <!-- expositor.nombre expositor.apellido -->
+                                            <h3 class="box-tittle"> {{colaborador.nombreRepresentante}} </h3> <!-- expositor.nombre expositor.apellido -->
                                             <h6><i class="fa fa-envelope"></i> {{colaborador.correoColaborador}}  </h6> <!-- expositor.correo -->
                                             <br>
                                         </div>
@@ -364,14 +364,12 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let persona of participantes; let i = index">
-                                <td> {{i}} </td>
+                                <td> {{i+1}} </td>
                                 <td> {{persona.users.nombreUsuario + ' ' + persona.users.apellidoUsuario}} </td>
-                                <th><i class="mdi mdi-delete"></i></th>
                             </tr>
                         </tbody>
 
