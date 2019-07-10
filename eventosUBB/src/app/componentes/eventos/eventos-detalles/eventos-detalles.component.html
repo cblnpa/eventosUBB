@@ -2,7 +2,8 @@
     <!-- Column -->
     <div class="col-lg-4 col-xlg-3 col-md-5">
         <div class="card">
-            <img class="card-img" src="../../../assets/images/socialbg.jpg" alt="Card image">
+            <img *ngIf="!evento.imagen" src="../../../assets/images/socialbg.jpg" alt="Card image" />
+            <img *ngIf="evento.imagen" src="{{url + 'image/' + evento.imagen}}" alt="user" />
             <!-- evento.imagen -->
             <div class="card-img-overlay card-inverse social-profile d-flex">
                 <div class="align-self-center">
@@ -15,9 +16,10 @@
         </div>
     
         <!-- agregar ngIf a este botón -->
-        <button class="btn btn-block btn-outline-info" (click)="editarEvento(evento.idEvento)" ><i class="mdi mdi-pencil"></i> Editar evento </button><br>
+        <button class="btn btn-block btn-outline-info" *ngIf="idPerfil == 1" (click)="editarEvento(evento.idEvento)" ><i class="mdi mdi-pencil"></i> Editar evento </button><br>
         
         <button class="btn btn-block btn-outline-info" (click)="participarEvento()" *ngIf="evento.capacidad+1 > index" ><i class="mdi mdi-plus"></i>Participar</button><br>
+
         <button class="btn btn-block btn-outline-danger" *ngIf="evento.capacidad+1 == index" disabled><i class="mdi mdi-close-circle"></i>Sin cupos disponibles</button><br>
 
         <!-- información del evento -->
@@ -54,9 +56,6 @@
                 </li>
                 <li class="nav-item"> 
                     <a class="nav-link" data-toggle="tab" href="#colaboradores" role="tab">Colaboradores</a> 
-                </li>
-                <li class="nav-item"> 
-                    <a class="nav-link" data-toggle="tab" href="#material" role="tab">Material</a>
                 </li>
                 <li class="nav-item"> 
                     <a class="nav-link" data-toggle="tab" href="#participantes" role="tab">Participantes</a> 
@@ -202,7 +201,7 @@
 
                 <!-- expositores tab -->
                 <div class="tab-pane" id="expositores" role="tabpanel">
-                    <h2>Expositores</h2>
+                    <h2 class="mt-3 ml-3 mb-3">Expositores</h2>
                     <br>
                     <div class="row el-element-overlay">
                         <div class="col-lg-4 col-xlg-3 col-md-3"> <!-- agregar a este div un ngFor por cada expositor -->
@@ -210,22 +209,29 @@
                                 <div class="el-card-item">
                                     <div class="el-card-avatar el-overlay-1">
                                         <!-- expositor.foto -->
-                                        <img src="../../../assets/images/user.png" alt="user">
+                                        <img *ngIf="!expositor.foto" src="../../../assets/images/user.png" alt="Card image" />
+                                        <img *ngIf="expositor.foto" src="{{url + 'image/' + expositor.foto}}" alt="user" />
+
                                         <div class="el-overlay">
                                             <!-- overlay son efectos al pasar sobre la foto -->
                                             <ul class="el-info">
-                                                <li><a class="btn default btn-outline image-popup-vertical-fit"
-                                                        href="../../../assets/images/user.png"><i
-                                                            class="icon-magnifier"></i></a></li>
+                                                <li>
+                                                    <a *ngIf="!expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
+                                                        href="../../../assets/images/user.png">
+                                                        <i class="icon-magnifier"></i>
+                                                    </a>
+                                                    <a *ngIf="expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
+                                                        href="{{url + 'image/' + expositor.foto}}">
+                                                        <i class="icon-magnifier"></i>
+                                                    </a>
+                                                </li>
                                                 <!-- este li contiene el link -->
                                                 <!-- expositor.empresa -->
-                                                <li><a class="btn default btn-outline" target="_blank" href="http://www.nixlabs.cl/"><i
-                                                            class="icon-link"></i></a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="el-card-content">
+                                        <h3 class="box-tittle"> {{expositor.empresa}} </h3>
                                         <h3 class="box-tittle"> {{expositor.nombreExpositor + ' ' + expositor.apellidoExpositor}} </h3> <!-- expositor.nombre expositor.apellido -->
                                         <h6><i class="fa fa-envelope"></i> {{expositor.correoExpositor}}  </h6> <!-- expositor.correo -->
                                         <br>
@@ -237,127 +243,47 @@
                 </div>
 
                 <div class="tab-pane" id="colaboradores" role="tabpanel">
-                    <h2>Colaboradores</h2>
+                    <h2 class="mt-3 ml-3 mb-3">Colaboradores</h2>
                     <br>
                     <div class="row el-element-overlay">
                             <div class="col-lg-4 col-xlg-3 col-md-3"> <!-- agregar a este div un ngFor por cada expositor -->
                                 <div class="card">
                                     <div class="el-card-item">
                                         <div class="el-card-avatar el-overlay-1">
-                                            <!-- expositor.foto -->
-                                            <img src="../../../assets/images/user.png" alt="user">
+                                            <!-- foto colaborador -->
+                                            <img *ngIf="!colaborador.logo" src="../../../assets/images/user.png" alt="Card image" />
+                                            <img *ngIf="colaborador.logo" src="{{url + 'image/' + colaborador.logo}}" alt="user" />
+    
                                             <div class="el-overlay">
                                                 <!-- overlay son efectos al pasar sobre la foto -->
                                                 <ul class="el-info">
-                                                    <li><a class="btn default btn-outline image-popup-vertical-fit"
-                                                            href="../../../assets/images/user.png"><i
-                                                                class="icon-magnifier"></i></a></li>
+                                                    <li>
+                                                        <a *ngIf="!colaborador.logo" class="btn default btn-outline image-popup-vertical-fit"
+                                                            href="../../../assets/images/user.png">
+                                                            <i class="icon-magnifier"></i>
+                                                        </a>
+                                                        <a *ngIf="colaborador.logo" class="btn default btn-outline image-popup-vertical-fit"
+                                                            href="{{url + 'image/' + colaborador.logo}}">
+                                                            <i class="icon-magnifier"></i>
+                                                        </a>
+                                                    </li>
                                                     <!-- este li contiene el link -->
                                                     <!-- expositor.empresa -->
-                                                    <li><a class="btn default btn-outline" target="_blank" href="http://www.nixlabs.cl/"><i
-                                                                class="icon-link"></i></a>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="el-card-content">
-                                            <h3 class="box-tittle"> {{colaborador.nombreRepresentante}} </h3> <!-- expositor.nombre expositor.apellido -->
-                                            <h6><i class="fa fa-envelope"></i> {{colaborador.correoColaborador}}  </h6> <!-- expositor.correo -->
+                                            <h2 class="box-tittle"><strong> {{ colaborador.nombreColaborador}} </strong> </h2> <!-- colaborador -->
+                                            <h3 class="box-tittle"> {{ colaborador.nombreRepresentante }} </h3> <!-- colaborador -->
+                                            <h6><i class="fa fa-envelope"></i> {{colaborador.correoColaborador}} </h6> <!-- expositor.correo -->
                                             <br>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                    <h2>Auspiciadores</h2>
-                    <br>
-                    <div class="row el-element-overlay">
-                            <div class="col-lg-4 col-xlg-3 col-md-3"> <!-- agregar a este div un ngFor por cada expositor -->
-                                <div class="card">
-                                    <div class="el-card-item">
-                                        <div class="el-card-avatar el-overlay-1">
-                                            <!-- expositor.foto -->
-                                            <img src="../../../assets/images/user.png" alt="user">
-                                            <div class="el-overlay">
-                                                <!-- overlay son efectos al pasar sobre la foto -->
-                                                <ul class="el-info">
-                                                    <li><a class="btn default btn-outline image-popup-vertical-fit"
-                                                            href="../../../assets/images/user.png"><i
-                                                                class="icon-magnifier"></i></a></li>
-                                                    <!-- este li contiene el link -->
-                                                    <!-- expositor.empresa -->
-                                                    <li><a class="btn default btn-outline" target="_blank" href="http://www.nixlabs.cl/"><i
-                                                                class="icon-link"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="el-card-content">
-                                            <h3 class="box-tittle">  </h3> <!-- colaborador.nombre expositor.apellido -->
-                                            <h6><i class="fa fa-envelope"></i>  </h6> <!-- colaborador.correo -->
-                                            <br>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    <h2>Patrocinadores</h2>
-                    <br>
-                    <div class="row el-element-overlay">
-                            <div class="col-lg-4 col-xlg-3 col-md-3"> <!-- agregar a este div un ngFor por cada expositor -->
-                                <div class="card">
-                                    <div class="el-card-item">
-                                        <div class="el-card-avatar el-overlay-1">
-                                            <!-- expositor.foto -->
-                                            <img src="../../../assets/images/user.png" alt="user">
-                                            <div class="el-overlay">
-                                                <!-- overlay son efectos al pasar sobre la foto -->
-                                                <ul class="el-info">
-                                                    <li><a class="btn default btn-outline image-popup-vertical-fit"
-                                                            href="../../../assets/images/user.png"><i
-                                                                class="icon-magnifier"></i></a></li>
-                                                    <!-- este li contiene el link -->
-                                                    <!-- expositor.empresa -->
-                                                    <li><a class="btn default btn-outline" target="_blank" href="http://www.nixlabs.cl/"><i
-                                                                class="icon-link"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="el-card-content">
-                                            <h3 class="box-tittle"> </h3> <!-- colaborador.nombre expositor.apellido -->
-                                            <h6><i class="fa fa-envelope"></i>  </h6> <!-- colaborador.correo -->
-                                            <br>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="tab-pane" id="material" role="tabpanel">
-                    <div class="card-body">
-                        <table class="table color-table inverse-table full-inverse-table full-color-table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nombre material</th>
-                                    <th>Fecha de subida</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td> {{material.nombreMaterial}} </td>
-                                    <td> {{material.fechaCreacion}}  </td>
-                                    <td><i class="mdi mdi-download"></i> <a>Descargar</a> </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
+
                 <div class="tab-pane" id="participantes" role="tabpanel">
                     <table class="table color-table inverse-table full-inverse-table full-color-table table-hover">
                         <thead>
@@ -368,7 +294,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let persona of participantes; let i = index">
-                                <td> {{i+1}} </td>
+                                <td> {{i}} </td>
                                 <td> {{persona.users.nombreUsuario + ' ' + persona.users.apellidoUsuario}} </td>
                             </tr>
                         </tbody>

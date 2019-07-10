@@ -39,6 +39,10 @@ export class EventosDetallesComponent implements OnInit {
   public jornada: jornada;
   public expositor: expositor;
 
+  public idPerfil; //perfil del usuario que está activo
+
+  public inscrito: boolean; //para ocultar el botón de Participar si es que ya está participando
+
   constructor( private eventoPojoService: EventoPojoService, private eventoUsersService: EventoUsersService,
     private userService: UserService, private route: ActivatedRoute, private router: Router ) { 
 
@@ -50,10 +54,8 @@ export class EventosDetallesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEventosDetalle();
-    console.log('ng on init !!');
-    console.log(this.idEventoUsers);
-    console.log(this.identity.sub);
     this.getEventoUsers();
+    this.idPerfil = this.identity.perfil_idPerfil; // para ocultar botones
 
   }
   
@@ -112,8 +114,19 @@ export class EventosDetallesComponent implements OnInit {
 
     this.eventoUsersService.guardarEventoUser(this.token, this.eventoUsers).subscribe(
       response => {
-        console.log('es response');
-        console.log(response);
+        if( response.status == 'success'){
+          Swal.fire({
+            type: 'success',
+            title: '¡Te has inscrito correctamente en este evento!'
+          })
+          this.inscrito = true;
+        } else {
+          Swal.fire({
+            type: 'warning',
+            title: '¡Ya estás inscrito en este evento!'
+          })
+        }
+        
       },
       error => {
         console.log(<any>error);

@@ -3,14 +3,7 @@
     <div class="col-md-12">
 
       <div class="col-md-12 mt-4 mb-4">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Buscar un evento" aria-label="Recipient's username"
-            aria-describedby="button-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-outline-info" type="button" id="button-addon2"> <i class="fa fa-search"></i>
-            </button>
-          </div>
-        </div>
+
       </div>
 
       <div class="card">
@@ -41,7 +34,6 @@
                     <tr>
                       <th class="text-center"> # </th>
                       <th>Nombre del evento</th>
-                      <th class="text-center">Ir al evento</th>
                     </tr>
                   </thead>
                   <tbody *ngFor="let e of misEventos | paginate: { itemsPerPage: 10,
@@ -49,7 +41,6 @@
                     <tr>
                       <td class="text-center"> {{i+1}} </td>
                       <td> {{e.evento.nombreEvento}} </td>
-                      <td class="text-center"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -71,7 +62,6 @@
                     <tr>
                       <th class="text-center"> # </th>
                       <th>Nombre del evento</th>
-                      <th class="text-center">Ir al evento</th>
                     </tr>
                   </thead>
                   <tbody *ngFor="let eadmin of misEventosAdmin | paginate: { itemsPerPage: 10,
@@ -79,7 +69,6 @@
                     <tr>
                       <td class="text-center"> {{i+1}} </td>
                       <td> {{eadmin.evento.nombreEvento}} </td>
-                      <td class="text-center"></td>
                     </tr>
                   </tbody>
                 </table>

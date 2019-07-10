@@ -26,10 +26,8 @@ export class EventosEditarComponent implements OnInit {
   public actividad: actividad;
   public colaborador: colaborador;
   public expositor: expositor;
-  public material: material; 
   
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
@@ -57,7 +55,10 @@ export class EventosEditarComponent implements OnInit {
      hideProgressBar: false,
      hideResetBtn: true,
      hideSelectBtn: false,
-     attachPinText: 'sube avatar'
+     replaceTexts: {
+      attachPinBtn: 'Seleccionar archivo',
+      afterUploadMsg_success: 'Archivo seleccionado exitosamente'
+    }
   };
 
   constructor( private _formBuilder: FormBuilder, private userService: UserService,
@@ -78,10 +79,6 @@ export class EventosEditarComponent implements OnInit {
 
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
-    });
-
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
     });
 
     this.thirdFormGroup = this._formBuilder.group({
@@ -130,7 +127,6 @@ export class EventosEditarComponent implements OnInit {
           this.colaborador = response.colaborador;
           this.eventos = response.evento; 
           this.expositor = response.expositor;
-          this.material = response.material;
 
           //mostrar los datos del objeto EventoPojo que se consulta
           this.eventoPojo = new eventoPojo (
@@ -143,8 +139,8 @@ export class EventosEditarComponent implements OnInit {
             this.eventos.nombreEventoInterno,
             this.eventos.ciudad_idCiudad,
 
-            this.material.nombreMaterial,
-            this.material.archivo,
+            this.eventoPojo.nombreMaterial,
+            this.eventoPojo.archivo,
 
             this.colaborador.nombreColaborador,
             this.colaborador.nombreRepresentante,
@@ -220,10 +216,6 @@ export class EventosEditarComponent implements OnInit {
 
           if(response.changes.eventos.ciudad){
             this.eventoPojo.ciudad_idCiudad = response.changes.eventos.ciudad;
-          }
-
-          if(response.changes.material.nombreMaterial){
-            this.eventoPojo.nombreMaterial = response.changes.material.nombreMaterial;
           }
 
           if(response.changes.material.archivo){

@@ -110,18 +110,17 @@ export class LoginComponent implements OnInit {
           );
         } else {
           this.status = 'error';
+            Swal.fire({
+              type: 'error',
+              title: 'Datos incorrectos',
+              text: 'ingrese su email y contraseña correctamente',
+            })
+        
         }
-      },
-      error => {
-        console.log(<any>error);
-        Swal.fire({
-          type: 'error',
-          title: 'Datos incorrectos',
-          text: 'ingrese su email y contraseña correctamente',
-        })
       }
-
+  
     );
+  
   }
 
   // Iniciar sesión con google

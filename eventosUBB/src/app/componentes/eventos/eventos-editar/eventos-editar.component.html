@@ -69,31 +69,6 @@
 
     </mat-step>
 
-    <mat-step label="Step 2">
-        <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
-            <ng-template matStepperIcon="done" matStepLabel>Material</ng-template>
-            <p>
-                <mat-form-field>
-
-                    <mat-label for="nombreMaterial">Nombre material</mat-label>
-                    <input matInput type="text" name="nombreMaterial" #nombreMaterial="ngModel" [(ngModel)]="eventoPojo.nombreMaterial">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="archivo">Archivo</mat-label>
-                    <input matInput type="text" name="archivo" #archivo="ngModel" [(ngModel)]="eventoPojo.archivo">
-
-                </mat-form-field>
-            </p>
-            <div>
-                <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
-            </div>
-        </form>
-    </mat-step>
-
     <mat-step label="Step 3">
         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
             <ng-template matStepperIcon="done" matStepLabel>Colaboradores</ng-template>
@@ -288,11 +263,12 @@
 
     <mat-step label="Step 7">
         <ng-template matStepLabel>¡Listo!</ng-template>
-        Ya hemos terminado de registrar todos los datos que necesitas para tu evento, ahora solo falta guardar los datos.
+        <h3> Si has terminado de editar todos los datos necesarios para tu evento, presiona el botón de color verde para guardar los cambios </h3>      
         <div>
             <br>
             <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-            <button type="submit" (click)="guardarEvento(eventoPojoForm)" class="btn btn-success">Guardar</button>
+            <br><br>
+            <button type="submit" (click)="guardarEvento(eventoPojoForm)" class="btn btn-success btn-block">Guardar cambios</button>
         </div>
     </mat-step>
 </mat-horizontal-stepper>
