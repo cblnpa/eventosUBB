@@ -218,10 +218,6 @@ export class EventosEditarComponent implements OnInit {
             this.eventoPojo.ciudad_idCiudad = response.changes.eventos.ciudad;
           }
 
-          if(response.changes.material.archivo){
-            this.eventoPojo.archivo = response.changes.eventos.archivo;
-          }
-
           if(response.changes.colaborador.nombreColaborador){
             this.eventoPojo.nombreColaborador = response.changes.colaborador.nombreColaborador;
           }

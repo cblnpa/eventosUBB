@@ -48,4 +48,13 @@ export class EventoUsersService {
     return this.http.post(this.url+'evento_users', params, {headers: headers});
   }
 
+  // Eliminar un evento 
+  deleteEvento(token, id){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization',token);
+
+    return this.http.delete(this.url+'evento_users/'+id, {headers: headers});
+
+  }
+
 }

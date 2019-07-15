@@ -161,4 +161,26 @@ export class EventosDetallesComponent implements OnInit {
 
     }
 
+    // Función para eliminar el evento 
+    eliminarEvento(id){
+
+      if(this.idEsteEvento == this.identity.sub){
+        this.eventoUsersService.deleteEvento(this.token,id).subscribe(
+          response => {
+            console.log("has eliminado un evento");
+            this.router.navigate(['/inicio']);
+          },
+          error => {
+            console.log(<any>error);
+          }
+        )
+      } else {
+        Swal.fire({
+          type: 'warning',
+          title: '¡Este evento no es tuyo!'
+        })
+      }
+      
+    }
+
 }
