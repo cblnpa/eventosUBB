@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { global } from '../../../servicios/global';
 
-import { EventoPojoService, EventoUsersService, UserService } from '../../../servicios/servicio.index';
+import { EventoPojoService, EventoUsersService, UserService, EventoService } from '../../../servicios/servicio.index';
 import { evento, material, colaborador, jornada, expositor, actividad, evento_users, users } from '../../../model/model.index';
 
 import Swal from 'sweetalert2';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   selector: 'app-eventos-detalles',
   templateUrl: './eventos-detalles.component.html',
   styleUrls: ['./eventos-detalles.component.css'],
-  providers: [ EventoPojoService, EventoUsersService, UserService ]
+  providers: [ EventoPojoService, EventoUsersService, UserService, EventoService ]
 })
 export class EventosDetallesComponent implements OnInit {
 
@@ -44,7 +44,7 @@ export class EventosDetallesComponent implements OnInit {
   public inscrito: boolean; //para ocultar el botón de Participar si es que ya está participando
 
   constructor( private eventoPojoService: EventoPojoService, private eventoUsersService: EventoUsersService,
-    private userService: UserService, private route: ActivatedRoute, private router: Router ) { 
+    private userService: UserService, private eventoService: EventoService, private route: ActivatedRoute, private router: Router ) { 
 
     this.url = global.url;
     this.token = this.userService.getToken();
@@ -164,22 +164,22 @@ export class EventosDetallesComponent implements OnInit {
     // Función para eliminar el evento 
     eliminarEvento(id){
 
-      if(this.idEsteEvento == this.identity.sub){
         this.eventoUsersService.deleteEvento(this.token,id).subscribe(
           response => {
-            console.log("has eliminado un evento");
-            this.router.navigate(['/inicio']);
+            console.log("has eliminado un evento de eventousers");
           },
           error => {
             console.log(<any>error);
           }
         )
-      } else {
-        Swal.fire({
-          type: 'warning',
-          title: '¡Este evento no es tuyo!'
-        })
-      }
+        this.eventoService.deleteEvento(this.token, id).subscribe(
+          response => {
+            console.log("has eliminado el evento de la tabla evento");
+          },
+          error => {
+            console.log(<any>error);
+          }
+        )
       
     }
 
