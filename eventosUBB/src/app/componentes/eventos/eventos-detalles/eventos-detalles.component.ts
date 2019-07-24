@@ -153,7 +153,7 @@ export class EventosDetallesComponent implements OnInit {
               title: '¡Este evento no es tuyo!'
             })
           } else {
-            this.router.navigate(['/eventosEditar/' + this.idEventoUsers]);
+            this.router.navigate(['/eventosEditar/' + this.idEventoUsers + '/' + this.identity.sub]);
           }
 
         }

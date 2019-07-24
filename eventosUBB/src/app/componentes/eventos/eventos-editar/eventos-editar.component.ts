@@ -41,6 +41,8 @@ export class EventosEditarComponent implements OnInit {
   public status;
   public id; 
 
+  public idUsuario; //id del usuario (sub) 
+
   public afuConfig = {
     multiple: false,
     formatsAllowed: ".jpg,.jpeg,.png,.gif",
@@ -76,6 +78,9 @@ export class EventosEditarComponent implements OnInit {
 
     this.getCiudades();
     this.getDatosEvento();
+    
+    this.idUsuario = this.identity.sub;
+    
 
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
@@ -177,7 +182,7 @@ export class EventosEditarComponent implements OnInit {
 
   guardarEvento(form){
 
-    this.eventoPojoService.updateEventoPojo(this.token, this.eventoPojo, this.id).subscribe(
+    this.eventoPojoService.updateEventoPojo(this.eventoPojo, this.id, this.idUsuario).subscribe(
       response => {
         if(response && response.status){
           this.status = 'success';

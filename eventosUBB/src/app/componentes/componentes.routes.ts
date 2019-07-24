@@ -25,7 +25,7 @@ const componentesRoutes: Routes = [
             { path: 'eventoDetalle/:id', component: EventosDetallesComponent, data: { titulo: 'Detalles evento' } },
             { path: 'misEventos', component: EventosMisEventosComponent, data: { titulo: 'Mis eventos' } },
             { path: 'crearEvento', component: EventosCrearComponent, data: { titulo: 'Crear evento' } },
-            { path: 'eventosEditar/:id', component: EventosEditarComponent, data: { titulo: 'Editar evento' } },
+            { path: 'eventosEditar/:id/:idUsuario', component: EventosEditarComponent, data: { titulo: 'Editar evento' } },
             { path: 'editLogin', component: EditLoginComponent, data: { titulo: 'Editar Perfil' }  },
 
             { path: 'eventoDetallePublic', component: EventosDetallesPublicComponent, data: { titulo: 'Detalles evento' } }

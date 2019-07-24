@@ -51,6 +51,8 @@ export class EventosCrearComponent implements OnInit {
   public ciudad: ciudad;
   public ciudades;
 
+  public sub; //id del usuario que inicia sesión
+
   constructor( private _formBuilder: FormBuilder, private userService: UserService,
     private eventoPojoService: EventoPojoService, private router: Router, 
     private ciudadService: CiudadService ) {
@@ -65,6 +67,7 @@ export class EventosCrearComponent implements OnInit {
   ngOnInit() {
 
     this.getCiudades();
+    this.sub = this.identity.sub; // Obtener el id del usuario que inició sesión
 
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
@@ -106,7 +109,7 @@ export class EventosCrearComponent implements OnInit {
   }
 
   guardarEvento(form){
-    this.eventoPojoService.guardarEventoPojo(this.token,this.eventoPojo).subscribe(
+    this.eventoPojoService.guardarEventoPojo(this.sub,this.eventoPojo).subscribe(
       response => {
         console.log(response);
 
