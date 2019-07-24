@@ -39,6 +39,11 @@ export class EventosMisEventosComponent implements OnInit {
     this.getMisEventosAdmin();
 
     this.perfil = this.identity.perfil_idPerfil;
+    console.log('dentro del ng on init');
+    console.log(this.perfil);
+    console.log(this.identity);
+    console.log('el token del ng on init');
+    console.log(this.token);
 
   }
 
@@ -46,6 +51,8 @@ export class EventosMisEventosComponent implements OnInit {
 
     this.eventoUsersService.getMisEventos(this.token).subscribe(
       response => {
+        console.log('dentro del mis eventos');
+        console.log(response);
         this.misEventos = response.eventos;
       },
       error => {

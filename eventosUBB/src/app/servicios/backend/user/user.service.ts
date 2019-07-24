@@ -31,7 +31,7 @@ export class UserService {
   }
 
   // Iniciar sesión con Google
-  loginGoogle(googleToken, gettoken = null ): Observable<any> {
+  loginGoogle(googleToken, gettoken = null): Observable<any> {
     if(gettoken != null){
       googleToken.gettoken = 'true';
     }

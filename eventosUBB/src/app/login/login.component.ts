@@ -94,6 +94,10 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('token', this.token);
               localStorage.setItem('identity', JSON.stringify(this.identity));
               this.router.navigate(['/inicio']);
+              console.log('este es el token');
+              console.log(this.token);
+              console.log(this.identity);
+
             },
             error => {
               this.status = 'error';
