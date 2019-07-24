@@ -59,14 +59,13 @@ export class UserService {
   }
 
   // Modificar usuario 
-  update(token, users):Observable<any>{
+  update(users, idUsuario):Observable<any>{
     let json = JSON.stringify(users);
     let params = "json="+json;
 
-    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    .set('Authorization',token);
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
-    return this.http.put(this.url+'user/update', params, {headers: headers});
+    return this.http.put(this.url+'user/update/' + idUsuario, params, {headers: headers});
 
   }
 

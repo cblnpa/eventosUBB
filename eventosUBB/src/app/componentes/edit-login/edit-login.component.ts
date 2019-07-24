@@ -83,7 +83,7 @@ export class EditLoginComponent implements OnInit {
   }
 
   onSubmit(form){
-    this.userService.update(this.token, this.user).subscribe(
+    this.userService.update(this.user, this.identity.sub).subscribe(
       response => {
         if(response && response.status){
           this.status = 'success';

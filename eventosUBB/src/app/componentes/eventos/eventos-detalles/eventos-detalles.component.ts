@@ -112,7 +112,7 @@ export class EventosDetallesComponent implements OnInit {
 
   participarEvento(){
 
-    this.eventoUsersService.guardarEventoUser(this.token, this.eventoUsers).subscribe(
+    this.eventoUsersService.guardarEventoUser(this.identity.sub, this.eventoUsers).subscribe(
       response => {
         if( response.status == 'success'){
           Swal.fire({

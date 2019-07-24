@@ -52,14 +52,13 @@ export class EventoUsersService {
   }
 
   // Crear una tupla en la tabla evento_users -> también lo utiliza el ParticiparEvento para guardar el participante 
-  guardarEventoUser(token, eventoUsers): Observable<any> {
+  guardarEventoUser(idUsuario, eventoUsers): Observable<any> {
     let json = JSON.stringify(eventoUsers);
     let params = 'json=' + json;
 
-    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-      .set('Authorization', token);
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
-    return this.http.post(this.url + 'evento_users', params, { headers: headers });
+    return this.http.post(this.url + 'evento_users/' + idUsuario , params, { headers: headers });
   }
 
   // Eliminar un evento 
