@@ -5,7 +5,6 @@ import { filter, map } from 'rxjs/operators';
 import { Router, ActivationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-
 import { users } from '../model/users';
 import { UserService } from '../servicios/servicio.index';
 
@@ -27,6 +26,7 @@ export class LoginComponent implements OnInit {
   public status: string;
   public token;
   public identity;
+
   auth2: any; //declarar objeto con info de google
 
   constructor(private userService: UserService, private router: Router, private title: Title) {
@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
 
   }
 
+  // Inicialización de la API
   googleInit() {
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({ //el init recibe el client_id, las cookies y scope
@@ -62,27 +63,19 @@ export class LoginComponent implements OnInit {
   attachSignin(element) {
     this.auth2.attachClickHandler(element, {}, (Google_Client) => {
       //Obtener los datos del usuario
-      let profile = Google_Client.getBasicProfile();
-      console.log('datos del profile');
-      console.log(profile);
+      //let profile = Google_Client.getBasicProfile();
 
-      //let token = Google_Client.getAuthResponse().id_token;
+      let token = Google_Client.getAuthResponse().id_token;
 
-      this.userService.loginGoogle(profile).subscribe(
+      this.userService.loginGoogle(token).subscribe(
         response => {
           console.log(response);
           this.token = response;
 
           this.identity = response;
-          localStorage.setItem('token', this.token);
+          localStorage.setItem('token', token);
           localStorage.setItem('identity', JSON.stringify(this.identity));
           window.location.href = '#/inicio';
-
-          console.log('token !!');
-          console.log(this.token);
-          console.log('identity !!');
-          console.log(this.identity);
-
 
           //this.router.navigate(['/inicio']);
         });
