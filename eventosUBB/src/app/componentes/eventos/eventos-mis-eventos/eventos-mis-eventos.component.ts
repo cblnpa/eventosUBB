@@ -23,6 +23,7 @@ export class EventosMisEventosComponent implements OnInit {
   public misEventosAdmin; //  guarda los eventos que administra el usuario admin
 
   public perfil; // id del perfil del usuario activo
+  public sub; // pruebas para el login con google el sub es el id del usuario
 
   constructor( private eventoUsersService: EventoUsersService,  private userService: UserService, 
     private eventoPojoService: EventoPojoService, private route: ActivatedRoute, private router: Router ) {
@@ -34,22 +35,16 @@ export class EventosMisEventosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.perfil = this.identity.perfil_idPerfil;
+    this.sub = this.identity.sub;
 
     this.getMisEventos();
     this.getMisEventosAdmin();
-
-    this.perfil = this.identity.perfil_idPerfil;
-    console.log('dentro del ng on init');
-    console.log(this.perfil);
-    console.log(this.identity);
-    console.log('el token del ng on init');
-    console.log(this.token);
-
   }
 
   getMisEventos(){
 
-    this.eventoUsersService.getMisEventos(this.token).subscribe(
+    this.eventoUsersService.getMisEventos(this.sub).subscribe(
       response => {
         console.log('dentro del mis eventos');
         console.log(response);
@@ -64,7 +59,7 @@ export class EventosMisEventosComponent implements OnInit {
 
   getMisEventosAdmin(){
 
-    this.eventoUsersService.getMisEventosAdmin(this.token).subscribe(
+    this.eventoUsersService.getMisEventosAdmin(this.sub).subscribe(
       response => {
         this.misEventosAdmin = response.eventos;
       },

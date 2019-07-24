@@ -63,17 +63,29 @@ export class LoginComponent implements OnInit {
     this.auth2.attachClickHandler(element, {}, (Google_Client) => {
       //Obtener los datos del usuario
       let profile = Google_Client.getBasicProfile();
+      console.log('datos del profile');
+      console.log(profile);
 
       //let token = Google_Client.getAuthResponse().id_token;
-      
-      this.userService.loginGoogle(profile).subscribe(response => {
-        console.log(response);
-        this.identity = response;
-        //localStorage.setItem('token', token);
-        localStorage.setItem('identity', JSON.stringify(this.identity));
-        //window.location.href = '#/inicio';
-        //this.router.navigate(['/inicio']);
-      });
+
+      this.userService.loginGoogle(profile).subscribe(
+        response => {
+          console.log(response);
+          this.token = response;
+
+          this.identity = response;
+          localStorage.setItem('token', this.token);
+          localStorage.setItem('identity', JSON.stringify(this.identity));
+          window.location.href = '#/inicio';
+
+          console.log('token !!');
+          console.log(this.token);
+          console.log('identity !!');
+          console.log(this.identity);
+
+
+          //this.router.navigate(['/inicio']);
+        });
 
     });
   }
@@ -81,6 +93,8 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.userService.signUp(this.user).subscribe(
       response => {
+        console.log('inicio de sesión normal');
+        console.log(response);
         // Recibir el TOKEN 
         if (response.status != 'error') {
           this.status = 'success';
