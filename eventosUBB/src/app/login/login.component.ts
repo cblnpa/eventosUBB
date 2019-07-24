@@ -79,20 +79,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  getDataRoute() {
-    return this.router.events.pipe(
-      filter(evento => evento instanceof ActivationEnd),
-      filter((evento: ActivationEnd) => evento.snapshot.firstChild === null),
-      map((evento: ActivationEnd) => evento.snapshot.data)
-    )
-  }
-
   onSubmit(form: NgForm) {
-
     this.userService.signUp(this.user).subscribe(
-
       response => {
-
         // Recibir el TOKEN 
         if (response.status != 'error') {
           this.status = 'success';
@@ -102,12 +91,9 @@ export class LoginComponent implements OnInit {
           this.userService.signUp(this.user, true).subscribe(
             response => {
               this.identity = response;
-
               localStorage.setItem('token', this.token);
               localStorage.setItem('identity', JSON.stringify(this.identity));
-
               this.router.navigate(['/inicio']);
-
             },
             error => {
               this.status = 'error';
@@ -121,12 +107,17 @@ export class LoginComponent implements OnInit {
             title: 'Datos incorrectos',
             text: 'ingrese su email y contraseña correctamente',
           })
-
         }
       }
-
     );
+  }
 
+  getDataRoute() {
+    return this.router.events.pipe(
+      filter(evento => evento instanceof ActivationEnd),
+      filter((evento: ActivationEnd) => evento.snapshot.firstChild === null),
+      map((evento: ActivationEnd) => evento.snapshot.data)
+    )
   }
 
 }
