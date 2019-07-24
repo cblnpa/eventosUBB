@@ -26,6 +26,7 @@ import { EventosEditarComponent } from './eventos/eventos-editar/eventos-editar.
 import { EditLoginComponent } from './edit-login/edit-login.component';
 import { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/eventos-mis-eventos.component';
 import { EventosCrearComponent } from './eventos/eventos-crear/eventos-crear.component';
+import { EventosDetallesPublicComponent } from './eventos/eventos-detalles-public/eventos-detalles-public.component';
 
 //Rutas
 import { COMPONENTES_ROUTES } from './componentes.routes';
@@ -38,14 +39,19 @@ import { COMPONENTES_ROUTES } from './componentes.routes';
         EditLoginComponent,
         InicioComponent,
         EventosMisEventosComponent,
-        EventosCrearComponent
+        EventosCrearComponent,
+        EventosDetallesPublicComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
         ComponentesComponent,
         EventosDetallesComponent,
         EventosEditarComponent,
-        EditLoginComponent
+        EditLoginComponent,
+        InicioComponent,
+        EventosMisEventosComponent,
+        EventosCrearComponent,
+        EventosDetallesPublicComponent
     ],
     //acá se agregan los módulos de utilidades, ya que estos se utilizan en componentes.component.html
     imports: [

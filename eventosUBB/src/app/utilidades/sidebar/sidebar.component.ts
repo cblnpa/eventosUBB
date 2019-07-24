@@ -16,7 +16,7 @@ export class SidebarComponent implements OnInit {
 
   public idPerfil; //perfil del usuario que está activo
 
-  constructor( public _sidebar: SidebarService, private userService: UserService ) { 
+  constructor( public _sidebar: SidebarService, public userService: UserService ) { 
     this.identity = this.userService.getIdentity();
     this.url = global.url;
   }

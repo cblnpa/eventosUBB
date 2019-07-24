@@ -9,11 +9,12 @@
 
         <div class="col-lg-3 col-md-6" *ngFor="let e of eventos | paginate: { itemsPerPage: 12,
             currentPage: p}">
-            <div class="card">
+            <div class="card-group">
                 <div class="el-card-item">
+                    <div class="card">
                     <div class="el-card-avatar el-overlay-1">
-                        <img *ngIf="!e.imagen" src="../../../../assets/images/sin-imagen.png" alt="user" />
-                        <img *ngIf="e.imagen" src="{{url + 'image/' + e.imagen}}" alt="user" />
+                        <img class="evento-imagen" *ngIf="!e.imagen" src="../../../../assets/images/sin-imagen.png" alt="user" />
+                        <img class="evento-imagen" *ngIf="e.imagen" src="{{url + 'image/' + e.imagen}}" alt="user" />
 
                         <div class="el-overlay">
                             <ul class="el-info">
@@ -28,6 +29,7 @@
                         <br/>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
 

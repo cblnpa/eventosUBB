@@ -10,6 +10,8 @@ import { EditLoginComponent } from '../componentes/edit-login/edit-login.compone
 import { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/eventos-mis-eventos.component';
 import { EventosCrearComponent } from './eventos/eventos-crear/eventos-crear.component';
 
+import { EventosDetallesPublicComponent } from './eventos/eventos-detalles-public/eventos-detalles-public.component';
+
 import { LoginGuard } from '../servicios/guards/login.guard';
 
 const componentesRoutes: Routes = [
@@ -25,6 +27,8 @@ const componentesRoutes: Routes = [
             { path: 'crearEvento', component: EventosCrearComponent, data: { titulo: 'Crear evento' } },
             { path: 'eventosEditar/:id', component: EventosEditarComponent, data: { titulo: 'Editar evento' } },
             { path: 'editLogin', component: EditLoginComponent, data: { titulo: 'Editar Perfil' }  },
+
+            { path: 'eventoDetallePublic', component: EventosDetallesPublicComponent, data: { titulo: 'Detalles evento' } }
 
             // { path: '', component: , data: { titulo: 'Generar reportes '} },
             // { path: '', component: , data: {titulo: 'Ver encargados' } },

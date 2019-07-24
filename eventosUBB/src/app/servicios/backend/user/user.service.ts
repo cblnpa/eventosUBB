@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { global } from '../../global';
 import { Router } from '@angular/router';
 
-import { users } from '../../../model/users';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +20,7 @@ export class UserService {
     
   }
 
+  // Registrar usuario 
   register(users): Observable<any>{
     let json = JSON.stringify(users);
     let params = 'json='+json;
@@ -31,12 +30,21 @@ export class UserService {
     return this.http.post(this.url+'register', params, {headers: headers});
   }
 
-  signUpGoogle(): Observable<any>{
-    
-    return this.http.get(this.url+'login/google/callback');
+  // Iniciar sesión con Google
+  loginGoogle(googleToken, gettoken = null ): Observable<any> {
+    if(gettoken != null){
+      googleToken.gettoken = 'true';
+    }
 
+    let json = JSON.stringify(googleToken);
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+    return this.http.post(this.url+'google', params, {headers: headers});
   }
 
+  // Iniciar sesión normal
   signUp(users, gettoken = null): Observable<any>{
     if(gettoken != null){
       users.gettoken = 'true';
@@ -49,6 +57,8 @@ export class UserService {
 
     return this.http.post(this.url+'login', params, {headers: headers});
   }
+
+  // Modificar usuario 
   update(token, users):Observable<any>{
     let json = JSON.stringify(users);
     let params = "json="+json;
@@ -60,6 +70,7 @@ export class UserService {
 
   }
 
+  // Obtener identity
   getIdentity(){
     let identity = JSON.parse(localStorage.getItem('identity'));
     if(identity && identity != "undefined"){
@@ -70,6 +81,7 @@ export class UserService {
     return this.identity;
   }
 
+  // Obtener token
   getToken(){
     let token = localStorage.getItem('token');
 
@@ -81,6 +93,7 @@ export class UserService {
     return this.token;
   }
 
+  // Cerrar sesión 
   logout(){
 
     this.token = null;
@@ -93,10 +106,12 @@ export class UserService {
 
   }
 
+  // Estado del login *para el guard
   statusLogin(){
     return ( this.token.length > 5 ) ? true: false;
   }
 
+  // Obtener Storage
   cargarStorage(){
     if (localStorage.getItem('token')){
       this.token =  localStorage.getItem('token');
