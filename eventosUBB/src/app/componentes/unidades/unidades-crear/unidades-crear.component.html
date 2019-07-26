@@ -1,3 +1,67 @@
 <body class="fix-header card-no-border fix-sidebar">
-  <h1>Crear unidades work</h1>
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-body">
+             <h1>Crear una nueva unidad</h1>
+              <form class="form-horizontal p-t-20">
+
+                  <!-- logo de unidad -->
+                  <div class="form-group row">
+                      <label for="exampleInputuname3" class="col-sm-3 control-label">Logo de unidad</label>
+                      <div class="col-sm-9">
+                          <div class="input-group">
+                              <div class="input-group-addon"><i class="mdi mdi-image"></i></div>
+                              <input type="file" class="form-control">
+                          </div>
+                          <span class="help-block"><small>Agrega el logo correspondiente a la unidad</small></span>
+                      </div>
+                  </div>
+
+                  <!-- Nombre de la unidad -->
+                  <div class="form-group row">
+                      <label for="exampleInputEmail3" class="col-sm-3 control-label">Nombre unidad</label>
+                      <div class="col-sm-9">
+                          <div class="input-group">
+                              <div class="input-group-addon"><i class="mdi mdi-city"></i></div>
+                              <input type="email" class="form-control">
+                          </div>
+                          <span class="help-block"><small>Ingresa el nombre correspondiente de la unidad</small></span>
+                      </div>
+                  </div>
+
+                  <!-- Seleccionar sede de la unidad -->
+                  <div class="form-group row">
+                      <label for="web" class="col-sm-3 control-label">Sede</label>
+                      <div class="col-sm-9">
+                          <div class="input-group">
+                              <select class="form-control custom-select">
+                                  <option value="1">Concepción</option>
+                                  <option value="2">Chillán</option>
+                              </select>
+                          </div>
+                          <span class="help-block"><small>Selecciona la sede asociada a la unidad</small></span>
+                      </div>
+                  </div>
+
+                  <!-- Agregar el encargado de la unidad -->
+                  <div class="form-group row">
+                      <label for="inputPassword4" class="col-sm-3 control-label">Encargado</label>
+                      <div class="col-sm-9">
+                              <div id="scrollable-dropdown-menu">
+                                  <input class="typeahead form-control" type="text" placeholder="Countries">
+                              </div>
+                          <span class="help-block"><small>Ingresa el correo del encargado de esta unidad</small></span>
+                      </div>
+                  </div>
+                  
+                  <div class="form-group row m-b-0">
+                      <div class="offset-sm-3 col-sm-12">
+                          <button type="submit" class="btn btn-block btn-success waves-effect waves-light">Crear</button>
+                      </div>
+                  </div>
+
+              </form>
+          </div>
+      </div>
+  </div>
 </body>
