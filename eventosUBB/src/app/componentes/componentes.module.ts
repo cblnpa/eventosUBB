@@ -30,6 +30,8 @@ import { EventosDetallesPublicComponent } from './eventos/eventos-detalles-publi
 
 //Rutas
 import { COMPONENTES_ROUTES } from './componentes.routes';
+import { UnidadesCrearComponent } from './unidades/unidades-crear/unidades-crear.component';
+import { UnidadesVerComponent } from './unidades/unidades-ver/unidades-ver.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +42,9 @@ import { COMPONENTES_ROUTES } from './componentes.routes';
         InicioComponent,
         EventosMisEventosComponent,
         EventosCrearComponent,
-        EventosDetallesPublicComponent
+        EventosDetallesPublicComponent,
+        UnidadesCrearComponent,
+        UnidadesVerComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [

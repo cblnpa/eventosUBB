@@ -26,11 +26,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img *ngIf="!identity.avatar" src="../../../assets/images/user.png" alt="user" class="profile-pic" />
-                        <li *ngIf="identity && identity.avatar" class="nav-item">
+                        <img *ngIf="identity && identity.avatar" src="{{url + 'user/avatar/' + identity.avatar}}" class="avatar">
+                        <!-- <li *ngIf="identity && identity.avatar" class="nav-item">
                             <div class="avatar_mask">
                                 <img src="{{url + 'user/avatar/' + identity.avatar}}" class="avatar">
                             </div>
-                        </li>
+                        </li> -->
                     </a>
                     <div class="dropdown-menu dropdown-menu-right animated fadeIn">
                         <ul class="dropdown-user">

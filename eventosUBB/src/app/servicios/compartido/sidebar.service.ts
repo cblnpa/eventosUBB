@@ -21,14 +21,17 @@ export class SidebarService {
       titulo: 'Unidades',
       icono: 'mdi mdi-city',
       submenu: [
-        { titulo: 'Ver unidades', url: '' },
-        { titulo: 'Agregar unidad', url: '' }
+        { titulo: 'Ver unidades', url: '/verUnidades' },
+        { titulo: 'Crear unidad', url: '/crearUnidad' }
       ]
     },
     {
       //Reportes
       titulo: 'Reportes',
-      icono: 'mdi mdi-file-document'
+      icono: 'mdi mdi-file-document',
+      submenu: [
+        { titulo: 'Ver reportes', url: ''}
+      ]
     },
     {
       //Comisión
