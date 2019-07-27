@@ -30,7 +30,7 @@ export class SidebarService {
       titulo: 'Reportes',
       icono: 'mdi mdi-file-document',
       submenu: [
-        { titulo: 'Ver reportes', url: ''}
+        { titulo: 'Ver reportes', url: '/reportes'}
       ]
     },
     {
@@ -38,8 +38,8 @@ export class SidebarService {
       titulo: 'Comisión',
       icono: 'mdi mdi-account-multiple',
       submenu: [
-        { titulo: 'Ver comisiones', url: '' },
-        { titulo: 'Agregar comisión', url:'' }
+        { titulo: 'Ver comisiones', url: '/verComisiones' },
+        { titulo: 'Agregar comisión', url:'/crearComision' }
       ]
     }
   ];

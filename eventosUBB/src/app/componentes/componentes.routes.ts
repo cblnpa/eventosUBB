@@ -16,6 +16,9 @@ import { EventosDetallesPublicComponent } from './eventos/eventos-detalles-publi
 import { LoginGuard } from '../servicios/guards/login.guard';
 import { UnidadesCrearComponent } from './unidades/unidades-crear/unidades-crear.component';
 import { UnidadesVerComponent } from './unidades/unidades-ver/unidades-ver.component';
+import { ReportesGenerarComponent } from './reportes/reportes-generar/reportes-generar.component';
+import { ComisionVerComponent } from './comisiones/comision-ver/comision-ver.component';
+import { ComisionCrearComponent } from './comisiones/comision-crear/comision-crear.component';
 
 const componentesRoutes: Routes = [
     { path: '', component: LoginComponent, data: { titulo: 'Iniciar sesión'}},
@@ -31,8 +34,11 @@ const componentesRoutes: Routes = [
             { path: 'eventosEditar/:id/:idUsuario', component: EventosEditarComponent, data: { titulo: 'Editar evento' } },
             { path: 'editLogin', component: EditLoginComponent, data: { titulo: 'Editar Perfil' }  },
             { path: 'crearUnidad', component: UnidadesCrearComponent, data: { titulo: 'Crear unidad' } },
-            { path: 'verUnidades', component: UnidadesVerComponent, data: { titulo: 'Ver unidades' } },
-
+            { path: 'verUnidades', component: UnidadesVerComponent, data: { titulo: 'Unidades' } },
+            { path: 'reportes', component: ReportesGenerarComponent, data: { titulo: 'Reportes' } },
+            { path: 'verComisiones', component: ComisionVerComponent, data: { titulo: 'Comisiones' } },
+            { path: 'crearComision', component: ComisionCrearComponent, data: { titulo: 'Crear comisión' } },
+        
             // Para visualizar los detalles del evento (vista para participantes)
             { path: 'eventoDetallePublic', component: EventosDetallesPublicComponent, data: { titulo: 'Detalles evento' } }
 

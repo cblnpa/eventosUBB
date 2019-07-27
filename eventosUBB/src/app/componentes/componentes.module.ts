@@ -32,6 +32,9 @@ import { EventosDetallesPublicComponent } from './eventos/eventos-detalles-publi
 import { COMPONENTES_ROUTES } from './componentes.routes';
 import { UnidadesCrearComponent } from './unidades/unidades-crear/unidades-crear.component';
 import { UnidadesVerComponent } from './unidades/unidades-ver/unidades-ver.component';
+import { ReportesGenerarComponent } from './reportes/reportes-generar/reportes-generar.component';
+import { ComisionVerComponent } from './comisiones/comision-ver/comision-ver.component';
+import { ComisionCrearComponent } from './comisiones/comision-crear/comision-crear.component';
 
 @NgModule({
     declarations: [
@@ -44,7 +47,10 @@ import { UnidadesVerComponent } from './unidades/unidades-ver/unidades-ver.compo
         EventosCrearComponent,
         EventosDetallesPublicComponent,
         UnidadesCrearComponent,
-        UnidadesVerComponent
+        UnidadesVerComponent,
+        ReportesGenerarComponent,
+        ComisionVerComponent,
+        ComisionCrearComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
