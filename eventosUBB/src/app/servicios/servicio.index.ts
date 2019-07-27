@@ -5,3 +5,4 @@ export { UserService } from './backend/user/user.service';
 export { EventoPojoService } from './backend/eventoPojo/evento-pojo.service';
 export { CiudadService } from './backend/ciudad/ciudad.service';
 export { EventoUsersService } from './backend/evento-users/evento-users.service';
+export { UnidadService } from './backend/unidad/unidad.service';
