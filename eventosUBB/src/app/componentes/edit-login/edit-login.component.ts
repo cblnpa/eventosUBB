@@ -48,7 +48,7 @@ export class EditLoginComponent implements OnInit {
 };
 
   constructor( private userService: UserService, private router: Router, private title: Title ) { 
-    this.user = new users('','','','','',null); 
+    this.user = new users('','','','','',null,null); 
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
     this.url = global.url;
@@ -59,6 +59,7 @@ export class EditLoginComponent implements OnInit {
       this.identity.email,
       this.identity.password,
       this.identity.avatar,
+      this.identity.verified,
       this.identity.sub
     );
     this.getDataRoute()

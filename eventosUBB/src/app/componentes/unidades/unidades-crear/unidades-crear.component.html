@@ -45,11 +45,11 @@
 
                     <!-- Agregar el encargado de la unidad -->
                     <div class="form-group row">
-                        <label for="exampleInputEmail3" class="col-sm-3 control-label">Encargado</label>
+                        <label for="email" class="col-sm-3 control-label">Encargado</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="mdi mdi-account"></i></div>
-                                <input type="email" class="form-control">
+                                <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="unidad.email">
                             </div>
                             <span class="help-block"><small>Ingresa el <strong>correo</strong> del encargado de esta unidad</small></span>
                         </div>

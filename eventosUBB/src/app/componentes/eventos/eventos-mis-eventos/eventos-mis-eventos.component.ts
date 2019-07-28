@@ -22,6 +22,7 @@ export class EventosMisEventosComponent implements OnInit {
   public misEventos; // guarda los eventos en los que participa el usuario
   public misEventosAdmin; //  guarda los eventos que administra el usuario admin
 
+  public rol; // para almacenar el rol del usuario activo
   public perfil; // id del perfil del usuario activo
   public sub; // pruebas para el login con google el sub es el id del usuario
 
@@ -43,12 +44,14 @@ export class EventosMisEventosComponent implements OnInit {
   }
 
   getMisEventos(){
-
     this.eventoUsersService.getMisEventos(this.sub).subscribe(
       response => {
-        console.log('dentro del mis eventos');
-        console.log(response);
-        this.misEventos = response.eventos;
+       
+        this.rol = response.eventos[0].rol_idRol;
+
+        if( this.rol == 2 ){
+          this.misEventos = response.eventos;
+        }
       },
       error => {
         console.log(<any>error);
@@ -58,10 +61,10 @@ export class EventosMisEventosComponent implements OnInit {
   }
 
   getMisEventosAdmin(){
-
+    
     this.eventoUsersService.getMisEventosAdmin(this.sub).subscribe(
       response => {
-        this.misEventosAdmin = response.eventos;
+          this.misEventosAdmin = response.eventos;
       },
       error => {
         console.log(<any>error);

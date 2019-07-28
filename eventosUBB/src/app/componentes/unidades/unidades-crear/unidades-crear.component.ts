@@ -45,7 +45,7 @@ export class UnidadesCrearComponent implements OnInit {
 
   constructor( private router: Router, private title: Title, private unidadService: UnidadService, 
     private userService: UserService ) {
-    this.unidad = new unidad('','','');
+    this.unidad = new unidad('','','','');
     this.url = global.url;
     this.token = this.userService.getToken();
 

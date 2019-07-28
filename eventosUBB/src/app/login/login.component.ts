@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  //Iniciar sesión con google
   attachSignin(element) {
     this.auth2.attachClickHandler(element, {}, (Google_Client) => {
       //Obtener los datos del usuario
@@ -83,7 +84,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit(form: NgForm) {
+  //Iniciar sesión con email y contraseña 
+  onSubmit(form: NgForm) {  
     this.userService.signUp(this.user).subscribe(
       response => {
         console.log('inicio de sesión normal');

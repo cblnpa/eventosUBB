@@ -7,6 +7,7 @@ export class users {
         public password: string,
         public avatar: string,
         public perfil_idPerfil: number,
+        public verified: number,
         public id?: number
     ){} 
 }
