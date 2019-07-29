@@ -39,6 +39,8 @@ export class eventoPojo {
         public horaInicioActividad: Time,
         public horaFinActividad: Time,
         public ubicacionActividad: string,
-        public descripcionActividad: string
+        public descripcionActividad: string,
+
+        public email: string
     ){}
 }

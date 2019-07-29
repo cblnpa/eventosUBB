@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventoService, EventoPojoService } from '../../servicios/servicio.index';
 import {global} from '../../servicios/global'
-
-import { evento } from '../../model/evento';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,8 +14,7 @@ export class InicioComponent implements OnInit {
   public url;
   public eventos;
 
-  constructor( private eventoService: EventoService, private eventoPojoService: EventoPojoService,
-    private router: Router ) { 
+  constructor( private eventoService: EventoService, private router: Router ) { 
     this.url = global.url;
   }
 
@@ -28,6 +25,7 @@ export class InicioComponent implements OnInit {
   getEventos(){
     this.eventoService.getEventos().subscribe(
       response => {
+        console.log(response);
         if(response.status == 'success'){
           this.eventos = response.eventos;
         }
