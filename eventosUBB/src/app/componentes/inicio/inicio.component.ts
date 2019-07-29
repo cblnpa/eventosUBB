@@ -15,7 +15,6 @@ export class InicioComponent implements OnInit {
 
   public url;
   public eventos;
-  public id; 
 
   constructor( private eventoService: EventoService, private eventoPojoService: EventoPojoService,
     private router: Router ) { 

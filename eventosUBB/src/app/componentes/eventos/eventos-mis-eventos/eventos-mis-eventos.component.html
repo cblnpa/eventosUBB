@@ -80,7 +80,7 @@
                     <tr>
                       <th class="text-center"> # </th>
                       <th>Nombre del evento</th>
-                      <th></th>
+                      <th> </th>
                     </tr>
                   </thead>
                   <tbody *ngFor="let eadmin of misEventosAdmin | paginate: { itemsPerPage: 10,
@@ -88,7 +88,7 @@
                     <tr>
                       <td class="text-center"> {{i+1}} </td>
                       <td> {{eadmin.evento.nombreEvento}} </td>
-                      <td></td>
+                      <td class="text-center"> <button class="btn btn-outline-info waves-effect waves-light" (click)="eventosDetalles(eadmin.evento.idEvento)" type="button"><span class="btn-label"><i class="mdi mdi-eye"></i></span>ver detalles</button></td>
                     </tr>
                   </tbody>
                 </table>

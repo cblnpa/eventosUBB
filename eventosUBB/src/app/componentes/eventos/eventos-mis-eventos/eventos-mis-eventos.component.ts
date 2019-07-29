@@ -43,33 +43,34 @@ export class EventosMisEventosComponent implements OnInit {
     this.getMisEventosAdmin();
   }
 
+  //Obtener los eventos en los que el usuario participa 
   getMisEventos(){
     this.eventoUsersService.getMisEventos(this.sub).subscribe(
-      response => {
-       
-        this.rol = response.eventos[0].rol_idRol;
-
-        if( this.rol == 2 ){
-          this.misEventos = response.eventos;
-        }
+      response => {  
+        this.misEventos = response.eventos;
       },
       error => {
         console.log(<any>error);
       }
     )
-
   }
 
+  //Obtener los eventos que el usuario administra
   getMisEventosAdmin(){
-    
     this.eventoUsersService.getMisEventosAdmin(this.sub).subscribe(
       response => {
           this.misEventosAdmin = response.eventos;
+          console.log(this.misEventosAdmin);
       },
       error => {
         console.log(<any>error);
       }
     )
+  }
+
+  //Redirección al presionar el botón del evento
+  eventosDetalles(idEvento: number){
+    this.router.navigate(['/eventoDetalle/' + idEvento]);
   }
 
 }
