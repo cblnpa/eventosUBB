@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms/';
-
 import { filter, map } from 'rxjs/operators';
 import { Router, ActivationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-
 import { users } from '../model/users';
 import { UserService } from '../servicios/servicio.index';
-
 import Swal from 'sweetalert2';
 
-declare function init_plugins();
+declare function init_plugins(); // para cargar los componentes
 declare const gapi: any; //constante para la librería gapi que está en index 
 
 @Component({
@@ -21,7 +18,7 @@ declare const gapi: any; //constante para la librería gapi que está en index
 })
 export class LoginComponent implements OnInit {
   hide = true;
-  titulo: string;
+  public titulo: string;
   public user: users;
   public status: string;
   public token;
@@ -43,7 +40,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     init_plugins();
     this.googleInit();
-
   }
 
   // Inicialización de la API
@@ -86,10 +82,9 @@ export class LoginComponent implements OnInit {
 
   //Iniciar sesión con email y contraseña 
   onSubmit(form: NgForm) {  
+    
     this.userService.signUp(this.user).subscribe(
       response => {
-        console.log('inicio de sesión normal');
-        console.log(response);
         // Recibir el TOKEN 
         if (response.status != 'error') {
           this.status = 'success';
@@ -99,13 +94,17 @@ export class LoginComponent implements OnInit {
           this.userService.signUp(this.user, true).subscribe(
             response => {
               this.identity = response;
-              localStorage.setItem('token', this.token);
-              localStorage.setItem('identity', JSON.stringify(this.identity));
-              this.router.navigate(['/inicio']);
-              console.log('este es el token');
-              console.log(this.token);
-              console.log(this.identity);
-
+              if(this.identity.verified == 1){
+                localStorage.setItem('token', this.token);
+                localStorage.setItem('identity', JSON.stringify(this.identity));
+                this.router.navigate(['/inicio']);
+              } else {
+                Swal.fire({
+                  type: 'error',
+                  title: 'Correo no verificado',
+                  text: 'Verifica tu correo electrónico para poder iniciar sesión',
+                })
+              }
             },
             error => {
               this.status = 'error';
