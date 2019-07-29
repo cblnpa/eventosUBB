@@ -3,17 +3,18 @@
   <div class="col-md-12 col-xs-12 col-md-12">
     <!-- foto del evento -->
     <div class="card">
-      <img class="image-evento-detalle" src="../../../assets/images/seminario.jpg" />
+      <img class="image-evento-detalle" *ngIf="!evento.imagen" src="../../../assets/images/socialbg.jpg"/>
+      <img class="image-evento-detalle" *ngIf="evento.imagen" src="{{url + 'image/' + evento.imagen}}"/>
       <div class="card-img-overlay card-inverse social-profile flex">
         <div class="align-self-center m-t-40">
-          <h1 class="card-title display-4"> Seminario de Ingeniería de Software</h1> <!-- nombre del evento -->
+          <h1 class="card-title display-4"> {{evento.nombreEvento}} </h1> <!-- nombre del evento -->
           <hr>
-          <h2 class="card-subtitle"><i class="fa fa-calendar"></i> 10/03/2019 </h2> <!-- fecha evento -->
-          <h2 class="card-subtitle"><i class="mdi mdi-home-map-marker"></i> Laboratorio de especialidades </h2>
+          <h2 class="card-subtitle"><i class="fa fa-calendar"></i> {{jornada.fechaJornada}} </h2> <!-- fecha evento -->
+          <h2 class="card-subtitle"><i class="mdi mdi-home-map-marker"></i> {{evento.ubicacion}} </h2>
           <!-- ubicación del evento-->
-          <h2 class="card-subtitle"><i class="mdi mdi-map-marker"></i> Andrés Bello 720 </h2>
+          <h2 class="card-subtitle"><i class="mdi mdi-map-marker"></i> {{evento.direccion}} </h2>
           <!-- dirección del evento -->
-          <h2 class="card-subtitle"><i class="fa fa-users"></i> Cupos</h2> <!-- cupos del evento -->
+          <h2 class="card-subtitle"><i class="fa fa-users"></i> {{evento.capacidad}} </h2> <!-- cupos del evento -->
         </div>
       </div>
     </div>
@@ -54,27 +55,33 @@
       <div class="el-card-item">
         <div class="el-card-avatar el-overlay-1">
           <!-- expositor.foto -->
-          <img src="../../../assets/images/user.png" />
+          <img *ngIf="!expositor.foto" src="../../../assets/images/user.png" alt="Card image" />
+          <img *ngIf="expositor.foto" src="{{url + 'image/' + expositor.foto}}" alt="user" />
 
           <div class="el-overlay">
             <!-- overlay son efectos al pasar sobre la foto -->
             <ul class="el-info">
-              <li>
-                <a class="btn default btn-outline image-popup-vertical-fit" href="../../../assets/images/user.png">
-                  <i class="icon-magnifier"></i>
-                </a>
-              </li>
-              <!-- este li contiene el link -->
-              <!-- expositor.empresa -->
+                <li>
+                    <a *ngIf="!expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
+                        href="../../../assets/images/user.png">
+                        <i class="icon-magnifier"></i>
+                    </a>
+                    <a *ngIf="expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
+                        href="{{url + 'image/' + expositor.foto}}">
+                        <i class="icon-magnifier"></i>
+                    </a>
+                </li>
+                <!-- este li contiene el link -->
+                <!-- expositor.empresa -->
             </ul>
           </div>
 
         </div>
         <div class="el-card-content">
-          <h3 class="box-tittle"> Nombre empresa </h3> <!-- nombre empresa -->
-          <h3 class="box-tittle"> Juanito Perez </h3> <!-- nombre personita -->
-          <h6><i class="fa fa-envelope"></i> juanito@correo.cl </h6> <!-- expositor.correo -->
-          <br>
+            <h3 class="box-tittle"> {{expositor.empresa}} </h3>
+            <h3 class="box-tittle"> {{expositor.nombreExpositor + ' ' + expositor.apellidoExpositor}} </h3> <!-- expositor.nombre expositor.apellido -->
+            <h6><i class="fa fa-envelope"></i> {{expositor.correoExpositor}}  </h6> <!-- expositor.correo -->
+            <br>
         </div>
       </div>
     </div>
@@ -92,73 +99,73 @@
     </div>
   </div>
 
-  <div class="card-body">
+  <div class="card-body">  
+                        
+      <div class="d-flex flex-row">
+          <div class="p-10 bg-inverse">
+              <h3 class="text-white box m-b-0"><i class="mdi mdi-clipboard-text"></i></h3>
+          </div>
+          <div class="align-self-center m-l-20">
+              <h3 class="m-b-0 text-info"> {{jornada.nombreJornada}} </h3> <!-- jornada.nombre -->
+              <h5 class="text-muted m-b-0">nombre de la jornada</h5>
+          </div>
+      </div>
+      <hr>
 
-    <div class="d-flex flex-row">
-      <div class="p-10 bg-inverse">
-        <h3 class="text-white box m-b-0"><i class="mdi mdi-clipboard-text"></i></h3>
+      <div class="d-flex flex-row">
+              <div class="p-10 bg-inverse">
+                  <h3 class="text-white box m-b-0"><i class="mdi mdi-calendar-check"></i></h3>
+              </div>
+              <div class="align-self-center m-l-20">
+                  <h3 class="m-b-0 text-info"> {{jornada.fechaJornada}} </h3> <!-- jornada.fecha -->
+                  <h5 class="text-muted m-b-0">fecha de la jornada</h5>
+              </div>
       </div>
-      <div class="align-self-center m-l-20">
-        <h3 class="m-b-0 text-info"> Seminario 1 </h3> <!-- jornada.nombre -->
-        <h5 class="text-muted m-b-0">nombre de la jornada</h5>
-      </div>
-    </div>
-    <hr>
+      <hr>
 
-    <div class="d-flex flex-row">
-      <div class="p-10 bg-inverse">
-        <h3 class="text-white box m-b-0"><i class="mdi mdi-calendar-check"></i></h3>
+      <div class="d-flex flex-row">
+              <div class="p-10 bg-inverse">
+                  <h3 class="text-white box m-b-0"><i class="mdi mdi-clock"></i></h3>
+              </div>
+              <div class="align-self-center m-l-20">
+                  <h3 class="m-b-0 text-info"> {{jornada.horaInicioJornada}} </h3>
+                  <h5 class="text-muted m-b-0">hora inicio de la jornada</h5>
+              </div>
       </div>
-      <div class="align-self-center m-l-20">
-        <h3 class="m-b-0 text-info"> Lunes 19 de Agosto 2019 </h3> <!-- jornada.fecha -->
-        <h5 class="text-muted m-b-0">fecha de la jornada</h5>
-      </div>
-    </div>
-    <hr>
+      <hr>
 
-    <div class="d-flex flex-row">
-      <div class="p-10 bg-inverse">
-        <h3 class="text-white box m-b-0"><i class="mdi mdi-clock"></i></h3>
+      <div class="d-flex flex-row">
+              <div class="p-10 bg-inverse">
+                  <h3 class="text-white box m-b-0"><i class="mdi mdi-clock"></i></h3>
+              </div>
+              <div class="align-self-center m-l-20">
+                  <h3 class="m-b-0 text-info"> {{jornada.horaFinJornada}} </h3>
+                  <h5 class="text-muted m-b-0">hora fin de la jornada</h5>
+              </div>
       </div>
-      <div class="align-self-center m-l-20">
-        <h3 class="m-b-0 text-info"> 10:00 </h3>
-        <h5 class="text-muted m-b-0">hora inicio de la jornada</h5>
-      </div>
-    </div>
-    <hr>
+      <hr>
 
-    <div class="d-flex flex-row">
-      <div class="p-10 bg-inverse">
-        <h3 class="text-white box m-b-0"><i class="mdi mdi-clock"></i></h3>
+      <div class="d-flex flex-row">
+              <div class="p-10 bg-inverse">
+                  <h3 class="text-white box m-b-0"><i class="mdi mdi-map-marker-radius"></i></h3>
+              </div>
+              <div class="align-self-center m-l-20">
+                  <h3 class="m-b-0 text-info"> {{jornada.ubicacionJornada}} </h3>
+                  <h5 class="text-muted m-b-0">ubicación de la jornada</h5>
+              </div>
       </div>
-      <div class="align-self-center m-l-20">
-        <h3 class="m-b-0 text-info"> 19:00 </h3>
-        <h5 class="text-muted m-b-0">hora fin de la jornada</h5>
-      </div>
-    </div>
-    <hr>
+      <hr>
 
-    <div class="d-flex flex-row">
-      <div class="p-10 bg-inverse">
-        <h3 class="text-white box m-b-0"><i class="mdi mdi-map-marker-radius"></i></h3>
+      <div class="d-flex flex-row">
+              <div class="p-10 bg-inverse">
+                  <h3 class="text-white box m-b-0"><i class="mdi mdi-lead-pencil"></i></h3>
+              </div>
+              <div class="align-self-center m-l-20">
+                  <h3 class="m-b-0 text-info"> {{jornada.descripcionJornada}} </h3>
+                  <h5 class="text-muted m-b-0">descripción de la jornada</h5>
+              </div>
       </div>
-      <div class="align-self-center m-l-20">
-        <h3 class="m-b-0 text-info"> Aula Magna </h3>
-        <h5 class="text-muted m-b-0">ubicación de la jornada</h5>
-      </div>
-    </div>
-    <hr>
-
-    <div class="d-flex flex-row">
-      <div class="p-10 bg-inverse">
-        <h3 class="text-white box m-b-0"><i class="mdi mdi-lead-pencil"></i></h3>
-      </div>
-      <div class="align-self-center m-l-20">
-        <h3 class="m-b-0 text-info"> Jornada principal de este genial evento </h3>
-        <h5 class="text-muted m-b-0">descripción de la jornada</h5>
-      </div>
-    </div>
-    <hr>
+      <hr>
 
   </div>
 </div>
@@ -248,31 +255,37 @@
   <div class="col-lg-4 col-xlg-3 col-md-3">
     <!-- agregar a este div un ngFor por cada expositor -->
     <div class="card">
-      <div class="el-card-item">
-        <div class="el-card-avatar el-overlay-1">
-          <!-- foto colaborador -->
-          <img src="../../../assets/images/user.png" alt="Card image" />
+        <div class="el-card-item">
+            <div class="el-card-avatar el-overlay-1">
+                <!-- foto colaborador -->
+                <img *ngIf="!colaborador.logo" src="../../../assets/images/user.png" alt="Card image" />
+                <img *ngIf="colaborador.logo" src="{{url + 'image/' + colaborador.logo}}" alt="user" />
 
-          <div class="el-overlay">
-            <!-- overlay son efectos al pasar sobre la foto -->
-            <ul class="el-info">
-              <li>
-                <a class="btn default btn-outline image-popup-vertical-fit" href="../../../assets/images/user.png">
-                  <i class="icon-magnifier"></i>
-                </a>
-              </li>
-              <!-- este li contiene el link -->
-              <!-- expositor.empresa -->
-            </ul>
-          </div>
+                <div class="el-overlay">
+                    <!-- overlay son efectos al pasar sobre la foto -->
+                    <ul class="el-info">
+                        <li>
+                            <a *ngIf="!colaborador.logo" class="btn default btn-outline image-popup-vertical-fit"
+                                href="../../../assets/images/user.png">
+                                <i class="icon-magnifier"></i>
+                            </a>
+                            <a *ngIf="colaborador.logo" class="btn default btn-outline image-popup-vertical-fit"
+                                href="{{url + 'image/' + colaborador.logo}}">
+                                <i class="icon-magnifier"></i>
+                            </a>
+                        </li>
+                        <!-- este li contiene el link -->
+                        <!-- expositor.empresa -->
+                    </ul>
+                </div>
+            </div>
+            <div class="el-card-content">
+                <h2 class="box-tittle"><strong> {{ colaborador.nombreColaborador}} </strong> </h2> <!-- colaborador -->
+                <h3 class="box-tittle"> {{ colaborador.nombreRepresentante }} </h3> <!-- colaborador -->
+                <h6><i class="fa fa-envelope"></i> {{colaborador.correoColaborador}} </h6> <!-- expositor.correo -->
+                <br>
+            </div>
         </div>
-        <div class="el-card-content">
-          <h2 class="box-tittle"><strong> FastLink </strong> </h2> <!-- colaborador -->
-          <h3 class="box-tittle"> Gastón Lara </h3> <!-- colaborador -->
-          <h6><i class="fa fa-envelope"></i> gastonlara@gmail.com </h6> <!-- expositor.correo -->
-          <br>
-        </div>
-      </div>
     </div>
   </div>
 

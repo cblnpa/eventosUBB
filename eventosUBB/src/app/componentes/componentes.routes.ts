@@ -40,7 +40,7 @@ const componentesRoutes: Routes = [
             { path: 'crearComision', component: ComisionCrearComponent, data: { titulo: 'Crear comisión' } },
         
             // Para visualizar los detalles del evento (vista para participantes)
-            { path: 'eventoDetallePublic', component: EventosDetallesPublicComponent, data: { titulo: 'Detalles evento' } }
+            { path: 'eventoDetallePublic/:id', component: EventosDetallesPublicComponent, data: { titulo: 'Detalles evento' } }
 
         ]
     }

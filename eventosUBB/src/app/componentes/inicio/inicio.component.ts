@@ -39,7 +39,7 @@ export class InicioComponent implements OnInit {
   }
 
   eventosDetalles(idEvento: number){
-    this.router.navigate(['/eventoDetalle/' + idEvento]);
+    this.router.navigate(['/eventoDetallePublic/' + idEvento]);
   }
 
 
