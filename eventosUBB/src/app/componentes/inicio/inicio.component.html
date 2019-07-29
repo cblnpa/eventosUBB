@@ -13,7 +13,7 @@
 
         <div class="col-lg-3 col-md-6" *ngFor="let e of eventos | paginate: { itemsPerPage: 12,
             currentPage: p}">
-            <div class="card">
+            <div *ngIf="e.visibilidad == 1" class="card">
                 <div class="el-card-item">
                     <div class="card">
                         <div class="el-card-avatar el-overlay-1">

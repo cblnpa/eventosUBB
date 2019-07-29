@@ -25,7 +25,6 @@ export class InicioComponent implements OnInit {
   getEventos(){
     this.eventoService.getEventos().subscribe(
       response => {
-        console.log(response);
         if(response.status == 'success'){
           this.eventos = response.eventos;
         }
