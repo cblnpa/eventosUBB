@@ -67,7 +67,7 @@ export class EventosEditarComponent implements OnInit {
     private eventoPojoService: EventoPojoService, private router: Router, private route: ActivatedRoute,
     private ciudadService: CiudadService ) {
 
-      this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','');
+      this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','');
       this.identity = this.userService.getIdentity();
       this.token = this.userService.getToken();
       this.url = global.url;
@@ -172,7 +172,9 @@ export class EventosEditarComponent implements OnInit {
             this.actividad.horaInicioActividad,
             this.actividad.horaFinActividad,
             this.actividad.ubicacionActividad,
-            this.actividad.descripcionActividad
+            this.actividad.descripcionActividad,
+
+            this.eventoPojo.email
           )
         }
       )

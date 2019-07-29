@@ -60,7 +60,6 @@ export class EventosMisEventosComponent implements OnInit {
     this.eventoUsersService.getMisEventosAdmin(this.sub).subscribe(
       response => {
           this.misEventosAdmin = response.eventos;
-          console.log(this.misEventosAdmin);
       },
       error => {
         console.log(<any>error);
@@ -71,6 +70,10 @@ export class EventosMisEventosComponent implements OnInit {
   //Redirección al presionar el botón del evento
   eventosDetalles(idEvento: number){
     this.router.navigate(['/eventoDetalle/' + idEvento]);
+  }
+
+  verEvento(idEvento: number){
+    this.router.navigate(['/eventoDetallePublic/' + idEvento]);
   }
 
 }
