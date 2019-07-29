@@ -14,7 +14,7 @@
                     </a>
 
                     <ul aria-expanded="false" class="collapse">
-                        <li><a class="pointer" [routerLink]="['/editLogin']">Modificar perfil</a></li>
+                        <li><a class="pointer" routerLinkActive="active" [routerLink]="['/editLogin']">Modificar perfil</a></li>
 
                     </ul>
 
@@ -30,21 +30,57 @@
                     </a>
                 </li>
 
-                <!-- <li>
+                <!-- Opción de eventos -->
+                <li>
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <i class="mdi mdi-view-grid"></i><span class="hide-menu"> Eventos</span>
                     </a>
 
                     <ul aria-expanded="false" class="collapse">
-                        <li> <a routerLink="/inicio"> Ver eventos </a> </li>
-                        <li> <a routerLink="/misEventos"> Mis eventos </a> </li>
-                        <li *ngIf="idPerfil == 1"> <a routerLink="/crearEvento"> Crear evento </a> </li>
-                        <li> <a routerLink="/eventoDetallePublic"> Detalles evento público </a> </li>
+                        <li> <a routerLinkActive="active" routerLink="/inicio"> Ver eventos </a> </li>
+                        <li> <a routerLinkActive="active" routerLink="/misEventos"> Mis eventos </a> </li>
+                        <li *ngIf="idPerfil == 3"> <a routerLinkActive="active" routerLink="/crearEvento"> Crear evento </a> </li>
                     </ul>
-                </li> -->
+                </li>
+
+                <!-- Opción de Unidades -->
+                <li *ngIf="idPerfil == 3">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <i class="mdi mdi-city"></i><span class="hide-menu"> Unidades</span>
+                    </a>
+
+                    <ul aria-expanded="false" class="collapse">
+                        <li> <a routerLinkActive="active" routerLink="/verUnidades"> Ver unidades </a> </li>
+                        <li> <a routerLinkActive="active" routerLink="/crearUnidad"> Crear unidad </a> </li>
+                    </ul>
+                </li>
+
+                <!-- Opción de Reportes -->
+                <li *ngIf="idPerfil == 1 || idPerfil == 3">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <i class="mdi mdi-file-document"></i><span class="hide-menu"> Reportes</span>
+                    </a>
+
+                    <ul aria-expanded="false" class="collapse">
+                        <li> <a routerLinkActive="active" routerLink="/reportes"> Reportes </a> </li>
+                    </ul>
+                </li>
+
+                <!-- Opción de comisión -->
+                <li *ngIf="idPerfil == 4">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <i class="mdi mdi-account-multiple"></i><span class="hide-menu"> Comisiones</span>
+                    </a>
+
+                    <ul aria-expanded="false" class="collapse">
+                        <li> <a routerLinkActive="active" routerLink="/verComisiones"> Ver comisiones </a> </li>
+                        <li> <a routerLinkActive="active" routerLink="/crearComision"> Crear comisión </a> </li>
+                    </ul>
+                </li>
+
 
                 <!-- opciones de menú con un servicio ¡ocupar más adelante! -->
-                <li *ngFor="let menu of _sidebar.menu"> 
+                <!-- <li *ngFor="let menu of _sidebar.menu"> 
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <i [class]="menu.icono"></i><span class="hide-menu"> {{menu.titulo}} </span>
                     </a>
@@ -54,7 +90,7 @@
                             <a routerLinkActive="active" [routerLink]="[ submenu.url ]"> {{ submenu.titulo}} </a>
                         </li>    
                     </ul>
-                </li>
+                </li> -->
 
                     </ul>
                 </nav>
