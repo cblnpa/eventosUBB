@@ -67,7 +67,17 @@ export class EventoUsersService {
       .set('Authorization', token);
 
     return this.http.delete(this.url + 'evento_users/' + id, { headers: headers });
+  }
 
+  //Función para agregar una comisión al evento asociado en el request
+  crearComision(email, idEvento): Observable<any>{
+    let json = JSON.stringify(email);
+    let params = 'json=' + json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+    return this.http.post(this.url + 'comision/' + idEvento , params, { headers: headers });
+    
   }
 
 }

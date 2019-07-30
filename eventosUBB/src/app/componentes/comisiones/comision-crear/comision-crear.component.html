@@ -2,54 +2,33 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-               <h1>Crear una nueva comision</h1>
-                <form class="form-horizontal p-t-20">
+
+                    <ngx-select-dropdown *ngFor="let e of eventos" [config]="config" [options]="" 
+                    [(ngModel)]="e.created_at" [multiple]="true" ></ngx-select-dropdown>
+
+                <form class="form-horizontal p-t-20" #crearComisionForm="ngForm" (ngSubmit)="crearComision(crearComisionForm)">
   
-                    <!-- logo de unidad -->
+                    <!-- Listar eventos -->
+                    <h3>Formulario normal</h3>
+                    <hr>
                     <div class="form-group row">
-                        <label for="exampleInputuname3" class="col-sm-3 control-label">Logo de unidad</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="mdi mdi-image"></i></div>
-                                <input type="file" class="form-control">
-                            </div>
-                            <span class="help-block"><small>Agrega el logo correspondiente a la unidad</small></span>
-                        </div>
-                    </div>
-  
-                    <!-- Nombre de la unidad -->
-                    <div class="form-group row">
-                        <label for="exampleInputEmail3" class="col-sm-3 control-label">Nombre unidad</label>
+                        <label for="evento_idEvento" class="col-sm-3 control-label">Evento</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="mdi mdi-city"></i></div>
-                                <input type="email" class="form-control">
+                                <input type="number" class="form-control" name="evento_idEvento" id="evento_idEvento" #evento_idEvento="ngModel" [(ngModel)]="comision.evento_idEvento">
                             </div>
-                            <span class="help-block"><small>Ingresa el nombre correspondiente de la unidad</small></span>
+                            <span class="help-block"><small>Ingresa el id correspondiente del evento</small></span>
                         </div>
                     </div>
   
-                    <!-- Seleccionar sede de la unidad -->
+                    <!-- Agregar los correos para crear la comisión -->
                     <div class="form-group row">
-                        <label for="web" class="col-sm-3 control-label">Sede</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <select class="form-control custom-select">
-                                    <option value="1">Concepción</option>
-                                    <option value="2">Chillán</option>
-                                </select>
-                            </div>
-                            <span class="help-block"><small>Selecciona la sede asociada a la unidad</small></span>
-                        </div>
-                    </div>
-  
-                    <!-- Agregar el encargado de la unidad -->
-                    <div class="form-group row">
-                      <label for="exampleInputEmail3" class="col-sm-3 control-label">Encargado</label>
+                      <label for="email" class="col-sm-3 control-label">Encargado</label>
                       <div class="col-sm-9">
                           <div class="input-group">
                               <div class="input-group-addon"><i class="mdi mdi-account"></i></div>
-                              <input type="email" class="form-control">
+                              <input type="email" class="form-control" name="email" id="email" #email="ngModel" [(ngModel)]="comision.email">
                           </div>
                           <span class="help-block"><small>Ingresa el correo del encargado de esta unidad</small></span>
                       </div>

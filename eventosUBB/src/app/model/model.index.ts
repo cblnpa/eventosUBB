@@ -9,3 +9,4 @@ export { material } from './material';
 export { users } from './users';
 export { evento_users } from './evento_users';
 export { unidad } from './unidad';
+export { comision } from './comision';

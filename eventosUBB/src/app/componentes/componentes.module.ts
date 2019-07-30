@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
+import { SelectDropDownModule } from 'ngx-select-dropdown'
+
 // Formularios
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatStepperModule, MatInputModule, MatCardModule, MatButtonModule } from '@angular/material'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatNativeDateModule,MatRippleModule } from '@angular/material/core';
+
+//Angular material
+import { MatStepperModule, MatInputModule, MatCardModule, MatButtonModule } from '@angular/material'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatNativeDateModule,MatRippleModule } from '@angular/material/core';
 
 // Módulos
 import { UtilidadesModule } from '../utilidades/utilidades.module';
@@ -82,6 +86,7 @@ import { ComisionCrearComponent } from './comisiones/comision-crear/comision-cre
         MatSelectModule,
         AngularFileUploaderModule,
         NgxPaginationModule,
+        SelectDropDownModule,
         COMPONENTES_ROUTES
     ]
 })
