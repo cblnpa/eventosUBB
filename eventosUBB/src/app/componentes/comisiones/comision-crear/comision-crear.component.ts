@@ -20,13 +20,14 @@ export class ComisionCrearComponent implements OnInit {
   //variables para el select
   public evento: evento;
   public eventos: any = []; //almacena los eventos
+  public optionEvento;
 
   public usuario: users;
   public usuarios: any = []; //almacenar los usuarios
-  public options; //usuarios 
+  public options; 
 
   configUsuario = {
-    displayKey:"nombreUsuario", //if objects array passed which key to be displayed defaults to description
+    displayKey:'nombreUsuario', //if objects array passed which key to be displayed defaults to description
     search:true, //true/false for the search functionlity defaults to false,
     height: 'auto', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
     placeholder:'Seleccionar usuarios', // text to be displayed when no item is selected defaults to Select,
@@ -37,18 +38,19 @@ export class ComisionCrearComponent implements OnInit {
   }
 
   configEvento = {
-    displayKey:"nombreEvento", //if objects array passed which key to be displayed defaults to description
+    displayKey: 'evento_idEvento', //if objects array passed which key to be displayed defaults to description
     search:true, //true/false for the search functionlity defaults to false,
     height: 'auto', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
     placeholder:'Seleccionar evento', // text to be displayed when no item is selected defaults to Select,
     noResultsFound: '¡No se encuentra el evento!', // text to be displayed when no items are found while searching
     searchPlaceholder:'Buscar evento', // label thats displayed in search input,
-    searchOnKey: 'nombreEvento' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
+    searchOnKey: 'evento_idEvento' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
 
   constructor( private eventoUsersService: EventoUsersService, private userService: UserService ) { 
     this.identity = this.userService.getIdentity();
     this.usuario = new users('','','','','',null,null,null);
+    this.evento = new evento('','','','','',null,'',null,null);
   }
 
   ngOnInit() {
@@ -61,6 +63,8 @@ export class ComisionCrearComponent implements OnInit {
     this.userService.getAll().subscribe(
       response => {
         this.options = response.users;
+        console.log('op user');
+        console.log(this.options);
       },
       error => {
         console.log(<any>error);
@@ -71,7 +75,9 @@ export class ComisionCrearComponent implements OnInit {
   listarEventos(){
     this.eventoUsersService.getMisEventosAdmin(this.idUsuario).subscribe(
       response => {
-        this.eventos = response.eventos;
+        this.optionEvento = response.eventos;
+        console.log('op evento');
+        console.log(this.optionEvento);
       },
       error => {
         console.log(<any>error);
@@ -82,12 +88,8 @@ export class ComisionCrearComponent implements OnInit {
 
   crearComision(form){
 
-    this.idEvento = this.comision.evento_idEvento;
-    console.log(this.idEvento);
-
-    console.log('usuariossss');
-    console.log(this.usuarios);
-
+    this.idEvento = this.eventos.evento_idEvento;
+    
     this.eventoUsersService.crearComision(this.usuarios, this.idEvento).subscribe(
       response => {
         console.log(response);
