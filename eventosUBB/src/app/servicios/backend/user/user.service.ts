@@ -20,6 +20,11 @@ export class UserService {
     
   }
 
+  getAll(): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'getAll', {headers: headers});
+  }
+
   // Registrar usuario 
   register(users): Observable<any>{
     let json = JSON.stringify(users);

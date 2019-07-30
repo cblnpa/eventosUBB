@@ -3,9 +3,12 @@
         <div class="card">
             <div class="card-body">
 
-                    <ngx-select-dropdown *ngFor="let e of eventos" [config]="config" [options]="" 
-                    [(ngModel)]="e.created_at" [multiple]="true" ></ngx-select-dropdown>
-
+                    <div class="col-md-12 m-t-15">
+                            <p style="margin: 0;">Opciones seleccionadas</p>
+                            <p style="margin: 0;" *ngFor="let user of usuarios"> {{user | json}} </p>
+                        </div>
+                        <br><br><br>
+ 
                 <form class="form-horizontal p-t-20" #crearComisionForm="ngForm" (ngSubmit)="crearComision(crearComisionForm)">
   
                     <!-- Listar eventos -->
@@ -21,9 +24,12 @@
                             <span class="help-block"><small>Ingresa el id correspondiente del evento</small></span>
                         </div>
                     </div>
-  
+
+                    <ngx-select-dropdown tabindex="0"  [config]="config" [options]="options" 
+                     [multiple]="true" name="email" #email="ngModel" [(ngModel)]="usuarios"></ngx-select-dropdown>
+
                     <!-- Agregar los correos para crear la comisión -->
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                       <label for="email" class="col-sm-3 control-label">Encargado</label>
                       <div class="col-sm-9">
                           <div class="input-group">
@@ -32,7 +38,7 @@
                           </div>
                           <span class="help-block"><small>Ingresa el correo del encargado de esta unidad</small></span>
                       </div>
-                  </div>
+                  </div> -->
                     
                     <div class="form-group row m-b-0">
                         <div class="offset-sm-3 col-sm-12">
