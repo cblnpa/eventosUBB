@@ -7,8 +7,6 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material } from '../../../model/model.index';
 import { EventoPojoService, CiudadService, UserService } from '../../../servicios/servicio.index';
 
-import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-eventos-editar',
   templateUrl: './eventos-editar.component.html',
@@ -21,6 +19,7 @@ export class EventosEditarComponent implements OnInit {
 
   public eventoPojo: eventoPojo;
   public ciudad: ciudad;
+  public material: material;
   public eventos: evento;
   public jornada: jornada;
   public actividad: actividad;
@@ -28,6 +27,7 @@ export class EventosEditarComponent implements OnInit {
   public expositor: expositor;
   
   firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
@@ -66,8 +66,8 @@ export class EventosEditarComponent implements OnInit {
   constructor( private _formBuilder: FormBuilder, private userService: UserService,
     private eventoPojoService: EventoPojoService, private router: Router, private route: ActivatedRoute,
     private ciudadService: CiudadService ) {
-
-      this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','');
+      
+      this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','');
       this.identity = this.userService.getIdentity();
       this.token = this.userService.getToken();
       this.url = global.url;
@@ -80,10 +80,13 @@ export class EventosEditarComponent implements OnInit {
     this.getDatosEvento();
     
     this.idUsuario = this.identity.sub;
-    
 
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
+    });
+
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
     });
 
     this.thirdFormGroup = this._formBuilder.group({
@@ -127,6 +130,7 @@ export class EventosEditarComponent implements OnInit {
         response => {
           console.log('response del getDatosEventos');
           console.log(response);
+          this.material = response.material;
           this.jornada = response.Jornada;
           this.actividad = response.actividad;
           this.colaborador = response.colaborador;
@@ -144,8 +148,8 @@ export class EventosEditarComponent implements OnInit {
             this.eventos.nombreEventoInterno,
             this.eventos.ciudad_idCiudad,
 
-            this.eventoPojo.nombreMaterial,
-            this.eventoPojo.archivo,
+            this.material.nombreMaterial,
+            this.material.archivo,
 
             this.colaborador.nombreColaborador,
             this.colaborador.nombreRepresentante,
@@ -174,6 +178,7 @@ export class EventosEditarComponent implements OnInit {
             this.actividad.ubicacionActividad,
             this.actividad.descripcionActividad,
 
+            this.eventoPojo.visibilidad,
             this.eventoPojo.email
           )
         }
@@ -223,6 +228,14 @@ export class EventosEditarComponent implements OnInit {
 
           if(response.changes.eventos.ciudad){
             this.eventoPojo.ciudad_idCiudad = response.changes.eventos.ciudad;
+          }
+
+          if(response.changes.material.nombreMaterial){
+            this.eventoPojo.nombreMaterial = response.changes.material.nombreMaterial;
+          }
+
+          if(response.changes.material.archivo){
+            this.eventoPojo.archivo = response.changes.material.archivo;
           }
 
           if(response.changes.colaborador.nombreColaborador){

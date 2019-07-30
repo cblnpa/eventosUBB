@@ -3,18 +3,10 @@
         <div class="card">
             <div class="card-body">
 
-                    <div class="col-md-12 m-t-15">
-                            <p style="margin: 0;">Opciones seleccionadas</p>
-                            <p style="margin: 0;" *ngFor="let user of usuarios"> {{user | json}} </p>
-                        </div>
-                        <br><br><br>
- 
                 <form class="form-horizontal p-t-20" #crearComisionForm="ngForm" (ngSubmit)="crearComision(crearComisionForm)">
   
                     <!-- Listar eventos -->
-                    <h3>Formulario normal</h3>
-                    <hr>
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                         <label for="evento_idEvento" class="col-sm-3 control-label">Evento</label>
                         <div class="col-sm-9">
                             <div class="input-group">
@@ -23,23 +15,34 @@
                             </div>
                             <span class="help-block"><small>Ingresa el id correspondiente del evento</small></span>
                         </div>
+                    </div> -->
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Evento</label>
+                        <div class="col-sm-9">
+                            <ngx-select-dropdown tabindex="0" [config]="configEvento" [options]=""
+                            [multiple]="false" name="evento_idEvento" #evento_idEvento="ngModel"
+                            [(ngModel)]="eventos"></ngx-select-dropdown>
+                        </div>
                     </div>
 
-                    <ngx-select-dropdown tabindex="0"  [config]="config" [options]="options" 
-                     [multiple]="true" name="email" #email="ngModel" [(ngModel)]="usuarios"></ngx-select-dropdown>
+                    <!-- Seleccionar encargados -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Encargados</label>
+                        <div class="col-sm-9">
+                            <ngx-select-dropdown tabindex="0"  [config]="configUsuario" [options]="options" 
+                            [multiple]="true" name="email" #email="ngModel" [(ngModel)]="usuarios"></ngx-select-dropdown>  
+                            <span class="help-block"><small>Selecciona las personas requeridas para crear una comisión</small></span>
+                        </div>
+                    </div>
 
-                    <!-- Agregar los correos para crear la comisión -->
-                    <!-- <div class="form-group row">
-                      <label for="email" class="col-sm-3 control-label">Encargado</label>
-                      <div class="col-sm-9">
-                          <div class="input-group">
-                              <div class="input-group-addon"><i class="mdi mdi-account"></i></div>
-                              <input type="email" class="form-control" name="email" id="email" #email="ngModel" [(ngModel)]="comision.email">
-                          </div>
-                          <span class="help-block"><small>Ingresa el correo del encargado de esta unidad</small></span>
-                      </div>
-                  </div> -->
-                    
+                    <div class="form-group row m-l-5">
+                        <p>Personas seleccionadas:</p>
+                        <div class="col-sm-9">
+                            <span class="badge badge-primary m-l-5" *ngFor="let user of usuarios"> {{user.nombreUsuario + ' ' + user.apellidoUsuario + ' (' + user.email +')'}} </span>
+                        </div>
+                    </div>
+                
                     <div class="form-group row m-b-0">
                         <div class="offset-sm-3 col-sm-12">
                             <button type="submit" class="btn btn-block btn-success waves-effect waves-light">Crear</button>

@@ -41,6 +41,8 @@ export class eventoPojo {
         public ubicacionActividad: string,
         public descripcionActividad: string,
 
+        public visibilidad: string,
+
         public email: string
     ){}
 }

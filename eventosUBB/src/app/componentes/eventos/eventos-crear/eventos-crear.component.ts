@@ -26,7 +26,7 @@ export class EventosCrearComponent implements OnInit {
       this.url = global.url;
       this.identity = this.userService.getIdentity();
       this.idUsuario = this.identity.sub;
-      this.evento = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','');
+      this.evento = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','');
      }
 
   ngOnInit() {

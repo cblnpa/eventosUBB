@@ -6,21 +6,23 @@
             <p>
                 <mat-form-field>
                     <mat-label for="nombreEvento">Nombre del evento</mat-label>
-                    <input matInput type="text" name="nombreEvento" #nombreEvento="ngModel" [(ngModel)]="eventoPojo.nombreEvento">
-                    <!-- <input matInput placeholder = "Last name, First name" formControlName = "firstCtrl" required> -->
+                    <input matInput type="text" name="nombreEvento" #nombreEvento="ngModel"
+                        [(ngModel)]="eventoPojo.nombreEvento">
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field>
                     <mat-label for="ubicacion">Ubicación</mat-label>
-                    <input matInput type="text" name="ubicacion" #ubicacion="ngModel" [(ngModel)]="eventoPojo.ubicacion">
+                    <input matInput type="text" name="ubicacion" #ubicacion="ngModel"
+                        [(ngModel)]="eventoPojo.ubicacion">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="direccion">Dirección</mat-label>
-                    <input matInput type="text" name="direccion" #direccion="ngModel" [(ngModel)]="eventoPojo.direccion">
+                    <input matInput type="text" name="direccion" #direccion="ngModel"
+                        [(ngModel)]="eventoPojo.direccion">
                 </mat-form-field>
             </p>
             <p>
@@ -41,13 +43,15 @@
             <p>
                 <mat-form-field>
                     <mat-label for="capacidad">Capacidad</mat-label>
-                    <input matInput type="number" name="capacidad" #capacidad="ngModel" [(ngModel)]="eventoPojo.capacidad">
+                    <input matInput type="number" name="capacidad" #capacidad="ngModel"
+                        [(ngModel)]="eventoPojo.capacidad">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="nombreEventoInterno">Nombre evento interno</mat-label>
-                    <input matInput type="text" name="nombreEventoInterno" #nombreEventoInterno="ngModel" [(ngModel)]="eventoPojo.nombreEventoInterno">
+                    <input matInput type="text" name="nombreEventoInterno" #nombreEventoInterno="ngModel"
+                        [(ngModel)]="eventoPojo.nombreEventoInterno">
                 </mat-form-field>
             </p>
 
@@ -69,6 +73,31 @@
 
     </mat-step>
 
+    <mat-step label="Step 2">
+        <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
+            <ng-template matStepperIcon="done" matStepLabel>Material</ng-template>
+            <p>
+                <mat-form-field>
+                    <mat-label for="nombreMaterial">Nombre material</mat-label>
+                    <input matInput type="text" name="nombreMaterial" #nombreMaterial="ngModel"
+                        [(ngModel)]="eventoPojo.nombreMaterial">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                    <mat-label for="archivo">Archivo</mat-label>
+                    <input matInput type="text" name="archivo" #archivo="ngModel" [(ngModel)]="eventoPojo.archivo">
+
+                </mat-form-field>
+            </p>
+            <div>
+                <br>
+                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
+                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+            </div>
+        </form>
+    </mat-step>
+
     <mat-step label="Step 3">
         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
             <ng-template matStepperIcon="done" matStepLabel>Colaboradores</ng-template>
@@ -76,26 +105,30 @@
                 <mat-form-field>
 
                     <mat-label for="nombreColaborador">Nombre colaborador</mat-label>
-                    <input matInput type="text" name="nombreColaborador" #nombreColaborador="ngModel" [(ngModel)]="eventoPojo.nombreColaborador">
+                    <input matInput type="text" name="nombreColaborador" #nombreColaborador="ngModel"
+                        [(ngModel)]="eventoPojo.nombreColaborador">
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field>
                     <mat-label for="nombreRepresentante">Nombre representante</mat-label>
-                    <input matInput type="text" name="nombreRepresentante" #nombreRepresentante="ngModel" [(ngModel)]="eventoPojo.nombreRepresentante">
+                    <input matInput type="text" name="nombreRepresentante" #nombreRepresentante="ngModel"
+                        [(ngModel)]="eventoPojo.nombreRepresentante">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="telefonoColaborador">Telefono</mat-label>
-                    <input matInput type="number" name="telefonoColaborador" #telefono="ngModel" [(ngModel)]="eventoPojo.telefonoColaborador">
+                    <input matInput type="number" name="telefonoColaborador" #telefono="ngModel"
+                        [(ngModel)]="eventoPojo.telefonoColaborador">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="correoColaborador">Correo</mat-label>
-                    <input matInput type="email" name="correoColaborador" #correoColaborador="ngModel" [(ngModel)]="eventoPojo.correoColaborador">
+                    <input matInput type="email" name="correoColaborador" #correoColaborador="ngModel"
+                        [(ngModel)]="eventoPojo.correoColaborador">
                 </mat-form-field>
             </p>
             <p>
@@ -128,37 +161,43 @@
             <p>
                 <mat-form-field>
                     <mat-label for="nombreJornada">Nombre jornada</mat-label>
-                    <input matInput type="text" name="nombreJornada" #nombreJornada="ngModel" [(ngModel)]="eventoPojo.nombreJornada">
+                    <input matInput type="text" name="nombreJornada" #nombreJornada="ngModel"
+                        [(ngModel)]="eventoPojo.nombreJornada">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="fechaJornada">Fecha jornada</mat-label>
-                    <input matInput type="date" name="fechaJornada" #fechaJornada="ngModel" [(ngModel)]="eventoPojo.fechaJornada">
+                    <input matInput type="date" name="fechaJornada" #fechaJornada="ngModel"
+                        [(ngModel)]="eventoPojo.fechaJornada">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="horaInicioJornada">Hora inicio</mat-label>
-                    <input matInput type="time" name="horaInicioJornada" #horaInicioJornada="ngModel" [(ngModel)]="eventoPojo.horaInicioJornada">
+                    <input matInput type="time" name="horaInicioJornada" #horaInicioJornada="ngModel"
+                        [(ngModel)]="eventoPojo.horaInicioJornada">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="horaFinJornada">Hora fin</mat-label>
-                    <input matInput type="time" name="horaFinJornada" #horaFinJornada="ngModel" [(ngModel)]="eventoPojo.horaFinJornada">
+                    <input matInput type="time" name="horaFinJornada" #horaFinJornada="ngModel"
+                        [(ngModel)]="eventoPojo.horaFinJornada">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="ubicacionJornada">Ubicacion jornada</mat-label>
-                    <input matInput type="text" name="ubicacionJornada" #ubicacionJornada="ngModel" [(ngModel)]="eventoPojo.ubicacionJornada">
+                    <input matInput type="text" name="ubicacionJornada" #ubicacionJornada="ngModel"
+                        [(ngModel)]="eventoPojo.ubicacionJornada">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="descripcionJornada">Descripción jornada</mat-label>
-                    <input matInput type="text" name="descripcionJornada" #descripcionJornada="ngModel" [(ngModel)]="eventoPojo.descripcionJornada">
+                    <input matInput type="text" name="descripcionJornada" #descripcionJornada="ngModel"
+                        [(ngModel)]="eventoPojo.descripcionJornada">
 
                 </mat-form-field>
             </p>
@@ -176,13 +215,15 @@
             <p>
                 <mat-form-field>
                     <mat-label for="nombreExpositor">Nombre expositor</mat-label>
-                    <input matInput type="text" name="nombreExpositor" #nombreExpositor="ngModel" [(ngModel)]="eventoPojo.nombreExpositor">
+                    <input matInput type="text" name="nombreExpositor" #nombreExpositor="ngModel"
+                        [(ngModel)]="eventoPojo.nombreExpositor">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="apellidoExpositor">Apellido expositor</mat-label>
-                    <input matInput type="text" name="apellidoExpositor" #apellidoExpositor="ngModel" [(ngModel)]="eventoPojo.apellidoExpositor">
+                    <input matInput type="text" name="apellidoExpositor" #apellidoExpositor="ngModel"
+                        [(ngModel)]="eventoPojo.apellidoExpositor">
                 </mat-form-field>
             </p>
             <p>
@@ -194,7 +235,8 @@
             <p>
                 <mat-form-field>
                     <mat-label for="correoExpositor">Correo</mat-label>
-                    <input matInput type="email" name="correoExpositor" #correoExpositor="ngModel" [(ngModel)]="eventoPojo.correoExpositor">
+                    <input matInput type="email" name="correoExpositor" #correoExpositor="ngModel"
+                        [(ngModel)]="eventoPojo.correoExpositor">
                 </mat-form-field>
             </p>
             <p>
@@ -225,31 +267,36 @@
             <p>
                 <mat-form-field>
                     <mat-label for="nombreActividad">Nombre actividad</mat-label>
-                    <input matInput type="text" name="nombreActividad" #nombreActividad="ngModel" [(ngModel)]="eventoPojo.nombreActividad">
+                    <input matInput type="text" name="nombreActividad" #nombreActividad="ngModel"
+                        [(ngModel)]="eventoPojo.nombreActividad">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="horaInicioActividad">Hora inicio</mat-label>
-                    <input matInput type="time" name="horaInicioActividad" #horaInicioActividad="ngModel" [(ngModel)]="eventoPojo.horaInicioActividad">
+                    <input matInput type="time" name="horaInicioActividad" #horaInicioActividad="ngModel"
+                        [(ngModel)]="eventoPojo.horaInicioActividad">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="horaFinActividad">Hora fin</mat-label>
-                    <input matInput type="time" name="horaFinActividad" #horaFinActividad="ngModel" [(ngModel)]="eventoPojo.horaFinActividad">
+                    <input matInput type="time" name="horaFinActividad" #horaFinActividad="ngModel"
+                        [(ngModel)]="eventoPojo.horaFinActividad">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="ubicacionActividad">Ubicacion actividad</mat-label>
-                    <input matInput type="text" name="ubicacionActividad" #ubicacionActividad="ngModel" [(ngModel)]="eventoPojo.ubicacionActividad">
+                    <input matInput type="text" name="ubicacionActividad" #ubicacionActividad="ngModel"
+                        [(ngModel)]="eventoPojo.ubicacionActividad">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
                     <mat-label for="descripcionActividad">Descripción actividad</mat-label>
-                    <input matInput type="text" name="descripcionActividad" #descripcionActividad="ngModel" [(ngModel)]="eventoPojo.descripcionActividad">
+                    <input matInput type="text" name="descripcionActividad" #descripcionActividad="ngModel"
+                        [(ngModel)]="eventoPojo.descripcionActividad">
 
                 </mat-form-field>
             </p>
@@ -262,13 +309,31 @@
     </mat-step>
 
     <mat-step label="Step 7">
-        <ng-template matStepLabel>¡Listo!</ng-template>
-        <h3> Si has terminado de editar todos los datos necesarios para tu evento, presiona el botón de color verde para guardar los cambios </h3>      
+        <ng-template matStepLabel>Publicar Evento</ng-template>
+
         <div>
+            <h4>Modificar el estado del evento</h4>
+            <h5>Si quieres guardar los datos que has ingresado pero no quieres que se publique el evneto
+                selecciona la opción <strong>No visible</strong> Pero si quieres guardar los cambios y
+                publicar el evento selecciona la opción<strong>Visible</strong></h5>
+
+            <mat-form-field>
+                <mat-label for="visibilidad">Visibilidad</mat-label>
+                <mat-select name="visibilidad" #visibilidad="ngModel" [(ngModel)]="eventoPojo.visibilidad">
+                    <mat-option [value]=0>
+                        No visible
+                    </mat-option>
+
+                    <mat-option [value]=1>
+                        Visible
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
             <br>
             <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
             <br><br>
-            <button type="submit" (click)="guardarEvento(eventoPojoForm)" class="btn btn-success btn-block">Guardar cambios</button>
+            <button type="submit" (click)="guardarEvento(eventoPojoForm)" class="btn btn-success btn-block">Guardar
+                cambios</button>
         </div>
     </mat-step>
 </mat-horizontal-stepper>

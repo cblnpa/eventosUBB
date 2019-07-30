@@ -8,6 +8,7 @@
             <div class="card-img-overlay card-inverse social-profile d-flex">
                 <div class="align-self-center">
                     <h1 class="card-title"> {{evento.nombreEvento}}  </h1> <!-- evento.nombre -->
+                    <h1 *ngIf="!evento.nombreEvento" class="card-title"> {{evento.nombreEventoInterno}} </h1>
                     <hr>
                     <h4 class="card-subtitle"><i class="fa fa-calendar"></i> {{jornada.fechaJornada}} </h4>
                     <!-- jornada.fecha -->
@@ -16,12 +17,8 @@
         </div>
     
         <!-- Botones -->
-        <button class="btn btn-block btn-outline-info" *ngIf="idPerfil == 1" (click)="editarEvento(evento.idEvento)" ><i class="mdi mdi-pencil"></i> Editar evento </button><br>
+        <button class="btn btn-block btn-outline-info" (click)="editarEvento(evento.idEvento)"><i class="mdi mdi-pencil"></i> Editar evento </button><br>
         
-        <button class="btn btn-block btn-outline-info" (click)="participarEvento()" *ngIf="evento.capacidad+1 > index" ><i class="mdi mdi-plus"></i>Participar</button><br>
-
-        <button class="btn btn-block btn-outline-danger" *ngIf="evento.capacidad+1 == index" disabled><i class="mdi mdi-close-circle"></i>Sin cupos disponibles</button><br>
-
         <button class="btn btn-block btn-outline-danger" *ngIf="idPerfil == 1" (click)="eliminarEvento(evento.idEvento)"><i class="mdi mdi-delete"></i> Eliminar evento</button>
 
         <!-- información del evento -->
