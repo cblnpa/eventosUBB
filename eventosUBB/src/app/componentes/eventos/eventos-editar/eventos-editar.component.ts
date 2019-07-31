@@ -275,6 +275,8 @@ export class EventosEditarComponent implements OnInit {
 
   //Modal agregar jornada
   agregarJornada(form){
+
+    this.jornadaAdd.evento_idEvento = this.id;
     
     console.log('dentro del agregar Jornada antes del service');
     this.jornadaService.guardarJornada(this.jornadaAdd).subscribe(
@@ -289,6 +291,7 @@ export class EventosEditarComponent implements OnInit {
 
   }
 
+  //Listar jornadas del evento
   mostrarJornadas(){
     this.jornadaService.getJornadas(this.id).subscribe(
       response => {
@@ -300,7 +303,6 @@ export class EventosEditarComponent implements OnInit {
         console.log(<any>error);
       }
     )
-
   }
 
   //foto del evento

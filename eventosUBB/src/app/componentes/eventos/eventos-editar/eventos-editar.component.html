@@ -319,10 +319,9 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="evento_idEvento" class="col-sm-3 control-label">id evento</label>
                                 <div class="col-sm-9">
                                     <div class="input-group">
-                                        <input type="number" [(value)]="eventos.idEvento" name="evento_idEvento" #evento_idEvento="ngModel"
+                                        <input type="hidden" name="evento_idEvento" #evento_idEvento="ngModel"
                                         [(ngModel)]="jornadaAdd.evento_idEvento">
                                     </div>
                                 </div>
