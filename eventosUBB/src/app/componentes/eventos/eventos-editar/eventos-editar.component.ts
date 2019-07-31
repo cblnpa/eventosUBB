@@ -89,9 +89,6 @@ export class EventosEditarComponent implements OnInit {
     this.getCiudades();
     this.getDatosEvento();
     this.mostrarJornadas();
-
-    console.log('ng on init');
-    console.log(this.id);
     
     this.idUsuario = this.identity.sub;
 
@@ -295,12 +292,15 @@ export class EventosEditarComponent implements OnInit {
   mostrarJornadas(){
     this.jornadaService.getJornadas(this.id).subscribe(
       response => {
-        this.jornada = response;
+        console.log(response);
+        console.log('get jornadas');
+        this.jornada = response.jornadas;
       },
       error => {
         console.log(<any>error);
       }
     )
+
   }
 
   //foto del evento

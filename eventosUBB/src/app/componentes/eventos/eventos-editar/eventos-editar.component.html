@@ -32,7 +32,7 @@
 
             <label for="imagen">Imagen</label>
             <div *ngIf="identity && identity.imagen">
-                <img src="{{url + 'image/' + identity.imagen}}" class="img-fluid" alt="Responsive image">
+                <img src="identity.imagen}}" class="img-fluid" alt="Responsive image">
 
             </div>
             <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="imagenUpload($event)">
@@ -57,7 +57,7 @@
                     <mat-label for="ciudad_idCiudad">Ciudad</mat-label>
                     <mat-select name="ciudad_idCiudad" #ciudad="ngModel" [(ngModel)]="eventos.ciudad_idCiudad">
                         <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.idCiudad">
-                            {{ciudad.nombreCiudad}}
+                            ad}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -145,7 +145,7 @@
 
             <label for="logo">Logo</label>
             <div *ngIf="identity && identity.logo">
-                <img src="{{url + 'image/' + identity.logo}}" class="img-fluid" alt="Responsive image">
+                <img src="identity.logo}}" class="img-fluid" alt="Responsive image">
 
             </div>
             <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="logoUpload($event)">
@@ -359,7 +359,7 @@
                     <td> {{j.horaInicioJornada}} </td>
                     <td> {{j.horaFinJornada}} </td>
                     <td> {{j.ubicacionJornada}} </td>
-                    <td> {{j.detalleJornada}} </td>
+                    <td> {{j.descripcionJornada}} </td>
                 </tbody>
             </table>
         </div>
@@ -412,7 +412,7 @@
 
             <label for="foto">Foto</label>
             <div *ngIf="identity && identity.foto">
-                <img src="{{url + 'image/' + identity.foto}}" class="img-fluid" alt="Responsive image">
+                <img src="identity.foto}}" class="img-fluid" alt="Responsive image">
 
             </div>
             <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="fotoUpload($event)">

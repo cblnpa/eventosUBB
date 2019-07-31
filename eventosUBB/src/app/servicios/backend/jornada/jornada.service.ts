@@ -24,7 +24,7 @@ export class JornadaService {
     return this.http.post(this.url+'jornada', params, {headers: headers});
   }
 
-  //Obtener las jornadas del evento asociado
+  //Obtener las jornadas del evento asociado (show)
   getJornadas(idEvento):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.url+'jornada/' + idEvento, {headers: headers});
