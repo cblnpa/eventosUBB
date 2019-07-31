@@ -88,9 +88,6 @@ export class EventosDetallesComponent implements OnInit {
     this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
       response => {
         this.participantes = response.evento;
-        console.log('participantes');
-        console.log(this.participantes);
-        
         this.idPersona = this.participantes.users_id;
       },
       error => {
@@ -103,20 +100,26 @@ export class EventosDetallesComponent implements OnInit {
 
     this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
       response => {
+        
+        console.log(response);
 
-        this.esteEvento = response.evento;
-        console.log(this.esteEvento);
+        this.router.navigate(['/eventosEditar/' + this.idEventoUsers + '/' + this.identity.sub]);
 
-        this.idEsteEvento = this.esteEvento[0].users_id;
+        // this.esteEvento = response.evento;
+        // console.log(this.esteEvento);
 
-        if (this.idEsteEvento != this.identity.sub) {
-          Swal.fire({
-            type: 'warning',
-            title: '¡Este evento no es tuyo!'
-          })
-        } else {
-          this.router.navigate(['/eventosEditar/' + this.idEventoUsers + '/' + this.identity.sub]);
-        }
+        // this.idEsteEvento = this.esteEvento[0].users_id;
+        // console.log('verificar');
+        // console.log(this.idEsteEvento);
+
+        // if (this.idEsteEvento != this.identity.sub) {
+        //   Swal.fire({
+        //     type: 'warning',
+        //     title: '¡Este evento no es tuyo!'
+        //   })
+        // } else {
+        //   this.router.navigate(['/eventosEditar/' + this.idEventoUsers + '/' + this.identity.sub]);
+        // }
 
       }
     )
