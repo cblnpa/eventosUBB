@@ -10,3 +10,4 @@ export { users } from './users';
 export { evento_users } from './evento_users';
 export { unidad } from './unidad';
 export { comision } from './comision';
+export { asistencia } from './asistencia';

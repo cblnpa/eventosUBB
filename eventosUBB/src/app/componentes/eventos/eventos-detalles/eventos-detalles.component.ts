@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { global } from '../../../servicios/global';
 
 import { EventoPojoService, EventoUsersService, UserService, EventoService } from '../../../servicios/servicio.index';
-import { evento, material, colaborador, jornada, expositor, actividad, evento_users, users } from '../../../model/model.index';
+import { evento, material, colaborador, jornada, expositor, actividad, evento_users, asistencia } from '../../../model/model.index';
 
 import Swal from 'sweetalert2';
 
@@ -19,9 +19,13 @@ export class EventosDetallesComponent implements OnInit {
   public id: number;
   public esteEvento;
   public idEsteEvento;
+  public participantes;
+  public idPersona;
 
+  //verificar el usuario activo
   public token;
   public identity;
+
   public idEventoUsers: number; /* este es el id del evento para el eventousers */
   public status;
 
@@ -34,17 +38,21 @@ export class EventosDetallesComponent implements OnInit {
   public jornada: jornada;
   public expositor: expositor;
 
+  public asistencia: asistencia; //modelo que posee evento_idEvento & users_id *se ocupa para el request
+
   constructor(private eventoPojoService: EventoPojoService, private eventoUsersService: EventoUsersService,
     private userService: UserService, private eventoService: EventoService, private route: ActivatedRoute, private router: Router) {
 
     this.url = global.url;
     this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();
+    this.asistencia = new asistencia(null,null);
 
   }
 
   ngOnInit(): void {
     this.getEventosDetalle();
+    this.getEventoUsers();
   }
 
   getEventosDetalle() {
@@ -75,52 +83,21 @@ export class EventosDetallesComponent implements OnInit {
     })
   }
 
-  // getEventoUsers(){
-
-  //   this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
-  //     response => {
-  //       console.log(response);
-  //       this.participantes = response.evento;
-  //       console.log(this.participantes);
-
-  //       this.index = (response.evento).length;
-  //       console.log('get event');
-  //       console.log(this.index);
-
-  //       this.eventoUsers = new evento_users(this.index,this.idEventoUsers,null,this.identity.sub);
-  //       console.log('dentro del coso, imprimir el model');
-  //       console.log(this.eventoUsers);
-
-  //     },
-  //     error => {
-  //       console.log(<any>error);
-  //     }
-  //   )
-  // }
-
-  // participarEvento(){
-
-  //   this.eventoUsersService.guardarEventoUser(this.identity.sub, this.eventoUsers).subscribe(
-  //     response => {
-  //       if( response.status == 'success'){
-  //         Swal.fire({
-  //           type: 'success',
-  //           title: '¡Te has inscrito correctamente en este evento!'
-  //         })
-  //         this.inscrito = true;
-  //       } else {
-  //         Swal.fire({
-  //           type: 'warning',
-  //           title: '¡Ya estás inscrito en este evento!'
-  //         })
-  //       }
-
-  //     },
-  //     error => {
-  //       console.log(<any>error);
-  //     }
-  //   )
-  //   }
+  //Obtener los participantes del evento 
+  getEventoUsers(){
+    this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
+      response => {
+        this.participantes = response.evento;
+        console.log('participantes');
+        console.log(this.participantes);
+        
+        this.idPersona = this.participantes.users_id;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
 
   editarEvento(id: number) {
 
@@ -156,6 +133,22 @@ export class EventosDetallesComponent implements OnInit {
         console.log(<any>error);
       }
     )
+  }
+
+  //Debo mandar el id del usuario e id del evento 
+  acreditar(idUsuario, idEvento){
+
+    this.asistencia = new asistencia(idEvento,idUsuario);
+
+    this.eventoPojoService.asistenciaUsuarios(this.asistencia).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+
   }
 
 }

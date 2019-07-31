@@ -42,4 +42,14 @@ export class EventoPojoService {
     return this.http.put(this.url+'eventoPojo/' + id + '/' + idUsuario, params, {headers: headers});
   }
 
+  // request -> contiene idEvento, idUsuario
+  asistenciaUsuarios(request): Observable<any> {
+    let json = JSON.stringify(request);
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+    return this.http.post(this.url+'asistencia', params, {headers: headers});
+  }
+
 }

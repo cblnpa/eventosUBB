@@ -52,7 +52,7 @@ export class EventoUsersService {
   }
 
   // Crear una tupla en la tabla evento_users -> también lo utiliza el ParticiparEvento para guardar el participante 
-  guardarEventoUser(idUsuario, eventoUsers): Observable<any> {
+  guardarEventoUser( eventoUsers, idUsuario): Observable<any> {
     let json = JSON.stringify(eventoUsers);
     let params = 'json=' + json;
 
