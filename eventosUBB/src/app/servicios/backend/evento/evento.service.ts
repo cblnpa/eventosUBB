@@ -53,4 +53,10 @@ export class EventoService {
 
   }
 
+  //Obtener los datos de la tabla evento del id 
+  getEventoById(id): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'evento/'+id, {headers: headers});
+  }
+
 }

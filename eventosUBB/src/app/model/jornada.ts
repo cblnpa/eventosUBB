@@ -7,6 +7,7 @@ export class jornada {
         public horaInicioJornada: Time,
         public horaFinJornada: Time,
         public ubicacionJornada: string,
-        public descripcionJornada: string
+        public descripcionJornada: string,
+        public evento_idEvento?: number
     ){}
 }

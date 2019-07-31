@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global';
 
 import { EventoPojoService, EventoUsersService, UserService, EventoService } from '../../../servicios/servicio.index';
@@ -15,10 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class EventosDetallesComponent implements OnInit {
 
-  public url: string;
-  public id: number;
-  public esteEvento;
-  public idEsteEvento;
+  public url: string; // url que posee el localhost.. 
   public participantes;
   public idPersona;
 
@@ -42,7 +39,6 @@ export class EventosDetallesComponent implements OnInit {
 
   constructor(private eventoPojoService: EventoPojoService, private eventoUsersService: EventoUsersService,
     private userService: UserService, private eventoService: EventoService, private route: ActivatedRoute, private router: Router) {
-
     this.url = global.url;
     this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();
@@ -53,9 +49,11 @@ export class EventosDetallesComponent implements OnInit {
   ngOnInit(): void {
     this.getEventosDetalle();
     this.getEventoUsers();
+    //this.getFile();
   }
 
   getEventosDetalle() {
+    console.log('eventos detalles');
     this.route.params.subscribe(params => {
 
       let idEvento = +params['id'];
@@ -65,12 +63,60 @@ export class EventosDetallesComponent implements OnInit {
 
         response => {
           if (response.status == 'success') {
-            this.jornada = response.Jornada;
-            this.actividad = response.actividad;
-            this.expositor = response.expositor;
-            this.colaborador = response.colaborador;
-            this.evento = response.evento;
-            this.material = response.material;
+
+            if( response.Jornada == null ){
+              console.log('dentro del if jornada');
+            } else {
+              this.jornada = response.Jornada;
+              console.log('el jornada!!');
+              console.log(this.jornada);
+            }
+            if( response.actividad == null ){
+              console.log('dentro del if actividad');
+            } else {
+              this.actividad = response.actividad;
+              console.log('actividad');
+              console.log(this.actividad);
+            }
+            if( response.expositor == null ){
+              console.log('dentro del if expositor');
+            } else {
+              this.expositor = response.expositor;
+              console.log('expositor');
+              console.log(this.expositor);
+            }
+            if( response.colaborador == null ){
+              console.log('dentro del if colaborador');
+            } else {
+              this.colaborador = response.colaborador;
+              console.log('colaborador');
+              console.log(this.colaborador);
+            }
+            if( response.evento == null ){
+              console.log('dentro del if evento');
+            } else {
+              this.evento = response.evento;
+              console.log('evento');
+              console.log(this.evento);
+            }
+            if( response.material == null ){
+              console.log('dentro del if material');
+            } else {
+              this.material = response.material;
+              console.log('material');
+              console.log(this.material);
+            }
+
+            console.log('response');
+            console.log(response);
+            //this.jornada = response.Jornada;
+            // console.log('jornada');
+            // console.log(this.jornada);
+            // this.actividad = response.actividad;
+            // this.expositor = response.expositor;
+            // this.colaborador = response.colaborador;
+            // this.evento = response.evento;
+            // this.material = response.material;
 
           } else {
             this.router.navigate(['/inicio']);
@@ -97,33 +143,12 @@ export class EventosDetallesComponent implements OnInit {
   }
 
   editarEvento(id: number) {
-
     this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
       response => {
-        
-        console.log(response);
-
         this.router.navigate(['/eventosEditar/' + this.idEventoUsers + '/' + this.identity.sub]);
-
-        // this.esteEvento = response.evento;
-        // console.log(this.esteEvento);
-
-        // this.idEsteEvento = this.esteEvento[0].users_id;
-        // console.log('verificar');
-        // console.log(this.idEsteEvento);
-
-        // if (this.idEsteEvento != this.identity.sub) {
-        //   Swal.fire({
-        //     type: 'warning',
-        //     title: '¡Este evento no es tuyo!'
-        //   })
-        // } else {
-        //   this.router.navigate(['/eventosEditar/' + this.idEventoUsers + '/' + this.identity.sub]);
-        // }
-
+        console.log(response);
       }
     )
-
   }
 
   // Función para eliminar el evento 
@@ -140,9 +165,7 @@ export class EventosDetallesComponent implements OnInit {
 
   //Debo mandar el id del usuario e id del evento 
   acreditar(idUsuario, idEvento){
-
     this.asistencia = new asistencia(idEvento,idUsuario);
-
     this.eventoPojoService.asistenciaUsuarios(this.asistencia).subscribe(
       response => {
         console.log(response);
@@ -151,7 +174,19 @@ export class EventosDetallesComponent implements OnInit {
         console.log(<any>error);
       }
     )
-
   }
+
+  //Obtener imagen
+  // getFile(){
+  //   this.eventoPojoService.getFile(this.evento.imagen).subscribe(
+  //     response => {
+  //       console.log('imagen evento');
+  //       console.log(response);
+  //     },
+  //     error => {
+  //       console.log(<any>error);
+  //     }
+  //   )
+  // }
 
 }

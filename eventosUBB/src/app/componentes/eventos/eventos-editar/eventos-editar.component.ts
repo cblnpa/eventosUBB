@@ -5,7 +5,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material } from '../../../model/model.index';
-import { EventoPojoService, CiudadService, UserService } from '../../../servicios/servicio.index';
+import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService } from '../../../servicios/servicio.index';
 
 @Component({
   selector: 'app-eventos-editar',
@@ -21,7 +21,10 @@ export class EventosEditarComponent implements OnInit {
   public ciudad: ciudad;
   public material: material;
   public eventos: evento;
+
   public jornada: jornada;
+  public jornadaAdd: jornada;
+
   public actividad: actividad;
   public colaborador: colaborador;
   public expositor: expositor;
@@ -39,7 +42,7 @@ export class EventosEditarComponent implements OnInit {
   public token;
   public ciudades;
   public status;
-  public id; 
+  public id; //id del evento
 
   public idUsuario; //id del usuario (sub) 
 
@@ -63,11 +66,18 @@ export class EventosEditarComponent implements OnInit {
     }
   };
 
-  constructor( private _formBuilder: FormBuilder, private userService: UserService,
-    private eventoPojoService: EventoPojoService, private router: Router, private route: ActivatedRoute,
-    private ciudadService: CiudadService ) {
+  constructor( private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, 
+    private userService: UserService, private eventoPojoService: EventoPojoService,
+    private ciudadService: CiudadService, private eventoService: EventoService, 
+    private jornadaService: JornadaService) {
       
+      //objeto para mostrar los datos ?
       this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','');
+      
+      // objeto para editar el evento, step 1
+      this.eventos = new evento('','','','','',null,'',null,null,null);
+      this.jornadaAdd = new jornada('',null,null,null,'','',null);
+
       this.identity = this.userService.getIdentity();
       this.token = this.userService.getToken();
       this.url = global.url;
@@ -78,6 +88,10 @@ export class EventosEditarComponent implements OnInit {
 
     this.getCiudades();
     this.getDatosEvento();
+    this.mostrarJornadas();
+
+    console.log('ng on init');
+    console.log(this.id);
     
     this.idUsuario = this.identity.sub;
 
@@ -119,6 +133,33 @@ export class EventosEditarComponent implements OnInit {
       }
     );
   }
+
+  // getDatosEvento(){
+
+  //   this.route.params.subscribe( params => {
+  //     let idEvento = +params['id'];
+
+  //     this.eventoService.getEventoById(idEvento).subscribe(
+  //       response => {
+  //         console.log('dentro del get evento');
+  //         this.eventos = response; 
+  //         console.log(this.eventos);
+
+  //         //Mostrar los datos
+  //         this.eventos = new evento(
+  //           this.eventos.nombreEvento,
+  //           this.eventos.ubicacion, 
+  //           this.eventos.direccion, 
+  //           this.eventos.detalles,
+  //           this.eventos.imagen, 
+  //           this.eventos.capacidad, 
+  //           this.eventos.nombreEventoInterno,
+  //           this.eventos.ciudad_idCiudad, 
+  //           this.eventos.visibilidad);
+  //       }
+  //     )
+  //   })
+  // }
 
   getDatosEvento(){
 
@@ -189,154 +230,45 @@ export class EventosEditarComponent implements OnInit {
 
   guardarEvento(form){
 
-    this.eventoPojoService.updateEventoPojo(this.eventoPojo, this.id, this.idUsuario).subscribe(
+    this.eventoPojoService.updateEventoPojo(this.eventos, this.id).subscribe(
       response => {
+      
         if(response && response.status){
           this.status = 'success';
 
-          console.log('guardar Evnto');
-          console.log(this.eventoPojo);
-
           //Actualizar los datos que se ingresaron
           if(response.changes.eventos.nombreEvento){
-            this.eventoPojo.nombreEvento = response.changes.eventos.nombreEvento;
+            this.eventos.nombreEvento = response.changes.eventos.nombreEvento;
           }
 
           if(response.changes.eventos.ubicacion){
-            this.eventoPojo.ubicacion = response.changes.eventos.ubicacion;
+            this.eventos.ubicacion = response.changes.eventos.ubicacion;
           }
 
           if(response.changes.eventos.direccion){
-            this.eventoPojo.direccion = response.changes.eventos.direccion;
+            this.eventos.direccion = response.changes.eventos.direccion;
           }
 
           if(response.changes.eventos.detalles){
-            this.eventoPojo.detalles = response.changes.eventos.detalles;
+            this.eventos.detalles = response.changes.eventos.detalles;
           }
 
           if(response.changes.eventos.imagen){
-            this.eventoPojo.imagen = response.changes.eventos.imagen;
+            this.eventos.imagen = response.changes.eventos.imagen;
           }
 
           if(response.changes.eventos.capacidad){
-            this.eventoPojo.capacidad = response.changes.eventos.capacidad;
+            this.eventos.capacidad = response.changes.eventos.capacidad;
           }
 
           if(response.changes.eventos.nombreEventoInterno){
-            this.eventoPojo.nombreEventoInterno = response.changes.eventos.nombreEventoInterno;
+            this.eventos.nombreEventoInterno = response.changes.eventos.nombreEventoInterno;
           }
 
           if(response.changes.eventos.ciudad){
-            this.eventoPojo.ciudad_idCiudad = response.changes.eventos.ciudad;
+            this.eventos.ciudad_idCiudad = response.changes.eventos.ciudad;
           }
 
-          if(response.changes.material.nombreMaterial){
-            this.eventoPojo.nombreMaterial = response.changes.material.nombreMaterial;
-          }
-
-          if(response.changes.material.archivo){
-            this.eventoPojo.archivo = response.changes.material.archivo;
-          }
-
-          if(response.changes.colaborador.nombreColaborador){
-            this.eventoPojo.nombreColaborador = response.changes.colaborador.nombreColaborador;
-          }
-
-          if(response.changes.colaborador.nombreRepresentante){
-            this.eventoPojo.nombreRepresentante = response.changes.colaborador.nombreRepresentante;
-          }
-
-          if(response.changes.colaborador.telefonoColaborador){
-            this.eventoPojo.telefonoColaborador = response.changes.colaborador.telefonoColaborador;
-          }
-
-          if(response.changes.colaborador.correoColaborador){
-            this.eventoPojo.correoColaborador = response.changes.colaborador.correoColaborador;
-          }
-
-          if(response.changes.colaborador.sitioWeb){
-            this.eventoPojo.sitioWeb = response.changes.colaborador.sitioWeb;
-          }
-
-          if(response.changes.colaborador.logo){
-            this.eventoPojo.logo = response.changes.colaborador.logo;
-          }
-
-          if(response.changes.jornada.nombreJornada){
-            this.eventoPojo.nombreJornada = response.changes.jornada.nombreJornada;
-          }
-
-          if(response.changes.jornada.fechaJornada){
-            this.eventoPojo.fechaJornada = response.changes.jornada.fechaJornada;
-          }
-
-          if(response.changes.jornada.horaInicioJornada){
-            this.eventoPojo.horaInicioJornada = response.changes.jornada.horaInicioJornada;
-          }
-
-          if(response.changes.jornada.horaFinJornada){
-            this.eventoPojo.horaFinJornada = response.changes.jornada.horaFinJornada;
-          }
-
-          if(response.changes.jornada.ubicacionJornada){
-            this.eventoPojo.ubicacionJornada = response.changes.jornada.ubicacionJornada;
-          }
-
-          if(response.changes.jornada.descripcionJornada){
-            this.eventoPojo.descripcionJornada = response.changes.jornada.descripcionJornada;
-          }
-
-          if(response.changes.expositor.nombreExpositor){
-            this.eventoPojo.nombreExpositor = response.changes.expositor.nombreExpositor;
-          }
-
-          if(response.changes.expositor.apellidoExpositor){
-            this.eventoPojo.apellidoExpositor = response.changes.expositor.apellidoExpositor;
-          }
-
-          if(response.changes.expositor.nombreExpositor){
-            this.eventoPojo.nombreExpositor = response.changes.expositor.nombreExpositor;
-          }
-
-          if(response.changes.expositor.sexo){
-            this.eventoPojo.sexo = response.changes.expositor.sexo;
-          }
-
-          if(response.changes.expositor.correoExpositor){
-            this.eventoPojo.correoExpositor = response.changes.expositor.correoExpositor;
-          }
-
-          if(response.changes.expositor.empresa){
-            this.eventoPojo.empresa = response.changes.expositor.empresa;
-          }
-
-          if(response.changes.expositor.foto){
-            this.eventoPojo.foto = response.changes.expositor.foto;
-          }
-
-          if(response.changes.expositor.nombreExpositor){
-            this.eventoPojo.nombreExpositor = response.changes.expositor.nombreExpositor;
-          }
-
-          if(response.changes.actividad.nombreActividad){
-            this.eventoPojo.nombreActividad = response.changes.actividad.nombreActividad;
-          }
-
-          if(response.changes.actividad.horaInicioActividad){
-            this.eventoPojo.horaInicioActividad = response.changes.actividad.horaInicioActividad;
-          }
-
-          if(response.changes.actividad.horaFinActividad){
-            this.eventoPojo.horaFinActividad = response.changes.actividad.horaFinActividad;
-          }
-
-          if(response.changes.actividad.ubicacionActividad){
-            this.eventoPojo.ubicacionActividad = response.changes.actividad.ubicacionActividad;
-          }
-
-          if(response.changes.actividad.descripcionActividad){
-            this.eventoPojo.descripcionActividad = response.changes.actividad.descripcionActividad;
-          }
         }
         
       }
@@ -344,11 +276,39 @@ export class EventosEditarComponent implements OnInit {
     this.router.navigate(['/eventoDetalle/' + this.id]);
   }
 
+  //Modal agregar jornada
+  agregarJornada(form){
+    
+    console.log('dentro del agregar Jornada antes del service');
+    this.jornadaService.guardarJornada(this.jornadaAdd).subscribe(
+      response => {
+        console.log('dentro del agregar jornada');
+        console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+
+  }
+
+  mostrarJornadas(){
+    this.jornadaService.getJornadas(this.id).subscribe(
+      response => {
+        this.jornada = response;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  //foto del evento
   imagenUpload(datos){
     let data =JSON.parse(datos.response);
     console.log(datos.response);
-    this.eventoPojo.imagen = data.image;
-    console.log(this.eventoPojo.imagen);
+    this.eventos.imagen = data.image;
+    console.log(this.eventos.imagen);
   }
 
   logoUpload(datos){

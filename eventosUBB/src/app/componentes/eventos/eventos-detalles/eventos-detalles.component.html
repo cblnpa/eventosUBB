@@ -8,9 +8,9 @@
             <div class="card-img-overlay card-inverse social-profile d-flex">
                 <div class="align-self-center">
                     <h1 class="card-title"> {{evento.nombreEvento}}  </h1> <!-- evento.nombre -->
-                    <h1 *ngIf="!evento.nombreEvento" class="card-title"> {{evento.nombreEventoInterno}} </h1>
+                    <h2 class="card-subtitle"> {{evento.nombreEventoInterno}} </h2>
                     <hr>
-                    <h4 class="card-subtitle"><i class="fa fa-calendar"></i> {{jornada.fechaJornada}} </h4>
+                    <h4 *ngIf="jornada != null" class="card-subtitle"><i class="fa fa-calendar"></i> {{jornada.fechaJornada}} </h4>
                     <!-- jornada.fecha -->
                 </div>
             </div>
@@ -65,7 +65,7 @@
             <div class="tab-content">
                 <!-- jornada tab -->
                 <div class="tab-pane active" id="jornada" role="tabpanel">
-                    <div class="card-body">  
+                    <div *ngIf="jornada != null" class="card-body">  
                         
                         <div class="d-flex flex-row">
                             <div class="p-10 bg-inverse">
@@ -206,7 +206,7 @@
                         <div class="col-lg-4 col-xlg-3 col-md-3"> <!-- agregar a este div un ngFor por cada expositor -->
                             <div class="card">
                                 <div class="el-card-item">
-                                    <div class="el-card-avatar el-overlay-1">
+                                    <div *ngIf="expositor != null" class="el-card-avatar el-overlay-1">
                                         <!-- expositor.foto -->
                                         <img *ngIf="!expositor.foto" src="../../../assets/images/user.png" alt="Card image" />
                                         <img *ngIf="expositor.foto" src="{{url + 'image/' + expositor.foto}}" alt="user" />
@@ -229,7 +229,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="el-card-content">
+                                    <div *ngIf="expositor != null" class="el-card-content">
                                         <h3 class="box-tittle"> {{expositor.empresa}} </h3>
                                         <h3 class="box-tittle"> {{expositor.nombreExpositor + ' ' + expositor.apellidoExpositor}} </h3> <!-- expositor.nombre expositor.apellido -->
                                         <h6><i class="fa fa-envelope"></i> {{expositor.correoExpositor}}  </h6> <!-- expositor.correo -->
@@ -244,7 +244,7 @@
                 <div class="tab-pane" id="colaboradores" role="tabpanel">
                     <h2 class="mt-3 ml-3 mb-3">Colaboradores</h2>
                     <br>
-                    <div class="row el-element-overlay">
+                    <div *ngIf="colaborador != null" class="row el-element-overlay">
                             <div class="col-lg-4 col-xlg-3 col-md-3"> <!-- agregar a este div un ngFor por cada expositor -->
                                 <div class="card">
                                     <div class="el-card-item">

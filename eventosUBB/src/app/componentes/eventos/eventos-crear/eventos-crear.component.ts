@@ -34,7 +34,7 @@ export class EventosCrearComponent implements OnInit {
 
   guardarEvento(form){
 
-    this.eventoPojoService.guardarEventoPojo(this.idUsuario, this.evento).subscribe(
+    this.eventoPojoService.guardarEventoPojo(this.evento).subscribe(
       response => {
         console.log(response);
         Swal.fire({
