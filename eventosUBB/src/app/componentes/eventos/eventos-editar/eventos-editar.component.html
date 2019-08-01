@@ -168,175 +168,12 @@
     </mat-step>
 
     <mat-step label="Step 4">
-        <!-- <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
-            <ng-template matStepperIcon="done" matStepLabel>Jornadas</ng-template>
-            <p>
-                <mat-form-field>
-                    <mat-label for="nombreJornada">Nombre jornada</mat-label>
-                    <input matInput type="text" name="nombreJornada" #nombreJornada="ngModel"
-                        [(ngModel)]="eventoPojo.nombreJornada">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="fechaJornada">Fecha jornada</mat-label>
-                    <input matInput type="date" name="fechaJornada" #fechaJornada="ngModel"
-                        [(ngModel)]="eventoPojo.fechaJornada">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="horaInicioJornada">Hora inicio</mat-label>
-                    <input matInput type="time" name="horaInicioJornada" #horaInicioJornada="ngModel"
-                        [(ngModel)]="eventoPojo.horaInicioJornada">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="horaFinJornada">Hora fin</mat-label>
-                    <input matInput type="time" name="horaFinJornada" #horaFinJornada="ngModel"
-                        [(ngModel)]="eventoPojo.horaFinJornada">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="ubicacionJornada">Ubicacion jornada</mat-label>
-                    <input matInput type="text" name="ubicacionJornada" #ubicacionJornada="ngModel"
-                        [(ngModel)]="eventoPojo.ubicacionJornada">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="descripcionJornada">Descripción jornada</mat-label>
-                    <input matInput type="text" name="descripcionJornada" #descripcionJornada="ngModel"
-                        [(ngModel)]="eventoPojo.descripcionJornada">
+        <ng-template matStepperIcon="done" matStepLabel>Jornadas</ng-template>
 
-                </mat-form-field>
-            </p>
-            <div>
-                <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
-            </div>
-        </form> -->
-
-        <!-- Botón para agregar jornada -->
         <div class="col-md-12 text-center">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#jornadaModal">
+            <button type="button" class="btn btn-success" (click)="agregarJornadaModal()">
                 <i class="mdi mdi-plus"></i> Agregar jornada
             </button>
-        </div>
-
-
-        <!-- Modal -->
-        <div id="jornadaModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true" style="display: none;">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title text-primary text-center">Agregar una nueva jornada al evento</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal p-t-20" #agregarJornadaForm="ngForm" (ngSubmit)="agregarJornada(agregarJornadaForm)">
-
-                            <div class="form-group row">
-                                <label for="nombreJornada" class="col-sm-3 control-label">Nombre</label>
-                                <div class="col-sm-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon"><i class="mdi mdi-assistant"></i></div>
-                                        <!-- <input type="text" class="form-control" name="nombreJornada"> -->
-                                        <input type="text" class="form-control" name="nombreJornada"
-                                            #nombreJornada="ngModel" [(ngModel)]="jornadaAdd.nombreJornada">
-                                    </div>
-                                    <span class="help-block"><small>Ingresa el nombre de la jornada</small></span>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                    <label for="fechaJornada" class="col-sm-3 control-label">Fecha</label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><i class="mdi mdi-calendar-today"></i></div>
-                                            <!-- <input type="date" class="form-control" name="fechaJornada"> -->
-                                            <input type="date" class="form-control" name="fechaJornada"
-                                                #fechaJornada="ngModel" [(ngModel)]="jornadaAdd.fechaJornada">
-                                        </div>
-                                        <span class="help-block"><small>Selecciona la fecha en que se desarrollará esta jornada</small></span>
-                                    </div>
-                            </div>
-
-                            <div class="form-group row">
-                                    <label for="horaInicioJornada" class="col-sm-3 control-label">Hora de inicio</label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><i class="mdi mdi-clock"></i></div>
-                                            <!-- <input type="time" class="form-control" name="horaInicioJornada"> -->
-                                            <input type="time" class="form-control" name="horaInicioJornada"
-                                                #horaInicioJornada="ngModel" [(ngModel)]="jornadaAdd.horaInicioJornada">
-                                        </div>
-                                        <span class="help-block"><small>Ingresa la hora de inicio de esta jornada</small></span>
-                                    </div>
-                            </div>
-
-                            <div class="form-group row">
-                                    <label for="horaFinJornada" class="col-sm-3 control-label">Hora de término</label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><i class="mdi mdi-clock"></i></div>
-                                            <!-- <input type="time" class="form-control" name="horaFinJornada"> -->
-                                            <input type="time" class="form-control" name="horaFinJornada"
-                                                #horaFinJornada="ngModel" [(ngModel)]="jornadaAdd.horaFinJornada">
-                                        </div>
-                                        <span class="help-block"><small>Ingresa la hora de término de esta jornada</small></span>
-                                    </div>
-                            </div>
-
-                            <div class="form-group row">
-                                    <label for="ubicacionJornada" class="col-sm-3 control-label">Ubicación</label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><i class="mdi mdi-map-marker"></i></div>
-                                            <!-- <input type="text" class="form-control" name="ubicacionJornada"> -->
-                                            <input type="text" class="form-control" name="ubicacionJornada"
-                                                #ubicacionJornada="ngModel" [(ngModel)]="jornadaAdd.ubicacionJornada">
-                                        </div>
-                                        <span class="help-block"><small>Ingresa la ubicación de esta jornada</small></span>
-                                    </div>
-                            </div>
-
-                            <div class="form-group row">
-                                    <label for="descripcionJornada" class="col-sm-3 control-label">Descripción</label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><i class="mdi mdi-comment-text"></i></div>
-                                            <!-- <input type="text" class="form-control" name="descripcionJornada"> -->
-                                            <input type="text" class="form-control" name="descripcionJornada"
-                                                #descripcionJornada="ngModel" [(ngModel)]="jornadaAdd.descripcionJornada">
-                                        </div>
-                                        <span class="help-block"><small>Ingresa la ubicación de esta jornada</small></span>
-                                    </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <div class="col-sm-9">
-                                    <div class="input-group">
-                                        <input type="hidden" name="evento_idEvento" #evento_idEvento="ngModel"
-                                        [(ngModel)]="jornadaAdd.evento_idEvento">
-                                    </div>
-                                </div>
-                            </div>
-
-                            
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Tabla para visualizar la jornada -->
@@ -362,8 +199,6 @@
                 </tbody>
             </table>
         </div>
-
-        <ng-template matStepperIcon="done" matStepLabel>Jornadas</ng-template>
         <div>
             <br>
             <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
@@ -518,3 +353,6 @@
         </div>
     </mat-step>
 </mat-horizontal-stepper>
+
+<!-- modales -->
+<app-modal-jornada-add></app-modal-jornada-add>

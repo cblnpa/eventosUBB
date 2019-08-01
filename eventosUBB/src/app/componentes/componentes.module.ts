@@ -39,6 +39,7 @@ import { UnidadesVerComponent } from './unidades/unidades-ver/unidades-ver.compo
 import { ReportesGenerarComponent } from './reportes/reportes-generar/reportes-generar.component';
 import { ComisionVerComponent } from './comisiones/comision-ver/comision-ver.component';
 import { ComisionCrearComponent } from './comisiones/comision-crear/comision-crear.component';
+import { ModalJornadaAddComponent } from './modals/modal-jornada-add/modal-jornada-add.component';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import { ComisionCrearComponent } from './comisiones/comision-crear/comision-cre
         UnidadesVerComponent,
         ReportesGenerarComponent,
         ComisionVerComponent,
-        ComisionCrearComponent
+        ComisionCrearComponent,
+        ModalJornadaAddComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
@@ -65,7 +67,8 @@ import { ComisionCrearComponent } from './comisiones/comision-crear/comision-cre
         InicioComponent,
         EventosMisEventosComponent,
         EventosCrearComponent,
-        EventosDetallesPublicComponent
+        EventosDetallesPublicComponent,
+        ModalJornadaAddComponent
     ],
     //acá se agregan los módulos de utilidades, ya que estos se utilizan en componentes.component.html
     imports: [

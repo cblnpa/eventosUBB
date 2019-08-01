@@ -10,7 +10,8 @@ import {
   CiudadService,
   EventoUsersService,
   UnidadService,
-  JornadaService
+  JornadaService,
+  ModalService
  } from './servicio.index';
 
 @NgModule({
@@ -26,7 +27,8 @@ import {
     CiudadService,
     EventoUsersService,
     UnidadService,
-    JornadaService
+    JornadaService,
+    ModalService
   ],
   declarations: [],
   

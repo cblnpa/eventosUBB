@@ -5,7 +5,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material } from '../../../model/model.index';
-import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService } from '../../../servicios/servicio.index';
+import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService, ModalService } from '../../../servicios/servicio.index';
 
 @Component({
   selector: 'app-eventos-editar',
@@ -17,18 +17,17 @@ import { EventoPojoService, CiudadService, UserService, EventoService, JornadaSe
 })
 export class EventosEditarComponent implements OnInit {
 
+  //Modelos y/o Tablas
   public eventoPojo: eventoPojo;
   public ciudad: ciudad;
   public material: material;
   public eventos: evento;
-
   public jornada: jornada;
-  public jornadaAdd: jornada;
-
   public actividad: actividad;
   public colaborador: colaborador;
   public expositor: expositor;
   
+  //Formularios del stepper
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -43,7 +42,6 @@ export class EventosEditarComponent implements OnInit {
   public ciudades;
   public status;
   public id; //id del evento
-
   public idUsuario; //id del usuario (sub) 
 
   public afuConfig = {
@@ -68,15 +66,14 @@ export class EventosEditarComponent implements OnInit {
 
   constructor( private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, 
     private userService: UserService, private eventoPojoService: EventoPojoService,
-    private ciudadService: CiudadService, private eventoService: EventoService, 
-    private jornadaService: JornadaService) {
+    private ciudadService: CiudadService, private jornadaService: JornadaService, 
+    private modalService: ModalService ) {
       
       //objeto para mostrar los datos ?
       this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','');
       
       // objeto para editar el evento, step 1
       this.eventos = new evento('','','','','',null,'',null,null,null);
-      this.jornadaAdd = new jornada('',null,null,null,'','',null);
 
       this.identity = this.userService.getIdentity();
       this.token = this.userService.getToken();
@@ -130,33 +127,6 @@ export class EventosEditarComponent implements OnInit {
       }
     );
   }
-
-  // getDatosEvento(){
-
-  //   this.route.params.subscribe( params => {
-  //     let idEvento = +params['id'];
-
-  //     this.eventoService.getEventoById(idEvento).subscribe(
-  //       response => {
-  //         console.log('dentro del get evento');
-  //         this.eventos = response; 
-  //         console.log(this.eventos);
-
-  //         //Mostrar los datos
-  //         this.eventos = new evento(
-  //           this.eventos.nombreEvento,
-  //           this.eventos.ubicacion, 
-  //           this.eventos.direccion, 
-  //           this.eventos.detalles,
-  //           this.eventos.imagen, 
-  //           this.eventos.capacidad, 
-  //           this.eventos.nombreEventoInterno,
-  //           this.eventos.ciudad_idCiudad, 
-  //           this.eventos.visibilidad);
-  //       }
-  //     )
-  //   })
-  // }
 
   getDatosEvento(){
 
@@ -226,10 +196,9 @@ export class EventosEditarComponent implements OnInit {
   }
 
   guardarEvento(form){
-
     this.eventoPojoService.updateEventoPojo(this.eventos, this.id).subscribe(
       response => {
-      
+  
         if(response && response.status){
           this.status = 'success';
 
@@ -265,44 +234,26 @@ export class EventosEditarComponent implements OnInit {
           if(response.changes.eventos.ciudad){
             this.eventos.ciudad_idCiudad = response.changes.eventos.ciudad;
           }
-
         }
-        
       }
     )
     this.router.navigate(['/eventoDetalle/' + this.id]);
   }
 
-  //Modal agregar jornada
-  agregarJornada(form){
-
-    this.jornadaAdd.evento_idEvento = this.id;
-    
-    console.log('dentro del agregar Jornada antes del service');
-    this.jornadaService.guardarJornada(this.jornadaAdd).subscribe(
-      response => {
-        console.log('dentro del agregar jornada');
-        console.log(response);
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
-
-  }
-
-  //Listar jornadas del evento
+  //Listar jornadas del evento en la tabla
   mostrarJornadas(){
     this.jornadaService.getJornadas(this.id).subscribe(
       response => {
-        console.log(response);
-        console.log('get jornadas');
         this.jornada = response.jornadas;
       },
       error => {
         console.log(<any>error);
       }
     )
+  }
+
+  agregarJornadaModal(){
+    this.modalService.mostrarModal();
   }
 
   //foto del evento
