@@ -11,6 +11,7 @@ import {
   EventoUsersService,
   UnidadService,
   JornadaService,
+  ExpositorService,
   ModalService
  } from './servicio.index';
 
@@ -28,6 +29,7 @@ import {
     EventoUsersService,
     UnidadService,
     JornadaService,
+    ExpositorService,
     ModalService
   ],
   declarations: [],

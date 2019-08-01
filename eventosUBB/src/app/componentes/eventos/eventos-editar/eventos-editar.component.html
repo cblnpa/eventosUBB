@@ -208,57 +208,34 @@
     </mat-step>
 
     <mat-step label="Step 5">
-        <!-- <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
-            <ng-template matStepperIcon="done" matStepLabel>Expositores</ng-template>
-            <p>
-                <mat-form-field>
-                    <mat-label for="nombreExpositor">Nombre expositor</mat-label>
-                    <input matInput type="text" name="nombreExpositor" #nombreExpositor="ngModel"
-                        [(ngModel)]="eventoPojo.nombreExpositor">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="apellidoExpositor">Apellido expositor</mat-label>
-                    <input matInput type="text" name="apellidoExpositor" #apellidoExpositor="ngModel"
-                        [(ngModel)]="eventoPojo.apellidoExpositor">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="sexo">Sexo</mat-label>
-                    <input matInput type="text" name="sexo" #sexo="ngModel" [(ngModel)]="eventoPojo.sexo">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="correoExpositor">Correo</mat-label>
-                    <input matInput type="email" name="correoExpositor" #correoExpositor="ngModel"
-                        [(ngModel)]="eventoPojo.correoExpositor">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="empresa">Empresa</mat-label>
-                    <input matInput type="text" name="empresa" #empresa="ngModel" [(ngModel)]="eventoPojo.empresa">
-                </mat-form-field>
-            </p>
-
-            <label for="foto">Foto</label>
-            <div *ngIf="identity && identity.foto">
-                <img src="identity.foto}}" class="img-fluid" alt="Responsive image">
-
-            </div>
-            <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="fotoUpload($event)">
-            </angular-file-uploader>
-            <div>
-                <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
-            </div>
-        </form> -->
-
         <ng-template matStepperIcon="done" matStepLabel>Expositores</ng-template>
+
+        <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-success" (click)="agregarExpositorModal()">
+                <i class="mdi mdi-plus"></i> Agregar expositor
+            </button>
+        </div>
+
+        <!-- Tabla para visualizar los expositores -->
+        <div class="col-md-12">
+            <table class="table info-table mt-3">
+                <thead>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Correo</th>
+                    <th>Empresa</th>
+                    <th>Foto</th>
+                </thead>
+                <tbody *ngFor="let exp of expositor ; let i = index">
+                    <td> {{i+1}} </td>
+                    <td> {{exp.nombreExpositor}} </td>
+                    <td> {{exp.apellidoExpositor}} </td>
+                    <td> {{exp.correoExpositor}} </td>
+                    <td> {{exp.empresa}} </td>
+                </tbody>
+            </table>
+        </div>
 
         <div>
             <br>
@@ -356,3 +333,4 @@
 
 <!-- modales -->
 <app-modal-jornada-add></app-modal-jornada-add>
+<app-modal-expositor-add></app-modal-expositor-add>

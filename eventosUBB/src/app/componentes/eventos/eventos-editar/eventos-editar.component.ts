@@ -5,7 +5,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material } from '../../../model/model.index';
-import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService, ModalService } from '../../../servicios/servicio.index';
+import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService, ExpositorService, ModalService } from '../../../servicios/servicio.index';
 
 @Component({
   selector: 'app-eventos-editar',
@@ -67,7 +67,7 @@ export class EventosEditarComponent implements OnInit {
   constructor( private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, 
     private userService: UserService, private eventoPojoService: EventoPojoService,
     private ciudadService: CiudadService, private jornadaService: JornadaService, 
-    private modalService: ModalService ) {
+    private expositorService: ExpositorService, private modalService: ModalService ) {
       
       //objeto para mostrar los datos ?
       this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','');
@@ -86,6 +86,7 @@ export class EventosEditarComponent implements OnInit {
     this.getCiudades();
     this.getDatosEvento();
     this.mostrarJornadas();
+    this.mostrarExpositores();
     
     this.idUsuario = this.identity.sub;
 
@@ -256,6 +257,21 @@ export class EventosEditarComponent implements OnInit {
     this.modalService.mostrarModal();
   }
 
+  mostrarExpositores(){
+    this.expositorService.getExpositores().subscribe(
+      response => {
+        this.expositor = response.expositores;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  agregarExpositorModal(){
+    this.modalService.mostrarModal();
+  }
+
   //foto del evento
   imagenUpload(datos){
     let data =JSON.parse(datos.response);
@@ -271,6 +287,7 @@ export class EventosEditarComponent implements OnInit {
     console.log(this.eventoPojo.logo);
   }
 
+  //foto del expositor
   fotoUpload(datos){
     let data =JSON.parse(datos.response);
     console.log(datos.response);

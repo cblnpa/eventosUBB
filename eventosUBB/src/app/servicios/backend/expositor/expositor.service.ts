@@ -6,7 +6,7 @@ import { global } from '../../global';
 @Injectable({
   providedIn: 'root'
 })
-export class JornadaService {
+export class ExpositorService {
 
   public url: string; //acá se guarda el http://localhost:8000/api/ que esta en global.ts
 
@@ -14,19 +14,19 @@ export class JornadaService {
     this.url = global.url; 
   }
 
-  // Guardar una jornada
-  guardarJornada(jornada): Observable<any>{
-    let json = JSON.stringify(jornada); //convierte el evento que se pasa por parámetro a un tipo JSON
+  // Guardar un expositor
+  guardarExpositor(expositor): Observable<any>{
+    let json = JSON.stringify(expositor); //convierte el evento que se pasa por parámetro a un tipo JSON
     let params = 'json='+json; //se definene los parametros que se mandan al api
     
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'); //tipo de peticion
     
-    return this.http.post(this.url+'jornada', params, {headers: headers});
+    return this.http.post(this.url+'expositor', params, {headers: headers});
   }
 
   //Obtener las jornadas del evento asociado (show)
-  getJornadas(idEvento):Observable<any>{
+  getExpositores():Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.url+'jornada/' + idEvento, {headers: headers});
+    return this.http.get(this.url+'expositor', {headers: headers});
   }
 }
