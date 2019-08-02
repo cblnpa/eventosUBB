@@ -41,6 +41,7 @@ import { ComisionVerComponent } from './comisiones/comision-ver/comision-ver.com
 import { ComisionCrearComponent } from './comisiones/comision-crear/comision-crear.component';
 import { ModalJornadaAddComponent } from './modals/modal-jornada-add/modal-jornada-add.component';
 import { ModalExpositorAddComponent } from './modals/modal-expositor-add/modal-expositor-add.component';
+import { ModalActividadAddComponent } from './modals/modal-actividad-add/modal-actividad-add.component';
 
 @NgModule({
     declarations: [
@@ -58,7 +59,8 @@ import { ModalExpositorAddComponent } from './modals/modal-expositor-add/modal-e
         ComisionVerComponent,
         ComisionCrearComponent,
         ModalJornadaAddComponent,
-        ModalExpositorAddComponent
+        ModalExpositorAddComponent,
+        ModalActividadAddComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [

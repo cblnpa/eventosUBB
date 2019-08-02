@@ -12,6 +12,7 @@ import {
   UnidadService,
   JornadaService,
   ExpositorService,
+  ActividadService,
   ModalService
  } from './servicio.index';
 
@@ -30,6 +31,7 @@ import {
     UnidadService,
     JornadaService,
     ExpositorService,
+    ActividadService,
     ModalService
   ],
   declarations: [],

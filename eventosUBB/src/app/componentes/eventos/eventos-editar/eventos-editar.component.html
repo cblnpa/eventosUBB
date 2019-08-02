@@ -57,7 +57,7 @@
                     <mat-label for="ciudad_idCiudad">Ciudad</mat-label>
                     <mat-select name="ciudad_idCiudad" #ciudad="ngModel" [(ngModel)]="eventos.ciudad_idCiudad">
                         <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.idCiudad">
-                            ad}}
+                            {{ciudad.nombreCiudad}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -246,52 +246,36 @@
     </mat-step>
 
     <mat-step label="Step 6">
-        <!-- <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
-            <ng-template matStepperIcon="done" matStepLabel>Actividades</ng-template>
-            <p>
-                <mat-form-field>
-                    <mat-label for="nombreActividad">Nombre actividad</mat-label>
-                    <input matInput type="text" name="nombreActividad" #nombreActividad="ngModel"
-                        [(ngModel)]="eventoPojo.nombreActividad">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="horaInicioActividad">Hora inicio</mat-label>
-                    <input matInput type="time" name="horaInicioActividad" #horaInicioActividad="ngModel"
-                        [(ngModel)]="eventoPojo.horaInicioActividad">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="horaFinActividad">Hora fin</mat-label>
-                    <input matInput type="time" name="horaFinActividad" #horaFinActividad="ngModel"
-                        [(ngModel)]="eventoPojo.horaFinActividad">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="ubicacionActividad">Ubicacion actividad</mat-label>
-                    <input matInput type="text" name="ubicacionActividad" #ubicacionActividad="ngModel"
-                        [(ngModel)]="eventoPojo.ubicacionActividad">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="descripcionActividad">Descripción actividad</mat-label>
-                    <input matInput type="text" name="descripcionActividad" #descripcionActividad="ngModel"
-                        [(ngModel)]="eventoPojo.descripcionActividad">
-
-                </mat-form-field>
-            </p>
-            <div>
-                <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
-            </div>
-        </form> -->
 
         <ng-template matStepperIcon="done" matStepLabel>Actividades</ng-template>
+
+        <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-success" (click)="agregarActividadModal()">
+                    <i class="mdi mdi-plus"></i> Agregar actividad
+                </button>
+        </div>
+
+        <!-- Tabla para visualizar los actividades -->
+        <div class="col-md-12">
+                <table class="table info-table mt-3">
+                    <thead>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Hora de inicio</th>
+                        <th>Hora de término</th>
+                        <th>Ubicación</th>
+                        <th>Descripción</th>
+                    </thead>
+                    <tbody *ngFor="let act of actividad ; let i = index">
+                        <td> {{i+1}} </td>
+                        <td> {{act.nombreActividad}} </td>
+                        <td> {{act.horaInicioActividad}} </td>
+                        <td> {{act.horaFinActividad}} </td>
+                        <td> {{act.ubicacionActividad}} </td>
+                        <td> {{act.descripcionActividad}} </td>
+                    </tbody>
+                </table>
+            </div>
 
         <div>
             <br>
@@ -332,5 +316,14 @@
 </mat-horizontal-stepper>
 
 <!-- modales -->
-<app-modal-jornada-add></app-modal-jornada-add>
-<app-modal-expositor-add></app-modal-expositor-add>
+<div *ngIf="contModal == 1">
+    <app-modal-jornada-add></app-modal-jornada-add>
+</div>
+
+<div *ngIf="contModal == 2">
+     <app-modal-expositor-add></app-modal-expositor-add>
+</div>
+
+<div *ngIf="contModal == 3">
+    <app-modal-actividad-add></app-modal-actividad-add>
+</div>

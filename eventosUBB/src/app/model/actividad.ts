@@ -6,6 +6,8 @@ export class actividad {
         public horaInicioActividad: Time,
         public horaFinActividad: Time,
         public ubicacionActividad: string,
-        public descripcionActividad: string
+        public descripcionActividad: string,
+        public jornada_idJornada: number,
+        public expositor_idExpositor: number
     ){}
 }

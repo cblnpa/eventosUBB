@@ -1,0 +1,99 @@
+<div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" [ngStyle]="{ display: modalService.oculto }" >
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title text-primary text-center">Agregar una nueva actividad al evento</h4>
+                <button type="button" class="close" (click)="ocultarModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal p-t-20" #agregarActividadForm="ngForm" (ngSubmit)="agregarActividad(agregarActividadForm)">
+
+                    <div class="form-group row">
+                        <label for="nombreActividad" class="col-sm-3 control-label">Nombre</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="mdi mdi-assistant"></i></div>
+                                <input type="text" class="form-control" name="nombreActividad"
+                                    #nombreActividad="ngModel" [(ngModel)]="actividadAdd.nombreActividad">
+                            </div>
+                            <span class="help-block"><small>Ingresa el nombre de la actividad</small></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                            <label for="horaInicioActividad" class="col-sm-3 control-label">Hora inicio</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="mdi mdi-clock"></i></div>
+                                    <input type="time" class="form-control" name="horaInicioActividad"
+                                        #horaInicioActividad="ngModel" [(ngModel)]="actividadAdd.horaInicioActividad">
+                                </div>
+                                <span class="help-block"><small>Selecciona la hora de inicio en que se desarrollará esta actividad</small></span>
+                            </div>
+                    </div>
+
+                    <div class="form-group row">
+                            <label for="horafinActividad" class="col-sm-3 control-label">Hora de término</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="mdi mdi-clock"></i></div>
+                                    <input type="time" class="form-control" name="horafinActividad"
+                                        #horafinActividad="ngModel" [(ngModel)]="actividadAdd.horaFinActividad">
+                                </div>
+                                <span class="help-block"><small>Ingresa la hora de término de esta actividad</small></span>
+                            </div>
+                    </div>
+
+                    <div class="form-group row">
+                            <label for="ubicacionActividad" class="col-sm-3 control-label">Ubicación</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="mdi mdi-map-marker"></i></div>
+                                    <input type="text" class="form-control" name="ubicacionActividad"
+                                        #ubicacionActividad="ngModel" [(ngModel)]="actividadAdd.ubicacionActividad">
+                                </div>
+                                <span class="help-block"><small>Ingresa la ubicación de esta actividad</small></span>
+                            </div>
+                    </div>
+
+                    <div class="form-group row">
+                            <label for="descripcionActividad" class="col-sm-3 control-label">Descripción</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="mdi mdi-comment-text"></i></div>
+                                    <input type="text" class="form-control" name="descripcionActividad"
+                                        #descripcionActividad="ngModel" [(ngModel)]="actividadAdd.descripcionActividad">
+                                </div>
+                                <span class="help-block"><small>Ingresa la descripción de esta actividad</small></span>
+                            </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Jornada</label>
+                        <div class="col-sm-9">
+                          <ngx-select-dropdown tabindex="0" [config]="jornadaConfig" [options]="optionsJornadas"
+                          [multiple]="false" name="jornada_idJornada" #jornada_idJornada="ngModel"
+                          [(ngModel)]="jornadas"></ngx-select-dropdown>
+                          <span class="help-block"><small>Selecciona la jornada a la que pertenece esta actividad</small></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">Expositor</label>
+                        <div class="col-sm-9">
+                          <ngx-select-dropdown tabindex="0" [config]="expositorConfig" [options]="optionsExpositores"
+                          [multiple]="false" name="expositor_idExpositor" #expositor_idExpositor="ngModel"
+                          [(ngModel)]="expositores"></ngx-select-dropdown>
+                          <span class="help-block"><small>Selecciona el expositor de esta actividad si es que lo requiere</small></span>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger waves-effect" (click)="ocultarModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

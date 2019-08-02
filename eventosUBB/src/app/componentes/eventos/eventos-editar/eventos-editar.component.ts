@@ -29,11 +29,7 @@ export class EventosEditarComponent implements OnInit {
   
   //Formularios del stepper
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
-  fourthFormGroup: FormGroup;
-  fifthFormGroup: FormGroup;
-  sixthFormGroup: FormGroup;
+  
   isLinear: false;
 
   public identity;
@@ -43,6 +39,8 @@ export class EventosEditarComponent implements OnInit {
   public status;
   public id; //id del evento
   public idUsuario; //id del usuario (sub) 
+
+  public contModal: number; 
 
   public afuConfig = {
     multiple: false,
@@ -67,7 +65,8 @@ export class EventosEditarComponent implements OnInit {
   constructor( private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, 
     private userService: UserService, private eventoPojoService: EventoPojoService,
     private ciudadService: CiudadService, private jornadaService: JornadaService, 
-    private expositorService: ExpositorService, private modalService: ModalService ) {
+    private expositorService: ExpositorService, private modalService: ModalService,
+    private eventoService: EventoService ) {
       
       //objeto para mostrar los datos ?
       this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','');
@@ -90,28 +89,9 @@ export class EventosEditarComponent implements OnInit {
     
     this.idUsuario = this.identity.sub;
 
+    //Stepper 1 del evento 
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
-    });
-
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
-
-    this.thirdFormGroup = this._formBuilder.group({
-      thirdCtrl: ['', Validators.required]
-    });
-
-    this.fourthFormGroup = this._formBuilder.group({
-      fourthCtrl: ['', Validators.required]
-    });
-
-    this.fifthFormGroup = this._formBuilder.group({
-      fifthCtrl: ['', Validators.required]
-    });
-
-    this.sixthFormGroup = this._formBuilder.group({
-      fifthCtrl: ['', Validators.required]
     });
 
   }
@@ -130,70 +110,34 @@ export class EventosEditarComponent implements OnInit {
   }
 
   getDatosEvento(){
+    this.route.params.subscribe(
+      params => {
+        let idEvento = +params['id'];
+        this.id = idEvento; //asignar el id del evento a la variable 
 
-    this.route.params.subscribe( params => {
-      let idEventoPojo = +params['id'];
-      this.id = idEventoPojo;
-      
-      this.eventoPojoService.getEventoPojoById(idEventoPojo).subscribe(
-        response => {
-          console.log('response del getDatosEventos');
-          console.log(response);
-          this.material = response.material;
-          this.jornada = response.Jornada;
-          this.actividad = response.actividad;
-          this.colaborador = response.colaborador;
-          this.eventos = response.evento; 
-          this.expositor = response.expositor;
+        this.eventoService.getEventoById(idEvento).subscribe(
+          response => {
+            this.eventos = response.evento;
 
-          //mostrar los datos del objeto EventoPojo que se consulta
-          this.eventoPojo = new eventoPojo (
-            this.eventos.nombreEvento,
-            this.eventos.ubicacion,
-            this.eventos.direccion,
-            this.eventos.detalles,
-            this.eventos.imagen,
-            this.eventos.capacidad,
-            this.eventos.nombreEventoInterno,
-            this.eventos.ciudad_idCiudad,
-
-            this.material.nombreMaterial,
-            this.material.archivo,
-
-            this.colaborador.nombreColaborador,
-            this.colaborador.nombreRepresentante,
-            this.colaborador.telefonoColaborador,
-            this.colaborador.correoColaborador,
-            this.colaborador.sitioWeb,
-            this.colaborador.logo,
-
-            this.jornada.nombreJornada,
-            this.jornada.fechaJornada,
-            this.jornada.horaInicioJornada,
-            this.jornada.horaFinJornada,
-            this.jornada.ubicacionJornada,
-            this.jornada.descripcionJornada,
-
-            this.expositor.nombreExpositor,
-            this.expositor.apellidoExpositor,
-            this.expositor.sexo,
-            this.expositor.correoExpositor,
-            this.expositor.empresa,
-            this.expositor.foto,
-
-            this.actividad.nombreActividad,
-            this.actividad.horaInicioActividad,
-            this.actividad.horaFinActividad,
-            this.actividad.ubicacionActividad,
-            this.actividad.descripcionActividad,
-
-            this.eventoPojo.visibilidad,
-            this.eventoPojo.email
-          )
-        }
-      )
-    });
-
+            //Mostrar los datos del evento en el stepper 
+            this.eventos = new evento(
+              this.eventos.nombreEvento,
+              this.eventos.ubicacion,
+              this.eventos.direccion,
+              this.eventos.detalles,
+              this.eventos.imagen,
+              this.eventos.capacidad,
+              this.eventos.nombreEventoInterno,
+              this.eventos.ciudad_idCiudad,
+              this.eventos.visibilidad
+            )
+          },
+          error => {
+            console.log(<any>error);
+          }
+        )
+      }
+    )
   }
 
   guardarEvento(form){
@@ -254,13 +198,14 @@ export class EventosEditarComponent implements OnInit {
   }
 
   agregarJornadaModal(){
+    this.contModal = 1;
     this.modalService.mostrarModal();
   }
 
   mostrarExpositores(){
-    this.expositorService.getExpositores().subscribe(
+    this.expositorService.getExpositores(this.id).subscribe(
       response => {
-        this.expositor = response.expositores;
+        this.expositor = response.expositor;
       },
       error => {
         console.log(<any>error);
@@ -269,6 +214,16 @@ export class EventosEditarComponent implements OnInit {
   }
 
   agregarExpositorModal(){
+    this.contModal = 2;
+    this.modalService.mostrarModal();
+  }
+
+  mostrarActividades(){
+
+  }
+
+  agregarActividadModal(){
+    this.contModal = 3;
     this.modalService.mostrarModal();
   }
 

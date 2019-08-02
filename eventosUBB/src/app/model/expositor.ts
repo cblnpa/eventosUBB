@@ -5,6 +5,7 @@ export class expositor {
         public sexo: string,
         public correoExpositor: string,
         public empresa: string,
-        public foto: string
+        public foto: string,
+        public evento: number
     ){}
 }

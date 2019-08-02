@@ -3,7 +3,7 @@
                 <div class="modal-content">
                     <div class="modal-header text-center">
                         <h4 class="modal-title text-primary text-center">Agregar una nueva jornada al evento</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <button type="button" class="close" (click)="ocultarModal()">×</button>
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal p-t-20" #agregarJornadaForm="ngForm" (ngSubmit)="agregarJornada(agregarJornadaForm)">
@@ -96,7 +96,7 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-danger waves-effect" (click)="ocultarModal()">Cancelar</button>
                                 <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
                             </div>
                         </form>

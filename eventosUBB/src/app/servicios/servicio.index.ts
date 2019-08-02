@@ -9,5 +9,6 @@ export { EventoUsersService } from './backend/evento-users/evento-users.service'
 export { UnidadService } from './backend/unidad/unidad.service';
 export { JornadaService } from './backend/jornada/jornada.service';
 export { ExpositorService } from './backend/expositor/expositor.service';
+export { ActividadService } from './backend/actividad/actividad.service';
 
 export { ModalService } from './modal/modal.service';

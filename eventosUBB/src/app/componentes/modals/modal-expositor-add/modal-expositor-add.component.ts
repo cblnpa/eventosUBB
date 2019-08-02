@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalService, ExpositorService, UserService } from '../../../servicios/servicio.index';
 import { expositor } from '../../../model/expositor';
 import { global } from '../../../servicios/global';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-modal-expositor-add',
@@ -36,9 +38,8 @@ export class ModalExpositorAddComponent implements OnInit {
   };
 
   constructor(private modalService: ModalService, private expositorService: ExpositorService,
-    private userService: UserService) {
-    this.url = global.url;
-    this.expositorAdd = new expositor('', '', '', '', '', '');
+    private userService: UserService, private route: ActivatedRoute ) {
+    this.expositorAdd = new expositor('', '', '', '', '', '',null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
   }
@@ -52,14 +53,20 @@ export class ModalExpositorAddComponent implements OnInit {
 
   //Formulario para agregar expositor
   agregarExpositor(form) {
-    this.expositorService.guardarExpositor(this.expositorAdd).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(<any>error);
-      }
-    );
+    this.route.params.subscribe(
+      params => {
+        let id = +params['id'];
+        this.expositorAdd.evento = id;
+
+        this.expositorService.guardarExpositor(this.expositorAdd).subscribe(
+          response => {
+            console.log(response);
+          },
+          error => {
+            console.log(<any>error);
+          }
+        )
+      });
     this.ocultarModal();
   }
 
