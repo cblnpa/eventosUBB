@@ -1,3 +1,4 @@
+<body class="fix-header card-no-border fix-sidebar">
 <mat-horizontal-stepper labelPosition="bottom" [linear]="isLinear">
     <mat-step label="Step 1">
         <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventos)">
@@ -314,6 +315,9 @@
         </div>
     </mat-step>
 </mat-horizontal-stepper>
+
+</body>
+
 
 <!-- modales -->
 <div *ngIf="contModal == 1">
