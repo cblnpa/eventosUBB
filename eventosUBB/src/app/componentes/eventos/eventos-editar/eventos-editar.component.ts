@@ -5,7 +5,8 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material } from '../../../model/model.index';
-import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService, ExpositorService, ModalService } from '../../../servicios/servicio.index';
+import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService, 
+  ExpositorService, ActividadService, ModalService } from '../../../servicios/servicio.index';
 
 @Component({
   selector: 'app-eventos-editar',
@@ -66,7 +67,7 @@ export class EventosEditarComponent implements OnInit {
     private userService: UserService, private eventoPojoService: EventoPojoService,
     private ciudadService: CiudadService, private jornadaService: JornadaService, 
     private expositorService: ExpositorService, private modalService: ModalService,
-    private eventoService: EventoService ) {
+    private eventoService: EventoService, private actividadService: ActividadService ) {
       
       //objeto para mostrar los datos ?
       this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','');
@@ -86,6 +87,7 @@ export class EventosEditarComponent implements OnInit {
     this.getDatosEvento();
     this.mostrarJornadas();
     this.mostrarExpositores();
+    this.mostrarActividades();
     
     this.idUsuario = this.identity.sub;
 
@@ -203,7 +205,7 @@ export class EventosEditarComponent implements OnInit {
   }
 
   mostrarExpositores(){
-    this.expositorService.getExpositores(this.id).subscribe(
+    this.expositorService.getExpositoresActividad(this.id).subscribe(
       response => {
         this.expositor = response.expositor;
       },
@@ -219,7 +221,14 @@ export class EventosEditarComponent implements OnInit {
   }
 
   mostrarActividades(){
-
+    this.actividadService.getActividades(this.id).subscribe(
+      response => {
+        this.actividad = response.actividades;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   agregarActividadModal(){

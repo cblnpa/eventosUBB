@@ -90,14 +90,14 @@ export class ComisionCrearComponent implements OnInit {
 
     this.idEvento = this.eventos.evento_idEvento;
     
-    this.eventoUsersService.crearComision(this.usuarios, this.idEvento).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
+    // this.eventoUsersService.crearComision(this.usuarios, this.idEvento).subscribe(
+    //   response => {
+    //     console.log(response);
+    //   },
+    //   error => {
+    //     console.log(<any>error);
+    //   }
+    // )
 
   }
 

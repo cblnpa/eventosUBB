@@ -1,12 +1,12 @@
 <div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" [ngStyle]="{ display: modalService.oculto }" >
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header text-center">
                 <h4 class="modal-title text-primary text-center">Agregar una nueva actividad al evento</h4>
                 <button type="button" class="close" (click)="ocultarModal()">×</button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal p-t-20" #agregarActividadForm="ngForm" (ngSubmit)="agregarActividad(agregarActividadForm)">
+                <form class="form-horizontal" #agregarActividadForm="ngForm" (ngSubmit)="agregarActividad(agregarActividadForm)">
 
                     <div class="form-group row">
                         <label for="nombreActividad" class="col-sm-3 control-label">Nombre</label>
@@ -14,7 +14,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="mdi mdi-assistant"></i></div>
                                 <input type="text" class="form-control" name="nombreActividad"
-                                    #nombreActividad="ngModel" [(ngModel)]="actividadAdd.nombreActividad">
+                                    #nombreActividad="ngModel" [(ngModel)]="actividadPojo.nombreActividad">
                             </div>
                             <span class="help-block"><small>Ingresa el nombre de la actividad</small></span>
                         </div>
@@ -26,7 +26,7 @@
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="mdi mdi-clock"></i></div>
                                     <input type="time" class="form-control" name="horaInicioActividad"
-                                        #horaInicioActividad="ngModel" [(ngModel)]="actividadAdd.horaInicioActividad">
+                                        #horaInicioActividad="ngModel" [(ngModel)]="actividadPojo.horaInicioActividad">
                                 </div>
                                 <span class="help-block"><small>Selecciona la hora de inicio en que se desarrollará esta actividad</small></span>
                             </div>
@@ -38,7 +38,7 @@
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="mdi mdi-clock"></i></div>
                                     <input type="time" class="form-control" name="horafinActividad"
-                                        #horafinActividad="ngModel" [(ngModel)]="actividadAdd.horaFinActividad">
+                                        #horafinActividad="ngModel" [(ngModel)]="actividadPojo.horaFinActividad">
                                 </div>
                                 <span class="help-block"><small>Ingresa la hora de término de esta actividad</small></span>
                             </div>
@@ -50,7 +50,7 @@
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="mdi mdi-map-marker"></i></div>
                                     <input type="text" class="form-control" name="ubicacionActividad"
-                                        #ubicacionActividad="ngModel" [(ngModel)]="actividadAdd.ubicacionActividad">
+                                        #ubicacionActividad="ngModel" [(ngModel)]="actividadPojo.ubicacionActividad">
                                 </div>
                                 <span class="help-block"><small>Ingresa la ubicación de esta actividad</small></span>
                             </div>
@@ -62,7 +62,7 @@
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="mdi mdi-comment-text"></i></div>
                                     <input type="text" class="form-control" name="descripcionActividad"
-                                        #descripcionActividad="ngModel" [(ngModel)]="actividadAdd.descripcionActividad">
+                                        #descripcionActividad="ngModel" [(ngModel)]="actividadPojo.descripcionActividad">
                                 </div>
                                 <span class="help-block"><small>Ingresa la descripción de esta actividad</small></span>
                             </div>
@@ -79,12 +79,12 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label">Expositor</label>
+                        <label class="col-sm-3 control-label">Expositores</label>
                         <div class="col-sm-9">
                           <ngx-select-dropdown tabindex="0" [config]="expositorConfig" [options]="optionsExpositores"
-                          [multiple]="false" name="expositor_idExpositor" #expositor_idExpositor="ngModel"
+                          [multiple]="true" name="expositor_idExpositor" #expositor_idExpositor="ngModel"
                           [(ngModel)]="expositores"></ngx-select-dropdown>
-                          <span class="help-block"><small>Selecciona el expositor de esta actividad si es que lo requiere</small></span>
+                          <span class="help-block"><small>Selecciona los expositores requeridos para esta actividad</small></span>
                         </div>
                     </div>
 

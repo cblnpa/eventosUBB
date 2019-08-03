@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService, ActividadService, JornadaService, ExpositorService } from '../../../servicios/servicio.index';
-import { actividad, jornada, expositor } from '../../../model/model.index';
+import { actividad, jornada, expositor, actividadPojo } from '../../../model/model.index';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./modal-actividad-add.component.css']
 })
 export class ModalActividadAddComponent implements OnInit {
+
+  public actividadPojo: actividadPojo;
 
   public actividadAdd: actividad;
   //variables para agregar los objetos en el select dropdown
@@ -24,6 +26,7 @@ export class ModalActividadAddComponent implements OnInit {
   //enviar id del select dropdown
   public idJornada; 
   public idExpositor; 
+  public idEvento; 
 
   //opciones del select dropdown
   jornadaConfig = {
@@ -41,10 +44,11 @@ export class ModalActividadAddComponent implements OnInit {
     displayKey: 'nombreExpositor', //if objects array passed which key to be displayed defaults to description
     search: true, //true/false for the search functionlity defaults to false,
     height: 'auto', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
-    placeholder: 'Seleccionar expositor', // text to be displayed when no item is selected defaults to Select,
+    placeholder: 'Seleccionar expositores', // text to be displayed when no item is selected defaults to Select,
+    moreText: 'más', // text to be displayed whenmore than one items are selected like Option 1 + 5 more
     noResultsFound: '¡No se encuentra el expositor!', // text to be displayed when no items are found while searching
     searchPlaceholder: 'Buscar expositor', // label thats displayed in search input,
-    searchOnKey: '' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
+    searchOnKey: 'idExpositor' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
 
   constructor(private modalService: ModalService, private actividadService: ActividadService,
@@ -53,6 +57,7 @@ export class ModalActividadAddComponent implements OnInit {
     this.actividadAdd = new actividad('', null, null, '', '',null,null);
     this.jornada = new jornada('', null, null, null, '', '');
     this.expositor = new expositor('', '', '', '', '', '', null);
+    this.actividadPojo = new actividadPojo('',null,null,'','',null,'',null);
   }
 
   ngOnInit() {
@@ -65,6 +70,7 @@ export class ModalActividadAddComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         let id = +params['id'];
+        this.idEvento = id;
         this.jornadaService.getJornadas(id).subscribe(
           response => {
             this.optionsJornadas = response.jornadas;
@@ -80,12 +86,17 @@ export class ModalActividadAddComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         let id = +params['id'];
-        this.expositorService.getExpositores(id).subscribe(
+        this.expositorService.getExpositoresActividad(id).subscribe(
           response => {
+            console.log('resposne');
+            console.log(response);
             this.optionsExpositores = response.expositor;
+            console.log(this.optionsExpositores);
+            console.log('expositor');
           },
           error => {
             console.log(<any>error);
+
           })
       });
   }
@@ -99,13 +110,26 @@ export class ModalActividadAddComponent implements OnInit {
     
     //asignar el id de la jornada seleccionada
     this.idJornada = this.jornadas.idJornada;
-    this.actividadAdd.jornada_idJornada = this.idJornada;
+    this.actividadPojo.jornada_idJornada = this.idJornada;
 
-    //asignar el id del expositor seleccionado
-    this.idExpositor = this.expositores.idExpositor;
-    this.actividadAdd.expositor_idExpositor = this.idExpositor;
+   
+    
+    if( this.expositores != '' ){
+       //asignar el arreglo de expositores 
+      this.actividadPojo.expositor = this.expositores;
+    } else {
+      this.actividadPojo.expositor = null;
+      console.log(this.actividadPojo.expositor);
+      console.log(this.actividadPojo);
+    }
 
-    this.actividadService.guardarActividad(this.actividadAdd).subscribe(
+    //asginar el id del evento
+    this.actividadPojo.evento = this.idEvento;
+
+    console.log('esto te mando');
+    console.log(this.actividadPojo);
+
+    this.actividadService.guardarActividad(this.actividadPojo).subscribe(
       response => {
         console.log(response);
       },

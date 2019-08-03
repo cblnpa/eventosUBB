@@ -24,9 +24,9 @@ export class ExpositorService {
     return this.http.post(this.url+'expositor', params, {headers: headers});
   }
 
-  //Obtener las jornadas del evento asociado (show)
-  getExpositores(id):Observable<any>{
+  //Obtener jornadas 
+  getExpositoresActividad(id):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.url+'expositor/' +id, {headers: headers});
+    return this.http.get(this.url+'mostrarExpositor/' +id, {headers: headers});
   }
 }
