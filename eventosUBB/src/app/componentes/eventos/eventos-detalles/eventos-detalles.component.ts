@@ -106,18 +106,6 @@ export class EventosDetallesComponent implements OnInit {
               console.log('material');
               console.log(this.material);
             }
-
-            console.log('response');
-            console.log(response);
-            //this.jornada = response.Jornada;
-            // console.log('jornada');
-            // console.log(this.jornada);
-            // this.actividad = response.actividad;
-            // this.expositor = response.expositor;
-            // this.colaborador = response.colaborador;
-            // this.evento = response.evento;
-            // this.material = response.material;
-
           } else {
             this.router.navigate(['/inicio']);
           }
