@@ -6,6 +6,7 @@ import { EventoPojoService, EventoUsersService, UserService } from '../../../ser
 import { evento, material, colaborador, jornada, expositor, actividad, users, evento_users } from '../../../model/model.index';
 
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
+import '../icons';
 
 @Component({
   selector: 'app-eventos-detalles-public',
@@ -55,11 +56,12 @@ export class EventosDetallesPublicComponent implements OnInit {
           console.log('response con los datos del evento');
           console.log(response);
           if (response.status == 'success') {
-
-              this.evento = response.evento;
-              console.log('evento');
-              console.log(this.evento);
-        
+            this.actividad = response.actividad;
+            this.colaborador = response.colaborador;
+            this.evento = response.evento;
+            this.expositor = response.expositor;
+            this.jornada = response.Joranda;
+            this.material = response.material;
           } else {
             this.router.navigate(['/inicio']);
           }
