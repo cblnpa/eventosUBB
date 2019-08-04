@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,  HttpClientJsonpModule } from '@angular/common/http';
 
 import { SelectDropDownModule } from 'ngx-select-dropdown'
 
@@ -42,6 +42,10 @@ import { ComisionCrearComponent } from './comisiones/comision-crear/comision-cre
 import { ModalJornadaAddComponent } from './modals/modal-jornada-add/modal-jornada-add.component';
 import { ModalExpositorAddComponent } from './modals/modal-expositor-add/modal-expositor-add.component';
 import { ModalActividadAddComponent } from './modals/modal-actividad-add/modal-actividad-add.component';
+
+//Botón compartir
+import { ShareButtonModule } from '@ngx-share/button';
+import { ShareButtonsModule } from '@ngx-share/buttons';
 
 @NgModule({
     declarations: [
@@ -94,6 +98,9 @@ import { ModalActividadAddComponent } from './modals/modal-actividad-add/modal-a
         AngularFileUploaderModule,
         NgxPaginationModule,
         SelectDropDownModule,
+        ShareButtonModule,
+        ShareButtonsModule,
+        HttpClientJsonpModule,
         COMPONENTES_ROUTES
     ]
 })

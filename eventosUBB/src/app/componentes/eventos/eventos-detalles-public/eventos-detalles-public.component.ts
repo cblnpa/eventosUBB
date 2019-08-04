@@ -5,6 +5,8 @@ import { global } from '../../../servicios/global';
 import { EventoPojoService, EventoUsersService, UserService } from '../../../servicios/servicio.index';
 import { evento, material, colaborador, jornada, expositor, actividad, users, evento_users } from '../../../model/model.index';
 
+import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
+
 @Component({
   selector: 'app-eventos-detalles-public',
   templateUrl: './eventos-detalles-public.component.html',
@@ -12,6 +14,8 @@ import { evento, material, colaborador, jornada, expositor, actividad, users, ev
   providers: [UserService, EventoPojoService, EventoUsersService]
 })
 export class EventosDetallesPublicComponent implements OnInit {
+
+  fbIcon = faFacebookSquare;
 
   public url: string;
   public identity;

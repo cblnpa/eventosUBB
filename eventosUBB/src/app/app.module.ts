@@ -26,6 +26,8 @@ import { ComponentesModule } from './componentes/componentes.module';
 // Servicios
 import { ServicioModule } from './servicios/servicio.module';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

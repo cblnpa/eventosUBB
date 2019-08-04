@@ -23,14 +23,22 @@
 <!-- Botones interactivos del evento -->
 <div class="row">
   <!-- botones del evento -->
-  <div class="col-md-8">
+  <!-- <div class="col-md-8">
     <button class="btn btn-facebook btn-circle waves-effect waves-light m-r-5" type="button"> <i
         class="fa fa-facebook"></i></button>
     <button class="btn btn-twitter btn-circle waves-effect waves-light m-r-5" type="button"> <i
         class="fa fa-twitter"></i> </button>
     <button class="btn btn-googleplus waves-effect btn-circle waves-light" type="button"> <i
         class="fa fa-google-plus"></i> </button>
-  </div>
+  </div> -->
+
+  <share-buttons [theme]="'default'"
+ [include]="['facebook','copy']"
+ [show]="5"
+ [showText]="true"
+ [url]="'https://localhost:4200/#/eventoDetallePublic/1'"
+ [autoSetMeta]="false"
+></share-buttons>
 
   <div class="col-md-4">
     <button type="button" (click)="participarEvento()" class="btn waves-effect btn-block waves-light btn-rounded btn-outline-primary"><i
