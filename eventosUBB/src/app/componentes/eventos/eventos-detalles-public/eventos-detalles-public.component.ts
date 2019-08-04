@@ -57,11 +57,29 @@ export class EventosDetallesPublicComponent implements OnInit {
           console.log(response);
           if (response.status == 'success') {
             this.actividad = response.actividad;
+            console.log('actividad');
+            console.log(this.actividad);
+
             this.colaborador = response.colaborador;
+            console.log('colaborador');
+            console.log(this.colaborador);
+
             this.evento = response.evento;
+            console.log('evento');
+            console.log(this.evento);
+
             this.expositor = response.expositor;
-            this.jornada = response.Joranda;
+            console.log('expositor');
+            console.log(this.expositor);
+
+            this.jornada = response.Jornada;
+            console.log('jornada');
+            console.log(this.jornada);
+
             this.material = response.material;
+            console.log('material');
+            console.log(this.material);
+
           } else {
             this.router.navigate(['/inicio']);
           }
