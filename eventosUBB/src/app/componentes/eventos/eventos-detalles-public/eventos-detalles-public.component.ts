@@ -7,6 +7,7 @@ import { evento, material, colaborador, jornada, expositor, actividad, users, ev
 
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
 import '../icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-eventos-detalles-public',
@@ -22,10 +23,10 @@ export class EventosDetallesPublicComponent implements OnInit {
   public identity;
   public inscrito: boolean; //para ocultar el botón si ya está participando
 
-  public idEventoUsers: number;
+  public idEventoUsers: number; //id del evento
   // atributos para mostrar participantes
   public participantes: users;
-  public index: number; //contador de cantidad de personas
+  public index: number; //contador de cantidad de participantes
   public eventoUsers: evento_users;
 
   public actividad: actividad;
@@ -90,13 +91,16 @@ export class EventosDetallesPublicComponent implements OnInit {
     })
   }
 
+  //Obtiene los participantes de la tabla EventoUsers 
   getEventoUsers() {
-    this.eventoUsersService.getEventoUsersById(this.identity.sub).subscribe(
+    this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
       response => {
         this.participantes = response.evento;
-        this.index = (response.evento).length;
-        this.eventoUsers = new evento_users(null, null, 2, this.identity.sub);
-        this.eventoUsers = new evento_users(this.index, this.identity.sub, null, this.identity.sub);
+        this.index = (response.evento).length + 1;
+
+        console.log('get eventos');
+        this.eventoUsers = new evento_users(this.index, null, this.idEventoUsers, null, this.identity.sub);
+        console.log(this.eventoUsers);
       },
       error => {
         console.log(<any>error);
@@ -104,25 +108,16 @@ export class EventosDetallesPublicComponent implements OnInit {
   }
 
   participarEvento() {
-
     this.eventoUsersService.guardarEventoUser(this.eventoUsers, this.identity.sub).subscribe(
       response => {
-        console.log('dentro del servicio');
         console.log(response);
-        // if( response.status == 'success'){
-        //   console.log(response);
-        //   console.log('inscripcion');
-        //   // Swal.fire({
-        //   //   type: 'success',
-        //   //   title: '¡Te has inscrito correctamente en este evento!'
-        //   // })
-        //   this.inscrito = true;
-        // } else {
-        //   // Swal.fire({
-        //   //   type: 'warning',
-        //   //   title: '¡Ya estás inscrito en este evento!'
-        //   // })
-        // }
+        if( response.status == 'success' ){
+          Swal.fire({
+            type: 'success',
+            title: '¡Inscrito correctamente en este evento!'
+          })
+          this.inscrito = true;
+        }
       },
       error => {
         console.log(<any>error);
