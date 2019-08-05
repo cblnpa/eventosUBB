@@ -10,7 +10,7 @@
           <h1 class="card-title display-4"> {{evento.nombreEvento}} </h1> <!-- nombre del evento -->
           <hr>
           <div>
-            <h2 *ngIf="jornada != null" class="card-subtitle"><i class="fa fa-calendar"></i> {{jornada.fechaJornada}}
+            <h2 *ngIf="jornada != null" class="card-subtitle"><i class="fa fa-calendar"></i> {{jornada.fechaJornada | date:'fullDate' }}
             </h2> <!-- fecha evento -->
           </div>
           <h2 class="card-subtitle"><i class="mdi mdi-home-map-marker"></i> {{evento.ubicacion}} </h2>
@@ -116,7 +116,7 @@
                 <div class="price-table-content">
                   <div *ngIf="jornada != null" class="price-row">
                     <i class="mdi mdi-calendar"></i> 
-                    {{jornada.fechaJornada}}
+                    {{jornada.fechaJornada | date:'fullDate' }}
                     <br><span style="font-style: italic">fecha de la jornada</span> 
                   </div>
                   <div *ngIf="jornada != null" class="price-row">

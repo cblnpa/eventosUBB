@@ -26,7 +26,12 @@ import { ComponentesModule } from './componentes/componentes.module';
 // Servicios
 import { ServicioModule } from './servicios/servicio.module';
 
+//Localización DatePipe
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEsCL from '@angular/common/locales/es-CL';
 
+registerLocaleData(localeEsCL, 'es-CL');
 
 @NgModule({
   declarations: [
@@ -50,7 +55,9 @@ import { ServicioModule } from './servicios/servicio.module';
     MatIconModule,
     SweetAlert2Module
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es-CL' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
