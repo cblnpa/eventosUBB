@@ -6,7 +6,7 @@ import { global } from '../../global';
 @Injectable({
   providedIn: 'root'
 })
-export class ColaboradorService {
+export class MaterialService {
 
   public url: string; //acá se guarda el http://localhost:8000/api/ que esta en global.ts
 
@@ -14,19 +14,19 @@ export class ColaboradorService {
     this.url = global.url; 
   }
 
-  // Guardar un colaborador
-  guardarColaborador(colaborador): Observable<any>{
-    let json = JSON.stringify(colaborador); //convierte el evento que se pasa por parámetro a un tipo JSON
+  // Guardar material
+  guardarMaterial(material): Observable<any>{
+    let json = JSON.stringify(material); //convierte el evento que se pasa por parámetro a un tipo JSON
     let params = 'json='+json; //se definene los parametros que se mandan al api
     
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'); //tipo de peticion
     
-    return this.http.post(this.url+'colaborador', params, {headers: headers});
+    return this.http.post(this.url+'material', params, {headers: headers});
   }
 
-  //Obtener los colaboradores del evento asociado (show)
-  getColaboradores(idEvento):Observable<any>{
+  //Obtener materiales del evento asociado (show)
+  getMateriales(idEvento):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.url+'colaborador/' + idEvento, {headers: headers});
+    return this.http.get(this.url+'material/' + idEvento, {headers: headers});
   }
 }

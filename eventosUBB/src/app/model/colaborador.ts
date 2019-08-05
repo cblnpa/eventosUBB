@@ -5,6 +5,7 @@ export class colaborador {
         public telefonoColaborador: number,
         public correoColaborador: string,
         public sitioWeb: string,
-        public logo: string
+        public logo: string,
+        public evento_idEvento: number
     ){}
 }

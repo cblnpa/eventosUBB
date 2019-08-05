@@ -1,0 +1,91 @@
+<div class="modal blur" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" [ngStyle]="{ display: modalService.oculto }" >
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header text-center">
+              <h4 class="modal-title text-primary text-center">Agregar colaborador al evento</h4>
+              <button type="button" class="close" (click)="ocultarModal()">×</button>
+          </div>
+          <div class="modal-body">
+              <form class="form-horizontal p-t-20" #agregarColaboradorForm="ngForm" (ngSubmit)="agregarColaborador(agregarColaboradorForm)">
+
+                  <div class="form-group row">
+                      <label for="nombreColaborador" class="col-sm-3 control-label">Nombre</label>
+                      <div class="col-sm-9">
+                          <div class="input-group">
+                              <div class="input-group-addon"><i class="mdi mdi-assistant"></i></div>
+                              <input type="text" class="form-control" name="nombreColaborador"
+                                  #nombreColaborador="ngModel" [(ngModel)]="colaboradorAdd.nombreColaborador">
+                          </div>
+                          <span class="help-block"><small>Ingresa el nombre del colaborador</small></span>
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                          <label for="nombreRepresentante" class="col-sm-3 control-label">Representante</label>
+                          <div class="col-sm-9">
+                              <div class="input-group">
+                                  <div class="input-group-addon"><i class="mdi mdi-account-multiple"></i></div>
+                                  <input type="text" class="form-control" name="nombreRepresentante"
+                                      #nombreRepresentante="ngModel" [(ngModel)]="colaboradorAdd.nombreRepresentante">
+                              </div>
+                              <span class="help-block"><small>Ingresa el nombre del representante</small></span>
+                          </div>
+                  </div>
+
+                  <div class="form-group row">
+                          <label for="telefonoColaborador" class="col-sm-3 control-label">Teléfono</label>
+                          <div class="col-sm-9">
+                              <div class="input-group">
+                                  <div class="input-group-addon"><i class="mdi mdi-phone"></i></div>
+                                  <input type="number" class="form-control" name="telefonoColaborador"
+                                      #telefonoColaborador="ngModel" [(ngModel)]="colaboradorAdd.telefonoColaborador">
+                              </div>
+                              <span class="help-block"><small>Ingresa el teléfono del colaborador o del representante</small></span>
+                          </div>
+                  </div>
+
+                  <div class="form-group row">
+                          <label for="correoColaborador" class="col-sm-3 control-label">Correo</label>
+                          <div class="col-sm-9">
+                              <div class="input-group">
+                                  <div class="input-group-addon"><i class="mdi mdi-email"></i></div>
+                                  <input type="email" class="form-control" name="correoColaborador"
+                                      #correoColaborador="ngModel" [(ngModel)]="colaboradorAdd.correoColaborador">
+                              </div>
+                              <span class="help-block"><small>Ingresa el correo del colaborador</small></span>
+                          </div>
+                  </div>
+
+                  <div class="form-group row">
+                          <label for="sitioWeb" class="col-sm-3 control-label">Sitio web</label>
+                          <div class="col-sm-9">
+                              <div class="input-group">
+                                  <div class="input-group-addon"><i class="mdi mdi-internet-explorer"></i></div>
+                                  <input type="text" class="form-control" name="sitioWeb"
+                                      #sitioWeb="ngModel" [(ngModel)]="colaboradorAdd.sitioWeb">
+                              </div>
+                              <span class="help-block"><small>Ingresa el sitio web del colaborador</small></span>
+                          </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="logo" class="col-sm-3 control-label">Logo</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="mdi mdi-file"></i></div>
+                            <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="logoUpload($event)">
+                            </angular-file-uploader>
+                        </div>
+                        <span class="help-block"><small>Sube el logo del colaborador</small></span>
+                    </div>
+            </div>
+
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-danger waves-effect" (click)="ocultarModal()">Cancelar</button>
+                      <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

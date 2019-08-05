@@ -6,7 +6,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 
 import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material } from '../../../model/model.index';
 import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService, 
-  ExpositorService, ActividadService, ModalService } from '../../../servicios/servicio.index';
+  ExpositorService, ActividadService, ModalService, MaterialService, ColaboradorService } from '../../../servicios/servicio.index';
 
 @Component({
   selector: 'app-eventos-editar',
@@ -47,17 +47,17 @@ export class EventosEditarComponent implements OnInit {
     multiple: false,
     formatsAllowed: ".jpg,.jpeg,.png,.gif",
     maxSize: "50",
-    uploadAPI:  {
-      url:global.url+'upload',
+    uploadAPI: {
+      url: global.url + 'upload',
       headers: {
-     "Authorization" : this.userService.getToken()
+        "Authorization": this.userService.getToken()
       }
     },
-     theme: "attachPin",
-     hideProgressBar: false,
-     hideResetBtn: true,
-     hideSelectBtn: false,
-     replaceTexts: {
+    theme: "attachPin",
+    hideProgressBar: false,
+    hideResetBtn: true,
+    hideSelectBtn: false,
+    replaceTexts: {
       attachPinBtn: 'Seleccionar archivo',
       afterUploadMsg_success: 'Archivo seleccionado exitosamente'
     }
@@ -67,7 +67,8 @@ export class EventosEditarComponent implements OnInit {
     private userService: UserService, private eventoPojoService: EventoPojoService,
     private ciudadService: CiudadService, private jornadaService: JornadaService, 
     private expositorService: ExpositorService, private modalService: ModalService,
-    private eventoService: EventoService, private actividadService: ActividadService ) {
+    private eventoService: EventoService, private actividadService: ActividadService,
+    private materialService: MaterialService, private colaboradorService: ColaboradorService ) {
       
       //objeto para mostrar los datos ?
       this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','');
@@ -88,6 +89,8 @@ export class EventosEditarComponent implements OnInit {
     this.mostrarJornadas();
     this.mostrarExpositores();
     this.mostrarActividades();
+    this.mostrarMateriales();
+    this.mostrarColaboradores();
     
     this.idUsuario = this.identity.sub;
 
@@ -116,11 +119,9 @@ export class EventosEditarComponent implements OnInit {
       params => {
         let idEvento = +params['id'];
         this.id = idEvento; //asignar el id del evento a la variable 
-
         this.eventoService.getEventoById(idEvento).subscribe(
           response => {
             this.eventos = response.evento;
-
             //Mostrar los datos del evento en el stepper 
             this.eventos = new evento(
               this.eventos.nombreEvento,
@@ -131,15 +132,12 @@ export class EventosEditarComponent implements OnInit {
               this.eventos.capacidad,
               this.eventos.nombreEventoInterno,
               this.eventos.ciudad_idCiudad,
-              this.eventos.visibilidad
-            )
+              this.eventos.visibilidad)
           },
           error => {
             console.log(<any>error);
-          }
-        )
-      }
-    )
+          })
+      })
   }
 
   guardarEvento(form){
@@ -180,8 +178,7 @@ export class EventosEditarComponent implements OnInit {
 
           if(response.changes.eventos.ciudad){
             this.eventos.ciudad_idCiudad = response.changes.eventos.ciudad;
-          }
-        }
+          } }
       }
     )
     this.router.navigate(['/eventoDetalle/' + this.id]);
@@ -195,8 +192,7 @@ export class EventosEditarComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
   agregarJornadaModal(){
@@ -211,8 +207,7 @@ export class EventosEditarComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
   agregarExpositorModal(){
@@ -227,12 +222,41 @@ export class EventosEditarComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
   agregarActividadModal(){
     this.contModal = 3;
+    this.modalService.mostrarModal();
+  }
+
+  mostrarMateriales(){
+    this.materialService.getMateriales(this.id).subscribe(
+      response => {
+        this.material = response.material;
+      },
+      error => {
+        console.log(<any>error);
+      })
+  }
+
+  agregarMaterialModal(){
+    this.contModal = 4;
+    this.modalService.mostrarModal();
+  }
+
+  mostrarColaboradores(){
+    this.colaboradorService.getColaboradores(this.id).subscribe(
+      response => {
+        this.colaborador = response.colaborador;
+      },
+      error => {
+        console.log(<any>error);
+      })
+  }
+
+  agregarColaboradorModal(){
+    this.contModal = 5;
     this.modalService.mostrarModal();
   }
 
@@ -249,14 +273,6 @@ export class EventosEditarComponent implements OnInit {
     console.log(datos.response);
     this.eventoPojo.logo = data.image;
     console.log(this.eventoPojo.logo);
-  }
-
-  //foto del expositor
-  fotoUpload(datos){
-    let data =JSON.parse(datos.response);
-    console.log(datos.response);
-    this.eventoPojo.foto = data.image;
-    console.log(this.eventoPojo.foto);
   }
 
 }

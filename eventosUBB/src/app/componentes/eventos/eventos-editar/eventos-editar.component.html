@@ -72,29 +72,29 @@
     </mat-step>
 
     <mat-step label="Step 2">
-        <!-- <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
-            <ng-template matStepperIcon="done" matStepLabel>Material</ng-template>
-            <p>
-                <mat-form-field>
-                    <mat-label for="nombreMaterial">Nombre material</mat-label>
-                    <input matInput type="text" name="nombreMaterial" #nombreMaterial="ngModel"
-                        [(ngModel)]="eventoPojo.nombreMaterial">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="archivo">Archivo</mat-label>
-                    <input matInput type="text" name="archivo" #archivo="ngModel" [(ngModel)]="eventoPojo.archivo">
+        <ng-template matStepperIcon="done" matStepLabel>Materiales</ng-template>
 
-                </mat-form-field>
-            </p>
-            <div>
-                <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
-            </div>
-        </form> -->
-        <ng-template matStepperIcon="done" matStepLabel>Material</ng-template>
+        <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-success" (click)="agregarMaterialModal()">
+                <i class="mdi mdi-plus"></i> Agregar material
+            </button>
+        </div>
+
+        <!-- Tabla para visualizar materiales -->
+        <div class="col-md-12">
+            <table class="table info-table mt-3">
+                <thead>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Archivo</th>
+                </thead>
+                <tbody *ngFor="let m of material ; let i = index">
+                    <td> {{i+1}} </td>
+                    <td> {{m.nombreMaterial}} </td>
+                    <td> {{m.archivo}} </td>
+                </tbody>
+            </table>
+        </div>
 
         <div>
             <br>
@@ -104,62 +104,37 @@
     </mat-step>
 
     <mat-step label="Step 3">
-        <!-- <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventoPojo)">
-            <ng-template matStepperIcon="done" matStepLabel>Colaboradores</ng-template>
-            <p>
-                <mat-form-field>
-
-                    <mat-label for="nombreColaborador">Nombre colaborador</mat-label>
-                    <input matInput type="text" name="nombreColaborador" #nombreColaborador="ngModel"
-                        [(ngModel)]="eventoPojo.nombreColaborador">
-                </mat-form-field>
-            </p>
-
-            <p>
-                <mat-form-field>
-                    <mat-label for="nombreRepresentante">Nombre representante</mat-label>
-                    <input matInput type="text" name="nombreRepresentante" #nombreRepresentante="ngModel"
-                        [(ngModel)]="eventoPojo.nombreRepresentante">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="telefonoColaborador">Telefono</mat-label>
-                    <input matInput type="number" name="telefonoColaborador" #telefono="ngModel"
-                        [(ngModel)]="eventoPojo.telefonoColaborador">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="correoColaborador">Correo</mat-label>
-                    <input matInput type="email" name="correoColaborador" #correoColaborador="ngModel"
-                        [(ngModel)]="eventoPojo.correoColaborador">
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <mat-label for="sitioWeb">Sitio web</mat-label>
-                    <input matInput type="text" name="sitioWeb" #sitioWeb="ngModel" [(ngModel)]="eventoPojo.sitioWeb">
-                </mat-form-field>
-            </p>
-
-
-            <label for="logo">Logo</label>
-            <div *ngIf="identity && identity.logo">
-                <img src="identity.logo}}" class="img-fluid" alt="Responsive image">
-
-            </div>
-            <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="logoUpload($event)">
-            </angular-file-uploader>
-
-            <div>
-                <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
-            </div>
-        </form> -->
-
         <ng-template matStepperIcon="done" matStepLabel>Colaboradores</ng-template>
+
+        <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-success" (click)="agregarColaboradorModal()">
+                <i class="mdi mdi-plus"></i> Agregar colaborador
+            </button>
+        </div>
+
+        <!-- Tabla para visualizar colaboradores -->
+        <div class="col-md-12">
+            <table class="table info-table mt-3">
+                <thead>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Representante</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Sitio web</th>
+                    <th>Logo</th>
+                </thead>
+                <tbody *ngFor="let colab of colaborador ; let i = index">
+                    <td> {{i+1}} </td>
+                    <td> {{colab.nombreColaborador}} </td>
+                    <td> {{colab.nombreRepresentante}} </td>
+                    <td> {{colab.telefonoColaborador}} </td>
+                    <td> {{colab.correoColaborador}} </td>
+                    <td> {{colab.sitioWeb}} </td>
+                    <td> {{colab.logo}} </td>
+                </tbody>
+            </table>
+        </div>
 
         <div>
             <br>
@@ -318,7 +293,6 @@
 
 </body>
 
-
 <!-- modales -->
 <div *ngIf="contModal == 1">
     <app-modal-jornada-add></app-modal-jornada-add>
@@ -330,4 +304,12 @@
 
 <div *ngIf="contModal == 3">
     <app-modal-actividad-add></app-modal-actividad-add>
+</div>
+
+<div *ngIf="contModal == 4">
+    <app-modal-material-add></app-modal-material-add>
+</div>
+
+<div *ngIf="contModal == 5">
+    <app-modal-colaborador-add></app-modal-colaborador-add>
 </div>

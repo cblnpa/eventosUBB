@@ -46,6 +46,8 @@ import { ModalActividadAddComponent } from './modals/modal-actividad-add/modal-a
 //Botón compartir
 import { ShareButtonModule } from '@ngx-share/button';
 import { ShareButtonsModule } from '@ngx-share/buttons';
+import { ModalMaterialAddComponent } from './modals/modal-material-add/modal-material-add.component';
+import { ModalColaboradorAddComponent } from './modals/modal-colaborador-add/modal-colaborador-add.component';
 
 @NgModule({
     declarations: [
@@ -64,7 +66,9 @@ import { ShareButtonsModule } from '@ngx-share/buttons';
         ComisionCrearComponent,
         ModalJornadaAddComponent,
         ModalExpositorAddComponent,
-        ModalActividadAddComponent
+        ModalActividadAddComponent,
+        ModalMaterialAddComponent,
+        ModalColaboradorAddComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
