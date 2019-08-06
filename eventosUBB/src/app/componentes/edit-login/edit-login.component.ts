@@ -15,7 +15,6 @@ declare function init_plugins();
   templateUrl: './edit-login.component.html',
   styleUrls: ['./edit-login.component.css'],
   providers: [ UserService ]
-
 })
 export class EditLoginComponent implements OnInit {
   
@@ -53,22 +52,14 @@ export class EditLoginComponent implements OnInit {
     this.token = this.userService.getToken();
     this.url = global.url;
     //rellena objeto usuario
-    this.user = new users (
-      this.identity.nombreUsuario,
-      this.identity.apellidoUsuario,
-      this.identity.email,
-      this.identity.password,
-      this.identity.avatar,
-      this.identity.verified,
-      this.identity.sub
-    );
+    this.user = new users (this.identity.nombreUsuario, this.identity.apellidoUsuario, this.identity.email, 
+      this.identity.password, this.identity.avatar, this.identity.verified, this.identity.sub);
+    //Obtener nombre de la página
     this.getDataRoute()
     .subscribe( data => {
-      console.log(data);
       this.titulo = data.titulo;
       this.title.setTitle('EventosUBB - ' + this.titulo);
     });
-
   }
 
   ngOnInit() {
@@ -79,8 +70,7 @@ export class EditLoginComponent implements OnInit {
     return this.router.events.pipe(
       filter(evento => evento instanceof ActivationEnd ),
       filter( (evento:ActivationEnd) => evento.snapshot.firstChild === null ),
-      map( (evento:ActivationEnd) => evento.snapshot.data )
-    )
+      map( (evento:ActivationEnd) => evento.snapshot.data ))
   }
 
   onSubmit(form){
@@ -99,11 +89,9 @@ export class EditLoginComponent implements OnInit {
           if(response.changes.email){
             this.user.email = response.changes.email;
           }
-      
           if(response.changes.avatar){
             this.user.avatar = response.changes.avatar;
           }
-
           this.identity = this.user;
           localStorage.setItem('identity', JSON.stringify(this.identity));
 
@@ -111,29 +99,23 @@ export class EditLoginComponent implements OnInit {
             type: 'success',
             title: 'Imagen agregada exitosamente'
           })
-
           this.router.navigate(['/inicio']);
-
         }
       },
       error =>{
         this.status='error';
         console.log(<any>error);
-
         Swal.fire({
           type: 'error',
           title: 'Error al agregar la imagen'
         })
-
       }
     );
   }
 
   avatarUpload(datos){
     let data =JSON.parse(datos.response);
-    console.log(datos.response);
     this.user.avatar = data.image;
-    console.log(this.user.avatar);
   }
 
 }
