@@ -49,6 +49,9 @@ import { ShareButtonsModule } from '@ngx-share/buttons';
 import { ModalMaterialAddComponent } from './modals/modal-material-add/modal-material-add.component';
 import { ModalColaboradorAddComponent } from './modals/modal-colaborador-add/modal-colaborador-add.component';
 
+//Pipes
+import { PipesModule } from '../pipes/pipes.module';
+
 @NgModule({
     declarations: [
         ComponentesComponent,
@@ -105,6 +108,7 @@ import { ModalColaboradorAddComponent } from './modals/modal-colaborador-add/mod
         ShareButtonModule,
         ShareButtonsModule,
         HttpClientJsonpModule,
+        PipesModule,
         COMPONENTES_ROUTES
     ]
 })
