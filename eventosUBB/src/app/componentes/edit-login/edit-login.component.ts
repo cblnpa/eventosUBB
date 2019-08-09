@@ -8,8 +8,6 @@ import { users } from '../../model/users';
 import { global } from '../../servicios/global'
 import Swal from 'sweetalert2';
 
-declare function init_plugins();
-
 @Component({
   selector: 'app-edit-login',
   templateUrl: './edit-login.component.html',
@@ -18,12 +16,10 @@ declare function init_plugins();
 })
 export class EditLoginComponent implements OnInit {
   
-  titulo: string;
-
+  public titulo: string;
   public user: users;
   public status: string;
   public identity;
-  public token;
   public url;
   public afuConfig = {
     multiple: false,
@@ -47,13 +43,12 @@ export class EditLoginComponent implements OnInit {
 };
 
   constructor( private userService: UserService, private router: Router, private title: Title ) { 
-    this.user = new users('','','','','',null,null); 
     this.identity = this.userService.getIdentity();
-    this.token = this.userService.getToken();
+    this.user = new users('','','','','',null,1,null);
     this.url = global.url;
     //rellena objeto usuario
-    this.user = new users (this.identity.nombreUsuario, this.identity.apellidoUsuario, this.identity.email, 
-      this.identity.password, this.identity.avatar, this.identity.verified, this.identity.sub);
+    this.user = new users(this.identity.nombreUsuario, this.identity.apellidoUsuario, this.identity.email,
+      this.identity.password, this.identity.avatar, this.identity.perfil_idPerfil, 1, this.identity.sub);
     //Obtener nombre de la página
     this.getDataRoute()
     .subscribe( data => {
@@ -63,7 +58,6 @@ export class EditLoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    init_plugins();
   }
 
   getDataRoute(){

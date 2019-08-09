@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule,  HttpClientJsonpModule } from '@angular/common/http';
 
+import { HttpClientModule,  HttpClientJsonpModule } from '@angular/common/http';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
 
 // Formularios
@@ -83,7 +83,16 @@ import { PipesModule } from '../pipes/pipes.module';
         EventosMisEventosComponent,
         EventosCrearComponent,
         EventosDetallesPublicComponent,
-        ModalJornadaAddComponent
+        UnidadesCrearComponent,
+        UnidadesVerComponent,
+        ReportesGenerarComponent,
+        ComisionVerComponent,
+        ComisionCrearComponent,
+        ModalJornadaAddComponent,
+        ModalExpositorAddComponent,
+        ModalActividadAddComponent,
+        ModalMaterialAddComponent,
+        ModalColaboradorAddComponent
     ],
     //acá se agregan los módulos de utilidades, ya que estos se utilizan en componentes.component.html
     imports: [
