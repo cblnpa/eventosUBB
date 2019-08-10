@@ -23,6 +23,7 @@ export class UnidadesCrearComponent implements OnInit {
   public unidad: unidad; //objeto de tipo unidad 
   public token;
   public identity;
+  public nombreApellidoUsuario; 
 
   //variables para el select
   public usuario: users;
@@ -33,15 +34,16 @@ export class UnidadesCrearComponent implements OnInit {
   public ciudades: any = []; //almacena las ciudades (o sedes)
   public optionsCiudad;
 
+
   //Configuraciones del ngx-select-dropdown
   configUsuario = {
-    displayKey: 'nombreUsuario', //if objects array passed which key to be displayed defaults to description
+    displayKey: 'email', //if objects array passed which key to be displayed defaults to description
     search: true, //true/false for the search functionlity defaults to false,
     height: '150px', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
     placeholder: 'Seleccionar usuario', // text to be displayed when no item is selected defaults to Select,
     noResultsFound: '¡No se encuentra el usuario!', // text to be displayed when no items are found while searching
     searchPlaceholder: 'Buscar usuario', // label thats displayed in search input,
-    searchOnKey: 'nombreUsuario' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
+    searchOnKey: 'email' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
 
   configCiudad = {
