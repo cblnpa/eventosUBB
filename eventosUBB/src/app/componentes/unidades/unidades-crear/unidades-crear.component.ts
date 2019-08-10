@@ -69,7 +69,7 @@ export class UnidadesCrearComponent implements OnInit {
     },
     theme: "attachPin",
     hideProgressBar: false,
-    hideResetBtn: true,
+    hideResetBtn: false,
     hideSelectBtn: false,
     attachPinText: 'Subir logo',
     replaceTexts: {

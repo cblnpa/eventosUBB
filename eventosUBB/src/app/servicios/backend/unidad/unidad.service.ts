@@ -27,6 +27,12 @@ export class UnidadService {
   //Listar todas las unidades
   getUnidades():Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.url+'userUnidad', {headers: headers});
+    return this.http.get(this.url+'getAllUnidad', {headers: headers});
+  }
+
+  //Obtener logo
+  getLogo(archivo): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'logoImage/'+archivo, {headers: headers});
   }
 }

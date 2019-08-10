@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs'; 
 import { global } from '../../global';
 
-import { evento } from '../../../model/evento';
-
 @Injectable({
   providedIn: 'root'
 })

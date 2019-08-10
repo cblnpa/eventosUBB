@@ -25,12 +25,11 @@ export class UnidadesVerComponent implements OnInit {
     this.unidadService.getUnidades().subscribe(
       response => {
         console.log(response);
+        this.unidades = response.unidades;
       },
       error => {
         console.log(<any>error);
-      }
-    )
-
+      })
   }
 
 }

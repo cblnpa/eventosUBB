@@ -21,15 +21,17 @@
               <th class="text-center"> # </th>
               <th>Logo</th>
               <th>Nombre unidad</th>
+              <th>Sede</th>
               <th>Encargado</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngFor="let uni of unidades; let i = index">
             <tr>
-              <td class="text-center"> </td>
-              <td> </td>
-              <td> </td>
-              <td></td>
+              <td class="text-center"> {{i+1}} </td>
+              <td>  <img class="imageLogo" src="{{url + 'logoImage/' + uni.unidad.logoUnidad}}" alt="Responsive image"> </td>
+              <td> {{uni.unidad.nombreUnidad}} </td>
+              <td> {{uni.unidad.sede}} </td>
+              <td> {{uni.nombreUsuario + ' ' + uni.apellidoUsuario }} </td>
             </tr>
           </tbody>
         </table>
