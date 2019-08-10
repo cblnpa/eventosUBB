@@ -18,10 +18,11 @@ export class EventosDetallesComponent implements OnInit {
   public url: string; // url que posee el localhost.. 
   public participantes;
   public idPersona;
-
+ 
   //verificar el usuario activo
   public token;
   public identity;
+  public rol; //almacena el rol del usuario activo
 
   public idEventoUsers: number; /* este es el id del evento para el eventousers */
   public status;
@@ -49,6 +50,7 @@ export class EventosDetallesComponent implements OnInit {
   ngOnInit(): void {
     this.getEventosDetalle();
     this.getEventoUsers();
+    this.getRol();
     //this.getFile();
   }
 
@@ -157,6 +159,18 @@ export class EventosDetallesComponent implements OnInit {
     this.eventoPojoService.asistenciaUsuarios(this.asistencia).subscribe(
       response => {
         console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  //Obtener el rol del usuario
+  getRol(){
+    this.eventoUsersService.getUsuarios(this.idEventoUsers, this.identity.sub).subscribe(
+      response => {
+        this.rol = response.evento[0].rol_idRol;
       },
       error => {
         console.log(<any>error);

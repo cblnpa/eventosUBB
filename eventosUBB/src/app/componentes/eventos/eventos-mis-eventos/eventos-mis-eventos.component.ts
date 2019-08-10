@@ -22,12 +22,11 @@ export class EventosMisEventosComponent implements OnInit {
   public misEventos; // guarda los eventos en los que participa el usuario
   public misEventosAdmin; //  guarda los eventos que administra el usuario admin
 
-  public rol; // para almacenar el rol del usuario activo
   public perfil; // id del perfil del usuario activo
   public sub; // pruebas para el login con google el sub es el id del usuario
 
   constructor( private eventoUsersService: EventoUsersService,  private userService: UserService, 
-    private eventoPojoService: EventoPojoService, private route: ActivatedRoute, private router: Router ) {
+    private router: Router ) {
 
     this.url = global.url;
     this.token = this.userService.getToken();
@@ -38,9 +37,10 @@ export class EventosMisEventosComponent implements OnInit {
   ngOnInit() {
     this.perfil = this.identity.perfil_idPerfil;
     this.sub = this.identity.sub;
-
+  
     this.getMisEventos();
     this.getMisEventosAdmin();
+    this.getUsuarios();
   }
 
   //Obtener los eventos en los que el usuario participa 
@@ -67,13 +67,23 @@ export class EventosMisEventosComponent implements OnInit {
     )
   }
 
-  //Redirección al presionar el botón del evento
+  getUsuarios(){
+    this.eventoUsersService.getEventoUsersById(this.idEvento).subscribe(
+      response => {
+        console.log(response);
+      }
+    )
+  }
+
+  //Redirección a la vista administrativa del evento
   eventosDetalles(idEvento: number){
     this.router.navigate(['/eventoDetalle/' + idEvento]);
   }
 
+  //Redirección a la vista general del evento
   verEvento(idEvento: number){
     this.router.navigate(['/eventoDetallePublic/' + idEvento]);
+
   }
 
 }

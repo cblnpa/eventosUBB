@@ -21,28 +21,12 @@ export class EventoUsersService {
     return this.http.get(this.url + 'evento_users/' + id, { headers: headers });
   }
 
-  // Obtener mis eventos usuario-> participante (eventos en los que se participa)
-  // getMisEventos(token): Observable<any>{
-  //   let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-  //   .set('Authorization',token);;
-
-  //   return this.http.get(this.url+'misEventos', {headers: headers});
-  // }
-
   // Obtener los eventos en los que participa el usuario (ahora pasa el id -sub- para obtenerlos)
   getMisEventos(sub): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
     return this.http.get(this.url + 'misEventos/' + sub, { headers: headers });
   }
-
-  // Obtener mis eventos usuario-> administrador (eventos que administra)
-  // getMisEventosAdmin(token): Observable<any>{
-  //   let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-  //   .set('Authorization',token);
-
-  //   return this.http.get(this.url+'misEventosAdmin', {headers: headers});
-  // }
 
   // Obtener los eventos que administra el usuario (ahora pasa el id -sub- para obtenerlos)
   getMisEventosAdmin(sub): Observable<any> {
@@ -77,7 +61,12 @@ export class EventoUsersService {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
     return this.http.post(this.url + 'comision/' + idEvento , params, { headers: headers });
-    
+  }
+
+  //Función para obtener los roles del evento
+  getUsuarios(idEvento, idUsuario): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'evento_users/'+idEvento+'/'+idUsuario, {headers: headers});
   }
 
 }

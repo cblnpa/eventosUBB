@@ -19,7 +19,7 @@
         <!-- Botones -->
         <button class="btn btn-block btn-outline-info" (click)="editarEvento(evento.idEvento)"><i class="mdi mdi-pencil"></i> Editar evento </button><br>
         
-        <button class="btn btn-block btn-outline-danger" (click)="eliminarEvento(evento.idEvento)"><i class="mdi mdi-delete"></i> Eliminar evento</button>
+        <button *ngIf="rol == 1" class="btn btn-block btn-outline-danger" (click)="eliminarEvento(evento.idEvento)"><i class="mdi mdi-delete"></i> Eliminar evento</button>
 
         <!-- información del evento -->
         <div class="card">
