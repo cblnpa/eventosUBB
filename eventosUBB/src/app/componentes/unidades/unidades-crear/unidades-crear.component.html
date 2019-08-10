@@ -31,14 +31,10 @@
 
                     <!-- Seleccionar sede de la unidad -->
                     <div class="form-group row">
-                        <label for="sede" class="col-sm-3 control-label">Sede</label>
+                        <label for="nombreCiudad" class="col-sm-3 control-label">Sede</label>
                         <div class="col-sm-9">
-                            <div class="input-group">
-                                <select class="form-control custom-select">
-                                    <option value="Concepción">Concepción</option>
-                                    <option value="Chillán">Chillán</option>
-                                </select>
-                            </div>
+                           <ngx-select-dropdown tabindex="0" [config]="configCiudad" [options]="optionsCiudad"
+                           [multiple]="false" name="nombreCiudad" #nombreCiudad="ngModel" [(ngModel)]="ciudades"></ngx-select-dropdown>
                             <span class="help-block"><small>Selecciona la sede asociada a la unidad</small></span>
                         </div>
                     </div>
@@ -47,11 +43,9 @@
                     <div class="form-group row">
                         <label for="email" class="col-sm-3 control-label">Encargado</label>
                         <div class="col-sm-9">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="mdi mdi-account"></i></div>
-                                <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="unidad.email">
-                            </div>
-                            <span class="help-block"><small>Ingresa el <strong>correo</strong> del encargado de esta unidad</small></span>
+                            <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="optionsUsuario" 
+                            [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios"></ngx-select-dropdown>  
+                            <span class="help-block"><small>Selecciona la persona requerida para asignarle la unidad</small></span>
                         </div>
                     </div>
 
