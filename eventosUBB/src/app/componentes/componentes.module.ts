@@ -1,7 +1,33 @@
 import { NgModule } from '@angular/core';
-
 import { HttpClientModule,  HttpClientJsonpModule } from '@angular/common/http';
-import { SelectDropDownModule } from 'ngx-select-dropdown'
+
+//Rutas
+import { COMPONENTES_ROUTES } from './componentes.routes';
+
+// Módulos
+import { UtilidadesModule } from '../utilidades/utilidades.module';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+// Componentes
+import { InicioComponent } from './inicio/inicio.component';
+import { EventosDetallesComponent } from '../componentes/eventos/eventos-detalles/eventos-detalles.component';
+import { ComponentesComponent } from './componentes.component';
+import { EventosEditarComponent } from './eventos/eventos-editar/eventos-editar.component';
+import { EditLoginComponent } from './edit-login/edit-login.component';
+import { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/eventos-mis-eventos.component';
+import { EventosCrearComponent } from './eventos/eventos-crear/eventos-crear.component';
+import { EventosDetallesPublicComponent } from './eventos/eventos-detalles-public/eventos-detalles-public.component';
+import { UnidadesCrearComponent } from './unidades/unidades-crear/unidades-crear.component';
+import { UnidadesVerComponent } from './unidades/unidades-ver/unidades-ver.component';
+import { ReportesGenerarComponent } from './reportes/reportes-generar/reportes-generar.component';
+import { ComisionVerComponent } from './comisiones/comision-ver/comision-ver.component';
+import { ComisionCrearComponent } from './comisiones/comision-crear/comision-crear.component';
+import { ModalJornadaAddComponent } from './modals/modal-jornada-add/modal-jornada-add.component';
+import { ModalExpositorAddComponent } from './modals/modal-expositor-add/modal-expositor-add.component';
+import { ModalMaterialAddComponent } from './modals/modal-material-add/modal-material-add.component';
+import { ModalColaboradorAddComponent } from './modals/modal-colaborador-add/modal-colaborador-add.component';
+import { ModalActividadAddComponent } from './modals/modal-actividad-add/modal-actividad-add.component';
 
 // Formularios
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,40 +40,14 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatNativeDateModule,MatRippleModule } from '@angular/material/core';
 
-// Módulos
-import { UtilidadesModule } from '../utilidades/utilidades.module';
-import { MatSelectModule } from '@angular/material/select';
-import { NgxPaginationModule } from 'ngx-pagination';
-
-// uploader
-import { AngularFileUploaderModule } from "angular-file-uploader";
-
-// Componentes
-import { InicioComponent } from './inicio/inicio.component';
-import { EventosDetallesComponent } from '../componentes/eventos/eventos-detalles/eventos-detalles.component';
-import { ComponentesComponent } from './componentes.component';
-import { EventosEditarComponent } from './eventos/eventos-editar/eventos-editar.component';
-import { EditLoginComponent } from './edit-login/edit-login.component';
-import { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/eventos-mis-eventos.component';
-import { EventosCrearComponent } from './eventos/eventos-crear/eventos-crear.component';
-import { EventosDetallesPublicComponent } from './eventos/eventos-detalles-public/eventos-detalles-public.component';
-
-//Rutas
-import { COMPONENTES_ROUTES } from './componentes.routes';
-import { UnidadesCrearComponent } from './unidades/unidades-crear/unidades-crear.component';
-import { UnidadesVerComponent } from './unidades/unidades-ver/unidades-ver.component';
-import { ReportesGenerarComponent } from './reportes/reportes-generar/reportes-generar.component';
-import { ComisionVerComponent } from './comisiones/comision-ver/comision-ver.component';
-import { ComisionCrearComponent } from './comisiones/comision-crear/comision-crear.component';
-import { ModalJornadaAddComponent } from './modals/modal-jornada-add/modal-jornada-add.component';
-import { ModalExpositorAddComponent } from './modals/modal-expositor-add/modal-expositor-add.component';
-import { ModalActividadAddComponent } from './modals/modal-actividad-add/modal-actividad-add.component';
-
+// Librerías
 //Botón compartir
 import { ShareButtonModule } from '@ngx-share/button';
 import { ShareButtonsModule } from '@ngx-share/buttons';
-import { ModalMaterialAddComponent } from './modals/modal-material-add/modal-material-add.component';
-import { ModalColaboradorAddComponent } from './modals/modal-colaborador-add/modal-colaborador-add.component';
+//Selector múltiple con buscador
+import { SelectDropDownModule } from 'ngx-select-dropdown'
+// uploader
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
