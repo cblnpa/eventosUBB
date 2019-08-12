@@ -3,7 +3,7 @@ import { filter, map } from 'rxjs/operators';
 import { Router, ActivationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-import { UserService } from '../../servicios/servicio.index';
+import { UserService, SettingsService } from '../../servicios/servicio.index';
 import { users } from '../../model/users';
 import { global } from '../../servicios/global'
 import Swal from 'sweetalert2';
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   selector: 'app-edit-login',
   templateUrl: './edit-login.component.html',
   styleUrls: ['./edit-login.component.css'],
-  providers: [ UserService ]
+  providers: [ UserService, SettingsService ]
 })
 export class EditLoginComponent implements OnInit {
   
@@ -42,7 +42,8 @@ export class EditLoginComponent implements OnInit {
      }
 };
 
-  constructor( private userService: UserService, private router: Router, private title: Title ) { 
+  constructor( private userService: UserService, private router: Router, private title: Title,
+    public _ajustes: SettingsService ) { 
     this.identity = this.userService.getIdentity();
     this.user = new users('','','','','',null,1,null);
     this.url = global.url;
@@ -58,6 +59,7 @@ export class EditLoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.colocarCheck();
   }
 
   getDataRoute(){
@@ -110,6 +112,34 @@ export class EditLoginComponent implements OnInit {
   avatarUpload(datos){
     let data =JSON.parse(datos.response);
     this.user.avatar = data.image;
+  }
+
+  cambiarColor(tema: string, linkTema: any){
+    this.aplicarCheck(linkTema);
+    this._ajustes.aplicarTema(tema);
+  }
+
+  //muestra el chek en la caja que selecciono
+  aplicarCheck(linkTema: any) {
+    //Arreglo de selectores
+    let selectores: any = document.getElementsByClassName('selector');
+    for( let ref of selectores){
+      ref.classList.remove('working');
+    }
+
+    linkTema.classList.add('working');
+  }
+
+  //muestra el check con el tema del usuario
+  colocarCheck(){
+    let selectores: any = document.getElementsByClassName('selector');
+    let tema = this._ajustes.ajustes.tema;
+    for( let ref of selectores){
+      if( ref.getAttribute('data-theme') === tema ){
+        ref.classList.add('working');
+        break;
+      }
+    }
   }
 
 }

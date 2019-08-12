@@ -14,7 +14,8 @@ import {
   ExpositorService,
   ActividadService,
   MaterialService,
-  ModalService
+  ModalService,
+  SettingsService
  } from './servicio.index';
 
 @NgModule({
@@ -34,7 +35,8 @@ import {
     ExpositorService,
     ActividadService,
     MaterialService,
-    ModalService
+    ModalService,
+    SettingsService
   ],
   declarations: [],
   

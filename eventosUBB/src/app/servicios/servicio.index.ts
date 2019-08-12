@@ -13,3 +13,5 @@ export { ActividadService } from './backend/actividad/actividad.service';
 export { MaterialService } from './backend/material/material.service';
 
 export { ModalService } from './modal/modal.service';
+
+export { SettingsService } from './settings/settings.service';
