@@ -4,9 +4,9 @@ import {global} from '../../../servicios/global'
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material } from '../../../model/model.index';
+import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material , categoria} from '../../../model/model.index';
 import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService, 
-  ExpositorService, ActividadService, ModalService, MaterialService, ColaboradorService } from '../../../servicios/servicio.index';
+  ExpositorService, ActividadService, ModalService, MaterialService, ColaboradorService, CategoriaService } from '../../../servicios/servicio.index';
 
 @Component({
   selector: 'app-eventos-editar',
@@ -37,6 +37,7 @@ export class EventosEditarComponent implements OnInit {
   public url;
   public token;
   public ciudades;
+  public categorias;
   public status;
   public id; //id del evento
   public idUsuario; //id del usuario (sub) 
@@ -65,7 +66,7 @@ export class EventosEditarComponent implements OnInit {
 
   constructor( private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, 
     private userService: UserService, private eventoPojoService: EventoPojoService,
-    private ciudadService: CiudadService, private jornadaService: JornadaService, 
+    private ciudadService: CiudadService,private categoriaService: CategoriaService ,private jornadaService: JornadaService, 
     private expositorService: ExpositorService, private modalService: ModalService,
     private eventoService: EventoService, private actividadService: ActividadService,
     private materialService: MaterialService, private colaboradorService: ColaboradorService ) {
@@ -74,7 +75,7 @@ export class EventosEditarComponent implements OnInit {
       this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','');
       
       // objeto para editar el evento, step 1
-      this.eventos = new evento('','','','','',null,'',null,null,null);
+      this.eventos = new evento('','','','','',null,'',null,null,null,null);
 
       this.identity = this.userService.getIdentity();
       this.token = this.userService.getToken();
@@ -85,6 +86,7 @@ export class EventosEditarComponent implements OnInit {
   ngOnInit() {
 
     this.getCiudades();
+    this.getCategorias();
     this.getDatosEvento();
     this.mostrarJornadas();
     this.mostrarExpositores();
@@ -114,6 +116,19 @@ export class EventosEditarComponent implements OnInit {
     );
   }
 
+  getCategorias(){
+    this.categoriaService.getCategorias().subscribe(
+      response => {
+        if( response.status == 'success' ){
+          this.categorias = response.categoria;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   getDatosEvento(){
     this.route.params.subscribe(
       params => {
@@ -132,6 +147,7 @@ export class EventosEditarComponent implements OnInit {
               this.eventos.capacidad,
               this.eventos.nombreEventoInterno,
               this.eventos.ciudad_idCiudad,
+              this.eventos.categoria_idCategoria,
               this.eventos.visibilidad)
           },
           error => {

@@ -50,7 +50,7 @@ export class ComisionCrearComponent implements OnInit {
   constructor( private eventoUsersService: EventoUsersService, private userService: UserService ) { 
     this.identity = this.userService.getIdentity();
     this.usuario = new users('','','','','',null,null,null);
-    this.evento = new evento('','','','','',null,'',null,null);
+    this.evento = new evento('','','','','',null,'',null,null,null);
   }
 
   ngOnInit() {

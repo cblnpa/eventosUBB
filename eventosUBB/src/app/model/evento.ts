@@ -8,6 +8,7 @@ export class evento {
         public capacidad: number,
         public nombreEventoInterno: string,
         public ciudad_idCiudad: number,
+        public categoria_idCategoria: number,
         public visibilidad: number,
         public idEvento?: number
     ){}
