@@ -1,6 +1,6 @@
 <div class="row">
     <!-- Column -->
-    <div class="col-lg-4 col-xlg-3 col-md-5">
+    <div class="col-lg-3 col-xlg-3 col-md-3">
         <div class="card">
             <img *ngIf="!evento.imagen" src="../../../assets/images/socialbg.jpg" alt="Card image" />
             <img *ngIf="evento.imagen" src="{{url + 'image/' + evento.imagen}}" alt="user" />
@@ -40,12 +40,12 @@
     </div>
 
     <!-- Column -->
-    <div class="col-lg-8 col-xlg-9 col-md-7">
+    <div class="col-lg-9 col-xlg-9 col-md-9">
         <div class="card">
             <!-- barra de tabs -->
             <ul class="nav nav-tabs profile-tab" role="tablist">
                 <li class="nav-item"> 
-                    <a class="nav-link active" data-toggle="tab" href="#jornada" role="tab">Jornada</a> 
+                    <a class="nav-link active" data-toggle="tab" href="#jornada" role="tab">Jornadas</a> 
                 </li>
                 <li class="nav-item"> 
                     <a class="nav-link" data-toggle="tab" href="#actividad" role="tab">Actividades</a> 
@@ -61,6 +61,9 @@
                 </li>
                 <li class="nav-item"> 
                     <a class="nav-link" data-toggle="tab" href="#comision" role="tab">Comisión</a> 
+                </li>
+                <li class="nav-item"> 
+                    <a class="nav-link" data-toggle="tab" href="#repositorio" role="tab">Repositorio</a> 
                 </li>
             </ul>
 

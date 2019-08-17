@@ -173,7 +173,10 @@ export class EventosDetallesComponent implements OnInit {
   getRol(){
     this.eventoUsersService.getUsuarios(this.idEventoUsers, this.identity.sub).subscribe(
       response => {
+        console.log(response);
         this.rol = response.evento[0].rol_idRol;
+        console.log('response del rol !!');
+        console.log(this.rol);
       },
       error => {
         console.log(<any>error);

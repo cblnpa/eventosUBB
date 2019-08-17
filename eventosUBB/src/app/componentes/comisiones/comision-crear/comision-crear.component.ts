@@ -39,13 +39,13 @@ export class ComisionCrearComponent implements OnInit {
   }
 
   configEvento = {
-    displayKey: 'evento_idEvento', //if objects array passed which key to be displayed defaults to description
+    displayKey: 'nombreEvento', //if objects array passed which key to be displayed defaults to description
     search:true, //true/false for the search functionlity defaults to false,
     height: '150px', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
     placeholder:'Seleccionar evento', // text to be displayed when no item is selected defaults to Select,
     noResultsFound: '¡No se encuentra el evento!', // text to be displayed when no items are found while searching
     searchPlaceholder:'Buscar evento', // label thats displayed in search input,
-    searchOnKey: 'evento_idEvento' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
+    searchOnKey: 'nombreEvento' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
 
   constructor( private eventoUsersService: EventoUsersService, private userService: UserService, 
@@ -77,7 +77,7 @@ export class ComisionCrearComponent implements OnInit {
   listarEventos(){
     this.eventoUsersService.getMisEventosAdmin(this.idUsuario).subscribe(
       response => {
-        this.optionEvento = response.eventos;
+        this.optionEvento = response.eventos; 
         console.log(this.optionEvento);
       },
       error => {
