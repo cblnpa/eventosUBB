@@ -42,7 +42,7 @@ export class EventosCrearComponent implements OnInit {
       this.url = global.url;
       this.identity = this.userService.getIdentity();
       this.idUsuario = this.identity.sub;
-      this.evento = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','');
+      this.evento = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','',null,null);
      }
 
   ngOnInit() {
@@ -50,7 +50,10 @@ export class EventosCrearComponent implements OnInit {
   }
 
   guardarEvento(form){
-
+    //pasar el id del usuario activo
+    this.evento.id = this.idUsuario;
+    this.evento.email = this.usuarios.email;
+    
     this.eventoPojoService.guardarEventoPojo(this.evento).subscribe(
       response => {
         console.log(response);

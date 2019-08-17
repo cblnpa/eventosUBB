@@ -72,7 +72,7 @@ export class EventosEditarComponent implements OnInit {
     private materialService: MaterialService, private colaboradorService: ColaboradorService ) {
       
       //objeto para mostrar los datos ?
-      this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','');
+      this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','',null,null);
       
       // objeto para editar el evento, step 1
       this.eventos = new evento('','','','','',null,'',null,null,null,null);
@@ -157,9 +157,11 @@ export class EventosEditarComponent implements OnInit {
   }
 
   guardarEvento(form){
+    console.log('esto estoy guardando en el editar');
+    console.log(this.eventos);
+    
     this.eventoPojoService.updateEventoPojo(this.eventos, this.id).subscribe(
       response => {
-  
         if(response && response.status){
           this.status = 'success';
 
@@ -194,7 +196,15 @@ export class EventosEditarComponent implements OnInit {
 
           if(response.changes.eventos.ciudad){
             this.eventos.ciudad_idCiudad = response.changes.eventos.ciudad;
-          } }
+          }
+
+          if(response.changes.eventos.categoria_idCategoria){
+            this.eventos.categoria_idCategoria = response.changes.eventos.categoria_idCategoria;
+          }
+
+          if(response.changes.eventos.visibilidad){
+            this.eventos.visibilidad = response.changes.eventos.visibilidad;
+          }}
       }
     )
     this.router.navigate(['/eventoDetalle/' + this.id]);

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { global } from '../../../servicios/global'
+import { Router } from '@angular/router';
+import { EventoUsersService, UserService } from '../../../servicios/servicio.index';
 
 @Component({
   selector: 'app-comision-ver',
@@ -7,9 +10,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ComisionVerComponent implements OnInit {
 
-  constructor() { }
+  public url;
+  public eventos;
+
+  public token;
+  public identity;
+  public sub; // pruebas para el login con google el sub es el id del usuario
+
+  constructor( private eventoUsersService: EventoUsersService, private userService: UserService, 
+    private router: Router ) {
+
+    this.url = global.url;
+    this.token = this.userService.getToken();
+    this.identity = this.userService.getIdentity();
+
+  }
 
   ngOnInit() {
+    this.sub = this.identity.sub;
+    this.getMisEventosAdmin();
   }
+
+  getMisEventosAdmin(){
+    this.eventoUsersService.getMisEventosAdmin(this.sub).subscribe(
+      response => {
+          this.eventos = response.eventos;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  //Redirección a la vista administrativa del evento
+  eventosDetalles(idEvento: number){
+    this.router.navigate(['/eventoDetalle/' + idEvento]);
+  }
+
 
 }

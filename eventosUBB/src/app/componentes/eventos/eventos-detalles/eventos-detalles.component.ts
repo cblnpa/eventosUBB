@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global';
 
-import { EventoPojoService, EventoUsersService, UserService, EventoService } from '../../../servicios/servicio.index';
+import { EventoPojoService, EventoUsersService, UserService, EventoService, ComisionService } from '../../../servicios/servicio.index';
 import { evento, material, colaborador, jornada, expositor, actividad, evento_users, asistencia } from '../../../model/model.index';
 
 import Swal from 'sweetalert2';
@@ -18,6 +18,7 @@ export class EventosDetallesComponent implements OnInit {
   public url: string; // url que posee el localhost.. 
   public participantes;
   public idPersona;
+  public comisiones; //almacenar los integrantes 
  
   //verificar el usuario activo
   public token;
@@ -39,7 +40,8 @@ export class EventosDetallesComponent implements OnInit {
   public asistencia: asistencia; //modelo que posee evento_idEvento & users_id *se ocupa para el request
 
   constructor(private eventoPojoService: EventoPojoService, private eventoUsersService: EventoUsersService,
-    private userService: UserService, private eventoService: EventoService, private route: ActivatedRoute, private router: Router) {
+    private userService: UserService, private eventoService: EventoService, private route: ActivatedRoute, 
+    private router: Router, private comisionService: ComisionService ) {
     this.url = global.url;
     this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();
@@ -51,6 +53,7 @@ export class EventosDetallesComponent implements OnInit {
     this.getEventosDetalle();
     this.getEventoUsers();
     this.getRol();
+    this.getComision();
     //this.getFile();
   }
 
@@ -171,6 +174,18 @@ export class EventosDetallesComponent implements OnInit {
     this.eventoUsersService.getUsuarios(this.idEventoUsers, this.identity.sub).subscribe(
       response => {
         this.rol = response.evento[0].rol_idRol;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  //Obtener integrantes de la comisión
+  getComision(){
+    this.comisionService.getComisiones(this.idEventoUsers).subscribe(
+      response => {
+        this.comisiones = response.comisiones;
       },
       error => {
         console.log(<any>error);

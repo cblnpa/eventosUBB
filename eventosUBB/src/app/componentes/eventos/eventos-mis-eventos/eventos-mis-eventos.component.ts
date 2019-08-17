@@ -57,8 +57,10 @@ export class EventosMisEventosComponent implements OnInit {
 
   //Obtener los eventos que el usuario administra
   getMisEventosAdmin(){
+    console.log(this.sub);
     this.eventoUsersService.getMisEventosAdmin(this.sub).subscribe(
       response => {
+        console.log(response);
           this.misEventosAdmin = response.eventos;
       },
       error => {

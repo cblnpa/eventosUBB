@@ -15,7 +15,8 @@ import {
   ActividadService,
   MaterialService,
   ModalService,
-  SettingsService
+  SettingsService,
+  ComisionService
  } from './servicio.index';
 
 @NgModule({
@@ -36,7 +37,8 @@ import {
     ActividadService,
     MaterialService,
     ModalService,
-    SettingsService
+    SettingsService,
+    ComisionService
   ],
   declarations: [],
   

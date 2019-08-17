@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { evento, users } from 'src/app/model/model.index';
+import { Router } from '@angular/router';
 import { EventoUsersService, UserService } from '../../../servicios/servicio.index';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-comision-crear',
@@ -27,27 +28,28 @@ export class ComisionCrearComponent implements OnInit {
   public options; 
 
   configUsuario = {
-    displayKey:'nombreUsuario', //if objects array passed which key to be displayed defaults to description
+    displayKey:'email', //if objects array passed which key to be displayed defaults to description
     search:true, //true/false for the search functionlity defaults to false,
-    height: 'auto', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
+    height: '150px', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
     placeholder:'Seleccionar usuarios', // text to be displayed when no item is selected defaults to Select,
     moreText: 'más', // text to be displayed whenmore than one items are selected like Option 1 + 5 more
     noResultsFound: '¡No se encuentra el usuario!', // text to be displayed when no items are found while searching
     searchPlaceholder:'Buscar usuarios', // label thats displayed in search input,
-    searchOnKey: 'nombreUsuario' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
+    searchOnKey: 'email' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
 
   configEvento = {
     displayKey: 'evento_idEvento', //if objects array passed which key to be displayed defaults to description
     search:true, //true/false for the search functionlity defaults to false,
-    height: 'auto', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
+    height: '150px', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
     placeholder:'Seleccionar evento', // text to be displayed when no item is selected defaults to Select,
     noResultsFound: '¡No se encuentra el evento!', // text to be displayed when no items are found while searching
     searchPlaceholder:'Buscar evento', // label thats displayed in search input,
     searchOnKey: 'evento_idEvento' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
 
-  constructor( private eventoUsersService: EventoUsersService, private userService: UserService ) { 
+  constructor( private eventoUsersService: EventoUsersService, private userService: UserService, 
+    private router: Router ) { 
     this.identity = this.userService.getIdentity();
     this.usuario = new users('','','','','',null,null,null);
     this.evento = new evento('','','','','',null,'',null,null,null);
@@ -76,7 +78,6 @@ export class ComisionCrearComponent implements OnInit {
     this.eventoUsersService.getMisEventosAdmin(this.idUsuario).subscribe(
       response => {
         this.optionEvento = response.eventos;
-        console.log('op evento');
         console.log(this.optionEvento);
       },
       error => {
@@ -90,14 +91,18 @@ export class ComisionCrearComponent implements OnInit {
 
     this.idEvento = this.eventos.evento_idEvento;
     
-    // this.eventoUsersService.crearComision(this.usuarios, this.idEvento).subscribe(
-    //   response => {
-    //     console.log(response);
-    //   },
-    //   error => {
-    //     console.log(<any>error);
-    //   }
-    // )
+    this.eventoUsersService.crearComision(this.usuarios, this.idEvento).subscribe(
+      response => {
+          Swal.fire({
+            type: 'success',
+            title: '¡Se ha creado con éxito la comisión!'
+          });
+          this.router.navigate(['/verComisiones']);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
 
   }
 

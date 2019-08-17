@@ -59,6 +59,9 @@
                 <li class="nav-item"> 
                     <a class="nav-link" data-toggle="tab" href="#participantes" role="tab">Participantes</a> 
                 </li>
+                <li class="nav-item"> 
+                    <a class="nav-link" data-toggle="tab" href="#comision" role="tab">Comisión</a> 
+                </li>
             </ul>
 
             <!-- Tab panes -->
@@ -297,6 +300,26 @@
                                 <td> {{i+1}} </td>
                                 <td> {{persona.users.nombreUsuario + ' ' + persona.users.apellidoUsuario}} </td>
                                 <td class="text-center"><button class="btn btn-success" (click)="acreditar(persona.users_id,evento.idEvento)" ><i class="mdi mdi-check"></i> </button></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <div class="tab-pane" id="comision" role="tabpanel">
+                    <table class="table color-table inverse-table full-inverse-table full-color-table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let comision of comisiones; let i = index">
+                            <tr>
+                                <td> {{i+1}} </td>
+                                <td> {{comision.users.nombreUsuario + ' ' + comision.users.apellidoUsuario}} </td>
+                                <td> {{comision.users.email}} </td>
                             </tr>
                         </tbody>
 

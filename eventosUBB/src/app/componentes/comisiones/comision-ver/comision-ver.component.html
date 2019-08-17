@@ -1,46 +1,45 @@
 <body class="fix-header card-no-border fix-sidebar">
-    <div class="row el-element-overlay">
-      <div class="col-md-12">
-        <h2> Comisiones </h2>
-  
-        <!-- buscador de unidades -->
-        <div class="col-lg-12 col-md-12 col-xs-12 m-b-15">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Buscar comision por nombre del evento">
-            <span class="input-group-btn">
-              <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
-            </span>
-          </div>
+  <div class="row el-element-overlay">
+    <div class="col-md-12">
+      <h2> Comisiones </h2>
+      <br>
+      <p>Seleccione el evento correspondiente para visualizar la comisión asociada</p>
+
+      <!-- buscador de unidades -->
+      <div class="col-lg-12 col-md-12 col-xs-12 m-b-15">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Buscar comision por nombre del evento">
+          <span class="input-group-btn">
+            <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
+          </span>
         </div>
-  
-        <!-- tabla con las unidades -->
-        <div class="col-md-12">
-          <table class="table color-table info-table mt-3">
-            <thead>
-              <tr>
-                <th class="text-center"> # </th>
-                <th>Logo</th>
-                <th>Nombre unidad</th>
-                <th>Encargado</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center"> </td>
-                <td> </td>
-                <td> </td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-  
-          <!-- pagination -->
-          <ul class="pagination justify-content-center">
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
-          </ul>
-        </div>
-  
-  
       </div>
+
+      <table class="table color-table info-table mt-3">
+        <thead>
+          <tr>
+            <th class="text-center"> # </th>
+            <th>Nombre del evento</th>
+            <th> </th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let ev of eventos; let i = index">
+          <tr>
+            <td class="text-center"> {{i+1}} </td>
+            <td *ngIf="!ev.evento.nombreEvento"> {{ev.evento.nombreEventoInterno}} </td>
+            <td *ngIf="ev.evento.nombreEvento"> {{ev.evento.nombreEvento}} </td>
+            <td> <button class="btn btn-block btn-outline-info waves-effect waves-light"
+                (click)="eventosDetalles(ev.evento.idEvento)" type="button">ver detalles</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- pagination -->
+      <ul class="pagination justify-content-center">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </ul>
     </div>
-  </body>
+
+
+  </div>
+</body>

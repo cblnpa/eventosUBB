@@ -43,6 +43,8 @@ export class eventoPojo {
 
         public visibilidad: string,
 
-        public email: string
+        public email: string,
+        public id: number,
+        public categoria_idCategoria: number
     ){}
 }
