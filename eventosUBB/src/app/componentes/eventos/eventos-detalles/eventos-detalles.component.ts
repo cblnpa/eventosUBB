@@ -196,6 +196,10 @@ export class EventosDetallesComponent implements OnInit {
     )
   }
 
+  agregarArchivo(){
+    
+  }
+
   //Obtener imagen
   // getFile(){
   //   this.eventoPojoService.getFile(this.evento.imagen).subscribe(

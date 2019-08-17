@@ -35,6 +35,13 @@ export class EventoUsersService {
     return this.http.get(this.url + 'misEventosAdmin/' + sub, { headers: headers });
   }
 
+  // Obtener los eventos que administra el usuario (ahora pasa el id -sub- para obtenerlos)
+  getMisEventosAdmin2(sub): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+    return this.http.get(this.url + 'misEventosAdmin2/' + sub, { headers: headers });
+  }
+
   // Crear una tupla en la tabla evento_users -> también lo utiliza el ParticiparEvento para guardar el participante 
   guardarEventoUser( eventoUsers, idUsuario): Observable<any> {
     let json = JSON.stringify(eventoUsers);

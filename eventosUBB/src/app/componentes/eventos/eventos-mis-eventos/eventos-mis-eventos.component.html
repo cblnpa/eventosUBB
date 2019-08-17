@@ -87,9 +87,9 @@
                     currentPage: p} ; let i = index">
                     <tr>
                       <td class="text-center"> {{i+1}} </td>
-                      <td *ngIf="!eadmin.evento.nombreEvento"> {{eadmin.evento.nombreEventoInterno}} </td>
-                      <td *ngIf="eadmin.evento.nombreEvento"> {{eadmin.evento.nombreEvento}} </td>
-                      <td> <button class="btn btn-block btn-outline-info waves-effect waves-light" (click)="eventosDetalles(eadmin.evento.idEvento)" type="button">ver detalles</button></td>
+                      <td *ngIf="!eadmin.nombreEvento"> {{eadmin.nombreEventoInterno}} </td>
+                      <td *ngIf="eadmin.nombreEvento"> {{eadmin.nombreEvento}} </td>
+                      <td> <button class="btn btn-block btn-outline-info waves-effect waves-light" (click)="eventosDetalles(eadmin.idEvento)" type="button">ver detalles</button></td>
                     </tr>
                   </tbody>
                 </table>
