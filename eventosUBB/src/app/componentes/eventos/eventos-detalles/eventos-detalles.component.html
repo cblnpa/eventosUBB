@@ -352,25 +352,25 @@
                 </div>
 
                 <div class="tab-pane" id="repositorio" role="tabpanel">
-                    <div class="col-md-12 text-center">
-                        <button type="button" class="btn btn-success" (click)="agregarArchivo()">
+                    <div class="col-md-12 text-center m-t-15">
+                        <button type="button" class="btn btn-success" (click)="agregarRepositorioModal()">
                             <i class="mdi mdi-plus"></i> Agregar nuevo archivo
                         </button>
                     </div>
-                    
-                    <table class="table color-table inverse-table full-inverse-table full-color-table table-hover">
+
+                    <table class="table color-table m-t-15 inverse-table full-inverse-table full-color-table table-hover">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Nombre</th>
-                                <th>Correo</th>
+                                <th>Archivo</th>
+                                <th>Fecha de creación</th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let comision of comisiones; let i = index">
+                        <tbody>
                             <tr>
-                                <td> {{i+1}} </td>
-                                <td> {{comision.users.nombreUsuario + ' ' + comision.users.apellidoUsuario}} </td>
-                                <td> {{comision.users.email}} </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
 
@@ -382,3 +382,4 @@
     <!-- Column -->
 </div>
 <!-- Row -->
+<app-modal-repositorio-add></app-modal-repositorio-add>

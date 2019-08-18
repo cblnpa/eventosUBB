@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global';
 
-import { EventoPojoService, EventoUsersService, UserService, EventoService, ComisionService } from '../../../servicios/servicio.index';
+import { EventoPojoService, EventoUsersService, UserService, EventoService, ComisionService, RepositorioService, ModalService } from '../../../servicios/servicio.index';
 import { evento, material, colaborador, jornada, expositor, actividad, evento_users, asistencia } from '../../../model/model.index';
 
 import Swal from 'sweetalert2';
@@ -18,8 +18,9 @@ export class EventosDetallesComponent implements OnInit {
   public url: string; // url que posee el localhost.. 
   public participantes;
   public idPersona;
-  public comisiones; //almacenar los integrantes 
- 
+  public comisiones; //almacenar los integrantes
+  public repositorio; 
+
   //verificar el usuario activo
   public token;
   public identity;
@@ -40,13 +41,13 @@ export class EventosDetallesComponent implements OnInit {
   public asistencia: asistencia; //modelo que posee evento_idEvento & users_id *se ocupa para el request
 
   constructor(private eventoPojoService: EventoPojoService, private eventoUsersService: EventoUsersService,
-    private userService: UserService, private eventoService: EventoService, private route: ActivatedRoute, 
-    private router: Router, private comisionService: ComisionService ) {
+    private userService: UserService, private eventoService: EventoService, private route: ActivatedRoute,
+    private router: Router, private comisionService: ComisionService, private repositorioService: RepositorioService,
+    private modalService: ModalService ) {
     this.url = global.url;
     this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();
-    this.asistencia = new asistencia(null,null);
-
+    this.asistencia = new asistencia(null, null);
   }
 
   ngOnInit(): void {
@@ -54,6 +55,7 @@ export class EventosDetallesComponent implements OnInit {
     this.getEventoUsers();
     this.getRol();
     this.getComision();
+    this.mostrarRepositorio();
     //this.getFile();
   }
 
@@ -69,47 +71,29 @@ export class EventosDetallesComponent implements OnInit {
         response => {
           if (response.status == 'success') {
 
-            if( response.Jornada == null ){
-              console.log('dentro del if jornada');
+            if (response.Jornada == null) {
             } else {
               this.jornada = response.Jornada;
-              console.log('el jornada!!');
-              console.log(this.jornada);
             }
-            if( response.actividad == null ){
-              console.log('dentro del if actividad');
+            if (response.actividad == null) {
             } else {
               this.actividad = response.actividad;
-              console.log('actividad');
-              console.log(this.actividad);
             }
-            if( response.expositor == null ){
-              console.log('dentro del if expositor');
+            if (response.expositor == null) {
             } else {
               this.expositor = response.expositor;
-              console.log('expositor');
-              console.log(this.expositor);
             }
-            if( response.colaborador == null ){
-              console.log('dentro del if colaborador');
+            if (response.colaborador == null) {
             } else {
               this.colaborador = response.colaborador;
-              console.log('colaborador');
-              console.log(this.colaborador);
             }
-            if( response.evento == null ){
-              console.log('dentro del if evento');
-            } else {
+            if (response.evento == null) {
+            } else {
               this.evento = response.evento;
-              console.log('evento');
-              console.log(this.evento);
             }
-            if( response.material == null ){
-              console.log('dentro del if material');
+            if (response.material == null) {
             } else {
               this.material = response.material;
-              console.log('material');
-              console.log(this.material);
             }
           } else {
             this.router.navigate(['/inicio']);
@@ -117,13 +101,11 @@ export class EventosDetallesComponent implements OnInit {
         },
         error => {
           console.log(error);
-        }
-      )
-    })
+        })})
   }
 
   //Obtener los participantes del evento 
-  getEventoUsers(){
+  getEventoUsers() {
     this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
       response => {
         this.participantes = response.evento;
@@ -157,8 +139,8 @@ export class EventosDetallesComponent implements OnInit {
   }
 
   //Debo mandar el id del usuario e id del evento 
-  acreditar(idUsuario, idEvento){
-    this.asistencia = new asistencia(idEvento,idUsuario);
+  acreditar(idUsuario, idEvento) {
+    this.asistencia = new asistencia(idEvento, idUsuario);
     this.eventoPojoService.asistenciaUsuarios(this.asistencia).subscribe(
       response => {
         console.log(response);
@@ -170,7 +152,7 @@ export class EventosDetallesComponent implements OnInit {
   }
 
   //Obtener el rol del usuario
-  getRol(){
+  getRol() {
     this.eventoUsersService.getUsuarios(this.idEventoUsers, this.identity.sub).subscribe(
       response => {
         console.log(response);
@@ -185,7 +167,7 @@ export class EventosDetallesComponent implements OnInit {
   }
 
   //Obtener integrantes de la comisión
-  getComision(){
+  getComision() {
     this.comisionService.getComisiones(this.idEventoUsers).subscribe(
       response => {
         this.comisiones = response.comisiones;
@@ -196,8 +178,19 @@ export class EventosDetallesComponent implements OnInit {
     )
   }
 
-  agregarArchivo(){
-    
+  //Obtener los archivos del repositorio 
+  mostrarRepositorio() {
+    this.repositorioService.getRepositorios(this.idEventoUsers).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      })
+  }
+  
+  agregarRepositorioModal(){
+    this.modalService.mostrarModal();
   }
 
   //Obtener imagen

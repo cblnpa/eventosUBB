@@ -51,6 +51,7 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
 
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
+import { ModalRepositorioAddComponent } from './modals/modal-repositorio-add/modal-repositorio-add.component';
 
 @NgModule({
     declarations: [
@@ -71,7 +72,8 @@ import { PipesModule } from '../pipes/pipes.module';
         ModalExpositorAddComponent,
         ModalActividadAddComponent,
         ModalMaterialAddComponent,
-        ModalColaboradorAddComponent
+        ModalColaboradorAddComponent,
+        ModalRepositorioAddComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
