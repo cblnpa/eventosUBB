@@ -1,6 +1,6 @@
 export class repositorio {
     constructor(
         public archivo: string,
-        public evento_idEvento: number
+        public evento_idevento: number
     ){}
 }

@@ -26,10 +26,10 @@
         <tbody *ngFor="let ev of eventos; let i = index">
           <tr>
             <td class="text-center"> {{i+1}} </td>
-            <td *ngIf="!ev.evento.nombreEvento"> {{ev.evento.nombreEventoInterno}} </td>
-            <td *ngIf="ev.evento.nombreEvento"> {{ev.evento.nombreEvento}} </td>
+            <td *ngIf="!ev.nombreEvento"> {{ev.nombreEventoInterno}} </td>
+            <td *ngIf="ev.nombreEvento"> {{ev.nombreEvento}} </td>
             <td> <button class="btn btn-block btn-outline-info waves-effect waves-light"
-                (click)="eventosDetalles(ev.evento.idEvento)" type="button">ver detalles</button></td>
+                (click)="eventosDetalles(ev.idEvento)" type="button">ver detalles</button></td>
           </tr>
         </tbody>
       </table>

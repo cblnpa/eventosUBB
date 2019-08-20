@@ -34,6 +34,7 @@ export class ComisionVerComponent implements OnInit {
   getMisEventosAdmin(){
     this.eventoUsersService.getMisEventosAdmin(this.sub).subscribe(
       response => {
+        console.log(response);
           this.eventos = response.eventos;
       },
       error => {

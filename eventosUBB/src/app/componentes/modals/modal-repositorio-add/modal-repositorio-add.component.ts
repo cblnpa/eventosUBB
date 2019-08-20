@@ -49,16 +49,15 @@ export class ModalRepositorioAddComponent implements OnInit {
     this.modalService.ocultarModal();
   }
 
-  agregarArchivo(form) {
+  agregarArchivo() {
     this.route.params.subscribe(
       params => {
         let id = +params['id'];
-        this.repositorioAdd.evento_idEvento = id; 
-        console.log('imprimig dentro');
+        this.repositorioAdd.evento_idevento = id; 
         console.log(this.repositorioAdd);
         this.repositorioService.guardarRepositorio(this.repositorioAdd).subscribe(
           response => {
-            console.log(response);
+              console.log(response);
           },
           error => {
             console.log(<any>error);

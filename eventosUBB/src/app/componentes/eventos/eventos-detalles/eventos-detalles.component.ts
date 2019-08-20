@@ -56,7 +56,7 @@ export class EventosDetallesComponent implements OnInit {
     this.getRol();
     this.getComision();
     this.mostrarRepositorio();
-    //this.getFile();
+    this.getFile();
   }
 
   getEventosDetalle() {
@@ -182,7 +182,7 @@ export class EventosDetallesComponent implements OnInit {
   mostrarRepositorio() {
     this.repositorioService.getRepositorios(this.idEventoUsers).subscribe(
       response => {
-        console.log(response);
+        this.repositorio = response.repositorio;
       },
       error => {
         console.log(<any>error);
@@ -193,17 +193,29 @@ export class EventosDetallesComponent implements OnInit {
     this.modalService.mostrarModal();
   }
 
-  //Obtener imagen
-  // getFile(){
-  //   this.eventoPojoService.getFile(this.evento.imagen).subscribe(
-  //     response => {
-  //       console.log('imagen evento');
-  //       console.log(response);
-  //     },
-  //     error => {
-  //       console.log(<any>error);
-  //     }
-  //   )
-  // }
+  getFile(){
+    this.eventoPojoService.getFile(this.evento.imagen).subscribe(
+      response => {
+        console.log('imagen evento');
+        console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  //descargar el archivo, se le pasa el nombre del que se quiere descargar 
+  downloadFile(archivo){
+    console.log(archivo);
+    this.repositorioService.downloadFile(archivo).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
 
 }

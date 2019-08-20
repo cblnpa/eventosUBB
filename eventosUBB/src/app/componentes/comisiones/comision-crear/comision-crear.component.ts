@@ -45,7 +45,7 @@ export class ComisionCrearComponent implements OnInit {
     placeholder:'Seleccionar evento', // text to be displayed when no item is selected defaults to Select,
     noResultsFound: '¡No se encuentra el evento!', // text to be displayed when no items are found while searching
     searchPlaceholder:'Buscar evento', // label thats displayed in search input,
-    searchOnKey: 'nombreEvento' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
+    searchOnKey: 'evento_idEvento' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
 
   constructor( private eventoUsersService: EventoUsersService, private userService: UserService, 
@@ -89,10 +89,11 @@ export class ComisionCrearComponent implements OnInit {
 
   crearComision(form){
 
-    this.idEvento = this.eventos.evento_idEvento;
+    this.idEvento = this.eventos.idEvento;
     
     this.eventoUsersService.crearComision(this.usuarios, this.idEvento).subscribe(
       response => {
+          console.log(response);
           Swal.fire({
             type: 'success',
             title: '¡Se ha creado con éxito la comisión!'

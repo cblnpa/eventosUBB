@@ -20,11 +20,18 @@ export class RepositorioService {
     
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'); //tipo de peticion
     
-    return this.http.post(this.url+'repo', params, {headers: headers});
+    return this.http.post(this.url+'repositorio', params, {headers: headers});
   }
 
   //Obtener repositorios del evento asociado (show)
   getRepositorios(idEvento):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.url+'repositorios/' + idEvento, {headers: headers});
-  }}
+    return this.http.get(this.url+'repositorio/' + idEvento, {headers: headers});
+  }
+
+  downloadFile(nombreArchivo): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'repositorios/' + nombreArchivo, {headers: headers});
+  }
+
+}

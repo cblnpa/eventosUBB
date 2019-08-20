@@ -364,13 +364,15 @@
                                 <th>#</th>
                                 <th>Archivo</th>
                                 <th>Fecha de creación</th>
+                                <th></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody *ngFor="let repo of repositorio; let i = index">
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td> {{i+1}} </td>
+                                <td> {{repo.archivo}} </td>
+                                <td> {{repo.created_at | date}} </td>
+                                <td><button class="btn btn-outline-success" (click)="downloadFile(repo.archivo)"><i class="mdi mdi-download"></i></button></td>
                             </tr>
                         </tbody>
 
