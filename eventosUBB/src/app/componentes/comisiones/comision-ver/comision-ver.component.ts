@@ -15,38 +15,32 @@ export class ComisionVerComponent implements OnInit {
 
   public token;
   public identity;
-  public sub; // pruebas para el login con google el sub es el id del usuario
 
   constructor( private eventoUsersService: EventoUsersService, private userService: UserService, 
     private router: Router ) {
-
     this.url = global.url;
     this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();
-
   }
 
   ngOnInit() {
-    this.sub = this.identity.sub;
     this.getMisEventosAdmin();
   }
 
   getMisEventosAdmin(){
-    this.eventoUsersService.getMisEventosAdmin(this.sub).subscribe(
+    this.eventoUsersService.getMisEventosAdmin(this.identity.id).subscribe(
       response => {
         console.log(response);
           this.eventos = response.eventos;
       },
       error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
   //Redirección a la vista administrativa del evento
   eventosDetalles(idEvento: number){
     this.router.navigate(['/eventoDetalle/' + idEvento]);
   }
-
 
 }
