@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global';
 
 import { EventoUsersService, UserService, EventoPojoService } from '../../../servicios/servicio.index';
@@ -23,9 +23,11 @@ export class EventosMisEventosComponent implements OnInit {
   public misEventosAdmin; //  guarda los eventos que administra el usuario admin
 
   public perfil; // id del perfil del usuario activo
+  public sub; // pruebas para el login con google el sub es el id del usuario
 
   constructor( private eventoUsersService: EventoUsersService,  private userService: UserService, 
     private router: Router ) {
+
     this.url = global.url;
     this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();
@@ -34,6 +36,8 @@ export class EventosMisEventosComponent implements OnInit {
 
   ngOnInit() {
     this.perfil = this.identity.perfil_idPerfil;
+    this.sub = this.identity.sub;
+  
     this.getMisEventos();
     this.getMisEventosAdmin();
     this.getUsuarios();
@@ -41,8 +45,7 @@ export class EventosMisEventosComponent implements OnInit {
 
   //Obtener los eventos en los que el usuario participa 
   getMisEventos(){
-    console.log(this.identity.id);
-    this.eventoUsersService.getMisEventos(this.identity.id).subscribe(
+    this.eventoUsersService.getMisEventos(this.sub).subscribe(
       response => {  
         this.misEventos = response.eventos;
       },
@@ -54,8 +57,8 @@ export class EventosMisEventosComponent implements OnInit {
 
   //Obtener los eventos que el usuario administra
   getMisEventosAdmin(){
-    console.log(this.identity.id);
-    this.eventoUsersService.getMisEventosAdmin2(this.identity.id).subscribe(
+    console.log(this.sub);
+    this.eventoUsersService.getMisEventosAdmin2(this.sub).subscribe(
       response => {
         console.log(response);
         this.misEventosAdmin = response.eventos;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global';
+
 import { EventoPojoService, EventoUsersService, UserService, EventoService, ComisionService, RepositorioService, ModalService } from '../../../servicios/servicio.index';
 import { evento, material, colaborador, jornada, expositor, actividad, evento_users, asistencia } from '../../../model/model.index';
 
@@ -9,7 +10,8 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-eventos-detalles',
   templateUrl: './eventos-detalles.component.html',
-  styleUrls: ['./eventos-detalles.component.css']
+  styleUrls: ['./eventos-detalles.component.css'],
+  providers: [EventoPojoService, EventoUsersService, UserService, EventoService]
 })
 export class EventosDetallesComponent implements OnInit {
 
@@ -28,17 +30,19 @@ export class EventosDetallesComponent implements OnInit {
   public status;
 
   public eventoUsers: evento_users;
+
   public actividad: actividad;
   public evento: evento;
   public material: material;
   public colaborador: colaborador;
   public jornada: jornada;
   public expositor: expositor;
+
   public asistencia: asistencia; //modelo que posee evento_idEvento & users_id *se ocupa para el request
 
   constructor(private eventoPojoService: EventoPojoService, private eventoUsersService: EventoUsersService,
-    private userService: UserService, private route: ActivatedRoute, private router: Router, 
-    private comisionService: ComisionService, private repositorioService: RepositorioService,
+    private userService: UserService, private eventoService: EventoService, private route: ActivatedRoute,
+    private router: Router, private comisionService: ComisionService, private repositorioService: RepositorioService,
     private modalService: ModalService ) {
     this.url = global.url;
     this.token = this.userService.getToken();
@@ -56,6 +60,7 @@ export class EventosDetallesComponent implements OnInit {
   }
 
   getEventosDetalle() {
+    console.log('eventos detalles');
     this.route.params.subscribe(params => {
 
       let idEvento = +params['id'];
@@ -115,7 +120,7 @@ export class EventosDetallesComponent implements OnInit {
   editarEvento(id: number) {
     this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
       response => {
-        this.router.navigate(['/eventosEditar/' + id + '/' + this.identity.id]);
+        this.router.navigate(['/eventosEditar/' + this.idEventoUsers + '/' + this.identity.sub]);
         console.log(response);
       }
     )
@@ -125,11 +130,12 @@ export class EventosDetallesComponent implements OnInit {
   eliminarEvento(id) {
     this.eventoUsersService.deleteEvento(this.token, id).subscribe(
       response => {
-        console.log(response);
+        console.log("has eliminado un evento de eventousers");
       },
       error => {
         console.log(<any>error);
-      })
+      }
+    )
   }
 
   //Debo mandar el id del usuario e id del evento 
@@ -147,13 +153,17 @@ export class EventosDetallesComponent implements OnInit {
 
   //Obtener el rol del usuario
   getRol() {
-    this.eventoUsersService.getUsuarios(this.idEventoUsers, this.identity.id).subscribe(
+    this.eventoUsersService.getUsuarios(this.idEventoUsers, this.identity.sub).subscribe(
       response => {
+        console.log(response);
         this.rol = response.evento[0].rol_idRol;
+        console.log('response del rol !!');
+        console.log(this.rol);
       },
       error => {
         console.log(<any>error);
-      })
+      }
+    )
   }
 
   //Obtener integrantes de la comisión
@@ -186,6 +196,7 @@ export class EventosDetallesComponent implements OnInit {
   getFile(){
     this.eventoPojoService.getFile(this.evento.imagen).subscribe(
       response => {
+        console.log('imagen evento');
         console.log(response);
       },
       error => {
@@ -203,7 +214,8 @@ export class EventosDetallesComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
-      })
+      }
+    )
   }
 
 }
