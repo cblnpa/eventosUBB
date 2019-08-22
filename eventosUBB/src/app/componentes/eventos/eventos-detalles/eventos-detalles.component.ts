@@ -56,11 +56,9 @@ export class EventosDetallesComponent implements OnInit {
     this.getRol();
     this.getComision();
     this.mostrarRepositorio();
-    this.getFile();
   }
 
   getEventosDetalle() {
-    console.log('eventos detalles');
     this.route.params.subscribe(params => {
 
       let idEvento = +params['id'];
@@ -191,18 +189,6 @@ export class EventosDetallesComponent implements OnInit {
   
   agregarRepositorioModal(){
     this.modalService.mostrarModal();
-  }
-
-  getFile(){
-    this.eventoPojoService.getFile(this.evento.imagen).subscribe(
-      response => {
-        console.log('imagen evento');
-        console.log(response);
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
   }
 
   //descargar el archivo, se le pasa el nombre del que se quiere descargar 

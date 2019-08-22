@@ -72,7 +72,7 @@ export class EventosEditarComponent implements OnInit {
     private materialService: MaterialService, private colaboradorService: ColaboradorService ) {
       
       //objeto para mostrar los datos ?
-      this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','',null,null);
+      // this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','',null,null);
       
       // objeto para editar el evento, step 1
       this.eventos = new evento('','','','','',null,'',null,null,null,null);
@@ -244,7 +244,9 @@ export class EventosEditarComponent implements OnInit {
   mostrarActividades(){
     this.actividadService.getActividades(this.id).subscribe(
       response => {
+        console.log(response);
         this.actividad = response.actividades;
+        console.log(this.actividad);
       },
       error => {
         console.log(<any>error);

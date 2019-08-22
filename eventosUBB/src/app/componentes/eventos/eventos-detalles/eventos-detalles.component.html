@@ -2,12 +2,11 @@
     <!-- Column -->
     <div class="col-lg-3 col-xlg-3 col-md-3">
         <div class="card">
-            <img *ngIf="!evento.imagen" src="../../../assets/images/socialbg.jpg" alt="Card image" />
-            <img *ngIf="evento.imagen" src="{{url + 'image/' + evento.imagen}}" alt="user" />
+            <img src="../../../assets/images/socialbg.jpg" alt="Card image" />
             <!-- evento.imagen -->
             <div class="card-img-overlay card-inverse social-profile d-flex">
                 <div class="align-self-center">
-                    <h1 class="card-title"> {{evento.nombreEvento}} </h1> <!-- evento.nombre -->
+                    <h1 *ngIf="evento.nombreEvento" class="card-title"> {{evento.nombreEvento}} </h1> <!-- evento.nombre -->
                     <h2 class="card-subtitle"> {{evento.nombreEventoInterno}} </h2>
                     <hr>
                     <h4 *ngIf="jornada != null" class="card-subtitle"><i class="fa fa-calendar"></i>
