@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { Router, ActivationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-
 import { UserService, SettingsService } from '../../servicios/servicio.index';
 import { users } from '../../model/users';
 import { global } from '../../servicios/global'
@@ -82,9 +81,6 @@ export class EditLoginComponent implements OnInit {
           if(response.changes.apellidoUsuario){
             this.user.apellidoUsuario = response.changes.apellidoUsuario;
           }
-          if(response.changes.email){
-            this.user.email = response.changes.email;
-          }
           if(response.changes.avatar){
             this.user.avatar = response.changes.avatar;
           }
@@ -93,7 +89,7 @@ export class EditLoginComponent implements OnInit {
 
           Swal.fire({
             type: 'success',
-            title: 'Imagen agregada exitosamente'
+            title: 'Datos modificados correctamente'
           })
           this.router.navigate(['/inicio']);
         }
@@ -103,10 +99,8 @@ export class EditLoginComponent implements OnInit {
         console.log(<any>error);
         Swal.fire({
           type: 'error',
-          title: 'Error al agregar la imagen'
-        })
-      }
-    );
+          title: 'Error al editar perfil'
+        })});
   }
 
   avatarUpload(datos){
@@ -126,7 +120,6 @@ export class EditLoginComponent implements OnInit {
     for( let ref of selectores){
       ref.classList.remove('working');
     }
-
     linkTema.classList.add('working');
   }
 
@@ -138,8 +131,6 @@ export class EditLoginComponent implements OnInit {
       if( ref.getAttribute('data-theme') === tema ){
         ref.classList.add('working');
         break;
-      }
-    }
-  }
+      }}}
 
 }

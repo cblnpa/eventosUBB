@@ -11,10 +11,8 @@ import {global} from '../../servicios/global'
 export class SidebarComponent implements OnInit {
 
   public identity;
-  public token;
   public url;
-
-  public idPerfil; //perfil del usuario que está activo
+  public idPerfil;
 
   constructor(  public userService: UserService ) { 
     this.identity = this.userService.getIdentity();
@@ -22,9 +20,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.idPerfil = this.identity.perfil_idPerfil;
-
   }
 
 }
