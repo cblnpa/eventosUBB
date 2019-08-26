@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit {
 
       this.userService.loginGoogle(token).subscribe(
         response => {
-          console.log(response);
           this.token = response;
 
           this.identity = response;
