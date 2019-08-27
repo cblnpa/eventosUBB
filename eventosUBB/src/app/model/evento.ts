@@ -10,6 +10,7 @@ export class evento {
         public ciudad_idCiudad: number,
         public categoria_idCategoria: number,
         public visibilidad: number,
+        public tipoEvento_idtipoEvento: number,
         public idEvento?: number
     ){}
 }

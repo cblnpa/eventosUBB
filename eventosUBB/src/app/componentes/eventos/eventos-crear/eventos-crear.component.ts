@@ -54,6 +54,7 @@ export class EventosCrearComponent implements OnInit {
     this.evento.id = this.idUsuario;
     this.evento.email = this.usuarios.email;
     
+    console.log(this.evento);
     this.eventoPojoService.guardarEventoPojo(this.evento).subscribe(
       response => {
         console.log(response);

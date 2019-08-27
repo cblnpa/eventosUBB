@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, Route, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {global} from '../../../servicios/global'
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material , categoria} from '../../../model/model.index';
-import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService, 
+import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material } from '../../../model/model.index';
+import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService, TipoEventoService,
   ExpositorService, ActividadService, ModalService, MaterialService, ColaboradorService, CategoriaService } from '../../../servicios/servicio.index';
 
 @Component({
   selector: 'app-eventos-editar',
   templateUrl: './eventos-editar.component.html',
   styleUrls: ['./eventos-editar.component.css'],
-  providers: [ CiudadService, EventoPojoService, UserService ,{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  providers: [ { provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
   }]
 })
 export class EventosEditarComponent implements OnInit {
@@ -30,7 +29,6 @@ export class EventosEditarComponent implements OnInit {
   
   //Formularios del stepper
   firstFormGroup: FormGroup;
-  
   isLinear: false;
 
   public identity;
@@ -38,6 +36,7 @@ export class EventosEditarComponent implements OnInit {
   public token;
   public ciudades;
   public categorias;
+  public tipoEvento; 
   public status;
   public id; //id del evento
   public idUsuario; //id del usuario (sub) 
@@ -67,40 +66,31 @@ export class EventosEditarComponent implements OnInit {
   constructor( private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, 
     private userService: UserService, private eventoPojoService: EventoPojoService,
     private ciudadService: CiudadService,private categoriaService: CategoriaService ,private jornadaService: JornadaService, 
-    private expositorService: ExpositorService, private modalService: ModalService,
+    private expositorService: ExpositorService, private modalService: ModalService, private tipoEventoService: TipoEventoService,
     private eventoService: EventoService, private actividadService: ActividadService,
     private materialService: MaterialService, private colaboradorService: ColaboradorService ) {
-      
-      //objeto para mostrar los datos ?
-      // this.eventoPojo = new eventoPojo('','','','','',null,'',null,'','','','',null,'','','','',null,null,null,'','','','','','','','','',null,null,'','','','',null,null);
-      
       // objeto para editar el evento, step 1
-      this.eventos = new evento('','','','','',null,'',null,null,null,null);
-
+      this.eventos = new evento('','','','','',null,'',null,null,null,null,null);
       this.identity = this.userService.getIdentity();
       this.token = this.userService.getToken();
       this.url = global.url;
-
   }
 
   ngOnInit() {
-
     this.getCiudades();
     this.getCategorias();
+    this.getTipoEventos();
     this.getDatosEvento();
     this.mostrarJornadas();
     this.mostrarExpositores();
     this.mostrarActividades();
     this.mostrarMateriales();
     this.mostrarColaboradores();
-    
     this.idUsuario = this.identity.sub;
-
     //Stepper 1 del evento 
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
-
   }
 
   getCiudades(){
@@ -108,12 +98,10 @@ export class EventosEditarComponent implements OnInit {
       response => {
         if( response.status == 'success' ){
           this.ciudades = response.ciudad;
-        }
-      },
+        }},
       error => {
         console.log(error);
-      }
-    );
+      });
   }
 
   getCategorias(){
@@ -121,12 +109,22 @@ export class EventosEditarComponent implements OnInit {
       response => {
         if( response.status == 'success' ){
           this.categorias = response.categoria;
-        }
-      },
+        }},
       error => {
         console.log(error);
-      }
-    );
+      });
+  }
+
+  getTipoEventos(){
+    this.tipoEventoService.getTiposEventos().subscribe(
+      response => {
+        console.log(response);
+        if(response.status == 'success'){
+          this.tipoEvento = response.tipoEvento;
+        }},
+        error => {
+          console.log(error);
+        })
   }
 
   getDatosEvento(){
@@ -138,74 +136,51 @@ export class EventosEditarComponent implements OnInit {
           response => {
             this.eventos = response.evento;
             //Mostrar los datos del evento en el stepper 
-            this.eventos = new evento(
-              this.eventos.nombreEvento,
-              this.eventos.ubicacion,
-              this.eventos.direccion,
-              this.eventos.detalles,
-              this.eventos.imagen,
-              this.eventos.capacidad,
-              this.eventos.nombreEventoInterno,
-              this.eventos.ciudad_idCiudad,
-              this.eventos.categoria_idCategoria,
-              this.eventos.visibilidad)
+            this.eventos = new evento(this.eventos.nombreEvento, this.eventos.ubicacion,this.eventos.direccion,
+              this.eventos.detalles, this.eventos.imagen, this.eventos.capacidad, this.eventos.nombreEventoInterno,
+              this.eventos.ciudad_idCiudad, this.eventos.categoria_idCategoria, this.eventos.visibilidad,
+              this.eventos.tipoEvento_idtipoEvento)
           },
           error => {
             console.log(<any>error);
-          })
-      })
+          })})
   }
 
   guardarEvento(form){
-    console.log('esto estoy guardando en el editar');
-    console.log(this.eventos);
-    
     this.eventoPojoService.updateEventoPojo(this.eventos, this.id).subscribe(
       response => {
-        if(response && response.status){
-          this.status = 'success';
-
+        if(response.status == 'success'){
           //Actualizar los datos que se ingresaron
           if(response.changes.eventos.nombreEvento){
             this.eventos.nombreEvento = response.changes.eventos.nombreEvento;
           }
-
           if(response.changes.eventos.ubicacion){
             this.eventos.ubicacion = response.changes.eventos.ubicacion;
           }
-
           if(response.changes.eventos.direccion){
             this.eventos.direccion = response.changes.eventos.direccion;
           }
-
           if(response.changes.eventos.detalles){
             this.eventos.detalles = response.changes.eventos.detalles;
           }
-
           if(response.changes.eventos.imagen){
             this.eventos.imagen = response.changes.eventos.imagen;
           }
-
           if(response.changes.eventos.capacidad){
             this.eventos.capacidad = response.changes.eventos.capacidad;
           }
-
-          if(response.changes.eventos.nombreEventoInterno){
-            this.eventos.nombreEventoInterno = response.changes.eventos.nombreEventoInterno;
-          }
-
           if(response.changes.eventos.ciudad){
             this.eventos.ciudad_idCiudad = response.changes.eventos.ciudad;
           }
-
           if(response.changes.eventos.categoria_idCategoria){
             this.eventos.categoria_idCategoria = response.changes.eventos.categoria_idCategoria;
           }
-
           if(response.changes.eventos.visibilidad){
             this.eventos.visibilidad = response.changes.eventos.visibilidad;
-          }}
-      }
+          }
+          if(response.changes.eventos.tipoEvento_idtipoEvento){
+            this.eventos.tipoEvento_idtipoEvento = response.changes.eventos.tipoEvento_idtipoEvento;
+          }}}
     )
     this.router.navigate(['/eventoDetalle/' + this.id]);
   }
@@ -214,8 +189,9 @@ export class EventosEditarComponent implements OnInit {
   mostrarJornadas(){
     this.jornadaService.getJornadas(this.id).subscribe(
       response => {
-        this.jornada = response.jornadas;
-      },
+        if(response.status == 'success'){
+          this.jornada = response.jornadas;
+        }},
       error => {
         console.log(<any>error);
       })
@@ -229,8 +205,9 @@ export class EventosEditarComponent implements OnInit {
   mostrarExpositores(){
     this.expositorService.getExpositoresActividad(this.id).subscribe(
       response => {
-        this.expositor = response.expositor;
-      },
+        if(response.status == 'success'){
+          this.expositor = response.expositor;
+        }},
       error => {
         console.log(<any>error);
       })
@@ -244,10 +221,9 @@ export class EventosEditarComponent implements OnInit {
   mostrarActividades(){
     this.actividadService.getActividades(this.id).subscribe(
       response => {
-        console.log(response);
-        this.actividad = response.actividades;
-        console.log(this.actividad);
-      },
+        if(response.status == 'success'){
+          this.actividad = response.actividades;
+        }},
       error => {
         console.log(<any>error);
       })
@@ -261,8 +237,9 @@ export class EventosEditarComponent implements OnInit {
   mostrarMateriales(){
     this.materialService.getMateriales(this.id).subscribe(
       response => {
-        this.material = response.material;
-      },
+        if(response.status == 'success'){
+          this.material = response.material;
+        }},
       error => {
         console.log(<any>error);
       })
@@ -276,8 +253,9 @@ export class EventosEditarComponent implements OnInit {
   mostrarColaboradores(){
     this.colaboradorService.getColaboradores(this.id).subscribe(
       response => {
-        this.colaborador = response.colaborador;
-      },
+        if(response.status == 'success'){
+          this.colaborador = response.colaborador;
+        }},
       error => {
         console.log(<any>error);
       })
@@ -291,16 +269,12 @@ export class EventosEditarComponent implements OnInit {
   //foto del evento
   imagenUpload(datos){
     let data =JSON.parse(datos.response);
-    console.log(datos.response);
     this.eventos.imagen = data.image;
-    console.log(this.eventos.imagen);
   }
 
   logoUpload(datos){
     let data =JSON.parse(datos.response);
-    console.log(datos.response);
     this.eventoPojo.logo = data.image;
-    console.log(this.eventoPojo.logo);
   }
 
 }

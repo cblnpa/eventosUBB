@@ -16,7 +16,8 @@ import {
   MaterialService,
   ModalService,
   SettingsService,
-  ComisionService
+  ComisionService,
+  TipoEventoService
  } from './servicio.index';
 
 @NgModule({
@@ -38,7 +39,8 @@ import {
     MaterialService,
     ModalService,
     SettingsService,
-    ComisionService
+    ComisionService,
+    TipoEventoService
   ],
   declarations: [],
   

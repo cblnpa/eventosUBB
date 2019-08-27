@@ -65,13 +65,24 @@
                 <p>
                     <mat-form-field>
                         <mat-label for="categoria_idCategoria">Categoria</mat-label>
-                        <mat-select name="categoria_idCategoria" #ciudad="ngModel" [(ngModel)]="eventos.categoria_idCategoria">
+                        <mat-select name="categoria_idCategoria" #categoria_idCategoria="ngModel" [(ngModel)]="eventos.categoria_idCategoria">
                             <mat-option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">
                                 {{categoria.nombreCategoria}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </p>
+
+                <p>
+                        <mat-form-field>
+                            <mat-label for="tipoEvento_idtipoEvento">Tipo de evento</mat-label>
+                            <mat-select name="tipoEvento_idtipoEvento" #tipoEvento_idtipoEvento="ngModel" [(ngModel)]="eventos.tipoEvento_idtipoEvento">
+                                <mat-option *ngFor="let tipoE of tipoEvento" [value]="tipoE.idtipoEvento">
+                                    {{tipoE.tipoEvento}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
                 <div>
                     <br>
                     <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
