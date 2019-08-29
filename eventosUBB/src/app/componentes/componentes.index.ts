@@ -12,5 +12,3 @@ export { UnidadesVerComponent } from './unidades/unidades-ver/unidades-ver.compo
 export { ReportesGenerarComponent } from './reportes/reportes-generar/reportes-generar.component';
 export { ComisionVerComponent } from './comisiones/comision-ver/comision-ver.component';
 export { ComisionCrearComponent } from './comisiones/comision-crear/comision-crear.component';
-export { SubUnidadesCrearComponent } from './unidades/sub-unidades-crear/sub-unidades-crear.component';
-export { SubUnidadesVerComponent } from './unidades/sub-unidades-ver/sub-unidades-ver.component';

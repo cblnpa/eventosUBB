@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivationEnd } from '@angular/router';
-
 import { UnidadService, UserService, CiudadService } from '../../../servicios/servicio.index';
 import { global } from '../../../servicios/global';
 import { Title } from '@angular/platform-browser';
@@ -18,12 +17,11 @@ import Swal from 'sweetalert2';
 export class UnidadesCrearComponent implements OnInit {
 
   public titulo: string;
-
   public url; //url del backend
   public unidad: unidad; //objeto de tipo unidad 
   public token;
   public identity;
-  public nombreApellidoUsuario; 
+  public idPerfil; //almacenar perfil del usuario loggeado, util para los ngIf del HTML
 
   //variables para el select
   public usuario: users;
@@ -33,7 +31,6 @@ export class UnidadesCrearComponent implements OnInit {
   public ciudad: ciudad;
   public ciudades: any = []; //almacena las ciudades (o sedes)
   public optionsCiudad;
-
 
   //Configuraciones del ngx-select-dropdown
   configUsuario = {
@@ -80,7 +77,7 @@ export class UnidadesCrearComponent implements OnInit {
 
   constructor(private router: Router, private title: Title, private unidadService: UnidadService,
     private userService: UserService, private ciudadService: CiudadService) {
-    this.unidad = new unidad('', '', '', '');
+    this.unidad = new unidad('','','','',null);
     this.usuario = new users('', '', '', '', '', null, null, null);
     this.ciudad = new ciudad(null, '');
     this.url = global.url;
@@ -90,7 +87,6 @@ export class UnidadesCrearComponent implements OnInit {
     //Para mostrar el título de la página actual
     this.getDataRoute()
       .subscribe(data => {
-        console.log(data);
         this.titulo = data.titulo;
         this.title.setTitle('EventosUBB - ' + this.titulo);
       });
@@ -99,6 +95,7 @@ export class UnidadesCrearComponent implements OnInit {
   ngOnInit() {
     this.getUsuarios();
     this.getCiudades();
+    this.getPerfil();
   }
 
   //Función para obtener el nombre de la página actual
@@ -108,25 +105,6 @@ export class UnidadesCrearComponent implements OnInit {
       filter((evento: ActivationEnd) => evento.snapshot.firstChild === null),
       map((evento: ActivationEnd) => evento.snapshot.data)
     )
-  }
-
-  //
-  guardarUnidad(form) {
-    this.unidad.email = this.usuarios.email;
-    this.unidad.sede = this.ciudades.nombreCiudad;
-    this.unidadService.guardarUnidad(this.unidad).subscribe(
-      response => {
-        if(response.status == 'success'){
-          Swal.fire({
-            type: 'success',
-            title: '¡Se ha creado con éxito la unidad!'
-          });
-        }
-        this.router.navigate(['/verUnidades']);
-      },
-      error => {
-        console.log(<any>error);
-      })
   }
 
   getUsuarios() {
@@ -147,6 +125,38 @@ export class UnidadesCrearComponent implements OnInit {
       error => {
         console.log(<any>error);
       })
+  }
+
+  // Asignar a la variable idPerfil el perfil del usuario activo
+  getPerfil(){
+    this.idPerfil = this.identity.perfil_idPerfil;
+  }
+
+  // Función para guardar la unidad 
+  guardarUnidad(form) {
+    this.unidad.email = this.usuarios.email;
+    this.unidad.sede = this.ciudades.nombreCiudad;
+    this.unidadService.guardarUnidad(this.unidad).subscribe(
+      response => {
+        if(response.status == 'success'){
+          Swal.fire({
+            type: 'success',
+            title: '¡Se ha creado con éxito la unidad!'
+          });
+        }
+        this.router.navigate(['/verUnidades']);
+      },
+      error => {
+        console.log(<any>error);
+      })
+  }
+
+  // Función para guardar la Sub Unidad
+  guardarSubUnidad(form){
+    this.unidad.email = this.usuarios.email;
+    this.unidad.idAdminUnidad = this.idPerfil;
+    console.log('Guardar sub unidad');
+    console.log(this.unidad);
   }
 
   //Función para subir el logo

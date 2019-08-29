@@ -4,6 +4,7 @@ export class unidad{
         public logoUnidad: string,
         public sede: string,
 
-        public email: string
+        public email: string,
+        public idAdminUnidad?: number 
     ){}
 }

@@ -5,8 +5,7 @@ import { ComponentesComponent } from './componentes.component';
 import { LoginComponent, EditLoginComponent, InicioComponent, EventosDetallesComponent,
         EventosEditarComponent, EventosMisEventosComponent, EventosCrearComponent,
         EventosDetallesPublicComponent, UnidadesCrearComponent, UnidadesVerComponent,
-        ReportesGenerarComponent, ComisionVerComponent, ComisionCrearComponent,
-        SubUnidadesCrearComponent, SubUnidadesVerComponent } from '../componentes/componentes.index';
+        ReportesGenerarComponent, ComisionVerComponent, ComisionCrearComponent } from '../componentes/componentes.index';
 
 import { LoginGuard } from '../servicios/guards/login.guard';
 
@@ -23,14 +22,12 @@ const componentesRoutes: Routes = [
             { path: 'crearEvento', component: EventosCrearComponent, data: { titulo: 'Crear nuevo evento' } },
             { path: 'eventosEditar/:id/:idUsuario', component: EventosEditarComponent, data: { titulo: 'Editar el evento' } },
             { path: 'editLogin', component: EditLoginComponent, data: { titulo: 'Editar mi perfil' }  },
-            { path: 'crearUnidad', component: UnidadesCrearComponent, data: { titulo: 'Crear nueva unidad' } },
+            { path: 'crearUnidad', component: UnidadesCrearComponent, data: { titulo: 'Crear' } },
             { path: 'verUnidades', component: UnidadesVerComponent, data: { titulo: 'Unidades' } },
             { path: 'reportes', component: ReportesGenerarComponent, data: { titulo: 'Reportes' } },
             { path: 'verComisiones', component: ComisionVerComponent, data: { titulo: 'Comisiones' } },
             { path: 'crearComision', component: ComisionCrearComponent, data: { titulo: 'Crear nueva comisión' } },
             { path: 'eventoDetallePublic/:id', component: EventosDetallesPublicComponent, data: { titulo: 'Detalles del evento' } },
-            { path: 'crearSubUnidad', component: SubUnidadesCrearComponent, data: { titulo: 'Crear sub unidad' } },
-            { path: 'verSubUnidades', component: SubUnidadesVerComponent, data: { titulo: 'Ver sub unidades' } }
         ]
     }
 ];

@@ -8,14 +8,12 @@ import { COMPONENTES_ROUTES } from './componentes.routes';
 // Módulos
 import { UtilidadesModule } from '../utilidades/utilidades.module';
 
-
 // Componentes
 import {
     ComponentesComponent, EditLoginComponent, InicioComponent, EventosDetallesComponent,
     EventosEditarComponent, EventosMisEventosComponent, EventosCrearComponent, EventosDetallesPublicComponent,
     UnidadesCrearComponent, UnidadesVerComponent, ReportesGenerarComponent, ComisionVerComponent,
-    ComisionCrearComponent, SubUnidadesCrearComponent, SubUnidadesVerComponent
-} from '../componentes/componentes.index';
+    ComisionCrearComponent } from '../componentes/componentes.index';
 
 import {
     ModalJornadaAddComponent, ModalExpositorAddComponent, ModalMaterialAddComponent,
@@ -67,8 +65,6 @@ import { PipesModule } from '../pipes/pipes.module';
         ModalMaterialAddComponent,
         ModalColaboradorAddComponent,
         ModalRepositorioAddComponent,
-        SubUnidadesCrearComponent,
-        SubUnidadesVerComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
