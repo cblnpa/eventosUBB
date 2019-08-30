@@ -4,28 +4,29 @@
             <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventos)">
                 <ng-template matStepLabel>Datos básicos</ng-template>
 
-
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
-                        <mat-form-field>
+                        <mat-form-field hintLabel="Máximo 100 caracteres">
                             <mat-label for="nombreEvento">Nombre del evento</mat-label>
-                            <input matInput type="text" name="nombreEvento" #nombreEvento="ngModel"
-                                [(ngModel)]="eventos.nombreEvento" required>
+                            <input matInput #input1 maxlength="100" type="text" name="nombreEvento"
+                                #nombreEvento="ngModel" [(ngModel)]="eventos.nombreEvento" required>
+                            <mat-hint align="end">{{input1.value?.length || 0}}/100</mat-hint>
                         </mat-form-field>
                     </div>
 
                     <div class="col-md-6 col-sm-12">
-                        <mat-form-field>
+                        <mat-form-field hintLabel="Máximo 45 caracteres">
                             <mat-label for="direccion">Dirección</mat-label>
-                            <input matInput type="text" name="direccion" #direccion="ngModel"
+                            <input matInput #input2 maxlength="45" type="text" name="direccion" #direccion="ngModel"
                                 [(ngModel)]="eventos.direccion">
+                            <mat-hint align="end">{{input2.value?.length || 0}}/45</mat-hint>
                         </mat-form-field>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
-                        <mat-form-field>
+                        <mat-form-field class="mt-4">
                             <mat-label for="tipoEvento_idtipoEvento">Tipo de evento</mat-label>
                             <mat-select name="tipoEvento_idtipoEvento" #tipoEvento_idtipoEvento="ngModel"
                                 [(ngModel)]="eventos.tipoEvento_idtipoEvento">
@@ -37,17 +38,18 @@
                     </div>
 
                     <div class="col-md-6 col-sm-12">
-                        <mat-form-field>
+                        <mat-form-field class="mt-4" hintLabel="Máximo 45 caracteres">
                             <mat-label for="ubicacion">Dependencia</mat-label>
-                            <input matInput type="text" name="ubicacion" #ubicacion="ngModel"
+                            <input matInput #input3 maxlength="45" type="text" name="ubicacion" #ubicacion="ngModel"
                                 [(ngModel)]="eventos.ubicacion">
+                            <mat-hint align="end">{{input3.value?.length || 0}}/45</mat-hint>
                         </mat-form-field>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
-                        <mat-form-field>
+                        <mat-form-field class="mt-4">
                             <mat-label for="ciudad_idCiudad">Ciudad</mat-label>
                             <mat-select name="ciudad_idCiudad" #ciudad="ngModel" [(ngModel)]="eventos.ciudad_idCiudad">
                                 <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.idCiudad">
@@ -58,7 +60,7 @@
                     </div>
 
                     <div class="col-md-6 col-sm-12">
-                        <mat-form-field>
+                        <mat-form-field class="mt-4">
                             <mat-label for="capacidad">Cupos</mat-label>
                             <input matInput type="number" name="capacidad" #capacidad="ngModel"
                                 [(ngModel)]="eventos.capacidad">
@@ -68,7 +70,7 @@
 
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
-                        <mat-form-field>
+                        <mat-form-field class="mt-4">
                             <mat-label for="categoria_idCategoria">Categoría</mat-label>
                             <mat-select name="categoria_idCategoria" #categoria_idCategoria="ngModel"
                                 [(ngModel)]="eventos.categoria_idCategoria">
@@ -80,7 +82,7 @@
                     </div>
 
                     <div class="col-md-6 col-sm-12">
-                        <small>Portada del evento</small>
+                        <small class="mt-4">Portada del evento</small>
                         <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="imagenUpload($event)">
                         </angular-file-uploader>
                     </div>
@@ -88,106 +90,26 @@
 
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
-                        <mat-form-field class="mt-2">
+                        <mat-form-field class="mt-2" hintLabel="Máximo 250 caracteres">
                             <mat-label for="detalles">Descripción</mat-label>
-                            <textarea matInput type="text" name="detalles" #detalles="ngModel"
+                            <textarea matInput #input4 maxlength="250" type="text" name="detalles" #detalles="ngModel"
                                 [(ngModel)]="eventos.detalles"></textarea>
+                            <mat-hint align="end">{{input4.value?.length || 0}}/250</mat-hint>
                         </mat-form-field>
                     </div>
                 </div>
 
-
-                <!-- <p>
-                    <mat-form-field>
-                        <mat-label for="nombreEvento">Nombre del evento</mat-label>
-                        <input matInput type="text" name="nombreEvento" #nombreEvento="ngModel"
-                            [(ngModel)]="eventos.nombreEvento">
-                    </mat-form-field>
-                </p>
-
-                <p>
-                    <mat-form-field>
-                        <mat-label for="ubicacion">Ubicación</mat-label>
-                        <input matInput type="text" name="ubicacion" #ubicacion="ngModel"
-                            [(ngModel)]="eventos.ubicacion">
-                    </mat-form-field>
-                </p>
-                <p>
-                    <mat-form-field>
-                        <mat-label for="direccion">Dirección</mat-label>
-                        <input matInput type="text" name="direccion" #direccion="ngModel"
-                            [(ngModel)]="eventos.direccion">
-                    </mat-form-field>
-                </p>
-                <p>
-                    <mat-form-field>
-                        <mat-label for="detalles">Detalles</mat-label>
-                        <input matInput type="text" name="detalles" #detalles="ngModel" [(ngModel)]="eventos.detalles">
-                    </mat-form-field>
-                </p>
-
-                <label for="imagen">Imagen</label>
-                <div *ngIf="identity && identity.imagen">
-                    <img src="identity.imagen}}" class="img-fluid" alt="Responsive image">
-
-                </div>
-                <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="imagenUpload($event)">
-                </angular-file-uploader>
-
-                <p>
-                    <mat-form-field>
-                        <mat-label for="capacidad">Capacidad</mat-label>
-                        <input matInput type="number" name="capacidad" #capacidad="ngModel"
-                            [(ngModel)]="eventos.capacidad">
-                    </mat-form-field>
-                </p>
-                <p>
-                    <mat-form-field>
-                        <mat-label for="nombreEventoInterno">Nombre evento interno</mat-label>
-                        <input matInput type="text" name="nombreEventoInterno" #nombreEventoInterno="ngModel"
-                            [(ngModel)]="eventos.nombreEventoInterno">
-                    </mat-form-field>
-                </p>
-
-                <p>
-                    <mat-form-field>
-                        <mat-label for="ciudad_idCiudad">Ciudad</mat-label>
-                        <mat-select name="ciudad_idCiudad" #ciudad="ngModel" [(ngModel)]="eventos.ciudad_idCiudad">
-                            <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.idCiudad">
-                                {{ciudad.nombreCiudad}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </p>
-
-                <p>
-                    <mat-form-field>
-                        <mat-label for="categoria_idCategoria">Categoria</mat-label>
-                        <mat-select name="categoria_idCategoria" #categoria_idCategoria="ngModel"
-                            [(ngModel)]="eventos.categoria_idCategoria">
-                            <mat-option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">
-                                {{categoria.nombreCategoria}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </p>
-
-                <p>
-                    <mat-form-field>
-                        <mat-label for="tipoEvento_idtipoEvento">Tipo de evento</mat-label>
-                        <mat-select name="tipoEvento_idtipoEvento" #tipoEvento_idtipoEvento="ngModel"
-                            [(ngModel)]="eventos.tipoEvento_idtipoEvento">
-                            <mat-option *ngFor="let tipoE of tipoEvento" [value]="tipoE.idtipoEvento">
-                                {{tipoE.tipoEvento}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </p> -->
-                <div>
-                    <br>
-                    <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+                <!-- div para los botones -->
+                <div class="row mt-4">
+                    <div class="col-md-6 col-sm-12">
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <button mat-button matStepperNext class="btn btn-primary btn-block"
+                            type="button">Siguiente</button>
+                    </div>
                 </div>
             </form>
+
 
         </mat-step>
 
@@ -216,10 +138,15 @@
                 </table>
             </div>
 
-            <div>
-                <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+            <!-- div para los botones -->
+            <div class="row mt-4">
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
+                </div>
             </div>
         </mat-step>
 
@@ -256,10 +183,15 @@
                 </table>
             </div>
 
-            <div>
-                <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+            <!-- div para los botones -->
+            <div class="row mt-4">
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
+                </div>
             </div>
         </mat-step>
 
@@ -295,12 +227,17 @@
                     </tbody>
                 </table>
             </div>
-            <div>
-                <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
-            </div>
 
+            <!-- div para los botones -->
+            <div class="row mt-4">
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
+                </div>
+            </div>
         </mat-step>
 
         <mat-step label="Step 5">
@@ -333,12 +270,16 @@
                 </table>
             </div>
 
-            <div>
-                <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+            <!-- div para los botones -->
+            <div class="row mt-4">
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
+                </div>
             </div>
-
         </mat-step>
 
         <mat-step label="Step 6">
@@ -373,12 +314,16 @@
                 </table>
             </div>
 
-            <div>
-                <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <button mat-button matStepperNext class="btn btn-primary" type="button">Siguiente</button>
+            <!-- div para los botones -->
+            <div class="row mt-4">
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
+                </div>
             </div>
-
         </mat-step>
 
         <mat-step label="Step 7">
@@ -403,10 +348,17 @@
                     </mat-select>
                 </mat-form-field>
                 <br>
-                <button mat-button matStepperPrevious class="btn btn-primary" type="button">Anterior</button>
-                <br><br>
-                <button type="submit" (click)="guardarEvento(eventoPojoForm)" class="btn btn-success btn-block">Guardar
-                    cambios</button>
+
+                <!-- div para los botones -->
+                <div class="row mt-4">
+                    <div class="col-md-6 col-sm-12">
+                        <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                            type="button">Anterior</button>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <button class="btn btn-success btn-block" (click)="guardarEvento(eventoPojoForm)" type="submit">Guardar cambios</button>
+                    </div>
+                </div>
             </div>
         </mat-step>
     </mat-horizontal-stepper>
