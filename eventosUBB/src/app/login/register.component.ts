@@ -12,64 +12,65 @@ declare function init_plugins();
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  providers: [ UserService ]
+  providers: [UserService]
 })
 export class RegisterComponent implements OnInit {
-
   hide1 = true;
   hide2 = true;
   titulo: string;
   public user: users;
-  public status: string;
 
-  constructor( private userService: UserService, private router: Router, private title: Title ) {
-    this.user = new users('','','','','',2,null,null); 
-
+  constructor(private userService: UserService, private router: Router, private title: Title) {
+    this.user = new users('', '', '', '', '', 2, null, null);
     this.getDataRoute()
-    .subscribe( data => {
-      this.titulo = data.titulo;
-      this.title.setTitle('EventosUBB - ' + this.titulo);
-    });
-
+      .subscribe(data => {
+        this.titulo = data.titulo;
+        this.title.setTitle('EventosUBB - ' + this.titulo);
+      });
   }
 
   ngOnInit() {
     init_plugins();
   }
 
-  getDataRoute(){
+  getDataRoute() {
     return this.router.events.pipe(
-      filter(evento => evento instanceof ActivationEnd ),
-      filter( (evento:ActivationEnd) => evento.snapshot.firstChild === null ),
-      map( (evento:ActivationEnd) => evento.snapshot.data )
+      filter(evento => evento instanceof ActivationEnd),
+      filter((evento: ActivationEnd) => evento.snapshot.firstChild === null),
+      map((evento: ActivationEnd) => evento.snapshot.data)
     )
   }
 
-  onSubmit(form){
-    this.userService.register(this.user).subscribe(
-      response => {
-        
-        if(response.status == "success"){
-          this.status = response.status;
-          form.reset();
+  onSubmit(registerForm) {
+    // Verificar la contraseña
+    let pass1 = document.getElementsByName('password');
+    let pass2 = document.getElementsByName('password2');
 
-        } else {
-          this.status = 'error';
+    if (pass1["0"].value == pass2["0"].value) {
+      //Si las contraseñas son iguales, se crea el usuario
+      this.userService.register(this.user).subscribe(
+        response => {
+          if (response.status == "success") {
+            registerForm.reset();
+            Swal.fire({
+              type: 'success',
+              title: '¡Registro exitoso!',
+              text: 'Te has registrado exitosamente, inicia sesión con tus datos para ingresar a la página',
+            })
+
+            this.router.navigate(['/login']);
+          }
+        },
+        error => {
+          console.log(<any>error);
         }
-      },
-      error => {
-        console.log(<any>error);
-      }
-    ); 
-
-    Swal.fire({
-      type: 'success',
-      title: '¡Registro exitoso!',
-      text: 'Te has registrado exitosamente, inicia sesión con tus datos para ingresar a la página',
-    })
-
-    this.router.navigate(['/login']);
-
+      );
+    } else {
+      Swal.fire({
+        type: 'error',
+        title: 'La contraseña debe ser la misma',
+      })
+    }
   }
 
 }
