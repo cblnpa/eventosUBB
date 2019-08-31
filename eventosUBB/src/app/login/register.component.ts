@@ -16,6 +16,8 @@ declare function init_plugins();
 })
 export class RegisterComponent implements OnInit {
 
+  hide1 = true;
+  hide2 = true;
   titulo: string;
   public user: users;
   public status: string;
