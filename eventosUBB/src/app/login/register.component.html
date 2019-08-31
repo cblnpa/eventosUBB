@@ -1,74 +1,64 @@
 <section id="wrapper">
-    <div class="login-register" style="background-image:url(../assets/images/login-register.jpg);">
+    <div class="register-div" style="background-image:url(../assets/images/fondo-login.jpg);">
         <div class="login-box card">
             <div class="card-body">
 
-                <form class="form-horizontal form-material " id="loginform" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+                <form class="form-horizontal form-material" id="loginform" #registerForm="ngForm"
+                    (ngSubmit)="onSubmit(registerForm)">
 
-                    <h3 class="box-title m-b-20">Crear una cuenta</h3>
+                    <h2 class="box-title text-center text-dark m-b-15">Crear una cuenta</h2>
 
                     <div class="register">
-                        <mat-form-field>
-
-                            <mat-label for="nombreUsuario">Ingresa tu nombre</mat-label>
-                            <input matInput placeholder="Ingresa tu nombre" type="text" name="nombreUsuario" #nombreUsuario="ngModel" [(ngModel)]="user.nombreUsuario" required>
-                            <small *ngIf="!nombreUsuario.valid && nombreUsuario.touched" class="invalid-feedback d-block">
-                                El nombre no es valido
-                            </small>
+                        <mat-form-field appearance="outline">
+                            <mat-label for="nombreUsuario">Nombre</mat-label>
+                            <input matInput placeholder="Ingresa tu nombre" type="text" name="nombreUsuario"
+                                #nombreUsuario="ngModel" [(ngModel)]="user.nombreUsuario" required>
+                            <mat-error>Este campo no puede estar vacío</mat-error>
                         </mat-form-field>
-                    </div>
-
-                    <div class="register ">
-                        <mat-form-field>
-                            <mat-label for="apellidoUsuario">Ingresa tu apellido</mat-label>
-                            <input matInput placeholder="Ingresa tu apellido" type="text" name="apellidoUsuario" #apellidoUsuario="ngModel" [(ngModel)]="user.apellidoUsuario" required>
-                            <small *ngIf="!apellidoUsuario.valid && apellidoUsuario.touched" class="invalid-feedback d-block">
-                                El apellido no es valido
-                            </small>
-                        </mat-form-field>
-
-                    </div>
-
-                    <div class="register ">
-                        <mat-form-field>
-                            <mat-label for="correo">Ingresa tu correo</mat-label>
-
-                            <input matInput placeholder="Ingresa tu correo" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-                            <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
-                                El email no es valido
-                            </small>
-                        </mat-form-field>
-
                     </div>
 
                     <div class="register">
-                        <mat-form-field>
-                            <mat-label for="password">Ingresa tu contraseña</mat-label>
-
-                            <input matInput placeholder="Ingresa tu contraseña" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required>
-                            <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
-                                La password no es valido
-                            </small>
+                        <mat-form-field appearance="outline">
+                            <mat-label for="apellidoUsuario">Apellido</mat-label>
+                            <input matInput placeholder="Ingresa tu apellido" type="text" name="apellidoUsuario"
+                                #apellidoUsuario="ngModel" [(ngModel)]="user.apellidoUsuario" required>
+                            <mat-error>Este campo no puede estar vacío</mat-error>
                         </mat-form-field>
-
                     </div>
 
-                    <!-- aceptar términos y condiciones -->
-                    <!-- <div class="register row">
-                            <div class="col-md-12">
-                                <div class="checkbox checkbox-success p-t-0">
-                                    <input id="checkbox-signup" type="checkbox"  class="filled-in chk-col-light-blue">
-                                    <label for="checkbox-signup"> I agree to all <a href="javascript:void(0)">Terms</a></label>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <div class="register text-center p-b-20">
-
-                        <button class="btn btn-info btn-lg btn-block btn-rounded text-uppercase waves-effect waves-light" type="submit" [disabled]="registerForm.invalid">Registrarme</button>
+                    <div class="register">
+                        <mat-form-field appearance="outline">
+                            <mat-label for="correo">Correo</mat-label>
+                            <input matInput placeholder="Ingresa tu correo" type="email" name="email" #email="ngModel"
+                                [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                            <mat-error>Este campo no puede estar vacío</mat-error>
+                        </mat-form-field>
                     </div>
 
-                    <div class="register m-b-0">
+                    <div class="register">
+                        <mat-form-field appearance="outline">
+                            <mat-label for="password">Contraseña</mat-label>
+                            <input matInput placeholder="Ingresa tu contraseña" type="password" name="password"
+                                #password="ngModel" [(ngModel)]="user.password" required>
+                            <mat-error>Este campo no puede estar vacío</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="register">
+                            <mat-form-field appearance="outline">
+                                <mat-label for="password">Repite la contraseña</mat-label>
+                                <input matInput placeholder="Ingresa nuevamente tu contraseña" type="password" name="password"
+                                    #password="ngModel" [(ngModel)]="user.password" required>
+                                <mat-error>Este campo no puede estar vacío</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                    <div class="register text-center mt-2">
+                        <button class="btn btn-info btn-lg btn-block btn-rounded waves-effect" type="submit"
+                            [disabled]="registerForm.invalid">Registrarme</button>
+                    </div>
+
+                    <div class="register mt-2">
                         <div class="col-sm-12 text-center">
                             ¿Ya tienes una cuenta?
                             <a routerLink="/login" class="text-info m-l-5">
