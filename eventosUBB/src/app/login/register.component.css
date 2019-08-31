@@ -1,18 +1,18 @@
-.register {
-    display: inline;
-    flex-direction: column;
-}
-
-.register>* {
-    width: 100%;
-}
-
 .register-div {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    height: 100%;
-    width: 100%;
-    padding: 5% 0;
-    position: center;
-  }
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100%;
+  width: 100%;
+  padding: 5%;
+  position: center;
+}
+
+.register {
+  display: flex;
+  flex-direction: column;
+}
+
+.register > * {
+  width: 100%;
+}
