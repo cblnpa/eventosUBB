@@ -4,8 +4,8 @@
   background-position: center center;
   height: 100%;
   width: 100%;
-  padding: 5% 0;
-  position: center;
+  padding: 10% 0;
+  position: fixed;
 }
 
 .login-box {
