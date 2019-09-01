@@ -1052,8 +1052,8 @@ File: scss
           line-height: 75px;
           display: inline-block; }
     .topbar .top-navbar .navbar-nav > .nav-item > .nav-link {
-      padding-left: 15px;
-      padding-right: 15px;
+      padding-left: 10px;
+      padding-right: 10px;
       font-size: 17px;
       line-height: 54px; }
     .topbar .top-navbar .navbar-nav > .nav-item > span {
@@ -1065,8 +1065,8 @@ File: scss
     .topbar .top-navbar .navbar-nav > .nav-item.show {
       background: rgb(0, 0, 0, 0.05); }
   .topbar .profile-pic {
-    width: 30px;
-    border-radius: 100%; }
+    width: 45px;
+    border-radius: 100%; /*foto redonda, sin 100% queda cuadrada*/ }
   .topbar .dropdown-menu {
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
     -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
