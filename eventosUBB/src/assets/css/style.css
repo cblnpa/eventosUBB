@@ -770,9 +770,9 @@ Main sidebar
 use profile section
 ******************/
 .sidebar-nav .user-profile > a img {
-  width: 30px;
-  border-radius: 100%;
-  margin-right: 10px; }
+  width: 45px;
+  /* border-radius: 50%; descomentar para dejar la foto de perfil redonda*/ 
+  margin-right: 5px; }
 
 .sidebar-nav .user-profile > ul {
   padding-left: 40px; }
@@ -804,7 +804,7 @@ sidebar navigation
         color: #687384;
         padding: 8px 35px 8px 15px;
         display: block;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 400; }
         .sidebar-nav ul li a.active, .sidebar-nav ul li a:hover {
           color: #398bf7; }
@@ -834,7 +834,8 @@ sidebar navigation
     width: 31px;
     font-size: 24px;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: baseline;
+    margin-top: 12px;
     color: #555f6d; }
   .sidebar-nav > ul > li > a .label {
     float: right;
@@ -916,7 +917,8 @@ When click on sidebar toggler and also for tablet
     overflow: auto; }
   .mini-sidebar .sidebar-nav #sidebarnav > li:hover > ul,
   .mini-sidebar .sidebar-nav #sidebarnav > li:hover > ul.collapse {
-    display: block; }
+    display: block;
+  margin-top: 20px; }
   .mini-sidebar .sidebar-nav #sidebarnav > li > a.has-arrow:after {
     display: none; }
   .mini-sidebar .left-sidebar {
@@ -940,7 +942,7 @@ When click on sidebar toggler and also for tablet
     padding: 12px 24px;
     width: 70px; }
   .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a {
-    width: 290px;
+    width: 250px;
     background: #edf0f5; }
     .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a .hide-menu {
       display: inline; }
@@ -1047,7 +1049,7 @@ File: scss
         .topbar .top-navbar .navbar-header .navbar-brand .light-logo {
           display: none; }
         .topbar .top-navbar .navbar-header .navbar-brand b {
-          line-height: 70px;
+          line-height: 75px;
           display: inline-block; }
     .topbar .top-navbar .navbar-nav > .nav-item > .nav-link {
       padding-left: 15px;
@@ -2906,9 +2908,6 @@ form p:last-child {
   position: absolute;
   left: -9999px;
   opacity: 0; }
-
-[type="checkbox"] {
-  /* checkbox aspect */ }
 
 [type="checkbox"] + label {
   position: relative;
