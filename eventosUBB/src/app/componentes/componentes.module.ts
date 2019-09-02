@@ -25,11 +25,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Angular material
-import { MatStepperModule, MatInputModule, MatCardModule, MatButtonModule } from '@angular/material'
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule, MatInputModule, MatCardModule, MatButtonModule, MatPaginatorModule,
+    MatSortModule, MatTableModule, MatSelectModule, MatProgressSpinnerModule,
+    MatProgressBarModule, MatNativeDateModule, MatRippleModule} from '@angular/material'
 
 //Botón compartir
 import { ShareButtonModule } from '@ngx-share/button';
@@ -92,24 +90,27 @@ import { PipesModule } from '../pipes/pipes.module';
         UtilidadesModule,
         BrowserModule,
         BrowserAnimationsModule,
+        HttpClientModule,
+        HttpClientJsonpModule,
         MatStepperModule,
         MatInputModule,
         MatButtonModule,
-        FormsModule,
-        ReactiveFormsModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
         MatCardModule,
-        HttpClientModule,
         MatNativeDateModule,
         MatRippleModule,
         MatProgressBarModule,
         MatProgressSpinnerModule,
         MatSelectModule,
+        FormsModule,
         AngularFileUploaderModule,
+        ReactiveFormsModule,
         NgxPaginationModule,
-        SelectDropDownModule,
-        ShareButtonModule,
         ShareButtonsModule,
-        HttpClientJsonpModule,
+        ShareButtonModule,
+        SelectDropDownModule,
         PipesModule,
         COMPONENTES_ROUTES
     ]

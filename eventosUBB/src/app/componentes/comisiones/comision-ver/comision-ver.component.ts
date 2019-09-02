@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, MatSortable, MatTableDataSource } from '@angular/material';
+import { EventoUsersService, UserService } from '../../../servicios/servicio.index';
 import { global } from '../../../servicios/global'
 import { Router } from '@angular/router';
-import { EventoUsersService, UserService } from '../../../servicios/servicio.index';
 
 @Component({
   selector: 'app-comision-ver',
@@ -12,41 +13,35 @@ export class ComisionVerComponent implements OnInit {
 
   public url;
   public eventos;
-
-  public token;
   public identity;
-  public sub; // pruebas para el login con google el sub es el id del usuario
 
-  constructor( private eventoUsersService: EventoUsersService, private userService: UserService, 
-    private router: Router ) {
+  //Data sorting
+  displayedColumns: string[] = ['idEvento', 'nombreEvento', 'button'];
+  public dataSource;
 
+  constructor(private eventoUsersService: EventoUsersService, private userService: UserService,
+    private router: Router) {
     this.url = global.url;
-    this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();
-
   }
+
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.sub = this.identity.sub;
-    this.getMisEventosAdmin();
-  }
-
-  getMisEventosAdmin(){
-    this.eventoUsersService.getMisEventosAdmin(this.sub).subscribe(
+    // this.getMisEventosAdmin();
+    this.eventoUsersService.getMisEventosAdmin(this.identity.sub).subscribe(
       response => {
-        console.log(response);
-          this.eventos = response.eventos;
+        this.dataSource = new MatTableDataSource(response.eventos);
+        this.dataSource.sort = this.sort;
       },
       error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
   //Redirección a la vista administrativa del evento
-  eventosDetalles(idEvento: number){
+  eventosDetalles(idEvento: number) {
     this.router.navigate(['/eventoDetalle/' + idEvento]);
   }
-
 
 }
