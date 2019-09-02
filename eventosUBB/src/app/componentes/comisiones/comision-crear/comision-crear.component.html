@@ -2,43 +2,63 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
+                <form class="form-horizontal" #crearComisionForm="ngForm" (ngSubmit)="crearComision(crearComisionForm)">
 
-                <form class="form-horizontal p-t-20" #crearComisionForm="ngForm" (ngSubmit)="crearComision(crearComisionForm)">
-  
+                    <h1 class="text-center">Crear comisión</h1>
+                    <hr>
+
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label">Evento</label>
+                        <label class="col-sm-2">Evento</label>
                         <div class="col-sm-9">
                             <ngx-select-dropdown tabindex="0" [config]="configEvento" [options]="optionEvento"
-                            [multiple]="false" name="evento_idEvento" #evento_idEvento="ngModel"
-                            [(ngModel)]="eventos"></ngx-select-dropdown>
+                                [multiple]="false" name="evento_idEvento" #evento_idEvento="ngModel"
+                                [(ngModel)]="eventos" required></ngx-select-dropdown>
+                        </div>
+                        <div class="col-sm-1 text-left">
+                            <button type="button" class="btn btn-secondary btn-circle" data-toggle="popover"
+                                data-placement="top"
+                                data-content="Selecciona el evento al que quieres agregar integrantes en la comisión">
+                                <small id="small-btn">?</small>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Seleccionar encargados -->
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label">Encargados</label>
+                        <label class="col-sm-2">Integrante de comisión</label>
                         <div class="col-sm-9">
-                            <ngx-select-dropdown tabindex="0"  [config]="configUsuario" [options]="options" 
-                            [multiple]="true" name="email" #email="ngModel" [(ngModel)]="usuarios"></ngx-select-dropdown>  
-                            <span class="help-block"><small>Selecciona las personas requeridas para crear una comisión</small></span>
+                            <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="options"
+                                [multiple]="true" name="email" #email="ngModel" [(ngModel)]="usuarios" required>
+                            </ngx-select-dropdown>
+                            <span class="help-block"><small>Selecciona las personas requeridas para crear una
+                                    comisión</small></span>
+                        </div>
+                        <div class="col-sm-1 text-left">
+                            <button type="button" class="btn btn-secondary btn-circle" data-toggle="popover"
+                                data-placement="top"
+                                data-content="Para buscar ingresa el correo">
+                                <small id="small-btn">?</small>
+                            </button>
                         </div>
                     </div>
 
                     <div class="form-group row m-l-5">
-                        <p>Personas seleccionadas:</p>
+                        <p>Integrantes de la comisión seleccionados:</p>
                         <div class="col-sm-9">
-                            <span class="badge badge-primary m-l-5" *ngFor="let user of usuarios"> {{user.nombreUsuario + ' ' + user.apellidoUsuario + ' (' + user.email +')'}} </span>
+                            <span class="badge badge-primary m-l-5" *ngFor="let user of usuarios">
+                                {{user.nombreUsuario + ' ' + user.apellidoUsuario + ' (' + user.email +')'}} </span>
                         </div>
                     </div>
-                
+
                     <div class="form-group row m-b-0">
                         <div class="offset-sm-3 col-sm-12">
-                            <button type="submit" class="btn btn-block btn-success waves-effect waves-light">Crear</button>
+                            <button type="submit" [disabled]="crearComisionForm.invalid"
+                                class="btn btn-block btn-success waves-effect waves-light">Crear</button>
                         </div>
                     </div>
-  
+
                 </form>
             </div>
         </div>
     </div>
-  </body>
+</body>

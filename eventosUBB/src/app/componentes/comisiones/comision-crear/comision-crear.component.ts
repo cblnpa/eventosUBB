@@ -7,15 +7,13 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-comision-crear',
   templateUrl: './comision-crear.component.html',
-  styleUrls: ['./comision-crear.component.css'],
-  providers: [ EventoUsersService, UserService ]
+  styleUrls: ['./comision-crear.component.css']
 })
 export class ComisionCrearComponent implements OnInit {
 
   public identity; //obtiene los datos del usuario
   public idUsuario; //almacena id del usuario identificado
   public idEvento; //almacena el id del evento para enviar al servicio
-
   public comision;
 
   //variables para el select
@@ -65,26 +63,20 @@ export class ComisionCrearComponent implements OnInit {
     this.userService.getAll().subscribe(
       response => {
         this.options = response.users;
-        console.log('op user');
-        console.log(this.options);
       },
       error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
   listarEventos(){
     this.eventoUsersService.getMisEventosAdmin(this.idUsuario).subscribe(
       response => {
         this.optionEvento = response.eventos; 
-        console.log(this.optionEvento);
       },
       error => {
         console.log(<any>error);
-      }
-    )
-
+      })
   }
 
   crearComision(form){
