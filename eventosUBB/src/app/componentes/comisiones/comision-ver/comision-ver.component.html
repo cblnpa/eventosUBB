@@ -41,15 +41,13 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
+
+          <!-- paginador -->
+          <mat-paginator [length]="cantEventos" [pageSize]="1" [pageSizeOptions]="[5,10,15,25,50]"></mat-paginator>
+
         </div>
       </div>
 
-      <!-- pagination -->
-      <ul class="pagination justify-content-center">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-      </ul>
     </div>
-
-
   </div>
 </body>
