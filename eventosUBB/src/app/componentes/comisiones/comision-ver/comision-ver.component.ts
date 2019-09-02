@@ -18,7 +18,8 @@ export class ComisionVerComponent implements OnInit {
 
   //Data sorting
   displayedColumns: string[] = ['idEvento', 'nombreEvento', 'button'];
-  public dataSource;
+  dataSource;
+  filtrar: string; 
 
   constructor(private eventoUsersService: EventoUsersService, private userService: UserService,
     private router: Router, public paginatorSettings: MatPaginatorIntl) {
@@ -30,19 +31,24 @@ export class ComisionVerComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator; //paginación de la tabla
 
   ngOnInit() {
-    // this.getMisEventosAdmin();
+    this.paginadorSettings();
     this.eventoUsersService.getMisEventosAdmin(this.identity.sub).subscribe(
       response => {
         console.log(response);
-        this.cantEventos = response.eventos.length;
+        this.cantEventos = response.eventos.length; //cantidad de eventos
         this.dataSource = new MatTableDataSource(response.eventos);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data, filter) => {
+          return this.displayedColumns.some(ele => {
+            return ele != 'button' && data[ele].toLowerCase().indexOf(filter) != -1;
+          });
+        }
       },
       error => {
         console.log(<any>error);
       });
-    this.paginadorSettings();
+
   }
 
   //Redirección a la vista administrativa del evento
@@ -54,6 +60,15 @@ export class ComisionVerComponent implements OnInit {
     this.paginatorSettings.itemsPerPageLabel = 'Elementos por página';
     this.paginatorSettings.previousPageLabel = 'Página anterior';
     this.paginatorSettings.nextPageLabel = 'Página siguiente';
+  }
+
+  limpiarBuscador(){
+    this.filtrar = "";
+    this.applyFilter();
+  }
+
+  applyFilter(){
+    this.dataSource.filter = this.filtrar.trim().toLowerCase();
   }
 
 }
