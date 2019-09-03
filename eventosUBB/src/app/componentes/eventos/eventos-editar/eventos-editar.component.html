@@ -83,6 +83,9 @@
 
                     <div class="col-md-6 col-sm-12">
                         <small class="mt-4">Portada del evento</small>
+                        <div class="mt-2 mb-2" *ngIf="eventos.imagen">
+                            <img src="{{url + 'image/' + eventos.imagen}}" class="img-fluid" alt="Responsive image">
+                        </div>
                         <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="imagenUpload($event)">
                         </angular-file-uploader>
                     </div>
@@ -114,88 +117,6 @@
         </mat-step>
 
         <mat-step label="Step 2">
-            <ng-template matStepperIcon="done" matStepLabel>Materiales</ng-template>
-
-            <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-success" (click)="agregarMaterialModal()">
-                    <i class="mdi mdi-plus"></i> Agregar material
-                </button>
-            </div>
-
-            <!-- Tabla para visualizar materiales -->
-            <div class="col-md-12">
-                <table class="table info-table mt-3">
-                    <thead>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Archivo</th>
-                    </thead>
-                    <tbody *ngFor="let m of material ; let i = index">
-                        <td> {{i+1}} </td>
-                        <td> {{m.nombreMaterial}} </td>
-                        <td> {{m.archivo}} </td>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- div para los botones -->
-            <div class="row mt-4">
-                <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
-                        type="button">Anterior</button>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
-                </div>
-            </div>
-        </mat-step>
-
-        <mat-step label="Step 3">
-            <ng-template matStepperIcon="done" matStepLabel>Colaboradores</ng-template>
-
-            <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-success" (click)="agregarColaboradorModal()">
-                    <i class="mdi mdi-plus"></i> Agregar colaborador
-                </button>
-            </div>
-
-            <!-- Tabla para visualizar colaboradores -->
-            <div class="col-md-12">
-                <table class="table info-table mt-3">
-                    <thead>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Representante</th>
-                        <th>Teléfono</th>
-                        <th>Correo</th>
-                        <th>Sitio web</th>
-                        <th>Logo</th>
-                    </thead>
-                    <tbody *ngFor="let colab of colaborador ; let i = index">
-                        <td> {{i+1}} </td>
-                        <td> {{colab.nombreColaborador}} </td>
-                        <td> {{colab.nombreRepresentante}} </td>
-                        <td> {{colab.telefonoColaborador}} </td>
-                        <td> {{colab.correoColaborador}} </td>
-                        <td> {{colab.sitioWeb}} </td>
-                        <td> {{colab.logo}} </td>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- div para los botones -->
-            <div class="row mt-4">
-                <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
-                        type="button">Anterior</button>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
-                </div>
-            </div>
-        </mat-step>
-
-        <mat-step label="Step 4">
             <ng-template matStepperIcon="done" matStepLabel>Jornadas</ng-template>
 
             <div class="col-md-12 text-center">
@@ -240,7 +161,7 @@
             </div>
         </mat-step>
 
-        <mat-step label="Step 5">
+        <mat-step label="Step 3">
             <ng-template matStepperIcon="done" matStepLabel>Expositores</ng-template>
 
             <div class="col-md-12 text-center">
@@ -282,7 +203,7 @@
             </div>
         </mat-step>
 
-        <mat-step label="Step 6">
+        <mat-step label="Step 4">
 
             <ng-template matStepperIcon="done" matStepLabel>Actividades</ng-template>
 
@@ -310,6 +231,88 @@
                         <td> {{act.horaFinActividad}} </td>
                         <td> {{act.ubicacionActividad}} </td>
                         <td> {{act.descripcionActividad}} </td>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- div para los botones -->
+            <div class="row mt-4">
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
+                </div>
+            </div>
+        </mat-step>
+
+        <mat-step label="Step 5">
+            <ng-template matStepperIcon="done" matStepLabel>Colaboradores</ng-template>
+
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-success" (click)="agregarColaboradorModal()">
+                    <i class="mdi mdi-plus"></i> Agregar colaborador
+                </button>
+            </div>
+
+            <!-- Tabla para visualizar colaboradores -->
+            <div class="col-md-12">
+                <table class="table info-table mt-3">
+                    <thead>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Representante</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Sitio web</th>
+                        <th>Logo</th>
+                    </thead>
+                    <tbody *ngFor="let colab of colaborador ; let i = index">
+                        <td> {{i+1}} </td>
+                        <td> {{colab.nombreColaborador}} </td>
+                        <td> {{colab.nombreRepresentante}} </td>
+                        <td> {{colab.telefonoColaborador}} </td>
+                        <td> {{colab.correoColaborador}} </td>
+                        <td> {{colab.sitioWeb}} </td>
+                        <td> {{colab.logo}} </td>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- div para los botones -->
+            <div class="row mt-4">
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
+                </div>
+            </div>
+        </mat-step>
+
+        <mat-step label="Step 6">
+            <ng-template matStepperIcon="done" matStepLabel>Materiales</ng-template>
+
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-success" (click)="agregarMaterialModal()">
+                    <i class="mdi mdi-plus"></i> Agregar material
+                </button>
+            </div>
+
+            <!-- Tabla para visualizar materiales -->
+            <div class="col-md-12">
+                <table class="table info-table mt-3">
+                    <thead>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Archivo</th>
+                    </thead>
+                    <tbody *ngFor="let m of material ; let i = index">
+                        <td> {{i+1}} </td>
+                        <td> {{m.nombreMaterial}} </td>
+                        <td> {{m.archivo}} </td>
                     </tbody>
                 </table>
             </div>
@@ -356,7 +359,8 @@
                             type="button">Anterior</button>
                     </div>
                     <div class="col-md-6 col-sm-12">
-                        <button class="btn btn-success btn-block" (click)="guardarEvento(eventoPojoForm)" type="submit">Guardar cambios</button>
+                        <button class="btn btn-success btn-block" (click)="guardarEvento(eventoPojoForm)"
+                            type="submit">Guardar cambios</button>
                     </div>
                 </div>
             </div>
