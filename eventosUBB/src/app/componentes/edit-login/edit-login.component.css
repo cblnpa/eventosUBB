@@ -6,3 +6,12 @@
 .register>* {
     width: 100%;
 }
+
+mat-form-field {
+    width: 300px;
+    font-size: 14pt;
+}
+
+mat-label {
+    width: 200px;
+}

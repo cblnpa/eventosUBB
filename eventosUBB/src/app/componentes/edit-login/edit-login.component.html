@@ -1,15 +1,17 @@
 <body class="fix-header card-no-border">
     <div class="row">
-        <div class="col-6">
+        <div class="col-md-6 col-xl-6 col-xs-12">
             <div class="card-body">
-                <form class="form-horizontal form-material " id="loginform" #editForm="ngForm"
+                <form class="form-horizontal form-material" id="loginform" #editForm="ngForm"
                     (ngSubmit)="onSubmit(editForm)">
                     <h3 class="box-title m-b-20">Modificar usuario</h3>
+
                     <div class="register">
-                        <mat-form-field>
+                        <mat-form-field hintLabel="Máximo 190 caracteres">
                             <mat-label for="nombreUsuario">Modifica tu nombre</mat-label>
-                            <input matInput placeholder="Ingresa tu nombre" type="text" name="nombreUsuario"
-                                #nombreUsuario="ngModel" [(ngModel)]="user.nombreUsuario" required>
+                            <input #input1 matInput maxlength="190" placeholder="Ingresa tu nombre" type="text"
+                                name="nombreUsuario" #nombreUsuario="ngModel" [(ngModel)]="user.nombreUsuario" required>
+                            <mat-hint align="end">{{input1.value?.length || 0}}/190</mat-hint>
                             <small *ngIf="!nombreUsuario.valid && nombreUsuario.touched"
                                 class="invalid-feedback d-block">
                                 El nombre no es valido
@@ -17,11 +19,13 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="register">
-                        <mat-form-field>
+                    <div class="register mt-4">
+                        <mat-form-field hintLabel="Máximo 190 caracteres">
                             <mat-label for="apellidoUsuario">Modifica tu apellido</mat-label>
-                            <input matInput placeholder="Ingresa tu apellido" type="text" name="apellidoUsuario"
-                                #apellidoUsuario="ngModel" [(ngModel)]="user.apellidoUsuario" required>
+                            <input matInput #input2 maxlength="190" placeholder="Ingresa tu apellido" type="text"
+                                name="apellidoUsuario" #apellidoUsuario="ngModel" [(ngModel)]="user.apellidoUsuario"
+                                required>
+                            <mat-hint align="end">{{input2.value?.length || 0}}/190</mat-hint>
                             <small *ngIf="!apellidoUsuario.valid && apellidoUsuario.touched"
                                 class="invalid-feedback d-block">
                                 El apellido no es valido
@@ -29,25 +33,25 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="register">
-                        <label for="avatar">Imagen de perfil</label>
-                        <div *ngIf="identity && identity.avatar">
+                    <div class="register mt-4">
+                        <label for="avatar">Imagen de perfil (vista previa)</label>
+                        <div class="mt-2 mb-2" *ngIf="identity && identity.avatar">
                             <img src="{{url + 'user/avatar/' + identity.avatar}}" class="img-fluid"
                                 alt="Responsive image">
                         </div>
                         <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="avatarUpload($event)">
                         </angular-file-uploader>
                     </div>
-
                     <br><br>
-                    <div class="text-center p-b-20">
+                    <div class="text-center col-12">
                         <button class="btn btn-info btn-lg btn-block btn-rounded waves-effect waves-light" type="submit"
                             [disabled]="editForm.invalid">Guardar cambios</button>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="col-6">
+
+        <div class="col-md-6 col-xl-6 col-xs-12">
             <div class="card-body">
                 <h3 class="box-title m-b-20">Selecciona tu tema favorito</h3>
                 <div class="r-panel-body">
@@ -83,5 +87,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 </body>
