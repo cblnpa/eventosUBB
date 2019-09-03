@@ -17,7 +17,7 @@ export class ComisionVerComponent implements OnInit {
   public cantEventos; //número de eventos encontrados
 
   //Data sorting
-  displayedColumns: string[] = ['idEvento', 'nombreEvento', 'button'];
+  displayedColumns: string[] = ['nombreEvento','created_at', 'button'];
   dataSource;
   filtrar: string; 
 
