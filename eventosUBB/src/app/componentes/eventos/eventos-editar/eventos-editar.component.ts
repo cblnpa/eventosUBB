@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {global} from '../../../servicios/global'
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
+import { global } from '../../../servicios/global'
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material } from '../../../model/model.index';
-import { EventoPojoService, CiudadService, UserService, EventoService, JornadaService, TipoEventoService,
-  ExpositorService, ActividadService, ModalService, MaterialService, ColaboradorService, CategoriaService } from '../../../servicios/servicio.index';
+import {
+  EventoPojoService, CiudadService, UserService, EventoService, JornadaService, TipoEventoService,
+  ExpositorService, ActividadService, ModalService, MaterialService, ColaboradorService, CategoriaService
+} from '../../../servicios/servicio.index';
 
 @Component({
   selector: 'app-eventos-editar',
   templateUrl: './eventos-editar.component.html',
   styleUrls: ['./eventos-editar.component.css'],
-  providers: [ { provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
   }]
 })
 export class EventosEditarComponent implements OnInit {
@@ -26,7 +30,7 @@ export class EventosEditarComponent implements OnInit {
   public actividad: actividad;
   public colaborador: colaborador;
   public expositor: expositor;
-  
+
   //Formularios del stepper
   firstFormGroup: FormGroup;
   isLinear: false;
@@ -36,12 +40,17 @@ export class EventosEditarComponent implements OnInit {
   public token;
   public ciudades;
   public categorias;
-  public tipoEvento; 
+  public tipoEvento;
   public status;
   public id; //id del evento
   public idUsuario; //id del usuario (sub) 
 
-  public contModal: number; 
+  public contModal: number;
+
+  //variables para el data table
+  public dataSourceJornada;
+  public displayedColumnsJornada: string[] = ['nombreJornada', 'fechaJornada', 'horaInicioJornada', 'horaFinJornada', 'ubicacionJornada', 'descripcionJornada'];
+  public cantJornadas: number;
 
   public afuConfig = {
     multiple: false,
@@ -63,18 +72,21 @@ export class EventosEditarComponent implements OnInit {
     }
   };
 
-  constructor( private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, 
+  constructor(private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
     private userService: UserService, private eventoPojoService: EventoPojoService,
-    private ciudadService: CiudadService,private categoriaService: CategoriaService ,private jornadaService: JornadaService, 
+    private ciudadService: CiudadService, private categoriaService: CategoriaService, private jornadaService: JornadaService,
     private expositorService: ExpositorService, private modalService: ModalService, private tipoEventoService: TipoEventoService,
-    private eventoService: EventoService, private actividadService: ActividadService,
-    private materialService: MaterialService, private colaboradorService: ColaboradorService ) {
-      // objeto para editar el evento, step 1
-      this.eventos = new evento('','','','','',null,'',null,null,null,null,null);
-      this.identity = this.userService.getIdentity();
-      this.token = this.userService.getToken();
-      this.url = global.url;
+    private eventoService: EventoService, private actividadService: ActividadService, public paginatorSettings: MatPaginatorIntl,
+    private materialService: MaterialService, private colaboradorService: ColaboradorService) {
+    // objeto para editar el evento, step 1
+    this.eventos = new evento('', '', '', '', '', null, '', null, null, null, null, null);
+    this.identity = this.userService.getIdentity();
+    this.token = this.userService.getToken();
+    this.url = global.url;
   }
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
     this.getCiudades();
@@ -86,6 +98,7 @@ export class EventosEditarComponent implements OnInit {
     this.mostrarActividades();
     this.mostrarMateriales();
     this.mostrarColaboradores();
+    this.paginadorSettings();
     this.idUsuario = this.identity.sub;
     //Stepper 1 del evento 
     this.firstFormGroup = this._formBuilder.group({
@@ -93,41 +106,44 @@ export class EventosEditarComponent implements OnInit {
     });
   }
 
-  getCiudades(){
+  getCiudades() {
     this.ciudadService.getCiudades().subscribe(
       response => {
-        if( response.status == 'success' ){
+        if (response.status == 'success') {
           this.ciudades = response.ciudad;
-        }},
+        }
+      },
       error => {
         console.log(error);
       });
   }
 
-  getCategorias(){
+  getCategorias() {
     this.categoriaService.getCategorias().subscribe(
       response => {
-        if( response.status == 'success' ){
+        if (response.status == 'success') {
           this.categorias = response.categoria;
-        }},
+        }
+      },
       error => {
         console.log(error);
       });
   }
 
-  getTipoEventos(){
+  getTipoEventos() {
     this.tipoEventoService.getTiposEventos().subscribe(
       response => {
         console.log(response);
-        if(response.status == 'success'){
+        if (response.status == 'success') {
           this.tipoEvento = response.tipoEvento;
-        }},
-        error => {
-          console.log(error);
-        })
+        }
+      },
+      error => {
+        console.log(error);
+      })
   }
 
-  getDatosEvento(){
+  getDatosEvento() {
     this.route.params.subscribe(
       params => {
         let idEvento = +params['id'];
@@ -136,145 +152,163 @@ export class EventosEditarComponent implements OnInit {
           response => {
             this.eventos = response.evento;
             //Mostrar los datos del evento en el stepper 
-            this.eventos = new evento(this.eventos.nombreEvento, this.eventos.ubicacion,this.eventos.direccion,
+            this.eventos = new evento(this.eventos.nombreEvento, this.eventos.ubicacion, this.eventos.direccion,
               this.eventos.detalles, this.eventos.imagen, this.eventos.capacidad, this.eventos.nombreEventoInterno,
               this.eventos.ciudad_idCiudad, this.eventos.categoria_idCategoria, this.eventos.visibilidad,
               this.eventos.tipoEvento_idtipoEvento)
           },
           error => {
             console.log(<any>error);
-          })})
+          })
+      })
   }
 
-  guardarEvento(form){
+  guardarEvento(form) {
     this.eventoPojoService.updateEventoPojo(this.eventos, this.id).subscribe(
       response => {
-        if(response.status == 'success'){
+        if (response.status == 'success') {
           //Actualizar los datos que se ingresaron
-          if(response.changes.eventos.nombreEvento){
+          if (response.changes.eventos.nombreEvento) {
             this.eventos.nombreEvento = response.changes.eventos.nombreEvento;
           }
-          if(response.changes.eventos.ubicacion){
+          if (response.changes.eventos.ubicacion) {
             this.eventos.ubicacion = response.changes.eventos.ubicacion;
           }
-          if(response.changes.eventos.direccion){
+          if (response.changes.eventos.direccion) {
             this.eventos.direccion = response.changes.eventos.direccion;
           }
-          if(response.changes.eventos.detalles){
+          if (response.changes.eventos.detalles) {
             this.eventos.detalles = response.changes.eventos.detalles;
           }
-          if(response.changes.eventos.imagen){
+          if (response.changes.eventos.imagen) {
             this.eventos.imagen = response.changes.eventos.imagen;
           }
-          if(response.changes.eventos.capacidad){
+          if (response.changes.eventos.capacidad) {
             this.eventos.capacidad = response.changes.eventos.capacidad;
           }
-          if(response.changes.eventos.ciudad){
+          if (response.changes.eventos.ciudad) {
             this.eventos.ciudad_idCiudad = response.changes.eventos.ciudad;
           }
-          if(response.changes.eventos.categoria_idCategoria){
+          if (response.changes.eventos.categoria_idCategoria) {
             this.eventos.categoria_idCategoria = response.changes.eventos.categoria_idCategoria;
           }
-          if(response.changes.eventos.visibilidad){
+          if (response.changes.eventos.visibilidad) {
             this.eventos.visibilidad = response.changes.eventos.visibilidad;
           }
-          if(response.changes.eventos.tipoEvento_idtipoEvento){
+          if (response.changes.eventos.tipoEvento_idtipoEvento) {
             this.eventos.tipoEvento_idtipoEvento = response.changes.eventos.tipoEvento_idtipoEvento;
-          }}}
+          }
+        }
+      }
     )
     this.router.navigate(['/eventoDetalle/' + this.id]);
   }
 
   //Listar jornadas del evento en la tabla
-  mostrarJornadas(){
+  mostrarJornadas() {
     this.jornadaService.getJornadas(this.id).subscribe(
       response => {
-        if(response.status == 'success'){
-          this.jornada = response.jornadas;
-        }},
+        if (response.status == 'success') {
+          this.cantJornadas = response.jornadas.length;
+          //this.jornada = response.jornadas;
+          this.dataSourceJornada = new MatTableDataSource(response.jornadas);
+          this.dataSourceJornada.sort = this.sort;
+          this.dataSourceJornada.paginator = this.paginator;
+        }
+      },
       error => {
         console.log(<any>error);
       })
   }
 
-  agregarJornadaModal(){
+  agregarJornadaModal() {
     this.contModal = 1;
     this.modalService.mostrarModal();
   }
 
-  mostrarExpositores(){
+  mostrarExpositores() {
     this.expositorService.getExpositoresActividad(this.id).subscribe(
       response => {
-        if(response.status == 'success'){
+        if (response.status == 'success') {
           this.expositor = response.expositor;
-        }},
+        }
+      },
       error => {
         console.log(<any>error);
       })
   }
 
-  agregarExpositorModal(){
+  agregarExpositorModal() {
     this.contModal = 2;
     this.modalService.mostrarModal();
   }
 
-  mostrarActividades(){
+  mostrarActividades() {
     this.actividadService.getActividades(this.id).subscribe(
       response => {
-        if(response.status == 'success'){
+        if (response.status == 'success') {
           this.actividad = response.actividades;
-        }},
+        }
+      },
       error => {
         console.log(<any>error);
       })
   }
 
-  agregarActividadModal(){
+  agregarActividadModal() {
     this.contModal = 3;
     this.modalService.mostrarModal();
   }
 
-  mostrarMateriales(){
+  mostrarMateriales() {
     this.materialService.getMateriales(this.id).subscribe(
       response => {
-        if(response.status == 'success'){
+        if (response.status == 'success') {
           this.material = response.material;
-        }},
+        }
+      },
       error => {
         console.log(<any>error);
       })
   }
 
-  agregarMaterialModal(){
+  agregarMaterialModal() {
     this.contModal = 4;
     this.modalService.mostrarModal();
   }
 
-  mostrarColaboradores(){
+  mostrarColaboradores() {
     this.colaboradorService.getColaboradores(this.id).subscribe(
       response => {
-        if(response.status == 'success'){
+        if (response.status == 'success') {
           this.colaborador = response.colaborador;
-        }},
+        }
+      },
       error => {
         console.log(<any>error);
       })
   }
 
-  agregarColaboradorModal(){
+  agregarColaboradorModal() {
     this.contModal = 5;
     this.modalService.mostrarModal();
   }
 
   //foto del evento
-  imagenUpload(datos){
-    let data =JSON.parse(datos.response);
+  imagenUpload(datos) {
+    let data = JSON.parse(datos.response);
     this.eventos.imagen = data.image;
   }
 
-  logoUpload(datos){
-    let data =JSON.parse(datos.response);
+  logoUpload(datos) {
+    let data = JSON.parse(datos.response);
     this.eventoPojo.logo = data.image;
+  }
+
+  paginadorSettings() {
+    this.paginatorSettings.itemsPerPageLabel = 'Elementos por página';
+    this.paginatorSettings.previousPageLabel = 'Página anterior';
+    this.paginatorSettings.nextPageLabel = 'Página siguiente';
   }
 
 }

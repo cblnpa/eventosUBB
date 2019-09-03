@@ -15,3 +15,11 @@ mat-form-field {
 small {
     font-size: 11pt;
 }
+
+#table-sort {
+    width: 100%;
+  }
+  
+  #table-sort-cell {
+    font-size: 12pt;
+  }

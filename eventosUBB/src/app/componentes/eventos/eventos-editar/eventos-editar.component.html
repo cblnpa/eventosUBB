@@ -134,8 +134,52 @@
                 </button>
             </div>
 
+            <!-- Tabla nueva -->
+            <mat-form-field>
+                <input matInput placeholder="Buscar...">
+            </mat-form-field>
+
+            <div class="mat-elevation-z8">
+                <table id="table-sort" mat-table [dataSource]="dataSourceJornada" matSort>
+
+                    <ng-container matColumnDef="nombreJornada">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.nombreJornada}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaJornada">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.nombreJornada}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="horaInicioJornada">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora inicio</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.horaInicioJornada}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="horaFinJornada">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora término</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.horaFinJornada}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ubicacionJornada">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Dependencia</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.ubicacion}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="descripcionJornada">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.descripcionJornada}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsJornada"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsJornada;"></tr>
+
+                </table>
+            </div>
+
             <!-- Tabla para visualizar la jornada -->
-            <div class="col-md-12 table table-responsive">
+            <!-- <div class="col-md-12 table table-responsive">
                 <table class="table info-table mt-3">
                     <thead>
                         <th>#</th>
@@ -156,7 +200,7 @@
                         <td> {{j.descripcionJornada}} </td>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
 
             <!-- div para los botones -->
             <div class="row mt-4">
