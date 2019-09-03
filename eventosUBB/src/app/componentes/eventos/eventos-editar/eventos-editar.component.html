@@ -169,38 +169,19 @@
 
                     <ng-container matColumnDef="descripcionJornada">
                         <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.descripcionJornada}} </td>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.descripcionJornada}}
+                        </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsJornada"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsJornada;"></tr>
 
                 </table>
-            </div>
 
-            <!-- Tabla para visualizar la jornada -->
-            <!-- <div class="col-md-12 table table-responsive">
-                <table class="table info-table mt-3">
-                    <thead>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Fecha</th>
-                        <th>Hora inicio</th>
-                        <th>Hora fin</th>
-                        <th>Ubicación</th>
-                        <th>Descripcion</th>
-                    </thead>
-                    <tbody *ngFor="let j of jornada ; let i = index">
-                        <td> {{i+1}} </td>
-                        <td> {{j.nombreJornada}} </td>
-                        <td> {{j.fechaJornada}} </td>
-                        <td> {{j.horaInicioJornada}} </td>
-                        <td> {{j.horaFinJornada}} </td>
-                        <td> {{j.ubicacionJornada}} </td>
-                        <td> {{j.descripcionJornada}} </td>
-                    </tbody>
-                </table>
-            </div> -->
+                <!-- paginador -->
+                <mat-paginator [length]="cantJornadas" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
+                </mat-paginator>
+            </div>
 
             <!-- div para los botones -->
             <div class="row mt-4">
