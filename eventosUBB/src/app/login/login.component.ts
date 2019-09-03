@@ -84,6 +84,7 @@ export class LoginComponent implements OnInit {
     
     this.userService.signUp(this.user).subscribe(
       response => {
+        console.log(response);
         // Recibir el TOKEN 
         if (response.status != 'error') {
           this.status = 'success';
@@ -93,6 +94,7 @@ export class LoginComponent implements OnInit {
           this.userService.signUp(this.user, true).subscribe(
             response => {
               this.identity = response;
+              console.log(response);
               if(this.identity.verified == 1){
                 localStorage.setItem('token', this.token);
                 localStorage.setItem('identity', JSON.stringify(this.identity));
@@ -111,6 +113,7 @@ export class LoginComponent implements OnInit {
             }
           );
         } else {
+          console.log(response);
           this.status = 'error';
           Swal.fire({
             type: 'error',

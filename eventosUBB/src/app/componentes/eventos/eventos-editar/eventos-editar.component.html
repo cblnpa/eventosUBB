@@ -163,7 +163,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="ubicacionJornada">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Dependencia</th>
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Ubicación</th>
                         <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.ubicacion}} </td>
                     </ng-container>
 
@@ -204,25 +204,66 @@
                 </button>
             </div>
 
-            <!-- Tabla para visualizar los expositores -->
-            <div class="col-md-12">
-                <table class="table info-table mt-3">
-                    <thead>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Correo</th>
-                        <th>Empresa</th>
-                        <th>Foto</th>
-                    </thead>
-                    <tbody *ngFor="let exp of expositor ; let i = index">
-                        <td> {{i+1}} </td>
-                        <td> {{exp.nombreExpositor}} </td>
-                        <td> {{exp.apellidoExpositor}} </td>
-                        <td> {{exp.correoExpositor}} </td>
-                        <td> {{exp.empresa}} </td>
-                    </tbody>
+            <!-- Tabla nueva -->
+            <mat-form-field>
+                <input matInput placeholder="Buscar...">
+            </mat-form-field>
+
+            <div class="mat-elevation-z8">
+                <table id="table-sort" mat-table [dataSource]="dataSourceJornada" matSort>
+
+                    <ng-container matColumnDef="nombreExpositor">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.nombreExpositor}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="apellidoExpositor">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Apellido Paterno</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.apellidoExpositor}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="apellido2Expositor">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Apellido Materno</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.apellido2Expositor}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="correoExpositor">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.correoExpositor}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="empresa">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Organización</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.empresa}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="telefonoExpositor">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono de contacto
+                        </th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.telefonoExpositor}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="foto">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Foto expositor</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.foto}}
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsExpositor"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsExpositor;"></tr>
+
                 </table>
+
+                <!-- paginador -->
+                <mat-paginator [length]="cantExpositores" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
+                </mat-paginator>
+
             </div>
 
             <!-- div para los botones -->
@@ -247,26 +288,65 @@
                 </button>
             </div>
 
-            <!-- Tabla para visualizar los actividades -->
-            <div class="col-md-12">
-                <table class="table info-table mt-3">
-                    <thead>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Hora de inicio</th>
-                        <th>Hora de término</th>
-                        <th>Ubicación</th>
-                        <th>Descripción</th>
-                    </thead>
-                    <tbody *ngFor="let act of actividad; let i = index">
-                        <td> {{i+1}} </td>
-                        <td> {{act.nombreActividad}} </td>
-                        <td> {{act.horaInicioActividad}} </td>
-                        <td> {{act.horaFinActividad}} </td>
-                        <td> {{act.ubicacionActividad}} </td>
-                        <td> {{act.descripcionActividad}} </td>
-                    </tbody>
+            <!-- Tabla nueva -->
+            <mat-form-field>
+                <input matInput placeholder="Buscar...">
+            </mat-form-field>
+
+            <div class="mat-elevation-z8">
+                <table id="table-sort" mat-table [dataSource]="dataSourceActividad" matSort>
+
+                    <ng-container matColumnDef="nombreActividad">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.nombreActividad}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="horaInicioActividad">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora inicio</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.horaInicioActividad}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="horaFinActividad">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora término</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.horaFinActividad}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ubicacionActividad">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Dependencia</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.ubicacionActividad}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actividadParalela">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Actividad paralela
+                        </th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.actividadParalela}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cupos">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Cupos</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.cupos}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="descripcionActividad">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let actividad">
+                            {{actividad.descripcionActividad}}
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsActividad"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsActividad;"></tr>
+
                 </table>
+
+                <!-- paginador -->
+                <mat-paginator [length]="cantActividades" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
+                </mat-paginator>
             </div>
 
             <!-- div para los botones -->
@@ -290,28 +370,69 @@
                 </button>
             </div>
 
-            <!-- Tabla para visualizar colaboradores -->
-            <div class="col-md-12">
-                <table class="table info-table mt-3">
-                    <thead>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Representante</th>
-                        <th>Teléfono</th>
-                        <th>Correo</th>
-                        <th>Sitio web</th>
-                        <th>Logo</th>
-                    </thead>
-                    <tbody *ngFor="let colab of colaborador ; let i = index">
-                        <td> {{i+1}} </td>
-                        <td> {{colab.nombreColaborador}} </td>
-                        <td> {{colab.nombreRepresentante}} </td>
-                        <td> {{colab.telefonoColaborador}} </td>
-                        <td> {{colab.correoColaborador}} </td>
-                        <td> {{colab.sitioWeb}} </td>
-                        <td> {{colab.logo}} </td>
-                    </tbody>
+            <!-- Tabla nueva -->
+            <mat-form-field>
+                <input matInput placeholder="Buscar...">
+            </mat-form-field>
+
+            <div class="mat-elevation-z8">
+                <table id="table-sort" mat-table [dataSource]="dataSourceColaborador" matSort>
+
+                    <ng-container matColumnDef="nombreColaborador">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
+                            {{colaborador.nombreColaborador}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombreRepresentante">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Representante</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
+                            {{colaborador.nombreRepresentante}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="telefonoColaborador">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
+                            {{colaborador.telefonoColaborador}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="correoColaborador">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
+                            {{colaborador.correoColaborador}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipoColaborador">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Tipo colaboración
+                        </th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> {{colaborador.tipoColaborador}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="sitioWeb">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Sitio web</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> {{colaborador.sitioWeb}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="logo">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Logo</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
+                            {{colaborador.logo}}
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsColaborador"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsColaborador;"></tr>
+
                 </table>
+
+                <!-- paginador -->
+                <mat-paginator [length]="cantActividades" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
+                </mat-paginator>
             </div>
 
             <!-- div para los botones -->
@@ -335,8 +456,48 @@
                 </button>
             </div>
 
+            <!-- Tabla nueva -->
+            <mat-form-field>
+                <input matInput placeholder="Buscar...">
+            </mat-form-field>
+
+            <div class="mat-elevation-z8">
+                <table id="table-sort" mat-table [dataSource]="dataSourceMaterial" matSort>
+
+                    <ng-container matColumnDef="nombreMaterial">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let material">
+                            {{material.nombreMaterial}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="archivo">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Archivo</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let material">
+                            {{material.archivo}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="created_at">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de creación
+                        </th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let material">
+                            {{material.created_at | date:'fullDate'}}
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsMaterial"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsMaterial;"></tr>
+
+                </table>
+
+                <!-- paginador -->
+                <mat-paginator [length]="cantActividades" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
+                </mat-paginator>
+            </div>
+
             <!-- Tabla para visualizar materiales -->
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
                 <table class="table info-table mt-3">
                     <thead>
                         <th>#</th>
@@ -349,7 +510,7 @@
                         <td> {{m.archivo}} </td>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
 
             <!-- div para los botones -->
             <div class="row mt-4">
@@ -367,23 +528,27 @@
             <ng-template matStepLabel>Publicar</ng-template>
 
             <div>
-                <h4>Modificar el estado del evento</h4>
-                <h5>Si quieres guardar los datos que has ingresado pero no quieres que se publique el evneto selecciona
-                    la opción <strong>No visible</strong> Pero si quieres guardar los cambios y publicar el evento
-                    selecciona la opción<strong>Visible</strong></h5>
+                <h2 class="text-center">Modificar el estado del evento</h2>
+                <hr>
 
-                <mat-form-field>
-                    <mat-label for="visibilidad">Visibilidad</mat-label>
-                    <mat-select name="visibilidad" #visibilidad="ngModel" [(ngModel)]="eventos.visibilidad">
-                        <mat-option [value]='0'>
-                            No visible
-                        </mat-option>
-
-                        <mat-option [value]='1'>
-                            Visible
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <div class="col-12">
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label for="visibilidad">Visibilidad</mat-label>
+                            <mat-select name="visibilidad" #visibilidad="ngModel" [(ngModel)]="eventos.visibilidad">
+                                <mat-option [value]='0'>Ocultar</mat-option>
+                                <mat-option [value]='1'>Publicar</mat-option>
+                            </mat-select>
+                            <mat-hint>Independiente de la opción seleccionada, usted puede modificar este evento las
+                                veces que sean necesarias.</mat-hint>
+                        </mat-form-field>
+                        <button type="button" class="m-t-5 btn btn-secondary btn-circle" data-toggle="popover"
+                            data-placement="top"
+                            data-content="El evento no se mostrará en el inicio hasta que seleccione la opción 'Publicar'">
+                            <small id="small-btn">?</small>
+                        </button>
+                    </div>
+                </div>
                 <br>
 
                 <!-- div para los botones -->

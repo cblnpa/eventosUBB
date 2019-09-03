@@ -52,6 +52,22 @@ export class EventosEditarComponent implements OnInit {
   public displayedColumnsJornada: string[] = ['nombreJornada', 'fechaJornada', 'horaInicioJornada', 'horaFinJornada', 'ubicacionJornada', 'descripcionJornada'];
   public cantJornadas: number;
 
+  public dataSourceExpositor;
+  public displayedColumnsExpositor: string[] = ['nombreExpositor', 'apellidoExpositor', 'apellido2Expositor', 'correoExpositor', 'empresa', 'telefonoExpositor', 'foto'];
+  public cantExpositores: number;
+
+  public dataSourceActividad;
+  public displayedColumnsActividad: string[] = ['nombreActividad', 'horaInicioActividad', 'horaFinActividad', 'ubicacionActividad', 'actividadParalela', 'cupos', 'descripcionActividad'];
+  public cantActividades: number;
+
+  public dataSourceColaborador;
+  public displayedColumnsColaborador: string[] = ['nombreColaborador', 'nombreRepresentante', 'telefonoColaborador', 'correoColaborador', 'tipoColaborador', 'sitioWeb', 'logo'];
+  public cantColaboradores: number;
+
+  public dataSourceMaterial;
+  public displayedColumnsMaterial: string[] = ['nombreMaterial', 'archivo', 'created_at'];
+  public cantMateriales: number;
+
   public afuConfig = {
     multiple: false,
     formatsAllowed: ".jpg,.jpeg,.png,.gif",
@@ -230,7 +246,10 @@ export class EventosEditarComponent implements OnInit {
     this.expositorService.getExpositoresActividad(this.id).subscribe(
       response => {
         if (response.status == 'success') {
-          this.expositor = response.expositor;
+          this.cantExpositores = response.expositor.length;
+          this.dataSourceExpositor = new MatTableDataSource(response.expositor);
+          this.dataSourceExpositor.sort = this.sort;
+          this.dataSourceExpositor.paginator = this.paginator;
         }
       },
       error => {
@@ -247,7 +266,10 @@ export class EventosEditarComponent implements OnInit {
     this.actividadService.getActividades(this.id).subscribe(
       response => {
         if (response.status == 'success') {
-          this.actividad = response.actividades;
+          this.cantActividades = response.actividades.length;
+          this.dataSourceActividad = new MatTableDataSource(response.actividades);
+          this.dataSourceActividad.sort = this.sort;
+          this.dataSourceActividad.paginator = this.paginator;
         }
       },
       error => {
@@ -264,7 +286,10 @@ export class EventosEditarComponent implements OnInit {
     this.materialService.getMateriales(this.id).subscribe(
       response => {
         if (response.status == 'success') {
-          this.material = response.material;
+          this.cantMateriales = response.material.length;
+          this.dataSourceMaterial = new MatTableDataSource(response.material);
+          this.dataSourceMaterial.sort = this.sort;
+          this.dataSourceMaterial.paginator = this.paginator;
         }
       },
       error => {
@@ -281,7 +306,10 @@ export class EventosEditarComponent implements OnInit {
     this.colaboradorService.getColaboradores(this.id).subscribe(
       response => {
         if (response.status == 'success') {
-          this.colaborador = response.colaborador;
+          this.cantColaboradores = response.colaborador.length;
+          this.dataSourceColaborador = new MatTableDataSource(response.colaborador);
+          this.dataSourceColaborador.sort = this.sort;
+          this.dataSourceColaborador.paginator = this.paginator;
         }
       },
       error => {
