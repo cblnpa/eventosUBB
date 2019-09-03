@@ -6,8 +6,8 @@
             <!-- evento.imagen -->
             <div class="card-img-overlay card-inverse social-profile d-flex">
                 <div class="align-self-center">
-                    <h1 *ngIf="evento.nombreEvento" class="card-title"> {{evento.nombreEvento}} </h1> <!-- evento.nombre -->
-                    <h2 class="card-subtitle"> {{evento.nombreEventoInterno}} </h2>
+                    <h1 *ngIf="evento.nombreEvento != null" class="card-title"> {{evento.nombreEvento}} </h1> <!-- evento.nombre -->
+                    <h2 *ngIf="evento.nombreEvento == null" class="card-subtitle"> {{evento.nombreEventoInterno}} </h2>
                     <hr>
                     <h4 *ngIf="jornada != null" class="card-subtitle"><i class="fa fa-calendar"></i>
                         {{jornada.fechaJornada}} </h4>
@@ -17,10 +17,10 @@
         </div>
 
         <!-- Botones -->
-        <button class="btn btn-block btn-outline-info" (click)="editarEvento(evento.idEvento)"><i
+        <button class="btn btn-block btn-primary" (click)="editarEvento(evento.idEvento)"><i
                 class="mdi mdi-pencil"></i> Editar evento </button><br>
 
-        <button *ngIf="rol == 1" class="btn btn-block btn-outline-danger" (click)="eliminarEvento(evento.idEvento)"><i
+        <button *ngIf="rol == 1" class="btn btn-block btn-danger mb-3" (click)="eliminarEvento(evento.idEvento)"><i
                 class="mdi mdi-delete"></i> Eliminar evento</button>
 
         <!-- información del evento -->
@@ -29,7 +29,7 @@
                 <h5><i class="fa fa-users"></i> Cupos</h5>
                 <h6> {{evento.capacidad}} </h6> <!-- evento.capacidad -->
                 <hr>
-                <h5><i class="mdi mdi-home-map-marker"></i> Ubicación</h5>
+                <h5><i class="mdi mdi-home-map-marker"></i> Dependencia </h5>
                 <h6> {{evento.ubicacion}} </h6> <!-- evento.ubicacion -->
                 <hr>
                 <h5><i class="mdi mdi-map-marker"></i> Dirección</h5>
