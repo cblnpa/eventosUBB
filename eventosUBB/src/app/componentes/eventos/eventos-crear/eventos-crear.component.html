@@ -2,29 +2,48 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h1>Crear un nuevo evento</h1>
+                <h1 class="text-center">Crear un nuevo evento</h1>
+                <hr>
                 <form class="form-horizontal p-t-20" #crearEventoForm="ngForm"
                     (ngSubmit)="guardarEvento(crearEventoForm)">
 
                     <!-- Nombre del evento-->
                     <div class="form-group row">
-                        <label for="nombreEventoInterno" class="col-sm-3 control-label">Nombre evento</label>
+                        <label for="nombreEventoInterno" class="col-sm-2 control-label">Nombre del evento</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="mdi mdi-city"></i></div>
-                                <input type="text" class="form-control" id="nombre" name="nombreEventoInterno" #nombreEventoInterno="ngModel" [(ngModel)]="evento.nombreEventoInterno">
+                                <input type="text" class="form-control" id="nombre" name="nombreEventoInterno"
+                                    #nombreEventoInterno="ngModel" [(ngModel)]="evento.nombreEventoInterno">
                             </div>
-                            <span class="help-block"><small>Este nombre puede ser modificado por el encargado</small></span>
+                            <span class="help-block"><small>Este nombre puede ser modificado por el
+                                    encargado</small></span>
+                        </div>
+                        <div class="col-sm-1 text-left mt-2">
+                            <button type="button" class="btn btn-secondary btn-circle" data-toggle="popover"
+                                data-placement="top"
+                                data-content="Puedes escribir cualquier nombre de evento, como por ejemplo: 'Evento interno 1'">
+                                <small id="small-btn">?</small>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Agregar el encargado del evento -->
                     <div class="form-group row">
-                        <label for="email" class="col-sm-3 control-label">Encargado</label>
+                        <label for="email" class="col-sm-2 control-label">Encargado</label>
                         <div class="col-sm-9">
-                            <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="optionsUsuario" 
-                            [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios"></ngx-select-dropdown>  
-                            <span class="help-block"><small>Selecciona la persona que va a estar a cargo del evento</small></span>
+                            <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="optionsUsuario"
+                                [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios">
+                            </ngx-select-dropdown>
+                            <span class="help-block"><small>Selecciona la persona que va a estar a cargo del
+                                    evento</small></span>
+                        </div>
+                        <div class="col-sm-1 text-left mt-2">
+                            <button type="button" class="btn btn-secondary btn-circle" data-toggle="popover"
+                                data-placement="top"
+                                data-content="Este encargado será notificado de que tiene a cargo el evento recientemente creado">
+                                <small id="small-btn">?</small>
+                            </button>
                         </div>
                     </div>
 
