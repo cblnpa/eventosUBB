@@ -3,6 +3,7 @@ import { ModalService, MaterialService, UserService } from '../../../servicios/s
 import { material } from '../../../model/material';
 import { ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal-material-add',
@@ -36,22 +37,27 @@ export class ModalMaterialAddComponent implements OnInit {
     }
   };
 
-  constructor( private modalService: ModalService, private materialService: MaterialService, 
-    private route: ActivatedRoute, private userService: UserService ) {
-      this.materialAdd = new material('','',null);
-      this.identity = this.userService.getIdentity();
-      this.token = this.userService.getToken();
-     }
+  constructor(private modalService: ModalService, private materialService: MaterialService,
+    private route: ActivatedRoute, private userService: UserService) {
+    this.materialAdd = new material('', '', null);
+    this.identity = this.userService.getIdentity();
+    this.token = this.userService.getToken();
+  }
 
   ngOnInit() {
   }
 
-  ocultarModal(){
-    this.modalService.ocultarModal();
+  //pregunta si quiere salir del modal
+  salirModal() {
+    this.modalService.salirModal();
   }
 
+  //oculta el modal luego de agregar los datos
+  ocultarModal() {
+    this.modalService.ocultarModal();
+  }
   //Formulario para agregar material
-  agregarMaterial(form){
+  agregarMaterial(form) {
     this.route.params.subscribe(
       params => {
         let id = +params['id'];
@@ -59,12 +65,18 @@ export class ModalMaterialAddComponent implements OnInit {
         this.materialService.guardarMaterial(this.materialAdd).subscribe(
           response => {
             console.log(response);
+            Swal.fire({
+              type: 'success',
+              title: 'Creado con éxito',
+              text: 'Se ha agregado un archivo al material',
+            })
           },
           error => {
             console.log(<any>error);
           }
-        )})
-        this.ocultarModal();
+        )
+      })
+    this.ocultarModal();
   }
 
   //archivo
