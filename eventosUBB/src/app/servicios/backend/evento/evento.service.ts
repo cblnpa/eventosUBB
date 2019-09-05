@@ -57,4 +57,9 @@ export class EventoService {
     return this.http.get(this.url+'evento/'+id, {headers: headers});
   }
 
+  getTipoEvento(): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'tipoEvento', {headers: headers});
+  }
+
 }

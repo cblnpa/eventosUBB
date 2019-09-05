@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService, ColaboradorService, UserService } from '../../../servicios/servicio.index';
-import { colaborador } from '../../../model/colaborador';
+import { colaborador, tipoColaborador } from '../../../model/model.index';
 import { ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal-colaborador-add',
@@ -12,6 +13,7 @@ import { global } from '../../../servicios/global';
 export class ModalColaboradorAddComponent implements OnInit {
 
   public colaboradorAdd: colaborador;
+  public tipoColaboradores;
   private url;
   private token;
   private identity;
@@ -38,14 +40,32 @@ export class ModalColaboradorAddComponent implements OnInit {
 
   constructor(private modalService: ModalService, private colaboradorService: ColaboradorService,
     private route: ActivatedRoute, private userService: UserService) {
-    this.colaboradorAdd = new colaborador('', '', null, '', '', '', null);
+    this.colaboradorAdd = new colaborador('', '', null, '', '', '',null,null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
   }
 
   ngOnInit() {
+    this.getTipoColaboradores();
   }
 
+  getTipoColaboradores(){
+    this.colaboradorService.getTipoColaboradores().subscribe(
+      response => {
+        this.tipoColaboradores = response.tipoColaborador;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  //pregunta si quiere salir del modal
+  salirModal() {
+    this.modalService.salirModal();
+  }
+
+  //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
   }
@@ -55,9 +75,15 @@ export class ModalColaboradorAddComponent implements OnInit {
       params => {
         let id = +params['id'];
         this.colaboradorAdd.evento_idEvento = id;
+        console.log(this.colaboradorAdd);
         this.colaboradorService.guardarColaborador(this.colaboradorAdd).subscribe(
           response => {
             console.log(response);
+            Swal.fire({
+              type: 'success',
+              title: 'Creado con éxito',
+              text: 'Se ha agregado un colaborador sin ningún problema',
+            })
           },
           error => {
             console.log(<any>error);

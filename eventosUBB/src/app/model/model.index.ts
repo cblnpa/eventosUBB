@@ -14,3 +14,5 @@ export { comision } from './comision';
 export { asistencia } from './asistencia';
 export {repositorio} from './repositorio';
 export { actividadPojo } from './actividadPojo';
+export { tipoEvento } from './tipoEvento';
+export { tipoColaborador } from './tipoColaborador';
