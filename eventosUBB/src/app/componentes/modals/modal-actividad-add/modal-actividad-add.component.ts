@@ -56,7 +56,7 @@ export class ModalActividadAddComponent implements OnInit {
     private expositorService: ExpositorService) {
     this.actividadAdd = new actividad('', null, null, '', '', null, null);
     this.jornada = new jornada('', null, null, null, '', '');
-    this.expositor = new expositor('', '', '', '', '', '', null);
+    this.expositor = new expositor('','','','','','','',null,null);
     this.actividadPojo = new actividadPojo('', null, null, '', '', null, null, null, '', null);
   }
 

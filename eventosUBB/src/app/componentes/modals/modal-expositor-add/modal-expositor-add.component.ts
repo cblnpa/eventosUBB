@@ -3,7 +3,7 @@ import { ModalService, ExpositorService, UserService } from '../../../servicios/
 import { expositor } from '../../../model/expositor';
 import { global } from '../../../servicios/global';
 import { ActivatedRoute } from '@angular/router';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal-expositor-add',
@@ -38,8 +38,8 @@ export class ModalExpositorAddComponent implements OnInit {
   };
 
   constructor(private modalService: ModalService, private expositorService: ExpositorService,
-    private userService: UserService, private route: ActivatedRoute ) {
-    this.expositorAdd = new expositor('', '', '', '', '', '',null);
+    private userService: UserService, private route: ActivatedRoute) {
+    this.expositorAdd = new expositor('','','','','','','',null,null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
   }
@@ -47,6 +47,12 @@ export class ModalExpositorAddComponent implements OnInit {
   ngOnInit() {
   }
 
+  //pregunta si quiere salir del modal
+  salirModal() {
+    this.modalService.salirModal();
+  }
+
+  //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
   }
@@ -61,6 +67,11 @@ export class ModalExpositorAddComponent implements OnInit {
         this.expositorService.guardarExpositor(this.expositorAdd).subscribe(
           response => {
             console.log(response);
+            Swal.fire({
+              type: 'success',
+              title: 'Creado con éxito',
+              text: 'Se ha agregado el expositor sin ningún problema',
+            })
           },
           error => {
             console.log(<any>error);
