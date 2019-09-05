@@ -1,4 +1,12 @@
 .imageLogo {
-    width: 55px;
-    height: 40px
+  width: 55px;
+  height: 40px;
+}
+
+#table-sort {
+  width: 100%;
+}
+
+#table-sort-cell {
+  font-size: 12pt;
 }

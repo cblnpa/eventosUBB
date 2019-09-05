@@ -1,47 +1,62 @@
 <body class="fix-header card-no-border fix-sidebar">
   <div class="row el-element-overlay">
-    <div class="col-md-12">
-      <h2> Unidades </h2>
+    <div class="col-md-12 mr-2 mt-2">
+      <h1 class="text-center"> Unidades </h1>
+      <br>
 
-      <!-- buscador de unidades -->
-      <div class="col-lg-12 col-md-12 col-xs-12 m-b-15">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Buscar unidad por nombre">
-          <span class="input-group-btn">
-            <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
-          </span>
+      <div class="col-md-12 col-lg-12 col-xs-12">
+
+        <!-- buscador -->
+        <div class="col-md-12">
+          <mat-form-field class="example-full-width">
+            <input matInput [(ngModel)]="filtrar" (keyup)="applyFilter()" placeholder="Buscar unidad">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="filtrar" (click)="limpiarBuscador()">
+              <i class="ti-close"></i>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div class="table-responsive">
+          <table id="table-sort" mat-table matSortActive="created_at" matSortDirection="desc" [dataSource]="dataSource"
+            matSort class="mat-elevation-z8">
+
+            <ng-container matColumnDef="created_at">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha creación</th>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.created_at | date:'shortDate'}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombreUnidad">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre unidad</th>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.nombreUnidad}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="encargado">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Encargado</th>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
+                {{unidades.user.nombreUsuario + ' ' + unidades.user.apellidoUsuario }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sede">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Sede</th>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.sede}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="logoUnidad">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Logo</th>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> <img class="imageLogo"
+                  src="{{url + 'logoImage/' + unidades.unidad.logoUnidad}}" alt="Responsive image"> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <!-- paginador -->
+          <mat-paginator [length]="cantidad" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]"></mat-paginator>
+
         </div>
       </div>
-
-      <!-- tabla con las unidades -->
-      <div class="col-md-12">
-        <table class="table color-table info-table mt-3">
-          <thead>
-            <tr>
-              <th class="text-center"> # </th>
-              <th>Logo</th>
-              <th>Nombre unidad</th>
-              <th>Sede</th>
-              <th>Encargado</th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let uni of unidades; let i = index">
-            <tr>
-              <td class="text-center"> {{i+1}} </td>
-              <td>  <img class="imageLogo" src="{{url + 'logoImage/' + uni.unidad.logoUnidad}}" alt="Responsive image"> </td>
-              <td> {{uni.unidad.nombreUnidad}} </td>
-              <td> {{uni.unidad.sede}} </td>
-              <td> {{uni.user.nombreUsuario + ' ' + uni.user.apellidoUsuario }} </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <!-- pagination -->
-        <ul class="pagination justify-content-center">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </ul>
-      </div>
-
 
     </div>
   </div>
