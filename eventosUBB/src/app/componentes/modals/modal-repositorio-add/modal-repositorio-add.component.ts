@@ -3,6 +3,7 @@ import { ModalService, RepositorioService, UserService } from '../../../servicio
 import { repositorio } from '../../../model/repositorio';
 import { ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal-repositorio-add',
@@ -45,6 +46,12 @@ export class ModalRepositorioAddComponent implements OnInit {
 
   ngOnInit() { }
 
+  //pregunta si quiere salir del modal
+  salirModal() {
+    this.modalService.salirModal();
+  }
+
+  //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
   }
@@ -53,17 +60,23 @@ export class ModalRepositorioAddComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         let id = +params['id'];
-        this.repositorioAdd.evento_idevento = id; 
+        this.repositorioAdd.evento_idevento = id;
         console.log(this.repositorioAdd);
         this.repositorioService.guardarRepositorio(this.repositorioAdd).subscribe(
           response => {
-              console.log(response);
+            console.log(response);
+            Swal.fire({
+              type: 'success',
+              title: 'Creado con éxito',
+              text: 'Se subido un archivo al repositorio',
+            })
           },
           error => {
             console.log(<any>error);
           }
-        )})
-        this.ocultarModal();
+        )
+      })
+    this.ocultarModal();
   }
 
   //archivo

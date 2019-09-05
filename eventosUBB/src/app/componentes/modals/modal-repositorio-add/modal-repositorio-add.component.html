@@ -2,14 +2,14 @@
   [ngStyle]="{ display: modalService.oculto }">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title text-primary text-center">Agregar material al repositorio</h4>
-        <button type="button" class="close" (click)="ocultarModal()">×</button>
+      <div class="modal-header">
+        <h4 class="text-uppercase text-primary">Agregar archivo</h4>
+        <button type="button" class="close" (click)="salirModal()">×</button>
       </div>
       <div class="modal-body">
         <form class="form-horizontal p-t-20" #agregarRepositorioForm="ngForm"
           (ngSubmit)="agregarArchivo(agregarRepositorioForm)">
-          
+
           <div class="form-group row">
             <label for="archivo" class="col-sm-3 control-label">Archivo</label>
             <div class="col-sm-9">
@@ -22,7 +22,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger waves-effect" (click)="ocultarModal()">Cancelar</button>
+            <button type="button" class="btn btn-danger waves-effect" (click)="salirModal()">Cancelar</button>
             <button type="submit" class="btn btn-success waves-effect waves-light">Subir archivo</button>
           </div>
         </form>
