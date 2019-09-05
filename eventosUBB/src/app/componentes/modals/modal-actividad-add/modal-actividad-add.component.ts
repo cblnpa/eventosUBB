@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalService, ActividadService, JornadaService, ExpositorService } from '../../../servicios/servicio.index';
 import { actividad, jornada, expositor, actividadPojo } from '../../../model/model.index';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal-actividad-add',
@@ -11,7 +12,6 @@ import { ActivatedRoute } from '@angular/router';
 export class ModalActividadAddComponent implements OnInit {
 
   public actividadPojo: actividadPojo;
-
   public actividadAdd: actividad;
   //variables para agregar los objetos en el select dropdown
   public jornadas: any = [];
@@ -24,9 +24,9 @@ export class ModalActividadAddComponent implements OnInit {
   public optionsExpositores;
 
   //enviar id del select dropdown
-  public idJornada; 
-  public idExpositor; 
-  public idEvento; 
+  public idJornada;
+  public idExpositor;
+  public idEvento;
 
   //opciones del select dropdown
   jornadaConfig = {
@@ -54,10 +54,10 @@ export class ModalActividadAddComponent implements OnInit {
   constructor(private modalService: ModalService, private actividadService: ActividadService,
     private route: ActivatedRoute, private jornadaService: JornadaService,
     private expositorService: ExpositorService) {
-    this.actividadAdd = new actividad('', null, null, '', '',null,null);
+    this.actividadAdd = new actividad('', null, null, '', '', null, null);
     this.jornada = new jornada('', null, null, null, '', '');
     this.expositor = new expositor('', '', '', '', '', '', null);
-    this.actividadPojo = new actividadPojo('',null,null,'','',null,'',null);
+    this.actividadPojo = new actividadPojo('', null, null, '', '', null, null, null, '', null);
   }
 
   ngOnInit() {
@@ -88,34 +88,34 @@ export class ModalActividadAddComponent implements OnInit {
         let id = +params['id'];
         this.expositorService.getExpositoresActividad(id).subscribe(
           response => {
-            console.log('resposne');
-            console.log(response);
             this.optionsExpositores = response.expositor;
-            console.log(this.optionsExpositores);
-            console.log('expositor');
           },
           error => {
             console.log(<any>error);
-
           })
       });
   }
 
-  ocultarModal() {
+  //pregunta si quiere salir del modal
+  salirModal() {
+    this.modalService.salirModal();
+  }
+
+  //oculta el modal luego de agregar los datos
+  ocultarModal(){
     this.modalService.ocultarModal();
   }
+  
 
   //Formulario para agregar actividad
   agregarActividad(form) {
-    
+
     //asignar el id de la jornada seleccionada
     this.idJornada = this.jornadas.idJornada;
     this.actividadPojo.jornada_idJornada = this.idJornada;
 
-   
-    
-    if( this.expositores != '' ){
-       //asignar el arreglo de expositores 
+    if (this.expositores != '') {
+      //asignar el arreglo de expositores 
       this.actividadPojo.expositor = this.expositores;
     } else {
       this.actividadPojo.expositor = null;
@@ -126,12 +126,16 @@ export class ModalActividadAddComponent implements OnInit {
     //asginar el id del evento
     this.actividadPojo.evento = this.idEvento;
 
-    console.log('esto te mando');
-    console.log(this.actividadPojo);
-
     this.actividadService.guardarActividad(this.actividadPojo).subscribe(
       response => {
-        console.log(response);
+        if (response.status == 'success') {
+          console.log(response);
+          Swal.fire({
+            type: 'success',
+            title: 'Creado con éxito',
+            text: 'Se ha creado la actividad sin ningún problema',
+          })
+        }
       },
       error => {
         console.log(<any>error);

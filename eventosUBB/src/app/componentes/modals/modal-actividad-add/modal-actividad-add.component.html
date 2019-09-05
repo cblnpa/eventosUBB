@@ -1,95 +1,117 @@
-<div class="modal blur" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" [ngStyle]="{ display: modalService.oculto }">
+<div class="modal blur" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    [ngStyle]="{ display: modalService.oculto }">
     <div class="modal-dialog modal-lg" style="overflow-y: scroll">
         <div class="modal-content">
-            <div class="modal-header text-center">
-                <h4 class="modal-title text-primary text-center">Agregar una nueva actividad al evento</h4>
-                <button type="button" class="close" (click)="ocultarModal()">×</button>
+            <div class="modal-header">
+                <h4 class="text-uppercase text-primary">Crear actividad</h4>
+                <button type="button" class="close" (click)="salirModal()">×</button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" #agregarActividadForm="ngForm" (ngSubmit)="agregarActividad(agregarActividadForm)">
+                <form class="form-horizontal" #agregarActividadForm="ngForm"
+                    (ngSubmit)="agregarActividad(agregarActividadForm)">
+                    <div class="col-md-12 mr-2">
 
-                    <div class="form-group row">
-                        <label for="nombreActividad" class="col-sm-3 control-label">Nombre</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="mdi mdi-assistant"></i></div>
-                                <input type="text" class="form-control" name="nombreActividad"
-                                    #nombreActividad="ngModel" [(ngModel)]="actividadPojo.nombreActividad">
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Nombre</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input1 type="text" name="nombreActividad" #nombreActividad="ngModel"
+                                    [(ngModel)]="actividadPojo.nombreActividad" maxlength="45" placeholder="Nombre">
+                                <mat-hint align="start"><strong>Ingresa el nombre de la actividad</strong> </mat-hint>
+                                <mat-hint align="end">{{input1.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Hora Inicio</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput type="time" data-autoclose="true" name="horaInicioActividad"
+                                    #horaInicioActividad="ngModel" [(ngModel)]="actividadPojo.horaInicioActividad">
+                                <mat-hint align="start"><strong>Selecciona la hora de inicio en que se desarrollará
+                                        esta actividad</strong></mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Hora término</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput type="time" name="horaFinActividad" #horaFinActividad="ngModel"
+                                    [(ngModel)]="actividadPojo.horaFinActividad">
+                                <mat-hint align="start">
+                                    <strong>Ingresa la hora de término de esta actividad</strong>
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Dependencia</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input2 type="text" name="ubicacionActividad"
+                                    #ubicacionActividad="ngModel" [(ngModel)]="actividadPojo.ubicacionActividad"
+                                    maxlength="45" placeholder="Dependencia">
+                                <mat-hint align="start">
+                                    <strong>Ingresa la dependencia de esta actividad</strong>
+                                </mat-hint>
+                                <mat-hint align="end">{{input2.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Descripción</label>
+                            <mat-form-field class="col-sm-9">
+                                <textarea matInput #input4 maxlength="250" type="text" name="descripcionActividad"
+                                    #descripcionActividad="ngModel"
+                                    [(ngModel)]="actividadPojo.descripcionActividad"></textarea>
+                                <mat-hint align="start"><strong>Ingresa la descripción de esta actividad</strong>
+                                </mat-hint>
+                                <mat-hint align="end">{{input4.value.length}} / 250</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Cupos</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput type="number" name="cupos" #cupos="ngModel"
+                                    [(ngModel)]="actividadPojo.cupos" maxlength="11">
+                                <mat-hint align="start"><strong>Ingresa la cantidad de cupos si es que esta
+                                        actividad lo requiere</strong> </mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Actividad paralela</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput type="text" name="actividadParalela" #actividadParalela="ngModel"
+                                    [(ngModel)]="actividadPojo.actividadParalela">
+                                <mat-hint align="start"><strong>Seleccione si esta actividad se realiza en paralelo
+                                        junto a otra actividad</strong> </mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Jornada</label>
+                            <div class="col-sm-9">
+                                <ngx-select-dropdown tabindex="0" [config]="jornadaConfig" [options]="optionsJornadas"
+                                    [multiple]="false" name="jornada_idJornada" #jornada_idJornada="ngModel"
+                                    [(ngModel)]="jornadas"></ngx-select-dropdown>
+                                <span class="help-block"><small>Selecciona la jornada a la que pertenece esta
+                                        actividad</small></span>
                             </div>
-                            <span class="help-block"><small>Ingresa el nombre de la actividad</small></span>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Expositores</label>
+                            <div class="col-sm-9">
+                                <ngx-select-dropdown tabindex="0" [config]="expositorConfig"
+                                    [options]="optionsExpositores" [multiple]="true" name="expositor_idExpositor"
+                                    #expositor_idExpositor="ngModel" [(ngModel)]="expositores">
+                                </ngx-select-dropdown>
+                                <span class="help-block"><small>Selecciona los expositores requeridos para esta actividad</small></span>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                            <label for="horaInicioActividad" class="col-sm-3 control-label">Hora inicio</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="mdi mdi-clock"></i></div>
-                                    <input type="time" class="form-control" name="horaInicioActividad"
-                                        #horaInicioActividad="ngModel" [(ngModel)]="actividadPojo.horaInicioActividad">
-                                </div>
-                                <span class="help-block"><small>Selecciona la hora de inicio en que se desarrollará esta actividad</small></span>
-                            </div>
-                    </div>
-
-                    <div class="form-group row">
-                            <label for="horafinActividad" class="col-sm-3 control-label">Hora de término</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="mdi mdi-clock"></i></div>
-                                    <input type="time" class="form-control" name="horafinActividad"
-                                        #horafinActividad="ngModel" [(ngModel)]="actividadPojo.horaFinActividad">
-                                </div>
-                                <span class="help-block"><small>Ingresa la hora de término de esta actividad</small></span>
-                            </div>
-                    </div>
-
-                    <div class="form-group row">
-                            <label for="ubicacionActividad" class="col-sm-3 control-label">Ubicación</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="mdi mdi-map-marker"></i></div>
-                                    <input type="text" class="form-control" name="ubicacionActividad"
-                                        #ubicacionActividad="ngModel" [(ngModel)]="actividadPojo.ubicacionActividad">
-                                </div>
-                                <span class="help-block"><small>Ingresa la ubicación de esta actividad</small></span>
-                            </div>
-                    </div>
-
-                    <div class="form-group row">
-                            <label for="descripcionActividad" class="col-sm-3 control-label">Descripción</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="mdi mdi-comment-text"></i></div>
-                                    <input type="text" class="form-control" name="descripcionActividad"
-                                        #descripcionActividad="ngModel" [(ngModel)]="actividadPojo.descripcionActividad">
-                                </div>
-                                <span class="help-block"><small>Ingresa la descripción de esta actividad</small></span>
-                            </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label">Jornada</label>
-                        <div class="col-sm-9">
-                          <ngx-select-dropdown tabindex="0" [config]="jornadaConfig" [options]="optionsJornadas"
-                          [multiple]="false" name="jornada_idJornada" #jornada_idJornada="ngModel"
-                          [(ngModel)]="jornadas"></ngx-select-dropdown>
-                          <span class="help-block"><small>Selecciona la jornada a la que pertenece esta actividad</small></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label">Expositores</label>
-                        <div class="col-sm-9">
-                          <ngx-select-dropdown tabindex="0" [config]="expositorConfig" [options]="optionsExpositores"
-                          [multiple]="true" name="expositor_idExpositor" #expositor_idExpositor="ngModel"
-                          [(ngModel)]="expositores"></ngx-select-dropdown>
-                          <span class="help-block"><small>Selecciona los expositores requeridos para esta actividad</small></span>
-                        </div>
-                    </div>
-
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger waves-effect" (click)="ocultarModal()">Cancelar</button>
+                        <button type="button" class="btn btn-danger waves-effect"
+                            (click)="salirModal()">Cancelar</button>
                         <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
                     </div>
                 </form>
