@@ -1,32 +1,30 @@
 <aside class="left-sidebar">
-
     <div class="scroll-sidebar">
-        
         <nav class="sidebar-nav">
-
             <ul id="sidebarnav">
-
                 <li class="user-profile">
                     <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                        <img *ngIf="!identity.avatar" src="../../../assets/images/user.png" alt="user" class="profile-pic" />
-                        <img *ngIf="identity && identity.avatar" src="{{url + 'user/avatar/' + identity.avatar}}" class="profile-pic">
+                        <img *ngIf="!identity.avatar" src="../../../assets/images/user.png" alt="user"
+                            class="profile-pic" />
+                        <img *ngIf="identity && identity.avatar" src="{{url + 'user/avatar/' + identity.avatar}}"
+                            class="profile-pic">
                         <span class="hide-menu"> {{ identity.nombreUsuario + ' ' + identity.apellidoUsuario }} </span>
                     </a>
 
                     <ul aria-expanded="false" class="collapse">
-                        <li><a class="pointer" routerLinkActive="active" [routerLink]="['/editLogin']">Modificar perfil</a></li>
+                        <li><a class="pointer" routerLinkActive="active" [routerLink]="['/editLogin']">
+                            Modificar perfil</a></li>
 
                     </ul>
-
                     <ul aria-expanded="false" class="collapse">
-                        <li><a class="pointer" (click)="userService.logout()"><i class="fa fa-power-off"></i> Cerrar sesión</a></li>
+                        <li><a class="pointer" (click)="userService.logout()">
+                            <i class="fa fa-power-off"></i> Cerrar sesión</a></li>
                     </ul>
                 </li>
 
-                <li routerLink="/inicio"> 
+                <li routerLink="/inicio">
                     <a class="waves-effect waves-dark" aria-expanded="false">
-                        <i class="mdi mdi-home"></i>
-                        <span class="hide-menu">Inicio</span>
+                        <i class="mdi mdi-home"></i><span class="hide-menu">Inicio</span>
                     </a>
                 </li>
 
@@ -39,7 +37,19 @@
                     <ul aria-expanded="false" class="collapse">
                         <li> <a routerLinkActive="active" routerLink="/inicio"> Ver eventos </a> </li>
                         <li> <a routerLinkActive="active" routerLink="/misEventos"> Mis eventos </a> </li>
-                        <li *ngIf="idPerfil == 3"> <a routerLinkActive="active" routerLink="/crearEvento"> Crear evento </a> </li>
+                        <li *ngIf="idPerfil == 3"> <a routerLinkActive="active" routerLink="/crearEvento"> Crear evento
+                            </a> </li>
+                    </ul>
+                </li>
+
+                <!-- Opción de generar utilidades -->
+                <li *ngIf="idPerfil == 4">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <i class="mdi mdi-pencil-box-outline"></i><span class="hide-menu"> Utilidades</span>
+                    </a>
+
+                    <ul aria-expanded="false" class="collapse">
+                        <li> <a routerLinkActive="active" routerLink="/generarUtilidades"> Generar utilidades</a> </li>
                     </ul>
                 </li>
 
@@ -62,8 +72,8 @@
                     </a>
 
                     <ul aria-expanded="false" class="collapse">
-                        <li> <a routerLinkActive="active" routerLink="/verSubUnidades"> Ver sub unidades </a> </li>
-                        <li> <a routerLinkActive="active" routerLink="/crearSubUnidad"> Crear sub unidad </a> </li>
+                        <li> <a routerLinkActive="active" routerLink="/verUnidades"> Ver sub unidades </a> </li>
+                        <li> <a routerLinkActive="active" routerLink="/crearUnidad"> Crear sub unidad </a> </li>
                     </ul>
                 </li>
 
@@ -89,22 +99,7 @@
                         <li> <a routerLinkActive="active" routerLink="/crearComision"> Crear comisión </a> </li>
                     </ul>
                 </li>
-
-
-                <!-- opciones de menú con un servicio ¡ocupar más adelante! -->
-                <!-- <li *ngFor="let menu of _sidebar.menu"> 
-                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
-                        <i [class]="menu.icono"></i><span class="hide-menu"> {{menu.titulo}} </span>
-                    </a>
-                    
-                    <ul aria-expanded="false" class="collapse">
-                        <li *ngFor="let submenu of menu.submenu">
-                            <a routerLinkActive="active" [routerLink]="[ submenu.url ]"> {{ submenu.titulo}} </a>
-                        </li>    
-                    </ul>
-                </li> -->
-
-                    </ul>
-                </nav>
-            </div>
-        </aside>
+            </ul>
+        </nav>
+    </div>
+</aside>

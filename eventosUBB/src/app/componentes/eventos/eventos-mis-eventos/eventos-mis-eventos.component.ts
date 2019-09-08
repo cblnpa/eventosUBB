@@ -69,12 +69,14 @@ export class EventosMisEventosComponent implements OnInit {
     this.eventoUsersService.getMisEventosAdmin2(this.sub).subscribe(
       response => {
         console.log(response);
-        this.misEventosAdmin = response.eventos;
-        console.log(this.misEventosAdmin);
-        this.cantidadEventos = response.eventos.length; //cantidad de eventos
-        this.dataSource = new MatTableDataSource(response.eventos);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        if (response.status == 'success') {
+          this.misEventosAdmin = response.eventos;
+          console.log(this.misEventosAdmin);
+          this.cantidadEventos = response.eventos.length; //cantidad de eventos
+          this.dataSource = new MatTableDataSource(response.eventos);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
       },
       error => {
         console.log(<any>error);

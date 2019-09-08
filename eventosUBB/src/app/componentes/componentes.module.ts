@@ -13,7 +13,7 @@ import {
     ComponentesComponent, EditLoginComponent, InicioComponent, EventosDetallesComponent,
     EventosEditarComponent, EventosMisEventosComponent, EventosCrearComponent, EventosDetallesPublicComponent,
     UnidadesCrearComponent, UnidadesVerComponent, ReportesGenerarComponent, ComisionVerComponent,
-    ComisionCrearComponent } from '../componentes/componentes.index';
+    ComisionCrearComponent, GenerarUtilidadesComponent } from '../componentes/componentes.index';
 
 import {
     ModalJornadaAddComponent, ModalExpositorAddComponent, ModalMaterialAddComponent,
@@ -63,6 +63,7 @@ import { PipesModule } from '../pipes/pipes.module';
         ModalMaterialAddComponent,
         ModalColaboradorAddComponent,
         ModalRepositorioAddComponent,
+        GenerarUtilidadesComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
