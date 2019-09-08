@@ -9,8 +9,8 @@ declare const fabric: any;
 })
 export class GenerarUtilidadesComponent implements OnInit {
 
-  private canvas: any;
-  private props: any = {
+  public canvas: any;
+  public props: any = {
     canvasFill: '#ffffff',
     canvasImage: '',
     id: null,
@@ -25,18 +25,18 @@ export class GenerarUtilidadesComponent implements OnInit {
     fontFamily: null,
     TextDecoration: ''
   };
-  private textString: string;
-  private url: string = '';
-  private size: any = {
+  public textString: string;
+  public url: string = '';
+  public size: any = {
     width: 500,
     height: 800
   };
-  private json: any;
-  private globalEditor: boolean = false;
-  private textEditor: boolean = false;
-  private imageEditor: boolean = false;
-  private figureEditor: boolean = false;
-  private selected: any;
+  public json: any;
+  public globalEditor: boolean = false;
+  public textEditor: boolean = false;
+  public imageEditor: boolean = false;
+  public figureEditor: boolean = false;
+  public selected: any;
 
   constructor() { }
 
