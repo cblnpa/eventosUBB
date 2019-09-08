@@ -44,3 +44,7 @@
   overflow: auto;
   max-height: 300px;
 }
+
+.btn-primary{
+  margin-right: 2px;
+}

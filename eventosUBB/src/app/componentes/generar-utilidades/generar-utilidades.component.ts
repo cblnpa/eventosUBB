@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
+
 import 'fabric';
 declare const fabric: any;
 
@@ -172,7 +174,7 @@ export class GenerarUtilidadesComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       reader.onload = (event) => {
-        // this.url = event.target['result'];
+        this.url = event.target['result'];
       }
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -495,9 +497,26 @@ export class GenerarUtilidadesComponent implements OnInit {
   }
 
   confirmClear() {
-    if (confirm('Are you sure?')) {
-      this.canvas.clear();
-    }
+    Swal.fire({
+      title: '¿Quiere limpiar la zona de trabajo?',
+      text: "Si acepta se perderán todos los cambios",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, quiero limpiar'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          '¡Ya hemos limpiado la zona de trabajo!'
+        )
+        this.canvas.clear();
+      }
+    })
+
+    // if (confirm('¿Está seguro de limpiar la pantalla?')) {
+    //   this.canvas.clear();
+    // }
   }
 
   rasterize() {
