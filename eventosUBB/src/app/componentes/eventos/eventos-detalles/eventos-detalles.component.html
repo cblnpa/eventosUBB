@@ -6,7 +6,7 @@
             <!-- evento.imagen -->
             <div class="card-img-overlay card-inverse social-profile d-flex">
                 <div class="align-self-center">
-                    <h1 *ngIf="evento.nombreEvento != null" class="card-title"> {{evento.nombreEvento}} </h1> <!-- evento.nombre -->
+                    <h2 *ngIf="evento.nombreEvento != null" class="card-title"> {{evento.nombreEvento}} </h2> <!-- evento.nombre -->
                     <h2 *ngIf="evento.nombreEvento == null" class="card-subtitle"> {{evento.nombreEventoInterno}} </h2>
                     <hr>
                     <h4 *ngIf="jornada != null" class="card-subtitle"><i class="fa fa-calendar"></i>

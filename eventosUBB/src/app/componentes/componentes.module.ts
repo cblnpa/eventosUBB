@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-
 //Rutas
 import { COMPONENTES_ROUTES } from './componentes.routes';
-
 // Módulos
 import { UtilidadesModule } from '../utilidades/utilidades.module';
-
 // Componentes
 import {
     ComponentesComponent, EditLoginComponent, InicioComponent, EventosDetallesComponent,
@@ -23,7 +20,6 @@ import {
 // Formularios
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 //Angular material
 import { MatStepperModule, MatInputModule, MatCardModule, MatButtonModule, MatPaginatorModule,
     MatSortModule, MatTableModule, MatSelectModule, MatProgressSpinnerModule,
@@ -38,9 +34,10 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
 import { AngularFileUploaderModule } from "angular-file-uploader";
 //paginación
 import { NgxPaginationModule } from 'ngx-pagination';
-
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
+//Generador de utilidades
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
     declarations: [
@@ -113,6 +110,7 @@ import { PipesModule } from '../pipes/pipes.module';
         ShareButtonModule,
         SelectDropDownModule,
         PipesModule,
+        ColorPickerModule,
         COMPONENTES_ROUTES
     ]
 })
