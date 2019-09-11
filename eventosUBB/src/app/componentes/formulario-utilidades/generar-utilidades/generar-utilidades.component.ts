@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
 import 'fabric';
@@ -40,7 +41,11 @@ export class GenerarUtilidadesComponent implements OnInit {
   public figureEditor: boolean = false;
   public selected: any;
 
-  constructor() { }
+  //Mis variables
+  public idEvento;
+  public tipoUtilidad;
+
+  constructor( private route: ActivatedRoute ) { }
 
   ngOnInit() {
     //setup front side canvas
@@ -100,9 +105,21 @@ export class GenerarUtilidadesComponent implements OnInit {
 
     this.canvas.setWidth(this.size.width);
     this.canvas.setHeight(this.size.height);
+
+    this.cargarDatos();
   }
 
-  //Block "Size"
+  //Mostrar cosas que paso por parámetro
+  cargarDatos(){
+    this.route.params.subscribe(params => {
+      this.idEvento = +params['id'];
+      this.tipoUtilidad = params['tipo'];
+      console.log('id evento en generar: ' + this.idEvento);
+      console.log('Tipo en generar: ' + this.tipoUtilidad);
+    })
+  }
+
+  //Cambiar tamaño del canvas
   changeSize(event: any) {
     this.canvas.setWidth(this.size.width);
     this.canvas.setHeight(this.size.height);

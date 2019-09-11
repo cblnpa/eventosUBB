@@ -1,4 +1,5 @@
 <body class="fix-header card-no-border fix-sidebar">
+
   <div class="container">
 
     <!-- Contenedor de los botones-->
@@ -58,7 +59,7 @@
             </div>
           </div>
         </div>
-        <br/>
+        <br />
 
         <!-- Tarjeta para añadir texto -->
         <div class="card">
@@ -77,33 +78,17 @@
             </div>
           </div>
         </div>
-        <br/>
+        <br />
 
         <!-- Tarjeta para añadir imágenes -->
         <div class="card">
           <div class="card-header">Agregar imágenes</div>
           <div class="card-body max-height">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="../../../assets/images/user.png">
-            <!-- <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/pikachu.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/squirtle.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/bullbasaur.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/charmander.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/bellsprout.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/caterpie.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/dratini.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/eevee.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/jigglypuff.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/mankey.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/meowth.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/pidgey.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/psyduck.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/rattata.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/abra.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/snorlax.svg">
-            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/zubat.svg"> -->
+            <img *ngIf="tipoUtilidad == 'diploma' " class="images-item" (click)="getImgPolaroid($event)" src="../../../../assets/images/diploma-institucional.jpg">
+            
           </div>
         </div>
-        <br/>
+        <br />
 
         <!-- Tarjeta para subir imágenes-->
         <div class="card">
@@ -111,8 +96,8 @@
           <div class="card-body text-center">
             <img id="testImage" *ngIf="url" class="images-item-upload" [src]="url" (click)="addImageOnCanvas(url);">
             <input type="file" (change)="readUrl($event);">
-            <br/>
-            <br/>
+            <br />
+            <br />
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeWhite(url);">
@@ -121,7 +106,7 @@
             </div>
           </div>
         </div>
-        <br/>
+        <br />
 
         <!-- Card para agregar figuras -->
         <div class="card">
@@ -154,12 +139,12 @@
                 class="btn btn-outline-danger" [disabled]="!selected" (click)="removeSelected();">
                 <i class="fa fa-trash" aria-hidden="true"></i>
               </button>
-              <button data-toggle="tooltip" data-placement="bottom" title="Enviar elemento seleccionado al fondo" type="button"
-                class="btn btn-outline-primary" [disabled]="!selected" (click)="sendToBack();">
+              <button data-toggle="tooltip" data-placement="bottom" title="Enviar elemento seleccionado al fondo"
+                type="button" class="btn btn-outline-primary" [disabled]="!selected" (click)="sendToBack();">
                 <i class="fa fa-level-down" aria-hidden="true"></i>
               </button>
-              <button data-toggle="tooltip" data-placement="bottom" title="Enviar elemento seleccionado al frente" type="button"
-                class="btn btn-outline-primary" [disabled]="!selected" (click)="bringToFront();">
+              <button data-toggle="tooltip" data-placement="bottom" title="Enviar elemento seleccionado al frente"
+                type="button" class="btn btn-outline-primary" [disabled]="!selected" (click)="bringToFront();">
                 <i class="fa fa-level-up" aria-hidden="true"></i>
               </button>
               <button data-toggle="tooltip" data-placement="bottom" title="Clonar elemento seleccionado" type="button"
@@ -173,7 +158,7 @@
             </div>
           </div>
         </div>
-        <br/>
+        <br />
 
         <!-- Card para cambiar los colores de los elementos -->
         <div class="card" *ngIf="!selected">
@@ -196,7 +181,7 @@
             </div>
           </div>
         </div>
-        <br/>
+        <br />
 
         <!-- Configuración de los ítems seleccionados -->
         <div class="card">

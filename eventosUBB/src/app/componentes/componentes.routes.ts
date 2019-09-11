@@ -5,7 +5,7 @@ import { ComponentesComponent } from './componentes.component';
 import { LoginComponent, EditLoginComponent, InicioComponent, EventosDetallesComponent,
         EventosEditarComponent, EventosMisEventosComponent, EventosCrearComponent, GenerarUtilidadesComponent,
         EventosDetallesPublicComponent, UnidadesCrearComponent, UnidadesVerComponent,
-        ReportesGenerarComponent, ComisionVerComponent, ComisionCrearComponent } from '../componentes/componentes.index';
+        ReportesGenerarComponent, ComisionVerComponent, ComisionCrearComponent, FormularioUtilidadesComponent } from '../componentes/componentes.index';
 
 import { LoginGuard } from '../servicios/guards/login.guard';
 
@@ -28,7 +28,8 @@ const componentesRoutes: Routes = [
             { path: 'verComisiones', component: ComisionVerComponent, data: { titulo: 'Comisiones' } },
             { path: 'crearComision', component: ComisionCrearComponent, data: { titulo: 'Crear nueva comisión' } },
             { path: 'eventoDetallePublic/:id', component: EventosDetallesPublicComponent, data: { titulo: 'Detalles del evento' } },
-            { path: 'generarUtilidades', component: GenerarUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },
+            { path: 'generarUtilidades', component: FormularioUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },
+            { path: 'generarUtilidades/:id/:tipo', component: GenerarUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },
         ]
     }
 ];
