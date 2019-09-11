@@ -34,6 +34,7 @@
     "angular-file-uploader": "^5.0.2",
     "core-js": "^2.5.4",
     "fabric": "^1.7.22",
+    "jspdf": "^1.5.3",
     "ngx-pagination": "^4.0.0",
     "ngx-select-dropdown": "^1.0.1",
     "rxjs": "~6.3.3",

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as jsPDF from 'jspdf';
 import Swal from 'sweetalert2';
 
 import 'fabric';
@@ -45,7 +46,7 @@ export class GenerarUtilidadesComponent implements OnInit {
   public idEvento;
   public tipoUtilidad;
 
-  constructor( private route: ActivatedRoute ) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     //setup front side canvas
@@ -110,7 +111,7 @@ export class GenerarUtilidadesComponent implements OnInit {
   }
 
   //Mostrar cosas que paso por parámetro
-  cargarDatos(){
+  cargarDatos() {
     this.route.params.subscribe(params => {
       this.idEvento = +params['id'];
       this.tipoUtilidad = params['tipo'];
@@ -548,6 +549,40 @@ export class GenerarUtilidadesComponent implements OnInit {
       var w = window.open("");
       w.document.write(image.outerHTML);
     }
+  }
+
+  downloadPDF() {
+    // console.log('downloading pdf ...');
+    // const doc = new jsPDF();
+
+    // // doc.addHTML()
+    // // doc.addImage(this.canvas.toDataURL(),'png');
+    // // doc.addHTML((this.canvas.toSVG()));
+    // // doc.addPage();
+    // // doc.text(image.outerHTML
+    // // , 15, 15);
+    // this.json = JSON.stringify(this.canvas, null, 2);
+
+    // var width = doc.internal.pageSize.getWidth();
+    // var height = doc.internal.pageSize.getHeight();
+    // let json = JSON.stringify(this.canvas);
+    // var imgData ="http://localhost:4200/assets/img/pikachu.svg";
+    // localStorage.setItem('Kanvas', json);
+    // doc.addImage(imgData, 'JPEG', 0, 0, width, height);
+    // var w = window.open("http://localhost:4200/");
+
+    // w.document.write(this.canvas.toSVG());
+
+
+    // var img = canvas.toDataURL("image/png");
+    let a: any = document.getElementById('canvas');
+    var doc = new jsPDF({
+      unit: 'px',
+      format: [a.width, a.height]
+    });
+
+    doc.addImage(a, 'JPEG', 0, 0, a.width, a.height);
+    doc.save('testCanvas.pdf');
   }
 
   rasterizeSVG() {
