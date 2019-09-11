@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import * as jsPDF from 'jspdf';
 import Swal from 'sweetalert2';
 
+//mis importaciones
+import { EventoUsersService, EventoPojoService, ComisionService } from '../../../servicios/servicio.index';
+
 import 'fabric';
 declare const fabric: any;
 
@@ -43,10 +46,15 @@ export class GenerarUtilidadesComponent implements OnInit {
   public selected: any;
 
   //Mis variables
-  public idEvento;
-  public tipoUtilidad;
+  public idEvento; //obtenido por parámetro; id del evento a trabajar
+  public tipoUtilidad; //obtenido por parámetro; diploma-credencial-certificado
+  public participantes; //almacena los participantes del evento para generar diplomas y certificados
+  public expositores; //almacena los expositores del evento para generar diplomas
+  public colaboradores; //almacena los colaboradores para generar diplomas
+  public comision; //almacena los integrantes de la comision para generar las credenciales
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private eventoService: EventoPojoService,
+    private comisionService: ComisionService, private eventoUsersService: EventoUsersService) { }
 
   ngOnInit() {
     //setup front side canvas
@@ -66,14 +74,10 @@ export class GenerarUtilidadesComponent implements OnInit {
         selectedObject.hasRotatingPoint = true;
         selectedObject.transparentCorners = false;
         // selectedObject.cornerColor = 'rgba(255, 87, 34, 0.7)';
-
         this.resetPanels();
-
         if (selectedObject.type !== 'group' && selectedObject) {
-
           this.getId();
           this.getOpacity();
-
           switch (selectedObject.type) {
             case 'rect':
             case 'circle':
@@ -115,9 +119,65 @@ export class GenerarUtilidadesComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.idEvento = +params['id'];
       this.tipoUtilidad = params['tipo'];
-      console.log('id evento en generar: ' + this.idEvento);
-      console.log('Tipo en generar: ' + this.tipoUtilidad);
+      // console.log('id evento en generar: ' + this.idEvento);
+      // console.log('Tipo en generar: ' + this.tipoUtilidad);
     })
+
+    // Obtener los participantes del evento
+    this.eventoUsersService.getEventoUsersById(this.idEvento).subscribe(
+      //comprobar si está vacío && retorna "success"
+      response => {
+        if (response.code == 200 && (response.evento.length) > 0) {
+          this.participantes = response.evento;
+        } else {
+          console.log('aún no hay participantes en este evento');
+          this.participantes = '';
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+
+    //Obtener expositores,colaboradores del evento
+    this.eventoService.getEventoPojoById(this.idEvento).subscribe(
+      response => {
+        //Expositores
+        if (response.code == 200 && (response.expositor.length) > 0) {
+          this.expositores = response.expositor;
+        } else {
+          console.log('aún no hay expositores en este evento');
+          this.expositores = '';
+        }
+
+        //Colaboradores
+        if (response.code == 200 && response.colaborador != null) {
+          this.colaboradores = response.colaborador;
+        } else {
+          console.log('aún no hay colaboradores en este evento');
+          this.colaboradores = '';
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+
+    //Obtener integrantes de la comisión del evento
+    this.comisionService.getComisiones(this.idEvento).subscribe(
+      response => {
+        if (response.code == 200 && (response.comisiones.length) > 0) {
+          this.comision = response.comisiones;
+        } else {
+          console.log('aún no hay integrantes en la comisión');
+          this.comision = '';
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+
   }
 
   //Cambiar tamaño del canvas
@@ -552,34 +612,11 @@ export class GenerarUtilidadesComponent implements OnInit {
   }
 
   downloadPDF() {
-    // console.log('downloading pdf ...');
-    // const doc = new jsPDF();
-
-    // // doc.addHTML()
-    // // doc.addImage(this.canvas.toDataURL(),'png');
-    // // doc.addHTML((this.canvas.toSVG()));
-    // // doc.addPage();
-    // // doc.text(image.outerHTML
-    // // , 15, 15);
-    // this.json = JSON.stringify(this.canvas, null, 2);
-
-    // var width = doc.internal.pageSize.getWidth();
-    // var height = doc.internal.pageSize.getHeight();
-    // let json = JSON.stringify(this.canvas);
-    // var imgData ="http://localhost:4200/assets/img/pikachu.svg";
-    // localStorage.setItem('Kanvas', json);
-    // doc.addImage(imgData, 'JPEG', 0, 0, width, height);
-    // var w = window.open("http://localhost:4200/");
-
-    // w.document.write(this.canvas.toSVG());
-
-
-    // var img = canvas.toDataURL("image/png");
     let a: any = document.getElementById('canvas');
     var doc = new jsPDF({
       orientation: 'auto',
       unit: 'px',
-      format: [ this.size.width, this.size.height ]
+      format: [this.size.width, this.size.height]
     });
 
     doc.addImage(a, 'JPEG', 0, 0, a.width, a.height);
