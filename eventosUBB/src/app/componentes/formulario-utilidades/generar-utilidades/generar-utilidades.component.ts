@@ -577,8 +577,9 @@ export class GenerarUtilidadesComponent implements OnInit {
     // var img = canvas.toDataURL("image/png");
     let a: any = document.getElementById('canvas');
     var doc = new jsPDF({
+      orientation: 'auto',
       unit: 'px',
-      format: [a.width, a.height]
+      format: [ this.size.width, this.size.height ]
     });
 
     doc.addImage(a, 'JPEG', 0, 0, a.width, a.height);
