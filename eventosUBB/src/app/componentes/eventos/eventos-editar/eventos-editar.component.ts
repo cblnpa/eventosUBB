@@ -105,15 +105,15 @@ export class EventosEditarComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
+    this.getDatosEvento();
     this.getCiudades();
     this.getCategorias();
     this.getTipoEventos();
-    this.getDatosEvento();
     this.mostrarJornadas();
     this.mostrarExpositores();
     this.mostrarActividades();
-    this.mostrarMateriales();
     this.mostrarColaboradores();
+    this.mostrarMateriales();
     this.paginadorSettings();
     this.idUsuario = this.identity.sub;
     //Stepper 1 del evento 
@@ -245,11 +245,13 @@ export class EventosEditarComponent implements OnInit {
   mostrarExpositores() {
     this.expositorService.getExpositoresActividad(this.id).subscribe(
       response => {
-        if (response.status == 'success') {
+        if ( response.code == 200 && (response.expositor.length) > 0 ) {
           this.cantExpositores = response.expositor.length;
           this.dataSourceExpositor = new MatTableDataSource(response.expositor);
           this.dataSourceExpositor.sort = this.sort;
           this.dataSourceExpositor.paginator = this.paginator;
+        } else {
+          console.log('este evento aún no tiene expositores');
         }
       },
       error => {
@@ -265,11 +267,14 @@ export class EventosEditarComponent implements OnInit {
   mostrarActividades() {
     this.actividadService.getActividades(this.id).subscribe(
       response => {
-        if (response.status == 'success') {
+        console.log(response);
+        if ( response.code == 200 && (response.actividades.length) > 0 ) {
           this.cantActividades = response.actividades.length;
           this.dataSourceActividad = new MatTableDataSource(response.actividades);
           this.dataSourceActividad.sort = this.sort;
           this.dataSourceActividad.paginator = this.paginator;
+        } else {
+          console.log('este evento aún no tiene actividades');
         }
       },
       error => {
@@ -305,11 +310,14 @@ export class EventosEditarComponent implements OnInit {
   mostrarColaboradores() {
     this.colaboradorService.getColaboradores(this.id).subscribe(
       response => {
-        if (response.status == 'success') {
+        console.log(response);
+        if ( response.code == 200 && (response.colaborador.length) > 0 ) {
           this.cantColaboradores = response.colaborador.length;
           this.dataSourceColaborador = new MatTableDataSource(response.colaborador);
           this.dataSourceColaborador.sort = this.sort;
           this.dataSourceColaborador.paginator = this.paginator;
+        } else {
+          console.log('aún no hay ningún colaborador en este evento');
         }
       },
       error => {
