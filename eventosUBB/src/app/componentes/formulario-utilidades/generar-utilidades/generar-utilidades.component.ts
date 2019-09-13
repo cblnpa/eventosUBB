@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { EventoUsersService, EventoPojoService, ComisionService } from '../../../servicios/servicio.index';
 
 import 'fabric';
+import { $ } from 'protractor';
 declare const fabric: any;
 
 @Component({
@@ -36,7 +37,7 @@ export class GenerarUtilidadesComponent implements OnInit {
   public url: string = '';
   public size: any = {
     width: 500,
-    height: 800
+    height: 500
   };
   public json: any;
   public globalEditor: boolean = false;
@@ -52,6 +53,8 @@ export class GenerarUtilidadesComponent implements OnInit {
   public expositores; //almacena los expositores del evento para generar diplomas
   public colaboradores; //almacena los colaboradores para generar diplomas
   public comision; //almacena los integrantes de la comision para generar las credenciales
+
+  public texto: string; //similar al textString
 
   constructor(private route: ActivatedRoute, private eventoService: EventoPojoService,
     private comisionService: ComisionService, private eventoUsersService: EventoUsersService) { }
@@ -117,10 +120,9 @@ export class GenerarUtilidadesComponent implements OnInit {
   //Mostrar cosas que paso por parámetro
   cargarDatos() {
     this.route.params.subscribe(params => {
+      //Asignar el id del evento y el tipo de utilidad para ocultar y mostrar
       this.idEvento = +params['id'];
       this.tipoUtilidad = params['tipo'];
-      // console.log('id evento en generar: ' + this.idEvento);
-      // console.log('Tipo en generar: ' + this.tipoUtilidad);
     })
 
     // Obtener los participantes del evento
@@ -129,6 +131,8 @@ export class GenerarUtilidadesComponent implements OnInit {
       response => {
         if (response.code == 200 && (response.evento.length) > 0) {
           this.participantes = response.evento;
+          console.log('participantes:');
+          console.log(this.participantes);
         } else {
           console.log('aún no hay participantes en este evento');
           this.participantes = '';
@@ -145,6 +149,8 @@ export class GenerarUtilidadesComponent implements OnInit {
         //Expositores
         if (response.code == 200 && (response.expositor.length) > 0) {
           this.expositores = response.expositor;
+          console.log('expositores');
+          console.log(this.expositores);
         } else {
           console.log('aún no hay expositores en este evento');
           this.expositores = '';
@@ -153,6 +159,8 @@ export class GenerarUtilidadesComponent implements OnInit {
         //Colaboradores
         if (response.code == 200 && response.colaborador != null) {
           this.colaboradores = response.colaborador;
+          console.log('colaboradores');
+          console.log(this.colaboradores);
         } else {
           console.log('aún no hay colaboradores en este evento');
           this.colaboradores = '';
@@ -204,6 +212,11 @@ export class GenerarUtilidadesComponent implements OnInit {
     this.canvas.add(text);
     this.selectItemAfterAdded(text);
     this.textString = '';
+  }
+
+  addText2() {
+    console.log(this.texto);
+    
   }
 
   //Block "Add images"

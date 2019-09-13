@@ -59,7 +59,6 @@
             </div>
           </div>
         </div>
-        <br />
 
         <!-- Tarjeta para añadir texto -->
         <div class="card">
@@ -84,20 +83,18 @@
         <div class="card">
           <div class="card-header">Agregar imágenes</div>
           <div class="card-body max-height">
-            <img *ngIf="tipoUtilidad == 'diploma' " class="images-item" (click)="getImgPolaroid($event)" src="../../../../assets/images/diploma-institucional.jpg">
-            
+            <img *ngIf="tipoUtilidad == 'diploma' " class="images-item" (click)="getImgPolaroid($event)"
+              src="../../../../assets/images/diploma-institucional.jpg">
+
           </div>
         </div>
-        <br />
 
         <!-- Tarjeta para subir imágenes-->
         <div class="card">
           <div class="card-header">Subir imagen</div>
           <div class="card-body text-center">
             <img id="testImage" *ngIf="url" class="images-item-upload" [src]="url" (click)="addImageOnCanvas(url);">
-            <input type="file" (change)="readUrl($event);">
-            <br />
-            <br />
+            <input type="file" class="mb-2" (change)="readUrl($event);">
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeWhite(url);">
@@ -106,11 +103,10 @@
             </div>
           </div>
         </div>
-        <br />
 
         <!-- Card para agregar figuras -->
         <div class="card">
-          <div class="card-header">Agregar figura</div>
+          <!-- <div class="card-header">Agregar figura</div>
           <div class="card-body text-center max-height">
             <div class="btn-group btn-group-vertical" role="group" aria-label="...">
               <button type="button" class="btn btn-primary" (click)="addFigure('rectangle');">Rectángulo</button>
@@ -118,8 +114,101 @@
               <button type="button" class="btn btn-primary" (click)="addFigure('triangle');">Triángulo</button>
               <button type="button" class="btn btn-primary" (click)="addFigure('circle');">Círculo</button>
             </div>
+          </div> -->
+          <div *ngIf="tipoUtilidad == 'credencial'">
+            <div class="card-header">Comisión</div>
+            <div class="card-body text-center max-height">
+              <!-- listar acá los datos -->
+              <div class="overflow-auto">
+                <div class="table table-responsive table-borderless">
+                  <table class="table">
+                    <tbody>
+                      <tr *ngFor="let c of comision">
+                        <td id="id-comision"> {{c.users.nombreUsuario + ' ' + c.users.apellidoUsuario }} </td>
+                        <td> <button id="add-dato" class="btn btn-primary" (click)="addText2()"><i class="fa fa-plus"
+                              aria-hidden="true"></i></button> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+
+          <div *ngIf="tipoUtilidad == 'diploma'">
+            <div class="card-header">Participantes, Expositores, Colaboradores</div>
+            <div class="card-body text-center max-height">
+              <!-- listar acá los datos -->
+              <div class="overflow-auto">
+                <div class="table table-responsive table-borderless">
+                  <h4 class="text-left">Participantes</h4>
+                  <table class="table">
+                    <tbody>
+                      <tr *ngFor="let p of participantes">
+                        <td id="id-comision"> {{p.users.nombreUsuario + ' ' + p.users.apellidoUsuario}} </td>
+                        <td> <button id="add-dato" class="btn btn-primary" (click)="addText2()"><i class="fa fa-plus"
+                              aria-hidden="true"></i></button> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="overflow-auto">
+                <div class="table table-responsive table-borderless">
+                  <h4 class="text-left">Expositores</h4>
+                  <table class="table">
+                    <tbody>
+                      <tr *ngFor="let e of expositores">
+                        <td id="id-comision">
+                          {{e.nombreExpositor + ' ' + e.apellidoExpositor + ' ' + e.apellido2Expositor}} </td>
+                        <td> <button id="add-dato" class="btn btn-primary" (click)="addText2()"><i class="fa fa-plus"
+                              aria-hidden="true"></i></button> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="overflow-auto">
+                <div class="table table-responsive table-borderless">
+                  <h4 class="text-left">Colaboradores</h4>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td id="id-comision"> {{colaboradores.nombreColaborador}} </td>
+                        <td> <button id="add-dato" class="btn btn-primary" (click)="addText2()"><i class="fa fa-plus"
+                              aria-hidden="true"></i></button> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="tipoUtilidad == 'certificado'">
+            <div class="card-header">Participantes</div>
+            <div class="card-body text-center max-height">
+              <!-- listar acá los datos -->
+              <div class="overflow-auto">
+                <div class="table table-responsive table-borderless">
+                  <h4 class="text-left">Participantes</h4>
+                  <table class="table">
+                    <tbody>
+                      <tr *ngFor="let p of participantes">
+                        <td id="id-comision"> {{p.users.nombreUsuario + ' ' + p.users.apellidoUsuario}} </td>
+                        <td> <button id="add-dato" class="btn btn-primary" (click)="addText2()"><i class="fa fa-plus"
+                              aria-hidden="true"></i></button> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div> <!-- cierre del div card-->
+
       </div>
 
       <!-- Espacio para visualizar el trabajo (Columna del medio) -->
