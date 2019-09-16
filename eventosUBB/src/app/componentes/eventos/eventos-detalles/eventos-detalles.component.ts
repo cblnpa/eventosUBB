@@ -126,14 +126,23 @@ export class EventosDetallesComponent implements OnInit {
 
   // Función para eliminar el evento 
   eliminarEvento(id) {
-    this.eventoUsersService.deleteEvento(this.token, id).subscribe(
+    this.eventoService.deleteEvento(this.token, id).subscribe(
       response => {
-        console.log("has eliminado un evento de eventousers");
+        console.log('Has eliminado un evento');
+        console.log(response);
       },
       error => {
         console.log(<any>error);
       }
     )
+    // this.eventoUsersService.deleteEvento(this.token, id).subscribe(
+    //   response => {
+    //     console.log("has eliminado un evento de eventousers");
+    //   },
+    //   error => {
+    //     console.log(<any>error);
+    //   }
+    // )
   }
 
   //Debo mandar el id del usuario e id del evento 
