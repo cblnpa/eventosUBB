@@ -20,4 +20,13 @@ export class ComisionService {
     return this.http.get(this.url+'getAllComision/' + idEvento, {headers: headers});
   }
 
+  //Eliminar integrante de la comisión
+  deleteComision(datos):Observable<any>{
+    let json = JSON.stringify(datos); 
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.post(this.url+'evento_users/delete/comision', params, {headers: headers});
+  }
+
 }

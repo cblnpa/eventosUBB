@@ -34,4 +34,10 @@ export class ColaboradorService {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.url + 'tipoColaborador', { headers: headers });
   }
+
+  // Eliminar colaborador
+  deleteColaborador(id) {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.delete(this.url + 'colaborador/' + id, { headers: headers });
+  }
 }

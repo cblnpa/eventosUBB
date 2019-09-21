@@ -173,6 +173,12 @@
                         </td>
                     </ng-container>
 
+                    <ng-container matColumnDef="deleteJornada">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> <button class="btn btn-block btn-danger mb-3" (click)="eliminarJornada(jornada.idJornada)"><i class="mdi mdi-delete"></i></button></td>
+                    </ng-container>
+
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsJornada"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsJornada;"></tr>
 
@@ -253,6 +259,11 @@
                         <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Foto expositor</th>
                         <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.foto}}
                         </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="deleteExpositor">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> <button class="btn btn-block btn-danger mb-3" (click)="eliminarExpositor(expositor.idExpositor)"><i class="mdi mdi-delete"></i></button></td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsExpositor"></tr>
@@ -337,6 +348,11 @@
                         <td id="table-sort-cell" mat-cell *matCellDef="let actividad">
                             {{actividad.descripcionActividad}}
                         </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="deleteActividad">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> <button class="btn btn-block btn-danger mb-3" (click)="eliminarActividad(actividad.idActividad)"><i class="mdi mdi-delete"></i></button></td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsActividad"></tr>
@@ -425,6 +441,11 @@
                         </td>
                     </ng-container>
 
+                    <ng-container matColumnDef="deleteColaborador">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> <button class="btn btn-block btn-danger mb-3" (click)="eliminarColaborador(colaborador.idColaborador)"><i class="mdi mdi-delete"></i></button> </td>
+                    </ng-container>
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsColaborador"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsColaborador;"></tr>
 
@@ -484,6 +505,11 @@
                         <td id="table-sort-cell" mat-cell *matCellDef="let material">
                             {{material.created_at | date:'fullDate'}}
                         </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="deleteMaterial">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let material"> <button class="btn btn-block btn-danger mb-3" (click)="eliminarMaterial(material.idMaterial)"><i class="mdi mdi-delete"></i></button> </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsMaterial"></tr>

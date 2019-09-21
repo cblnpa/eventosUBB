@@ -337,6 +337,7 @@
                                 <th>#</th>
                                 <th>Nombre</th>
                                 <th>Correo</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody *ngFor="let comision of comisiones; let i = index">
@@ -344,6 +345,7 @@
                                 <td> {{i+1}} </td>
                                 <td> {{comision.users.nombreUsuario + ' ' + comision.users.apellidoUsuario}} </td>
                                 <td> {{comision.users.email}} </td>
+                                <td> <button class="btn btn-block btn-danger mb-3" (click)="eliminarComision(comision.users.id)"> <i class="mdi mdi-delete"></i> </button> </td>
                             </tr>
                         </tbody>
 

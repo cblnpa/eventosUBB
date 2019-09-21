@@ -30,4 +30,10 @@ export class ActividadService {
     return this.http.get(this.url+'actividad/' + idEvento, {headers: headers});
   }
 
+  // Eliminar actividad 
+  deleteActividad(id) {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.delete(this.url + 'actividad/' + id, { headers: headers });
+  }
+
 }

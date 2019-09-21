@@ -35,4 +35,14 @@ export class UnidadService {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.url+'logoImage/'+archivo, {headers: headers});
   }
+
+  //Agregar sub unidad
+  guardarSubUnidad(unidad): Observable<any>{
+    let json = JSON.stringify(unidad);
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+    return this.http.post(this.url+'subUnidad',params, {headers: headers});
+  }
 }

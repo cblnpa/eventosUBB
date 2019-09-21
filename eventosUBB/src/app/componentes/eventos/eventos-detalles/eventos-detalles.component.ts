@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global';
 
 import { EventoPojoService, EventoUsersService, UserService, EventoService, ComisionService, RepositorioService, ModalService } from '../../../servicios/servicio.index';
-import { evento, material, colaborador, jornada, expositor, actividad, evento_users, asistencia } from '../../../model/model.index';
+import { evento, material, colaborador, jornada, expositor, actividad, evento_users, asistencia, deleteComision } from '../../../model/model.index';
 
 import Swal from 'sweetalert2';
 
@@ -37,7 +37,8 @@ export class EventosDetallesComponent implements OnInit {
   public colaborador: colaborador;
   public jornada: jornada;
   public expositor: expositor;
-
+ 
+  public deleteC: deleteComision; //modelo para enviar los id del integrante de la comisión a eliminar
   public asistencia: asistencia; //modelo que posee evento_idEvento & users_id *se ocupa para el request
 
   constructor(private eventoPojoService: EventoPojoService, private eventoUsersService: EventoUsersService,
@@ -48,6 +49,7 @@ export class EventosDetallesComponent implements OnInit {
     this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();
     this.asistencia = new asistencia(null, null);
+    this.deleteC = new deleteComision(null,null);
   }
 
   ngOnInit(): void {
@@ -162,10 +164,7 @@ export class EventosDetallesComponent implements OnInit {
   getRol() {
     this.eventoUsersService.getUsuarios(this.idEventoUsers, this.identity.sub).subscribe(
       response => {
-        console.log(response);
         this.rol = response.evento[0].rol_idRol;
-        console.log('response del rol !!');
-        console.log(this.rol);
       },
       error => {
         console.log(<any>error);
@@ -178,11 +177,43 @@ export class EventosDetallesComponent implements OnInit {
     this.comisionService.getComisiones(this.idEventoUsers).subscribe(
       response => {
         this.comisiones = response.comisiones;
+        console.log(this.comisiones);
       },
       error => {
         console.log(<any>error);
       }
     )
+  }
+
+  //Eliminar comisión, el parámetro es el id del usuario a eliminar
+  eliminarComision(id){
+    this.deleteC.evento_idEvento = this.idEventoUsers;
+    this.deleteC.users_id = id; 
+
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar este integrante de la comisión?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#03C303',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'No'
+    }).then((result)=> {
+      if(result.value){
+        this.comisionService.deleteComision(this.deleteC).subscribe(
+          response => {
+            console.log(response);
+            Swal.fire(
+              '¡Eliminado!',
+              'El integrante ha sido eliminado',
+              'success')
+          },
+          error => {
+            console.log(<any>error);
+          })    
+      }
+    })
+
   }
 
   //Obtener los archivos del repositorio 

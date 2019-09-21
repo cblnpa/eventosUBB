@@ -157,6 +157,20 @@ export class UnidadesCrearComponent implements OnInit {
     this.unidad.idAdminUnidad = this.idPerfil;
     console.log('Guardar sub unidad');
     console.log(this.unidad);
+    this.unidadService.guardarSubUnidad(this.unidad).subscribe(
+      response => {
+        if(response.code == 200){
+          Swal.fire({
+            type: 'success',
+            title: '¡Se ha creado con éxito la sub unidad!'
+          });
+        }
+        this.router.navigate(['/verUnidades']);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   //Función para subir el logo

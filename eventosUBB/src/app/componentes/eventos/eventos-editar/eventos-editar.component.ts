@@ -49,23 +49,23 @@ export class EventosEditarComponent implements OnInit {
 
   //variables para el data table
   public dataSourceJornada;
-  public displayedColumnsJornada: string[] = ['nombreJornada', 'fechaJornada', 'horaInicioJornada', 'horaFinJornada', 'ubicacionJornada', 'descripcionJornada'];
+  public displayedColumnsJornada: string[] = ['nombreJornada', 'fechaJornada', 'horaInicioJornada', 'horaFinJornada', 'ubicacionJornada', 'descripcionJornada', 'deleteJornada'];
   public cantJornadas: number;
 
   public dataSourceExpositor;
-  public displayedColumnsExpositor: string[] = ['nombreExpositor', 'apellidoExpositor', 'apellido2Expositor', 'correoExpositor', 'empresa', 'telefonoExpositor', 'foto'];
+  public displayedColumnsExpositor: string[] = ['nombreExpositor', 'apellidoExpositor', 'apellido2Expositor', 'correoExpositor', 'empresa', 'telefonoExpositor', 'foto', 'deleteExpositor'];
   public cantExpositores: number;
 
   public dataSourceActividad;
-  public displayedColumnsActividad: string[] = ['nombreActividad', 'horaInicioActividad', 'horaFinActividad', 'ubicacionActividad', 'actividadParalela', 'cupos', 'descripcionActividad'];
+  public displayedColumnsActividad: string[] = ['nombreActividad', 'horaInicioActividad', 'horaFinActividad', 'ubicacionActividad', 'actividadParalela', 'cupos', 'descripcionActividad', 'deleteActividad'];
   public cantActividades: number;
 
   public dataSourceColaborador;
-  public displayedColumnsColaborador: string[] = ['nombreColaborador', 'nombreRepresentante', 'telefonoColaborador', 'correoColaborador', 'tipoColaborador', 'sitioWeb', 'logo'];
+  public displayedColumnsColaborador: string[] = ['nombreColaborador', 'nombreRepresentante', 'telefonoColaborador', 'correoColaborador', 'tipoColaborador', 'sitioWeb', 'logo', 'deleteColaborador'];
   public cantColaboradores: number;
 
   public dataSourceMaterial;
-  public displayedColumnsMaterial: string[] = ['nombreMaterial', 'archivo', 'created_at'];
+  public displayedColumnsMaterial: string[] = ['nombreMaterial', 'archivo', 'created_at','deleteMaterial'];
   public cantMateriales: number;
 
   public afuConfig = {
@@ -242,10 +242,21 @@ export class EventosEditarComponent implements OnInit {
     this.modalService.mostrarModal();
   }
 
+  eliminarJornada(idJornada) {
+    this.jornadaService.deleteJornada(idJornada).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
   mostrarExpositores() {
     this.expositorService.getExpositoresActividad(this.id).subscribe(
       response => {
-        if ( response.code == 200 && (response.expositor.length) > 0 ) {
+        if (response.code == 200 && (response.expositor.length) > 0) {
           this.cantExpositores = response.expositor.length;
           this.dataSourceExpositor = new MatTableDataSource(response.expositor);
           this.dataSourceExpositor.sort = this.sort;
@@ -264,11 +275,22 @@ export class EventosEditarComponent implements OnInit {
     this.modalService.mostrarModal();
   }
 
+  eliminarExpositor(idExpositor) {
+    this.expositorService.deleteExpositor(idExpositor).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
   mostrarActividades() {
     this.actividadService.getActividades(this.id).subscribe(
       response => {
         console.log(response);
-        if ( response.code == 200 && (response.actividades.length) > 0 ) {
+        if (response.code == 200 && (response.actividades.length) > 0) {
           this.cantActividades = response.actividades.length;
           this.dataSourceActividad = new MatTableDataSource(response.actividades);
           this.dataSourceActividad.sort = this.sort;
@@ -285,6 +307,51 @@ export class EventosEditarComponent implements OnInit {
   agregarActividadModal() {
     this.contModal = 3;
     this.modalService.mostrarModal();
+  }
+
+  eliminarActividad(idActividad) {
+    this.actividadService.deleteActividad(idActividad).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  mostrarColaboradores() {
+    this.colaboradorService.getColaboradores(this.id).subscribe(
+      response => {
+        console.log(response);
+        if (response.code == 200 && (response.colaborador.length) > 0) {
+          this.cantColaboradores = response.colaborador.length;
+          this.dataSourceColaborador = new MatTableDataSource(response.colaborador);
+          this.dataSourceColaborador.sort = this.sort;
+          this.dataSourceColaborador.paginator = this.paginator;
+        } else {
+          console.log('aún no hay ningún colaborador en este evento');
+        }
+      },
+      error => {
+        console.log(<any>error);
+      })
+  }
+
+  agregarColaboradorModal() {
+    this.contModal = 5;
+    this.modalService.mostrarModal();
+  }
+
+  eliminarColaborador(idColaborador) {
+    this.colaboradorService.deleteColaborador(idColaborador).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   mostrarMateriales() {
@@ -307,27 +374,15 @@ export class EventosEditarComponent implements OnInit {
     this.modalService.mostrarModal();
   }
 
-  mostrarColaboradores() {
-    this.colaboradorService.getColaboradores(this.id).subscribe(
+  eliminarMaterial(idMaterial){
+    this.materialService.deleteMaterial(idMaterial).subscribe(
       response => {
         console.log(response);
-        if ( response.code == 200 && (response.colaborador.length) > 0 ) {
-          this.cantColaboradores = response.colaborador.length;
-          this.dataSourceColaborador = new MatTableDataSource(response.colaborador);
-          this.dataSourceColaborador.sort = this.sort;
-          this.dataSourceColaborador.paginator = this.paginator;
-        } else {
-          console.log('aún no hay ningún colaborador en este evento');
-        }
       },
       error => {
         console.log(<any>error);
-      })
-  }
-
-  agregarColaboradorModal() {
-    this.contModal = 5;
-    this.modalService.mostrarModal();
+      }
+    )
   }
 
   //foto del evento

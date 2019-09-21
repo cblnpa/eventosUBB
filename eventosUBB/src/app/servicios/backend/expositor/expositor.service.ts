@@ -29,4 +29,10 @@ export class ExpositorService {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.url+'mostrarExpositor/' +id, {headers: headers});
   }
+
+  // Eliminar expositor 
+  deleteExpositor(id) {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.delete(this.url + 'expositor/' + id, { headers: headers });
+  }
 }
