@@ -35,4 +35,13 @@ export class JornadaService {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.delete(this.url + 'jornada/' + id, { headers: headers });
   }
+
+  //Actualizar una jornada
+  editJornada(jornada, idJornada){    
+    let json = JSON.stringify(jornada); 
+    let params = 'json=' + json;
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.put(this.url+'jornada/' + idJornada, params, {headers:headers});
+
+  }
 }

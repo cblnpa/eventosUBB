@@ -8,6 +8,7 @@ export class jornada {
         public horaFinJornada: Time,
         public ubicacionJornada: string,
         public descripcionJornada: string,
-        public evento_idEvento?: number
+        public evento_idEvento?: number,
+        public idJornada?: number
     ){}
 }

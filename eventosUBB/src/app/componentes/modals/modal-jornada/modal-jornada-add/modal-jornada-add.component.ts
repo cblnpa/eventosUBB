@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-modal-jornada-add',
   templateUrl: './modal-jornada-add.component.html',
-  styleUrls: ['./modal-jornada-add.component.css']
+  styleUrls: ['../../modal.css']
 })
 export class ModalJornadaAddComponent implements OnInit {
 

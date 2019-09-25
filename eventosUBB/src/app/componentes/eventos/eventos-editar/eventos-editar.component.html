@@ -175,12 +175,12 @@
 
                     <ng-container matColumnDef="editJornada">
                         <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> <button class="btn btn-block btn-warning" (click)="editarJornada(jornada.idJornada)"><i class="mdi mdi-delete"></i></button></td>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"><button class="btn btn-block btn-warning" (click)="editarJornada(jornada.idJornada)"><i class="mdi mdi-pencil"></i></button></td>
                     </ng-container>
 
                     <ng-container matColumnDef="deleteJornada">
                         <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> <button class="btn btn-block btn-danger" (click)="eliminarJornada(jornada.idJornada)"><i class="mdi mdi-delete"></i></button></td>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"><button class="m-l-5 btn btn-block btn-danger" (click)="eliminarJornada(jornada.idJornada)"><i class="mdi mdi-delete"></i></button></td>
                     </ng-container>
 
 

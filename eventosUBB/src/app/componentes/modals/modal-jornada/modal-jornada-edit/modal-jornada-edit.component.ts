@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService, JornadaService } from 'src/app/servicios/servicio.index';
+import { ModalService, JornadaService } from '../../../../servicios/servicio.index';
 import { ActivatedRoute } from '@angular/router';
 import { jornada } from 'src/app/model/jornada';
 
 @Component({
   selector: 'app-modal-jornada-edit',
   templateUrl: './modal-jornada-edit.component.html',
-  styleUrls: ['./modal-jornada-edit.component.css']
+  styleUrls: ['../../modal.css']
 })
 export class ModalJornadaEditComponent implements OnInit {
 
@@ -15,7 +15,7 @@ export class ModalJornadaEditComponent implements OnInit {
 
   constructor(private modalService: ModalService, private jornadaService: JornadaService,
     private route: ActivatedRoute) { 
-      this.jornadas = new jornada('',null,null,null,'','');
+      this.jornadas = new jornada('',null,null,null,'','',null,null);
     }
 
   ngOnInit() {
@@ -30,11 +30,11 @@ export class ModalJornadaEditComponent implements OnInit {
         
         this.jornadaService.getJornadas(idEvento).subscribe(
           response => {
-            this.jornadas = response.jornadas[0];
+            this.jornadas = response.jornadas[0];            
             //Cargar los datos de la jornada en el modal
             this.jornadas = new jornada(this.jornadas.nombreJornada, this.jornadas.fechaJornada,
               this.jornadas.horaInicioJornada, this.jornadas.horaFinJornada, this.jornadas.ubicacionJornada,
-              this.jornadas.descripcionJornada);
+              this.jornadas.descripcionJornada, this.jornadas.evento_idEvento, this.jornadas.idJornada);
           }, error => {
             console.log(error);}
         )})
@@ -51,8 +51,13 @@ export class ModalJornadaEditComponent implements OnInit {
   }
 
   editarJornada(form){
-    console.log('dentro del editar jornada');
-    
+    this.jornadaService.editJornada(this.jornadas, this.jornadas.idJornada).subscribe(
+      response => {
+        console.log(response);
+      }, error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   //Formulario para agregar jornada
