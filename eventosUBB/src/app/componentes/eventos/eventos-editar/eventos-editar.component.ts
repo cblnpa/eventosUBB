@@ -49,7 +49,7 @@ export class EventosEditarComponent implements OnInit {
 
   //variables para el data table
   public dataSourceJornada;
-  public displayedColumnsJornada: string[] = ['nombreJornada', 'fechaJornada', 'horaInicioJornada', 'horaFinJornada', 'ubicacionJornada', 'descripcionJornada', 'deleteJornada'];
+  public displayedColumnsJornada: string[] = ['nombreJornada', 'fechaJornada', 'horaInicioJornada', 'horaFinJornada', 'ubicacionJornada', 'descripcionJornada','editJornada', 'deleteJornada'];
   public cantJornadas: number;
 
   public dataSourceExpositor;
@@ -226,6 +226,7 @@ export class EventosEditarComponent implements OnInit {
       response => {
         if (response.status == 'success') {
           this.cantJornadas = response.jornadas.length;
+          console.log((response.jornadas));
           //this.jornada = response.jornadas;
           this.dataSourceJornada = new MatTableDataSource(response.jornadas);
           this.dataSourceJornada.sort = this.sort;
@@ -251,6 +252,12 @@ export class EventosEditarComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  editarJornada(idJornada){
+    console.log('dentro de editar jornada');
+    this.contModal = 11;
+    this.modalService.mostrarModal();
   }
 
   mostrarExpositores() {

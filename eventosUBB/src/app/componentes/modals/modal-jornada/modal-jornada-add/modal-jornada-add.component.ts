@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService, JornadaService } from '../../../servicios/servicio.index';
-import { jornada } from '../../../model/jornada';
+import { ModalService, JornadaService } from '../../../../servicios/servicio.index';
+import { jornada } from '../../../../model/model.index';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 

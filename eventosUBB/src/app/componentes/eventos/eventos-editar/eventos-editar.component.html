@@ -149,7 +149,7 @@
 
                     <ng-container matColumnDef="fechaJornada">
                         <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.nombreJornada}} </td>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.fechaJornada}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="horaInicioJornada">
@@ -164,7 +164,7 @@
 
                     <ng-container matColumnDef="ubicacionJornada">
                         <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Ubicación</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.ubicacion}} </td>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.ubicacionJornada}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="descripcionJornada">
@@ -173,9 +173,14 @@
                         </td>
                     </ng-container>
 
+                    <ng-container matColumnDef="editJornada">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> <button class="btn btn-block btn-warning" (click)="editarJornada(jornada.idJornada)"><i class="mdi mdi-delete"></i></button></td>
+                    </ng-container>
+
                     <ng-container matColumnDef="deleteJornada">
                         <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> <button class="btn btn-block btn-danger mb-3" (click)="eliminarJornada(jornada.idJornada)"><i class="mdi mdi-delete"></i></button></td>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> <button class="btn btn-block btn-danger" (click)="eliminarJornada(jornada.idJornada)"><i class="mdi mdi-delete"></i></button></td>
                     </ng-container>
 
 
@@ -597,6 +602,10 @@
 <!-- modales -->
 <div *ngIf="contModal == 1">
     <app-modal-jornada-add></app-modal-jornada-add>
+</div>
+
+<div *ngIf="contModal == 11">
+    <app-modal-jornada-edit></app-modal-jornada-edit>
 </div>
 
 <div *ngIf="contModal == 2">

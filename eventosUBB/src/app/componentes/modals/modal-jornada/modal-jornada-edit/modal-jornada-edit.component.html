@@ -1,0 +1,100 @@
+<div class="modal blur" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    [ngStyle]="{ display: modalService.oculto }">
+    <div class="modal-dialog modal-lg" style="overflow-y: scroll">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="text-primary text-center">Editar jornada</h4>
+                <button type="button" class="close" (click)="salirModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal p-t-20" #editarJornadaForm="ngForm"
+                    (ngSubmit)="editarJornada(editarJornadaForm)">
+
+                    <div class="col-md-12 mr-2">
+
+                        <div class="form-group row">
+                            <label for="nombreJornada" class="col-sm-3 control-label">Nombre</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input1 type="text" name="nombreJornada" #nombreJornada="ngModel"
+                                    [(ngModel)]="jornadas.nombreJornada" maxlength="45" placeholder="Nombre" required>
+                                <mat-hint align="start"><strong>Ingresa el nombre de la jornada</strong> </mat-hint>
+                                <mat-hint align="end">{{input1.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Fecha</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput type="date" data-autoclose="true" name="fechaJornada"
+                                    #fechaJornada="ngModel" [(ngModel)]="jornadas.fechaJornada" required>
+                                <mat-hint align="start">
+                                    <strong>Selecciona la fecha en que se desarrollará esta jornada</strong>
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Hora Inicio</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput type="time" data-autoclose="true" name="horaInicioJornada"
+                                    #horaInicioJornada="ngModel" [(ngModel)]="jornadas.horaInicioJornada">
+                                <mat-hint align="start"><strong>Ingresa la hora de inicio de esta jornada</strong>
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Hora Término</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput type="time" data-autoclose="true" name="horaFinJornada"
+                                    #horaFinJornada="ngModel" [(ngModel)]="jornadas.horaFinJornada">
+                                <mat-hint align="start"><strong>Ingresa la hora de término de esta jornada</strong>
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Ubicación</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input2 type="text" name="ubicacionActividad"
+                                    #ubicacionActividad="ngModel" [(ngModel)]="jornadas.ubicacionJornada"
+                                    maxlength="45" placeholder="Ubicación">
+                                <mat-hint align="start">
+                                    <strong>Ingresa la ubicación de esta jornada</strong>
+                                </mat-hint>
+                                <mat-hint align="end">{{input2.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Descripción</label>
+                            <mat-form-field class="col-sm-9">
+                                <textarea matInput #input3 maxlength="250" type="text" name="descripcionJornada"
+                                    #descripcionJornada="ngModel" [(ngModel)]="jornadas.descripcionJornada"></textarea>
+                                <mat-hint align="start"><strong>Ingresa la descripción de esta jornada</strong>
+                                </mat-hint>
+                                <mat-hint align="end">{{input3.value.length}} / 250</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="hidden" name="evento_idEvento" #evento_idEvento="ngModel"
+                                        [(ngModel)]="jornadas.evento_idEvento">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger waves-effect"
+                            (click)="salirModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

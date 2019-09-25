@@ -1,4 +1,6 @@
-export { ModalJornadaAddComponent } from '../modals/modal-jornada-add/modal-jornada-add.component';
+export { ModalJornadaAddComponent } from './modal-jornada/modal-jornada-add/modal-jornada-add.component';
+export { ModalJornadaEditComponent } from './modal-jornada/modal-jornada-edit/modal-jornada-edit.component';
+
 export { ModalExpositorAddComponent } from '../modals/modal-expositor-add/modal-expositor-add.component';
 export { ModalMaterialAddComponent } from '../modals/modal-material-add/modal-material-add.component';
 export { ModalColaboradorAddComponent } from '../modals/modal-colaborador-add/modal-colaborador-add.component';
