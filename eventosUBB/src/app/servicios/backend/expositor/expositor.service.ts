@@ -24,10 +24,16 @@ export class ExpositorService {
     return this.http.post(this.url+'expositor', params, {headers: headers});
   }
 
-  //Obtener jornadas 
+  //Obtener expositores 
   getExpositoresActividad(id):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.url+'mostrarExpositor/' +id, {headers: headers});
+  }
+
+  //Obtener expositor por id
+  getExpositorById(idExpositor):Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'getExpositorById/' +idExpositor, {headers: headers});
   }
 
   // Eliminar expositor 

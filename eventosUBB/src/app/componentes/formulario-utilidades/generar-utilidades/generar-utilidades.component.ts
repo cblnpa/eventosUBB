@@ -131,8 +131,6 @@ export class GenerarUtilidadesComponent implements OnInit {
       response => {
         if (response.code == 200 && (response.evento.length) > 0) {
           this.participantes = response.evento;
-          console.log('participantes:');
-          console.log(this.participantes);
         } else {
           console.log('aún no hay participantes en este evento');
           this.participantes = '';
@@ -216,7 +214,7 @@ export class GenerarUtilidadesComponent implements OnInit {
 
   addText2() {
     console.log(this.texto);
-    
+
   }
 
   //Block "Add images"
@@ -625,15 +623,40 @@ export class GenerarUtilidadesComponent implements OnInit {
   }
 
   downloadPDF() {
-    let a: any = document.getElementById('canvas');
-    var doc = new jsPDF({
+    // let a: any = document.getElementById('canvas');
+    // var doc = new jsPDF({
+    //   orientation: 'auto',
+    //   unit: 'px',
+    //   format: [this.size.width, this.size.height]
+    // });
+
+    // doc.addImage(a, 'JPEG', 0, 0, a.width, a.height);
+    // doc.save('testCanvas.pdf');
+    var letra = this.participantes;
+    console.log(this.canvas);
+
+    const doc = new jsPDF({
       orientation: 'auto',
       unit: 'px',
       format: [this.size.width, this.size.height]
     });
-
-    doc.addImage(a, 'JPEG', 0, 0, a.width, a.height);
-    doc.save('testCanvas.pdf');
+    var width = doc.internal.pageSize.getWidth();
+    var height = doc.internal.pageSize.getHeight();
+    // var w = window.open("");
+    if (this.canvas._iTextInstances != null) {
+      for (let i = 0; i < letra.length; i++) {
+        this.canvas._iTextInstances[0].text = letra[i].users.nombreUsuario + ' ' + letra[i].users.apellidoUsuario;
+        let imgData = this.canvas.toDataURL('image/jpeg', 1.0);
+        doc.addImage(imgData, 'JPGE', 0, 0, width, height);
+        doc.addPage();
+      }
+      doc.save("prueba.pdf");
+    } else {
+      let imgData = this.canvas.toDataURL('image/jpeg', 1.0);
+      doc.addImage(imgData, 'JPGE', 0, 0, width, height);
+      doc.addPage();
+      doc.save("prueba.pdf");
+    }
   }
 
   rasterizeSVG() {
