@@ -39,6 +39,7 @@ import { PipesModule } from '../pipes/pipes.module';
 //Generador de utilidades
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ModalJornadaEditComponent } from './modals/modal-jornada/modal-jornada-edit/modal-jornada-edit.component';
+import { ModalExpositorEditComponent } from './modals/modal-expositor/modal-expositor-edit/modal-expositor-edit.component';
 
 @NgModule({
     declarations: [
@@ -63,7 +64,8 @@ import { ModalJornadaEditComponent } from './modals/modal-jornada/modal-jornada-
         ModalRepositorioAddComponent,
         GenerarUtilidadesComponent,
         FormularioUtilidadesComponent,
-        ModalJornadaEditComponent
+        ModalJornadaEditComponent,
+        ModalExpositorEditComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [

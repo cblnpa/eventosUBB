@@ -53,7 +53,7 @@ export class EventosEditarComponent implements OnInit {
   public cantJornadas: number;
 
   public dataSourceExpositor;
-  public displayedColumnsExpositor: string[] = ['nombreExpositor', 'apellidoExpositor', 'apellido2Expositor', 'correoExpositor', 'empresa', 'telefonoExpositor', 'foto', 'deleteExpositor'];
+  public displayedColumnsExpositor: string[] = ['nombreExpositor', 'apellidoExpositor', 'apellido2Expositor', 'correoExpositor', 'empresa', 'telefonoExpositor', 'foto', 'editExpositor', 'deleteExpositor'];
   public cantExpositores: number;
 
   public dataSourceActividad;
@@ -254,7 +254,7 @@ export class EventosEditarComponent implements OnInit {
     )
   }
 
-  editarJornada(idJornada){
+  editarJornada(){
     console.log('dentro de editar jornada');
     this.contModal = 11;
     this.modalService.mostrarModal();
@@ -291,6 +291,11 @@ export class EventosEditarComponent implements OnInit {
         console.log(<any>error);
       }
     )
+  }
+
+  editarExpositor() {
+    this.contModal = 22;
+    this.modalService.mostrarModal();
   }
 
   mostrarActividades() {

@@ -1,0 +1,119 @@
+<div class="modal blur" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    [ngStyle]="{ display: modalService.oculto }">
+    <div class="modal-dialog modal-lg" style="overflow-y: scroll">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="text-uppercase text-primary">Editar expositor</h4>
+                <button type="button" class="close" (click)="salirModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal p-t-20" #editarExpositorForm="ngForm"
+                    (ngSubmit)="editarExpositor(editarExpositorForm)">
+
+                    <div class="col-md-12 mr-2">
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Nombre</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input1 type="text" name="nombreExpositor" #nombreExpositor="ngModel"
+                                    [(ngModel)]="expositores.nombreExpositor" maxlength="45" placeholder="Nombre"
+                                    required>
+                                <mat-hint align="start"><strong>Ingresa el nombre del expositor</strong> </mat-hint>
+                                <mat-hint align="end">{{input1.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Apellido Paterno</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input2 type="text" name="apellidoExpositor"
+                                    #apellidoExpositor="ngModel" [(ngModel)]="expositores.apellidoExpositor"
+                                    maxlength="45" placeholder="Apellido paterno">
+                                <mat-hint align="start"><strong>Ingresa el apellido paterno del expositor</strong>
+                                </mat-hint>
+                                <mat-hint align="end">{{input2.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Apellido Materno</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input3 type="text" name="apellido2Expositor"
+                                    #apellido2Expositor="ngModel" [(ngModel)]="expositores.apellido2Expositor"
+                                    maxlength="45" placeholder="Apellido materno">
+                                <mat-hint align="start"><strong>Ingresa el apellido materno del expositor</strong>
+                                </mat-hint>
+                                <mat-hint align="end">{{input3.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Sexo</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input4 type="text" name="sexo" #sexo="ngModel"
+                                    [(ngModel)]="expositores.sexo" maxlength="45" placeholder="Sexo">
+                                <mat-hint align="start"><strong>Ingresa el sexo del expositor</strong>
+                                </mat-hint>
+                                <mat-hint align="end">{{input4.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Correo</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input5 type="text" name="correoExpositor" #correoExpositor="ngModel"
+                                    [(ngModel)]="expositores.correoExpositor" maxlength="45" placeholder="Correo">
+                                <mat-hint align="start"><strong>Ingresa el correo del expositor</strong>
+                                </mat-hint>
+                                <mat-hint align="end">{{input5.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Teléfono</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input7 type="number" name="telefonoExpositor"
+                                    #telefonoExpositor="ngModel" [(ngModel)]="expositores.telefonoExpositor"
+                                    maxlength="11" placeholder="Teléfono">
+                                <mat-hint align="start"><strong>Ingresa el teléfono del expositor</strong>
+                                </mat-hint>
+                                <mat-hint align="end">{{input7.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Organización</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input6 type="text" name="empresa" #empresa="ngModel"
+                                    [(ngModel)]="expositores.empresa" maxlength="45" placeholder="Organización">
+                                <mat-hint align="start"><strong>Ingresa la organización del expositor</strong>
+                                </mat-hint>
+                                <mat-hint align="end">{{input6.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="imagen" class="col-sm-3 control-label">Foto</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="mdi mdi-file"></i></div>
+                                    <angular-file-uploader #file1 [config]="afuConfig"
+                                        (ApiResponse)="fotoUpload($event)">
+                                    </angular-file-uploader>
+                                </div>
+                                <span class="help-block"><small>Ingresa la ubicación de esta jornada</small></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger waves-effect"
+                            (click)="salirModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

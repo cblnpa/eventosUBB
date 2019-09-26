@@ -8,6 +8,7 @@ export class expositor {
         public empresa: string,
         public foto: string,
         public telefonoExpositor: number,
-        public evento: number
+        public evento: number,
+        public idExpositor?: number
     ){}
 }

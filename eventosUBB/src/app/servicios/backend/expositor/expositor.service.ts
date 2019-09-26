@@ -35,4 +35,13 @@ export class ExpositorService {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.delete(this.url + 'expositor/' + id, { headers: headers });
   }
+
+  //editar el expositor
+  editExpositor(expositor, idExpositor) {
+    let json = JSON.stringify(expositor); //convierte el evento que se pasa por parámetro a un tipo JSON
+    let params = 'json='+json; //se definene los parametros que se mandan al api
+    
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.put(this.url+'expositor/' +idExpositor, params, {headers:headers});
+  }
 }

@@ -175,7 +175,7 @@
 
                     <ng-container matColumnDef="editJornada">
                         <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"><button class="btn btn-block btn-warning" (click)="editarJornada(jornada.idJornada)"><i class="mdi mdi-pencil"></i></button></td>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"><button class="btn btn-block btn-warning" (click)="editarJornada()"><i class="mdi mdi-pencil"></i></button></td>
                     </ng-container>
 
                     <ng-container matColumnDef="deleteJornada">
@@ -266,9 +266,14 @@
                         </td>
                     </ng-container>
 
+                    <ng-container matColumnDef="editExpositor">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"><button class="btn btn-block btn-warning" (click)="editarExpositor()"><i class="mdi mdi-pencil"></i></button></td>
+                    </ng-container>
+
                     <ng-container matColumnDef="deleteExpositor">
                         <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> <button class="btn btn-block btn-danger mb-3" (click)="eliminarExpositor(expositor.idExpositor)"><i class="mdi mdi-delete"></i></button></td>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> <button class="m-l-5 btn btn-block btn-danger" (click)="eliminarExpositor(expositor.idExpositor)"><i class="mdi mdi-delete"></i></button></td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsExpositor"></tr>
@@ -309,7 +314,7 @@
                 <input matInput placeholder="Buscar...">
             </mat-form-field>
 
-            <div class="mat-elevation-z8">
+            <!-- <div class="mat-elevation-z8">
                 <table id="table-sort" mat-table [dataSource]="dataSourceActividad" matSort>
 
                     <ng-container matColumnDef="nombreActividad">
@@ -365,10 +370,9 @@
 
                 </table>
 
-                <!-- paginador -->
                 <mat-paginator [length]="cantActividades" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
                 </mat-paginator>
-            </div>
+            </div> -->
 
             <!-- div para los botones -->
             <div class="row mt-4">
@@ -610,6 +614,10 @@
 
 <div *ngIf="contModal == 2">
     <app-modal-expositor-add></app-modal-expositor-add>
+</div>
+
+<div *ngIf="contModal == 22">
+    <app-modal-expositor-edit></app-modal-expositor-edit>
 </div>
 
 <div *ngIf="contModal == 3">
