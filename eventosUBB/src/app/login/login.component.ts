@@ -80,11 +80,14 @@ export class LoginComponent implements OnInit {
   }
 
   //Iniciar sesión con email y contraseña 
-  onSubmit(form: NgForm) {  
+  onSubmit(form: NgForm) {
+    Swal.fire({
+      title: 'Iniciando sesión'
+    })
+    Swal.showLoading();  
     
     this.userService.signUp(this.user).subscribe(
       response => {
-        console.log(response);
         // Recibir el TOKEN 
         if (response.status != 'error') {
           this.status = 'success';
@@ -94,17 +97,11 @@ export class LoginComponent implements OnInit {
           this.userService.signUp(this.user, true).subscribe(
             response => {
               this.identity = response;
-              console.log(response);
               if(this.identity.verified == 1){
                 localStorage.setItem('token', this.token);
                 localStorage.setItem('identity', JSON.stringify(this.identity));
+                Swal.close();
                 this.router.navigate(['/inicio']);
-              } else {
-                Swal.fire({
-                  type: 'error',
-                  title: 'Correo no verificado',
-                  text: 'Verifica tu correo electrónico para poder iniciar sesión',
-                })
               }
             },
             error => {
@@ -113,13 +110,16 @@ export class LoginComponent implements OnInit {
             }
           );
         } else {
-          console.log(response);
-          this.status = 'error';
-          Swal.fire({
-            type: 'error',
-            title: 'Datos incorrectos',
-            text: 'ingrese su email y contraseña correctamente',
-          })
+          if( response.password ) {
+            Swal.fire({
+              title: 'Contraseña incorrecta',
+              type: 'error'
+            });}
+          if( response.login ){
+            Swal.fire({
+              title: 'Correo incorrecto',
+              type: 'error'
+            })}
         }
       }
     );
