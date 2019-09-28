@@ -4,17 +4,37 @@
 
         <div class="col-lg-12 col-md-12 col-xs-12 m-b-15">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Buscar eventos por nombre">
+                <input id="buscador-evento" type="text" class="form-control" placeholder="Buscar eventos por nombre">
                 <span class="input-group-btn">
                     <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
                 </span>
             </div>
         </div>
 
+        <!-- <script>
+            $(document).ready(function(){
+                $('#buscador-evento').keyup(function(){
+                    var name = $('#nombre-evento');
+                    var buscando = $(this).val();
+                    var item = '';
+                    for(var i = 0; i < name.length; i++){
+                        item = $(name[i]).html().toLowerCase;
+                        for(var x = 0; x < item.length; x++){
+                            if(buscando.length == 0 || item.indexOf(buscando) > -1){
+                                $(name[i]).parents('#card').show();
+                            } else {
+                                $(name[i]).parents('#card').hide();
+                            }
+                        }
+                    }
+                })
+            })
+        </script> -->
+
         <div class="col-lg-3 col-md-6" *ngFor="let e of eventos | paginate: { itemsPerPage: 12,
-            currentPage: p}">
-            <div class="card">
-                <div class="el-card-item">
+            currentPage: p }">
+            
+                <div class="el-card-item" id="card">
                     <div class="card">
                         <div class="el-card-avatar el-overlay-1">
                             <img *ngIf="!e.imagen" src="../../../../assets/images/sin-imagen.png" alt="user" />
@@ -29,26 +49,22 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="el-card-content">
-                            <h3 class="box-title"> <strong> {{e.nombreEvento}} </strong> </h3> <small> {{e.detalles}}
-                            </small>
+                        <div class="el-card-content puntos-suspensivos">
+                            <h3 class="box-title"> <strong id="nombre-evento"> {{e.nombreEvento}} </strong> </h3> 
+                            <small> {{e.detalles}} </small>
                             <br />
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
 
         <div class="col-md-12">
             <ul class="pagination justify-content-center">
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                <pagination-controls responsive="true" previousLabel="Anterior"
+                nextLabel="Siguiente" autoHide="true" (pageChange)="p = $event"></pagination-controls>
             </ul>
         </div>
 
     </div>
-
-    <!-- ============================================================== -->
-    <!-- End Page Content -->
-    <!-- ============================================================== -->
 
 </body>

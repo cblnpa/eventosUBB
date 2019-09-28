@@ -1,4 +1,10 @@
-.evento-imagen {
-    height: 200px;
-    width: 250px;
+.puntos-suspensivos {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.margen-card{
+    margin-left: 20px;
+    margin-right: 20px;
 }
