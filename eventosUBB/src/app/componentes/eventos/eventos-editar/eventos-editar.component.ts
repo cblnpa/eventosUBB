@@ -293,8 +293,9 @@ export class EventosEditarComponent implements OnInit {
     )
   }
 
-  editarExpositor() {
+  editarExpositor(id) {
     this.contModal = 22;
+    console.log(id);
     this.modalService.mostrarModal();
   }
 

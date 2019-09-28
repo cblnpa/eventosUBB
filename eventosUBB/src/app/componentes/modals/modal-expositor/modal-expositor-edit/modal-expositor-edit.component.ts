@@ -45,11 +45,11 @@ export class ModalExpositorEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDatosExpositor();
+    // this.getDatosExpositor(id);
   }
 
-  getDatosExpositor() {
-    this.expositorService.getExpositorById(1).subscribe(
+  getDatosExpositor(id) {
+    this.expositorService.getExpositorById(id).subscribe(
       response => {
         console.log(response);
       }, error => {
@@ -57,22 +57,22 @@ export class ModalExpositorEditComponent implements OnInit {
       }
     )
 
-    // this.route.params.subscribe(
-    //   params => {
-    //     let idEvento = +params['id'];
-    //     this.idEvento = idEvento;
+    this.route.params.subscribe(
+      params => {
+        let idEvento = +params['id'];
+        this.idEvento = idEvento;
 
-    //     this.expositorService.getExpositoresActividad(this.idEvento).subscribe(
-    //       response => {
-    //         this.expositores = response.expositor[0];
-    //         this.expositores = new expositor(this.expositores.nombreExpositor, this.expositores.apellidoExpositor,
-    //           this.expositores.apellido2Expositor, this.expositores.sexo, this.expositores.correoExpositor,
-    //           this.expositores.empresa, this.expositores.foto, this.expositores.telefonoExpositor,
-    //           this.expositores.evento, this.expositores.idExpositor);
-    //       }, error => {
-    //         console.log(<any>error);
-    //       })
-    //   })
+        this.expositorService.getExpositoresActividad(this.idEvento).subscribe(
+          response => {
+            this.expositores = response.expositor[0];
+            this.expositores = new expositor(this.expositores.nombreExpositor, this.expositores.apellidoExpositor,
+              this.expositores.apellido2Expositor, this.expositores.sexo, this.expositores.correoExpositor,
+              this.expositores.empresa, this.expositores.foto, this.expositores.telefonoExpositor,
+              this.expositores.evento, this.expositores.idExpositor);
+          }, error => {
+            console.log(<any>error);
+          })
+      })
   }
 
   //pregunta si quiere salir del modal

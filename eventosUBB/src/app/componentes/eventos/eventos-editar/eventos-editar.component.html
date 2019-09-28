@@ -268,7 +268,7 @@
 
                     <ng-container matColumnDef="editExpositor">
                         <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"><button class="btn btn-block btn-warning" (click)="editarExpositor()"><i class="mdi mdi-pencil"></i></button></td>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let expositor"><button class="btn btn-block btn-warning" (click)="editarExpositor(expositor.idExpositor)"><i class="mdi mdi-pencil"></i></button></td>
                     </ng-container>
 
                     <ng-container matColumnDef="deleteExpositor">
@@ -314,7 +314,7 @@
                 <input matInput placeholder="Buscar...">
             </mat-form-field>
 
-            <!-- <div class="mat-elevation-z8">
+            <div class="mat-elevation-z8">
                 <table id="table-sort" mat-table [dataSource]="dataSourceActividad" matSort>
 
                     <ng-container matColumnDef="nombreActividad">
@@ -372,7 +372,7 @@
 
                 <mat-paginator [length]="cantActividades" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
                 </mat-paginator>
-            </div> -->
+            </div>
 
             <!-- div para los botones -->
             <div class="row mt-4">

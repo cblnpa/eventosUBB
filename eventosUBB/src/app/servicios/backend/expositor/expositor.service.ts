@@ -33,7 +33,7 @@ export class ExpositorService {
   //Obtener expositor por id
   getExpositorById(idExpositor):Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.url+'getExpositorById/' +idExpositor, {headers: headers});
+    return this.http.get(this.url+'getExpositor/' +idExpositor, {headers: headers});
   }
 
   // Eliminar expositor 
