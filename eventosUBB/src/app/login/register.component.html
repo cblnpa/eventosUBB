@@ -1,4 +1,5 @@
 <section id="wrapper">
+    
     <div class="register-div" style="background-image:url(../assets/images/fondo-login.jpg);">
         <div class="login-box card">
             <div class="card-body">
@@ -53,7 +54,7 @@
                         <mat-form-field appearance="outline">
                             <mat-label for="password2">Repite la contraseña</mat-label>
                             <input matInput placeholder="Ingresa nuevamente tu contraseña"
-                                [type]="hide2 ? 'password' : 'text'" type="password" name="password2" required>
+                            [type]="hide2 ? 'password' : 'text'" type="password" name="password2" required>
                             <mat-error>Este campo no puede estar vacío</mat-error>
                             <button type="button" mat-icon-button matSuffix (click)="hide2 = !hide2"
                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">

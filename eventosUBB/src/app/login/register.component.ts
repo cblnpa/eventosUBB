@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   hide2 = true;
   titulo: string;
   public user: users;
+  public loading = false; //para el spinner
 
   constructor(private userService: UserService, private router: Router, private title: Title) {
     this.user = new users('', '', '', '', '', 2, null, null);
@@ -42,6 +43,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(registerForm) {
+    Swal.fire({
+      title: 'Espere un momento'
+    })
+    Swal.showLoading();
     // Verificar la contraseña
     let pass1 = document.getElementsByName('password');
     let pass2 = document.getElementsByName('password2');
