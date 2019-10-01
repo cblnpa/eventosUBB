@@ -27,23 +27,23 @@
             </ng-container>
 
             <ng-container matColumnDef="nombreUnidad">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre unidad</th>
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Nombre unidad</th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.unidad.nombreUnidad}} </td>
             </ng-container>
 
             <ng-container matColumnDef="encargado">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Encargado</th>
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Encargado</th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
                 {{unidades.user.nombreUsuario + ' ' + unidades.user.apellidoUsuario }} </td>
             </ng-container>
 
             <ng-container matColumnDef="sede">
               <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Sede</th>
-              <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.sede}} </td>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.unidad.sede}} </td>
             </ng-container>
 
             <ng-container matColumnDef="logoUnidad">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Logo</th>
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Logo</th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> <img class="imageLogo"
                   src="{{url + 'logoImage/' + unidades.unidad.logoUnidad}}" alt="Responsive image"> </td>
             </ng-container>
