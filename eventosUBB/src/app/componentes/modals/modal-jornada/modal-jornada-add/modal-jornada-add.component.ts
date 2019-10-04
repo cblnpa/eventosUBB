@@ -12,14 +12,14 @@ import Swal from 'sweetalert2';
 export class ModalJornadaAddComponent implements OnInit {
 
   public jornadaAdd: jornada;
+  public idEvento;
 
   constructor(private modalService: ModalService, private jornadaService: JornadaService,
     private route: ActivatedRoute) {
       this.jornadaAdd = new jornada('',null,null,null,'','',null);
-     }
-
-  ngOnInit() {
   }
+
+  ngOnInit() {}
 
   //pregunta si quiere salir del modal
   salirModal() {
@@ -33,20 +33,20 @@ export class ModalJornadaAddComponent implements OnInit {
 
   //Formulario para agregar jornada
   agregarJornada(form) {
-    console.log('antes del servicio');
     this.route.params.subscribe(params => {
       let id = +params['id'];
+      this.idEvento = id;
       this.jornadaAdd.evento_idEvento = id;
-      console.log(id);
-      console.log(this.jornadaAdd);
       this.jornadaService.guardarJornada(this.jornadaAdd).subscribe(
         response => {
-          console.log(response);
+          if(response.code == 200 ){ 
           Swal.fire({
             type: 'success',
             title: 'Creado con éxito',
             text: 'Se ha creado la jornada sin ningún problema',
-          })
+          });
+          this.cargarDatosJornada();
+        }
         },
         error => {
           console.log(<any>error);
@@ -54,6 +54,17 @@ export class ModalJornadaAddComponent implements OnInit {
       )
     });
     this.ocultarModal();
+  }
+
+  cargarDatosJornada(){
+    this.jornadaService.getJornadas(this.idEvento).subscribe(
+      response => {
+        console.log(response);
+      }, 
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
 }

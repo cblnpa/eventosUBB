@@ -26,7 +26,6 @@ export class EventosEditarComponent implements OnInit {
   public ciudad: ciudad;
   public material: material;
   public eventos: evento;
-  public jornada: jornada;
   public actividad: actividad;
   public colaborador: colaborador;
   public expositor: expositor;
@@ -48,10 +47,6 @@ export class EventosEditarComponent implements OnInit {
   public contModal: number;
 
   //variables para el data table
-  public dataSourceJornada;
-  public displayedColumnsJornada: string[] = ['nombreJornada', 'fechaJornada', 'horaInicioJornada', 'horaFinJornada', 'ubicacionJornada', 'descripcionJornada','editJornada', 'deleteJornada'];
-  public cantJornadas: number;
-
   public dataSourceExpositor;
   public displayedColumnsExpositor: string[] = ['nombreExpositor', 'apellidoExpositor', 'apellido2Expositor', 'correoExpositor', 'empresa', 'telefonoExpositor', 'foto', 'editExpositor', 'deleteExpositor'];
   public cantExpositores: number;
@@ -90,7 +85,7 @@ export class EventosEditarComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
     private userService: UserService, private eventoPojoService: EventoPojoService,
-    private ciudadService: CiudadService, private categoriaService: CategoriaService, private jornadaService: JornadaService,
+    private ciudadService: CiudadService, private categoriaService: CategoriaService,
     private expositorService: ExpositorService, private modalService: ModalService, private tipoEventoService: TipoEventoService,
     private eventoService: EventoService, private actividadService: ActividadService, public paginatorSettings: MatPaginatorIntl,
     private materialService: MaterialService, private colaboradorService: ColaboradorService) {
@@ -109,7 +104,6 @@ export class EventosEditarComponent implements OnInit {
     this.getCiudades();
     this.getCategorias();
     this.getTipoEventos();
-    this.mostrarJornadas();
     this.mostrarExpositores();
     this.mostrarActividades();
     this.mostrarColaboradores();
@@ -218,46 +212,6 @@ export class EventosEditarComponent implements OnInit {
       }
     )
     this.router.navigate(['/eventoDetalle/' + this.id]);
-  }
-
-  //Listar jornadas del evento en la tabla
-  mostrarJornadas() {
-    this.jornadaService.getJornadas(this.id).subscribe(
-      response => {
-        if (response.status == 'success') {
-          this.cantJornadas = response.jornadas.length;
-          console.log((response.jornadas));
-          //this.jornada = response.jornadas;
-          this.dataSourceJornada = new MatTableDataSource(response.jornadas);
-          this.dataSourceJornada.sort = this.sort;
-          this.dataSourceJornada.paginator = this.paginator;
-        }
-      },
-      error => {
-        console.log(<any>error);
-      })
-  }
-
-  agregarJornadaModal() {
-    this.contModal = 1;
-    this.modalService.mostrarModal();
-  }
-
-  eliminarJornada(idJornada) {
-    this.jornadaService.deleteJornada(idJornada).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(error);
-      }
-    )
-  }
-
-  editarJornada(){
-    console.log('dentro de editar jornada');
-    this.contModal = 11;
-    this.modalService.mostrarModal();
   }
 
   mostrarExpositores() {

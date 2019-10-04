@@ -128,71 +128,7 @@
         <mat-step label="Step 2">
             <ng-template matStepperIcon="done" matStepLabel>Jornadas</ng-template>
 
-            <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-success" (click)="agregarJornadaModal()">
-                    <i class="mdi mdi-plus"></i> Agregar jornada
-                </button>
-            </div>
-
-            <!-- Tabla nueva -->
-            <mat-form-field>
-                <input matInput placeholder="Buscar...">
-            </mat-form-field>
-
-            <div class="mat-elevation-z8">
-                <table id="table-sort" mat-table [dataSource]="dataSourceJornada" matSort>
-
-                    <ng-container matColumnDef="nombreJornada">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.nombreJornada}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="fechaJornada">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.fechaJornada}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="horaInicioJornada">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora inicio</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.horaInicioJornada}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="horaFinJornada">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora término</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.horaFinJornada}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="ubicacionJornada">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Ubicación</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.ubicacionJornada}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="descripcionJornada">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.descripcionJornada}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="editJornada">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"><button class="btn btn-block btn-warning" (click)="editarJornada()"><i class="mdi mdi-pencil"></i></button></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="deleteJornada">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let jornada"><button class="m-l-5 btn btn-block btn-danger" (click)="eliminarJornada(jornada.idJornada)"><i class="mdi mdi-delete"></i></button></td>
-                    </ng-container>
-
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumnsJornada"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumnsJornada;"></tr>
-
-                </table>
-
-                <!-- paginador -->
-                <mat-paginator [length]="cantJornadas" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
-                </mat-paginator>
-            </div>
+            <app-tabla-jornada></app-tabla-jornada>
 
             <!-- div para los botones -->
             <div class="row mt-4">
@@ -604,14 +540,6 @@
 </body>
 
 <!-- modales -->
-<div *ngIf="contModal == 1">
-    <app-modal-jornada-add></app-modal-jornada-add>
-</div>
-
-<div *ngIf="contModal == 11">
-    <app-modal-jornada-edit></app-modal-jornada-edit>
-</div>
-
 <div *ngIf="contModal == 2">
     <app-modal-expositor-add></app-modal-expositor-add>
 </div>
