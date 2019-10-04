@@ -14,3 +14,8 @@ export { ComisionVerComponent } from './comisiones/comision-ver/comision-ver.com
 export { ComisionCrearComponent } from './comisiones/comision-crear/comision-crear.component';
 export { FormularioUtilidadesComponent } from './formulario-utilidades/formulario-utilidades.component';
 export { GenerarUtilidadesComponent } from './formulario-utilidades/generar-utilidades/generar-utilidades.component';
+export { EventosEditarTablasComponent } from './eventos/eventos-editar/eventos-editar-tablas/eventos-editar-tablas.component';
+export { ModalJornadaEditComponent } from './modals/modal-jornada/modal-jornada-edit/modal-jornada-edit.component';
+export { ModalExpositorEditComponent } from './modals/modal-expositor/modal-expositor-edit/modal-expositor-edit.component';
+export { ProgramaComponent } from './programa/programa.component';
+

@@ -94,7 +94,7 @@ export class EventosEditarComponent implements OnInit {
     private expositorService: ExpositorService, private modalService: ModalService, private tipoEventoService: TipoEventoService,
     private eventoService: EventoService, private actividadService: ActividadService, public paginatorSettings: MatPaginatorIntl,
     private materialService: MaterialService, private colaboradorService: ColaboradorService) {
-    // objeto para editar el evento, step 1
+    //Objeto para editar el evento, step 1
     this.eventos = new evento('', '', '', '', '', null, '', null, null, null, null, null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();

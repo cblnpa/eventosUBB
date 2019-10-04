@@ -10,7 +10,9 @@ import {
     ComponentesComponent, EditLoginComponent, InicioComponent, EventosDetallesComponent,
     EventosEditarComponent, EventosMisEventosComponent, EventosCrearComponent, EventosDetallesPublicComponent,
     UnidadesCrearComponent, UnidadesVerComponent, ReportesGenerarComponent, ComisionVerComponent,
-    ComisionCrearComponent, GenerarUtilidadesComponent, FormularioUtilidadesComponent } from '../componentes/componentes.index';
+    ComisionCrearComponent, GenerarUtilidadesComponent, FormularioUtilidadesComponent,
+    ProgramaComponent, ModalJornadaEditComponent, ModalExpositorEditComponent,
+    EventosEditarTablasComponent } from '../componentes/componentes.index';
 
 import {
     ModalJornadaAddComponent, ModalExpositorAddComponent, ModalMaterialAddComponent,
@@ -38,9 +40,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PipesModule } from '../pipes/pipes.module';
 //Generador de utilidades
 import { ColorPickerModule } from 'ngx-color-picker';
-import { ModalJornadaEditComponent } from './modals/modal-jornada/modal-jornada-edit/modal-jornada-edit.component';
-import { ModalExpositorEditComponent } from './modals/modal-expositor/modal-expositor-edit/modal-expositor-edit.component';
-import { ProgramaComponent } from './programa/programa.component';
 
 @NgModule({
     declarations: [
@@ -67,6 +66,7 @@ import { ProgramaComponent } from './programa/programa.component';
         FormularioUtilidadesComponent,
         ModalJornadaEditComponent,
         ModalExpositorEditComponent,
+        EventosEditarTablasComponent,
         ProgramaComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
