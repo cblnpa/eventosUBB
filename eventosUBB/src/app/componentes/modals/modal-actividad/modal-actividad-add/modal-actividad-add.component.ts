@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService, ActividadService, JornadaService, ExpositorService } from '../../../servicios/servicio.index';
-import { actividad, jornada, expositor, actividadPojo } from '../../../model/model.index';
+import { ModalService, ActividadService, JornadaService, ExpositorService } from '../../../../servicios/servicio.index';
+import { actividad, jornada, expositor, actividadPojo } from '../../../../model/model.index';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal-actividad-add',
   templateUrl: './modal-actividad-add.component.html',
-  styleUrls: ['../modal.css']
+  styleUrls: ['../../modal.css']
 })
 export class ModalActividadAddComponent implements OnInit {
 

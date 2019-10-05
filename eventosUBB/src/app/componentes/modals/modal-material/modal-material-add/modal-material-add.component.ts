@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService, MaterialService, UserService } from '../../../servicios/servicio.index';
-import { material } from '../../../model/material';
+import { ModalService, MaterialService, UserService } from '../../../../servicios/servicio.index';
+import { material } from '../../../../model/material';
 import { ActivatedRoute } from '@angular/router';
-import { global } from '../../../servicios/global';
+import { global } from '../../../../servicios/global';
 import Swal from 'sweetalert2';
 
 @Component({

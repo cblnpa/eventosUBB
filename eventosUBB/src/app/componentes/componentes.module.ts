@@ -1,48 +1,63 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+
 //Rutas
 import { COMPONENTES_ROUTES } from './componentes.routes';
+
 // Módulos
 import { UtilidadesModule } from '../utilidades/utilidades.module';
+
 // Componentes
 import {
     ComponentesComponent, EditLoginComponent, InicioComponent, EventosDetallesComponent,
     EventosEditarComponent, EventosMisEventosComponent, EventosCrearComponent, EventosDetallesPublicComponent,
     UnidadesCrearComponent, UnidadesVerComponent, ReportesGenerarComponent, ComisionVerComponent,
     ComisionCrearComponent, GenerarUtilidadesComponent, FormularioUtilidadesComponent,
-    ProgramaComponent, ModalJornadaEditComponent, ModalExpositorEditComponent,
-    TablaJornadaComponent, TablaExpositorComponent, TablaActividadComponent } from '../componentes/componentes.index';
+    ProgramaComponent, TablaJornadaComponent, TablaExpositorComponent, TablaActividadComponent 
+} from '../componentes/componentes.index';
 
+// Componentes modals
 import {
-    ModalJornadaAddComponent, ModalExpositorAddComponent, ModalMaterialAddComponent,
-    ModalColaboradorAddComponent, ModalActividadAddComponent, ModalRepositorioAddComponent
+    ModalActividadAddComponent, ModalActividadEditComponent, ModalColaboradorAddComponent,
+    ModalColaboradorEditComponent, ModalExpositorAddComponent, ModalExpositorEditComponent,
+    ModalJornadaAddComponent, ModalJornadaEditComponent, ModalMaterialAddComponent,
+    ModalMaterialEditComponent, ModalRepositorioAddComponent, ModalRepositorioEditComponent
 } from '../componentes/modals/modals.index';
 
 // Formularios
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 //Angular material
-import { MatStepperModule, MatInputModule, MatCardModule, MatButtonModule, MatPaginatorModule,
+import { 
+    MatStepperModule, MatInputModule, MatCardModule, MatButtonModule, MatPaginatorModule,
     MatSortModule, MatTableModule, MatSelectModule, MatProgressSpinnerModule,
-    MatProgressBarModule, MatNativeDateModule, MatRippleModule} from '@angular/material'
+    MatProgressBarModule, MatNativeDateModule, MatRippleModule
+} from '@angular/material'
 
 //Botón compartir
 import { ShareButtonModule } from '@ngx-share/button';
 import { ShareButtonsModule } from '@ngx-share/buttons';
+
 //Selector múltiple con buscador
 import { SelectDropDownModule } from 'ngx-select-dropdown'
+
 // uploader
 import { AngularFileUploaderModule } from "angular-file-uploader";
+
 //paginación
 import { NgxPaginationModule } from 'ngx-pagination';
+
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
+
 //Generador de utilidades
 import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
     declarations: [
+        //Componentes
         ComponentesComponent,
         EventosDetallesComponent,
         EventosEditarComponent,
@@ -56,20 +71,29 @@ import { ColorPickerModule } from 'ngx-color-picker';
         ReportesGenerarComponent,
         ComisionVerComponent,
         ComisionCrearComponent,
-        ModalJornadaAddComponent,
-        ModalExpositorAddComponent,
-        ModalActividadAddComponent,
-        ModalMaterialAddComponent,
-        ModalColaboradorAddComponent,
-        ModalRepositorioAddComponent,
         GenerarUtilidadesComponent,
         FormularioUtilidadesComponent,
-        ModalJornadaEditComponent,
-        ModalExpositorEditComponent,
         ProgramaComponent,
+
+        //Componentes modals
+        ModalActividadAddComponent,
+        ModalActividadEditComponent,
+        ModalColaboradorAddComponent,
+        ModalColaboradorEditComponent,
+        ModalExpositorAddComponent,
+        ModalExpositorEditComponent,
+        ModalJornadaAddComponent,
+        ModalJornadaEditComponent,
+        ModalMaterialAddComponent,
+        ModalMaterialEditComponent,
+        ModalRepositorioAddComponent,
+        ModalRepositorioEditComponent,
+
+        //Componentes tablas
         TablaJornadaComponent,
         TablaExpositorComponent,
-        TablaActividadComponent
+        TablaActividadComponent,
+       
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
@@ -85,12 +109,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
         UnidadesVerComponent,
         ReportesGenerarComponent,
         ComisionVerComponent,
-        ComisionCrearComponent,
-        ModalJornadaAddComponent,
-        ModalExpositorAddComponent,
-        ModalActividadAddComponent,
-        ModalMaterialAddComponent,
-        ModalColaboradorAddComponent
+        ComisionCrearComponent
     ],
     //acá se agregan los módulos de utilidades, ya que estos se utilizan en componentes.component.html
     imports: [

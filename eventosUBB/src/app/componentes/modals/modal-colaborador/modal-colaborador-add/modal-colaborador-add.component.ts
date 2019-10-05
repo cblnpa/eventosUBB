@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService, ColaboradorService, UserService } from '../../../servicios/servicio.index';
-import { colaborador, tipoColaborador } from '../../../model/model.index';
+import { ModalService, ColaboradorService, UserService } from '../../../../servicios/servicio.index';
+import { colaborador, tipoColaborador } from '../../../../model/model.index';
 import { ActivatedRoute } from '@angular/router';
-import { global } from '../../../servicios/global';
+import { global } from '../../../../servicios/global';
 import Swal from 'sweetalert2';
 
 @Component({
