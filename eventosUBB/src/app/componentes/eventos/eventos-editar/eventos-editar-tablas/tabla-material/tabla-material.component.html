@@ -1,0 +1,58 @@
+<div class="col-md-12 text-center">
+  <button type="button" class="btn btn-success" (click)="agregarMaterialModal()">
+    <i class="mdi mdi-plus"></i> Agregar material
+  </button>
+</div>
+
+<mat-form-field>
+  <input matInput placeholder="Buscar...">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table id="table-sort" mat-table [dataSource]="dataSourceMaterial" matSort>
+
+    <ng-container matColumnDef="nombreMaterial">
+      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+      <td id="table-sort-cell" mat-cell *matCellDef="let material">
+        {{material.nombreMaterial}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="archivo">
+      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Archivo</th>
+      <td id="table-sort-cell" mat-cell *matCellDef="let material">
+        {{material.archivo}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de creación
+      </th>
+      <td id="table-sort-cell" mat-cell *matCellDef="let material">
+        {{material.created_at | date:'fullDate'}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deleteMaterial">
+      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td id="table-sort-cell" mat-cell *matCellDef="let material"> <button class="btn btn-block btn-danger mb-3"
+          (click)="eliminarMaterial(material.idMaterial)"><i class="mdi mdi-delete"></i></button> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsMaterial"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsMaterial;"></tr>
+
+  </table>
+
+  <!-- paginador -->
+  <mat-paginator [length]="cantMateriales" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
+  </mat-paginator>
+</div>
+
+<div *ngIf="contModal == 8">
+    <app-modal-material-add></app-modal-material-add>
+</div>
+
+<!-- <div *ngIf="contModal == 9">
+    <app-modal-material-edit [idMaterialEdit]="idMaterialEdit"></app-modal-material-edit>
+</div> -->

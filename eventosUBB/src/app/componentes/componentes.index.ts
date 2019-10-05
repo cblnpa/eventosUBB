@@ -23,3 +23,4 @@ export { TablaJornadaComponent } from './eventos/eventos-editar/eventos-editar-t
 export { TablaExpositorComponent } from './eventos/eventos-editar/eventos-editar-tablas/tabla-expositor/tabla-expositor.component';
 export { TablaActividadComponent } from './eventos/eventos-editar/eventos-editar-tablas/tabla-actividad/tabla-actividad.component';
 export { TablaColaboradorComponent } from './eventos/eventos-editar/eventos-editar-tablas/tabla-colaborador/tabla-colaborador.component';
+export { TablaMaterialComponent } from './eventos/eventos-editar/eventos-editar-tablas/tabla-material/tabla-material.component';

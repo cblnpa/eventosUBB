@@ -1,13 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
 import { global } from '../../../servicios/global'
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-import { eventoPojo, ciudad, evento, colaborador, material } from '../../../model/model.index';
+import { eventoPojo, ciudad, evento } from '../../../model/model.index';
 import {
-  EventoPojoService, CiudadService, UserService, EventoService, TipoEventoService, ModalService, MaterialService, ColaboradorService, CategoriaService
+  EventoPojoService, CiudadService, UserService, EventoService, TipoEventoService, CategoriaService
 } from '../../../servicios/servicio.index';
 
 @Component({
@@ -23,10 +22,7 @@ export class EventosEditarComponent implements OnInit {
   //Modelos y/o Tablas
   public eventoPojo: eventoPojo;
   public ciudad: ciudad;
-  public material: material;
   public eventos: evento;
-  public colaborador: colaborador;
-
 
   //Formularios del stepper
   firstFormGroup: FormGroup;
@@ -38,16 +34,8 @@ export class EventosEditarComponent implements OnInit {
   public ciudades;
   public categorias;
   public tipoEvento;
-  public status;
   public id; //id del evento
   public idUsuario; //id del usuario (sub) 
-
-  public contModal: number;
-
-  //variables para el data table
-  public dataSourceMaterial;
-  public displayedColumnsMaterial: string[] = ['nombreMaterial', 'archivo', 'created_at','deleteMaterial'];
-  public cantMateriales: number;
 
   public afuConfig = {
     multiple: false,
@@ -71,26 +59,19 @@ export class EventosEditarComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
     private userService: UserService, private eventoPojoService: EventoPojoService,
-    private ciudadService: CiudadService, private categoriaService: CategoriaService, private modalService: ModalService, private tipoEventoService: TipoEventoService,
-    private eventoService: EventoService, public paginatorSettings: MatPaginatorIntl,
-    private materialService: MaterialService, private colaboradorService: ColaboradorService) {
-    //Objeto para editar el evento, step 1
+    private ciudadService: CiudadService, private categoriaService: CategoriaService, 
+    private tipoEventoService: TipoEventoService, private eventoService: EventoService ) {
     this.eventos = new evento('', '', '', '', '', null, '', null, null, null, null, null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
     this.url = global.url;
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
   ngOnInit() {
     this.getDatosEvento();
     this.getCiudades();
     this.getCategorias();
     this.getTipoEventos();
-    this.mostrarMateriales();
-    this.paginadorSettings();
     this.idUsuario = this.identity.sub;
     //Stepper 1 del evento 
     this.firstFormGroup = this._formBuilder.group({
@@ -196,37 +177,6 @@ export class EventosEditarComponent implements OnInit {
     this.router.navigate(['/eventoDetalle/' + this.id]);
   }
 
-  mostrarMateriales() {
-    this.materialService.getMateriales(this.id).subscribe(
-      response => {
-        if (response.status == 'success') {
-          this.cantMateriales = response.material.length;
-          this.dataSourceMaterial = new MatTableDataSource(response.material);
-          this.dataSourceMaterial.sort = this.sort;
-          this.dataSourceMaterial.paginator = this.paginator;
-        }
-      },
-      error => {
-        console.log(<any>error);
-      })
-  }
-
-  agregarMaterialModal() {
-    this.contModal = 4;
-    this.modalService.mostrarModal();
-  }
-
-  eliminarMaterial(idMaterial){
-    this.materialService.deleteMaterial(idMaterial).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
   //foto del evento
   imagenUpload(datos) {
     let data = JSON.parse(datos.response);
@@ -236,12 +186,6 @@ export class EventosEditarComponent implements OnInit {
   logoUpload(datos) {
     let data = JSON.parse(datos.response);
     this.eventoPojo.logo = data.image;
-  }
-
-  paginadorSettings() {
-    this.paginatorSettings.itemsPerPageLabel = 'Elementos por página';
-    this.paginatorSettings.previousPageLabel = 'Página anterior';
-    this.paginatorSettings.nextPageLabel = 'Página siguiente';
   }
 
 }

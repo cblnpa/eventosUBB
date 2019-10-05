@@ -1,4 +1,5 @@
 <body class="fix-header card-no-border fix-sidebar">
+
     <mat-horizontal-stepper labelPosition="bottom" [linear]="isLinear">
         <mat-step label="Step 1">
             <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventos)">
@@ -130,11 +131,9 @@
 
             <app-tabla-jornada></app-tabla-jornada>
 
-            <!-- div para los botones -->
             <div class="row mt-4">
                 <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
-                        type="button">Anterior</button>
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
@@ -147,11 +146,9 @@
 
             <app-tabla-expositor></app-tabla-expositor>
 
-            <!-- div para los botones -->
             <div class="row mt-4">
                 <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
-                        type="button">Anterior</button>
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
@@ -160,16 +157,13 @@
         </mat-step>
 
         <mat-step label="Step 4">
-
             <ng-template matStepperIcon="done" matStepLabel>Actividades</ng-template>
 
             <app-tabla-actividad></app-tabla-actividad>
 
-            <!-- div para los botones -->
             <div class="row mt-4">
                 <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
-                        type="button">Anterior</button>
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
@@ -182,11 +176,9 @@
 
             <app-tabla-colaborador></app-tabla-colaborador>
 
-            <!-- div para los botones -->
             <div class="row mt-4">
                 <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
-                        type="button">Anterior</button>
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
@@ -197,78 +189,11 @@
         <mat-step label="Step 6">
             <ng-template matStepperIcon="done" matStepLabel>Materiales</ng-template>
 
-            <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-success" (click)="agregarMaterialModal()">
-                    <i class="mdi mdi-plus"></i> Agregar material
-                </button>
-            </div>
+            <app-tabla-material></app-tabla-material>
 
-            <!-- Tabla nueva -->
-            <mat-form-field>
-                <input matInput placeholder="Buscar...">
-            </mat-form-field>
-
-            <div class="mat-elevation-z8">
-                <table id="table-sort" mat-table [dataSource]="dataSourceMaterial" matSort>
-
-                    <ng-container matColumnDef="nombreMaterial">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let material">
-                            {{material.nombreMaterial}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="archivo">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Archivo</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let material">
-                            {{material.archivo}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="created_at">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de creación
-                        </th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let material">
-                            {{material.created_at | date:'fullDate'}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="deleteMaterial">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let material"> <button class="btn btn-block btn-danger mb-3" (click)="eliminarMaterial(material.idMaterial)"><i class="mdi mdi-delete"></i></button> </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumnsMaterial"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumnsMaterial;"></tr>
-
-                </table>
-
-                <!-- paginador -->
-                <mat-paginator [length]="cantMateriales" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
-                </mat-paginator>
-            </div>
-
-            <!-- Tabla para visualizar materiales -->
-            <!-- <div class="col-md-12">
-                <table class="table info-table mt-3">
-                    <thead>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Archivo</th>
-                    </thead>
-                    <tbody *ngFor="let m of material ; let i = index">
-                        <td> {{i+1}} </td>
-                        <td> {{m.nombreMaterial}} </td>
-                        <td> {{m.archivo}} </td>
-                    </tbody>
-                </table>
-            </div> -->
-
-            <!-- div para los botones -->
             <div class="row mt-4">
                 <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
-                        type="button">Anterior</button>
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
@@ -303,11 +228,9 @@
                 </div>
                 <br>
 
-                <!-- div para los botones -->
                 <div class="row mt-4">
                     <div class="col-md-6 col-sm-12">
-                        <button mat-button matStepperPrevious class="btn btn-primary btn-block"
-                            type="button">Anterior</button>
+                        <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <button class="btn btn-success btn-block" (click)="guardarEvento(eventoPojoForm)"
