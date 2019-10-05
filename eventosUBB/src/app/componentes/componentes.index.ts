@@ -20,4 +20,5 @@ export { ProgramaComponent } from './programa/programa.component';
 
 // Componentes del eventos-editar-tablas
 export { TablaJornadaComponent } from './eventos/eventos-editar/eventos-editar-tablas/tabla-jornada/tabla-jornada.component';
+export { TablaExpositorComponent } from './eventos/eventos-editar/eventos-editar-tablas/tabla-expositor/tabla-expositor.component';
 

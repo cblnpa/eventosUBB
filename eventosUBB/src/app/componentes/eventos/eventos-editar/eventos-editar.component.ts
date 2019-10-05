@@ -5,9 +5,9 @@ import { global } from '../../../servicios/global'
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-import { eventoPojo, ciudad, evento, jornada, actividad, colaborador, expositor, material } from '../../../model/model.index';
+import { eventoPojo, ciudad, evento, actividad, colaborador, expositor, material } from '../../../model/model.index';
 import {
-  EventoPojoService, CiudadService, UserService, EventoService, JornadaService, TipoEventoService,
+  EventoPojoService, CiudadService, UserService, EventoService, TipoEventoService,
   ExpositorService, ActividadService, ModalService, MaterialService, ColaboradorService, CategoriaService
 } from '../../../servicios/servicio.index';
 
@@ -28,7 +28,7 @@ export class EventosEditarComponent implements OnInit {
   public eventos: evento;
   public actividad: actividad;
   public colaborador: colaborador;
-  public expositor: expositor;
+
 
   //Formularios del stepper
   firstFormGroup: FormGroup;
@@ -47,10 +47,6 @@ export class EventosEditarComponent implements OnInit {
   public contModal: number;
 
   //variables para el data table
-  public dataSourceExpositor;
-  public displayedColumnsExpositor: string[] = ['nombreExpositor', 'apellidoExpositor', 'apellido2Expositor', 'correoExpositor', 'empresa', 'telefonoExpositor', 'foto', 'editExpositor', 'deleteExpositor'];
-  public cantExpositores: number;
-
   public dataSourceActividad;
   public displayedColumnsActividad: string[] = ['nombreActividad', 'horaInicioActividad', 'horaFinActividad', 'ubicacionActividad', 'actividadParalela', 'cupos', 'descripcionActividad', 'deleteActividad'];
   public cantActividades: number;
@@ -85,8 +81,7 @@ export class EventosEditarComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
     private userService: UserService, private eventoPojoService: EventoPojoService,
-    private ciudadService: CiudadService, private categoriaService: CategoriaService,
-    private expositorService: ExpositorService, private modalService: ModalService, private tipoEventoService: TipoEventoService,
+    private ciudadService: CiudadService, private categoriaService: CategoriaService, private modalService: ModalService, private tipoEventoService: TipoEventoService,
     private eventoService: EventoService, private actividadService: ActividadService, public paginatorSettings: MatPaginatorIntl,
     private materialService: MaterialService, private colaboradorService: ColaboradorService) {
     //Objeto para editar el evento, step 1
@@ -104,7 +99,6 @@ export class EventosEditarComponent implements OnInit {
     this.getCiudades();
     this.getCategorias();
     this.getTipoEventos();
-    this.mostrarExpositores();
     this.mostrarActividades();
     this.mostrarColaboradores();
     this.mostrarMateriales();
@@ -212,45 +206,6 @@ export class EventosEditarComponent implements OnInit {
       }
     )
     this.router.navigate(['/eventoDetalle/' + this.id]);
-  }
-
-  mostrarExpositores() {
-    this.expositorService.getExpositoresActividad(this.id).subscribe(
-      response => {
-        if (response.code == 200 && (response.expositor.length) > 0) {
-          this.cantExpositores = response.expositor.length;
-          this.dataSourceExpositor = new MatTableDataSource(response.expositor);
-          this.dataSourceExpositor.sort = this.sort;
-          this.dataSourceExpositor.paginator = this.paginator;
-        } else {
-          console.log('este evento aún no tiene expositores');
-        }
-      },
-      error => {
-        console.log(<any>error);
-      })
-  }
-
-  agregarExpositorModal() {
-    this.contModal = 2;
-    this.modalService.mostrarModal();
-  }
-
-  eliminarExpositor(idExpositor) {
-    this.expositorService.deleteExpositor(idExpositor).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
-  }
-
-  editarExpositor(id) {
-    this.contModal = 22;
-    console.log(id);
-    this.modalService.mostrarModal();
   }
 
   mostrarActividades() {

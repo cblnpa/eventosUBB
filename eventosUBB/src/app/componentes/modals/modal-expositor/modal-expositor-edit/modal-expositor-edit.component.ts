@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalService, ExpositorService, UserService } from '../../../../servicios/servicio.index';
 import { ActivatedRoute } from '@angular/router';
 import { expositor } from 'src/app/model/expositor';
@@ -16,6 +16,8 @@ export class ModalExpositorEditComponent implements OnInit {
   public idEvento;
   public identity;
   public token;
+
+  @Input() idExpositorEdit: number; //recibe el id del expositor a editar
 
   public afuConfig = {
     multiple: false,
@@ -45,44 +47,22 @@ export class ModalExpositorEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getDatosExpositor(id);
+    this.getDatosExpositor();
   }
 
-  getDatosExpositor(id) {
-    this.expositorService.getExpositorById(id).subscribe(
+  getDatosExpositor() {
+    this.expositorService.getExpositorById(this.idExpositorEdit).subscribe(
       response => {
-        console.log(response);
+        this.expositores = response.expositor;
+        //Carga los datos del expositor en el modal
+        this.expositores = new expositor(this.expositores.nombreExpositor, this.expositores.apellidoExpositor,
+          this.expositores.apellido2Expositor, this.expositores.sexo, this.expositores.correoExpositor,
+          this.expositores.empresa, this.expositores.foto, this.expositores.telefonoExpositor,
+          this.expositores.evento, this.expositores.idExpositor);
       }, error => {
         console.log(<any>error);
       }
     )
-
-    this.route.params.subscribe(
-      params => {
-        let idEvento = +params['id'];
-        this.idEvento = idEvento;
-
-        this.expositorService.getExpositoresActividad(this.idEvento).subscribe(
-          response => {
-            this.expositores = response.expositor[0];
-            this.expositores = new expositor(this.expositores.nombreExpositor, this.expositores.apellidoExpositor,
-              this.expositores.apellido2Expositor, this.expositores.sexo, this.expositores.correoExpositor,
-              this.expositores.empresa, this.expositores.foto, this.expositores.telefonoExpositor,
-              this.expositores.evento, this.expositores.idExpositor);
-          }, error => {
-            console.log(<any>error);
-          })
-      })
-  }
-
-  //pregunta si quiere salir del modal
-  salirModal() {
-    this.modalService.salirModal();
-  }
-
-  //oculta el modal luego de agregar los datos
-  ocultarModal() {
-    this.modalService.ocultarModal();
   }
 
   editarExpositor(form) {
@@ -105,6 +85,16 @@ export class ModalExpositorEditComponent implements OnInit {
   fotoUpload(datos) {
     let data = JSON.parse(datos.response);
     this.expositores.foto = data.image;
+  }
+
+  //pregunta si quiere salir del modal
+  salirModal() {
+    this.modalService.salirModal();
+  }
+
+  //oculta el modal luego de agregar los datos
+  ocultarModal() {
+    this.modalService.ocultarModal();
   }
 
 }

@@ -6,8 +6,7 @@ import { LoginComponent, EditLoginComponent, InicioComponent, EventosDetallesCom
         EventosEditarComponent, EventosMisEventosComponent, EventosCrearComponent, 
         GenerarUtilidadesComponent, EventosDetallesPublicComponent, 
         UnidadesCrearComponent, UnidadesVerComponent, ReportesGenerarComponent, 
-        ComisionVerComponent, ComisionCrearComponent, FormularioUtilidadesComponent,
-        TablaJornadaComponent } from '../componentes/componentes.index';
+        ComisionVerComponent, ComisionCrearComponent, FormularioUtilidadesComponent } from '../componentes/componentes.index';
 
 import { LoginGuard } from '../servicios/guards/login.guard';
 
@@ -32,9 +31,6 @@ const componentesRoutes: Routes = [
             { path: 'eventoDetallePublic/:id', component: EventosDetallesPublicComponent, data: { titulo: 'Detalles del evento' } },
             { path: 'generarUtilidades', component: FormularioUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },
             { path: 'generarUtilidades/:id/:tipo', component: GenerarUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },   
-            
-            // Pruebas para las tablas del editar
-            { path: 'tablaJornada', component: TablaJornadaComponent },   
         ]
     }
 ];

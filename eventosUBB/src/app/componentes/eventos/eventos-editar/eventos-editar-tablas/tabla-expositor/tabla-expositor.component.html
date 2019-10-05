@@ -1,0 +1,84 @@
+<div class="col-md-12 text-center">
+    <button type="button" class="btn btn-success" (click)="agregarExpositorModal()">
+        <i class="mdi mdi-plus"></i> Agregar expositor
+    </button>
+</div>
+
+<mat-form-field>
+    <input matInput placeholder="Buscar...">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+    <table id="table-sort" mat-table [dataSource]="dataSourceExpositor" matSort>
+
+        <ng-container matColumnDef="nombreExpositor">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.nombreExpositor}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="apellidoExpositor">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Apellido Paterno</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.apellidoExpositor}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="apellido2Expositor">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Apellido Materno</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.apellido2Expositor}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="correoExpositor">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.correoExpositor}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="empresa">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Organización</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.empresa}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="telefonoExpositor">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono de contacto
+            </th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.telefonoExpositor}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="foto">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Foto expositor</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> {{expositor.foto}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="editExpositor">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let expositor"><button class="btn btn-block btn-warning" (click)="editarExpositor(expositor.idExpositor)"><i class="mdi mdi-pencil"></i></button></td>
+        </ng-container>
+
+        <ng-container matColumnDef="deleteExpositor">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let expositor"> <button class="m-l-5 btn btn-block btn-danger" (click)="eliminarExpositor(expositor.idExpositor)"><i class="mdi mdi-delete"></i></button></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsExpositor"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsExpositor;"></tr>
+
+    </table>
+
+    <!-- paginador -->
+    <mat-paginator [length]="cantExpositores" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
+    </mat-paginator>
+
+</div>
+
+<div *ngIf="contModal == 1">
+    <app-modal-expositor-add></app-modal-expositor-add>
+</div>
+
+<div *ngIf="contModal == 2">
+    <app-modal-expositor-edit></app-modal-expositor-edit>
+</div>
