@@ -8,7 +8,28 @@
 </head>
 
 <body>
+    <table>
+        <tr>
+            <td *ngFor="let d of actividad">
+                <table>
+                    <tbody>
+                        <tr>
+                            {{d.horaInicioActividad}}
+                        </tr>
 
+                        <tr *ngFor="let main of actividad">
+
+                            <td>
+                                {{main.nombreActividad}}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <td>
+
+        </tr>
+    </table>
 </body>
 
 </html>
