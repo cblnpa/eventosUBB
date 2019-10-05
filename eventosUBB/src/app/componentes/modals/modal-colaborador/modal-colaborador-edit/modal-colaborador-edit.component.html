@@ -1,3 +1,106 @@
-<p>
-  modal-colaborador-edit works!
-</p>
+<div class="modal blur" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    [ngStyle]="{ display: modalService.oculto }">
+    <div class="modal-dialog modal-lg" style="overflow-y: scroll">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="text-uppercase text-primary">Agregar colaborador</h4>
+                <button type="button" class="close" (click)="salirModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal p-t-20" #editarColaboradorForm="ngForm"
+                    (ngSubmit)="editarColaborador(editarColaboradorForm)">
+
+                    <div class="col-md-12 mr-2">
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Nombre</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input1 type="text" name="nombreColaborador"
+                                    #nombreColaborador="ngModel" [(ngModel)]="colaborador.nombreColaborador"
+                                    maxlength="45" placeholder="Nombre" required>
+                                <mat-hint align="start"><strong>Ingresa el nombre del colaborador</strong> </mat-hint>
+                                <mat-hint align="end">{{input1.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Nombre Representante</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input2 type="text" name="nombreRepresentante"
+                                    #nombreRepresentante="ngModel" [(ngModel)]="colaborador.nombreRepresentante"
+                                    maxlength="45" placeholder="Nombre">
+                                <mat-hint align="start"><strong>Ingresa el nombre del representante</strong> </mat-hint>
+                                <mat-hint align="end">{{input2.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Teléfono</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput type="number" name="telefonoColaborador" #telefonoColaborador="ngModel"
+                                    [(ngModel)]="colaborador.telefonoColaborador" maxlength="11">
+                                <mat-hint align="start"><strong>Ingresa el número de contacto del colaborador</strong>
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Correo</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input3 type="email" name="correoColaborador"
+                                    #correoColaborador="ngModel" [(ngModel)]="colaborador.correoColaborador"
+                                    maxlength="60" placeholder="Correo">
+                                <mat-hint align="start"><strong>Ingresa el correo de contacto</strong> </mat-hint>
+                                <mat-hint align="end">{{input3.value.length}} / 45</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Sitio web</label>
+                            <mat-form-field class="col-sm-9">
+                                <input matInput #input4 type="text" name="sitioWeb" #sitioWeb="ngModel"
+                                    [(ngModel)]="colaborador.sitioWeb" maxlength="100" placeholder="Correo">
+                                <mat-hint align="start"><strong>Ingresa el sitio web del colaborador</strong>
+                                </mat-hint>
+                                <mat-hint align="end">{{input4.value.length}} / 100</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label">Tipo de colaborador</label>
+                            <div class="col-sm-9">
+                                <select name="tipoColaborador_idtipoColaborador" class="form-control"
+                                    #tipoColaborador_idtipoColaborador="ngModel"
+                                    [(ngModel)]="colaborador.tipoColaborador_idtipoColaborador">
+                                    <option *ngFor="let tipo of tipoColaboradores" [value]="tipo.idtipoColaborador">
+                                        {{tipo.tipoColaborador}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="logo" class="col-sm-3 control-label">Logo</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="mdi mdi-file"></i></div>
+                                <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="logoUpload($event)">
+                                </angular-file-uploader>
+                            </div>
+                            <span class="help-block"><small>Sube el logo del colaborador</small></span>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger waves-effect"
+                            (click)="ocultarModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

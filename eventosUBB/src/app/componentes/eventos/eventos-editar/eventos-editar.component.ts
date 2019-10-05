@@ -45,10 +45,6 @@ export class EventosEditarComponent implements OnInit {
   public contModal: number;
 
   //variables para el data table
-  public dataSourceColaborador;
-  public displayedColumnsColaborador: string[] = ['nombreColaborador', 'nombreRepresentante', 'telefonoColaborador', 'correoColaborador', 'tipoColaborador', 'sitioWeb', 'logo', 'deleteColaborador'];
-  public cantColaboradores: number;
-
   public dataSourceMaterial;
   public displayedColumnsMaterial: string[] = ['nombreMaterial', 'archivo', 'created_at','deleteMaterial'];
   public cantMateriales: number;
@@ -93,7 +89,6 @@ export class EventosEditarComponent implements OnInit {
     this.getCiudades();
     this.getCategorias();
     this.getTipoEventos();
-    this.mostrarColaboradores();
     this.mostrarMateriales();
     this.paginadorSettings();
     this.idUsuario = this.identity.sub;
@@ -199,40 +194,6 @@ export class EventosEditarComponent implements OnInit {
       }
     )
     this.router.navigate(['/eventoDetalle/' + this.id]);
-  }
-
-  mostrarColaboradores() {
-    this.colaboradorService.getColaboradores(this.id).subscribe(
-      response => {
-        console.log(response);
-        if (response.code == 200 && (response.colaborador.length) > 0) {
-          this.cantColaboradores = response.colaborador.length;
-          this.dataSourceColaborador = new MatTableDataSource(response.colaborador);
-          this.dataSourceColaborador.sort = this.sort;
-          this.dataSourceColaborador.paginator = this.paginator;
-        } else {
-          console.log('aún no hay ningún colaborador en este evento');
-        }
-      },
-      error => {
-        console.log(<any>error);
-      })
-  }
-
-  agregarColaboradorModal() {
-    this.contModal = 5;
-    this.modalService.mostrarModal();
-  }
-
-  eliminarColaborador(idColaborador) {
-    this.colaboradorService.deleteColaborador(idColaborador).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
   }
 
   mostrarMateriales() {

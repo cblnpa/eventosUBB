@@ -7,6 +7,7 @@ export class colaborador {
         public sitioWeb: string,
         public logo: string,
         public tipoColaborador_idtipoColaborador: number,
-        public evento_idEvento: number
+        public evento_idEvento: number,
+        public idColaborador?: number
     ){}
 }

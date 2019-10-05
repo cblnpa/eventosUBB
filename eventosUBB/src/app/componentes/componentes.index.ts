@@ -22,4 +22,4 @@ export { ProgramaComponent } from './programa/programa.component';
 export { TablaJornadaComponent } from './eventos/eventos-editar/eventos-editar-tablas/tabla-jornada/tabla-jornada.component';
 export { TablaExpositorComponent } from './eventos/eventos-editar/eventos-editar-tablas/tabla-expositor/tabla-expositor.component';
 export { TablaActividadComponent } from './eventos/eventos-editar/eventos-editar-tablas/tabla-actividad/tabla-actividad.component';
-
+export { TablaColaboradorComponent } from './eventos/eventos-editar/eventos-editar-tablas/tabla-colaborador/tabla-colaborador.component';

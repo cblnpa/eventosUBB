@@ -180,81 +180,7 @@
         <mat-step label="Step 5">
             <ng-template matStepperIcon="done" matStepLabel>Colaboradores</ng-template>
 
-            <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-success" (click)="agregarColaboradorModal()">
-                    <i class="mdi mdi-plus"></i> Agregar colaborador
-                </button>
-            </div>
-
-            <!-- Tabla nueva -->
-            <mat-form-field>
-                <input matInput placeholder="Buscar...">
-            </mat-form-field>
-
-            <div class="mat-elevation-z8">
-                <table id="table-sort" mat-table [dataSource]="dataSourceColaborador" matSort>
-
-                    <ng-container matColumnDef="nombreColaborador">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
-                            {{colaborador.nombreColaborador}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="nombreRepresentante">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Representante</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
-                            {{colaborador.nombreRepresentante}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="telefonoColaborador">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
-                            {{colaborador.telefonoColaborador}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="correoColaborador">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
-                            {{colaborador.correoColaborador}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="tipoColaborador">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Tipo colaboración
-                        </th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> {{colaborador.tipoColaborador}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="sitioWeb">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Sitio web</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> {{colaborador.sitioWeb}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="logo">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Logo</th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
-                            {{colaborador.logo}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="deleteColaborador">
-                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> <button class="btn btn-block btn-danger mb-3" (click)="eliminarColaborador(colaborador.idColaborador)"><i class="mdi mdi-delete"></i></button> </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumnsColaborador"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumnsColaborador;"></tr>
-
-                </table>
-
-                <!-- paginador -->
-                <mat-paginator [length]="cantColaboradores" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
-                </mat-paginator>
-            </div>
+            <app-tabla-colaborador></app-tabla-colaborador>
 
             <!-- div para los botones -->
             <div class="row mt-4">
@@ -393,12 +319,3 @@
     </mat-horizontal-stepper>
 
 </body>
-
-<!-- modales -->
-<div *ngIf="contModal == 4">
-    <app-modal-material-add></app-modal-material-add>
-</div>
-
-<div *ngIf="contModal == 5">
-    <app-modal-colaborador-add></app-modal-colaborador-add>
-</div>
