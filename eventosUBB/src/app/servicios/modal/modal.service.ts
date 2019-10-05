@@ -34,4 +34,5 @@ export class ModalService {
   mostrarModal() {
     this.oculto = 'block';
   }
+
 }

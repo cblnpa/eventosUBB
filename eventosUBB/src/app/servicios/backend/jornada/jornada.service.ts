@@ -30,6 +30,12 @@ export class JornadaService {
     return this.http.get(this.url + 'jornada/' + idEvento, { headers: headers });
   }
 
+  //Obtener jornada por id
+  getJornadaById(idJornada):Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'getJornada/' +idJornada, {headers: headers});
+  }
+
   // Eliminar una jornada 
   deleteJornada(id) {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

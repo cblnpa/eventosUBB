@@ -44,7 +44,11 @@
 
         <ng-container matColumnDef="editJornada">
             <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let jornada"><button class="btn btn-block btn-warning" (click)="editarJornada()"><i class="mdi mdi-pencil"></i></button></td>
+            <td id="table-sort-cell" mat-cell *matCellDef="let jornada">
+              <button class="btn btn-block btn-warning" (click)="editarJornada(jornada.idJornada)"><i class="mdi mdi-pencil"></i>
+                
+              </button>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="deleteJornada">
@@ -65,4 +69,8 @@
 
 <div *ngIf="contModal == 1">
     <app-modal-jornada-add></app-modal-jornada-add>
+</div>
+
+<div *ngIf="contModal == 2">
+    <app-modal-jornada-edit [idJornadaEdit]="idJornadaEdit"></app-modal-jornada-edit>
 </div>
