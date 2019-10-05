@@ -1,100 +1,80 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { global } from '../../servicios/global';
-import { EventoPojoService, EventoUsersService, UserService, EventoService, ComisionService, RepositorioService, ModalService } from '../../servicios/servicio.index';
-import { evento, material, colaborador, jornada, expositor, actividad, evento_users, asistencia, deleteComision } from '../../model/model.index';
+import { ActivatedRoute } from '@angular/router';
+import { EventoPojoService } from '../../servicios/servicio.index';
+import { evento } from '../../model/model.index';
 
-import Swal from 'sweetalert2';
 @Component({
   selector: 'app-programa',
   templateUrl: './programa.component.html',
-  styleUrls: ['./programa.component.css'],
-  providers: [EventoPojoService, EventoUsersService, UserService, EventoService]
-
+  styleUrls: ['./programa.component.css']
 })
+
 export class ProgramaComponent implements OnInit {
-  public url: string; // url que posee el localhost.. 
-  public participantes;
   public idPersona;
-  public comisiones; //almacenar los integrantes
-  public repositorio; 
 
-  //verificar el usuario activo
-  public token;
-  public identity;
-  public rol; //almacena el rol del usuario activo
+  //arreglos que almacenan los objetos
+  public arrActividades = [];
+  public arrColaboradores = [];
+  public arrJornadas = [];
+  public arrExpositores = [];
 
-  public idEventoUsers: number; /* este es el id del evento para el eventousers */
-  public status;
-
-  public eventoUsers: evento_users;
-
-  public actividad: actividad;
+  //acá están los datos del evento
   public evento: evento;
-  public material: material;
-  public colaborador: colaborador;
-  public jornada: jornada;
-  public expositor: expositor;
- 
-  constructor(private eventoPojoService: EventoPojoService, private eventoUsersService: EventoUsersService,
-    private userService: UserService, private eventoService: EventoService, private route: ActivatedRoute,
-    private router: Router, private comisionService: ComisionService, private repositorioService: RepositorioService,
-    private modalService: ModalService ) {
-    this.url = global.url;
-    this.token = this.userService.getToken();
-    this.identity = this.userService.getIdentity();
-    
-  }
 
-
+  constructor(private eventoPojoService: EventoPojoService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getEventosDetalle();
-
   }
 
   getEventosDetalle() {
     this.route.params.subscribe(params => {
-
+      //Obtener el id del evento que viene por URL
       let idEvento = +params['id'];
-      this.idEventoUsers = idEvento;
 
       this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
-
         response => {
-          if (response.status == 'success') {
+          console.log(response);
+          if (response.code == 200) {
+            //Almacenar las actividades 
+            if (response.actividad.length > 0) {
+              for (var i = 0; i < response.actividad.length; i++) {
+                if (response.actividad[i] != null)
+                  this.arrActividades.push(response.actividad[i]);
+              }
+            }
 
-            if (response.Jornada == null) {
-            } else {
-              this.jornada = response.Jornada;
+            //Almacenar los colaboradores
+            if (response.colaborador.length > 0) {
+              for (var i = 0; i < response.colaborador.length; i++) {
+                if (response.colaborador[i] != null)
+                  this.arrColaboradores.push(response.colaborador[i]);
+              }
             }
-            if (response.actividad == null) {
-            } else {
-              this.actividad = response.actividad;
+
+            //Almacenar las jornadas
+            if (response.Jornada.length > 0) {
+              for (var i = 0; i < response.Jornada.length; i++) {
+                if (response.Jornada[i] != null)
+                  this.arrJornadas.push(response.Jornada[i]);
+              }
             }
-            if (response.expositor == null) {
-            } else {
-              this.expositor = response.expositor;
+
+            //Almacenar los expositores
+            if (response.expositor.length > 0) {
+              for (var i = 0; i < response.expositor; i++) {
+                if (response.expositor[i] != null)
+                  this.arrExpositores.push(response.expositor[i]);
+              }
             }
-            if (response.colaborador == null) {
-            } else {
-              this.colaborador = response.colaborador;
-            }
-            if (response.evento == null) {
-            } else {
-              this.evento = response.evento;
-            }
-            if (response.material == null) {
-            } else {
-              this.material = response.material;
-            }
-          } else {
-            this.router.navigate(['/inicio']);
+
+            //Almacenar los datos del evento
+            this.evento = response.evento;
           }
         },
         error => {
           console.log(error);
-        })})
+        })
+    })
   }
-
 }

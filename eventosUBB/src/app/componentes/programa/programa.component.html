@@ -10,14 +10,14 @@
 <body>
     <table>
         <tr>
-            <td *ngFor="let d of actividad">
+            <td *ngFor="let d of arrActividades">
                 <table>
                     <tbody>
                         <tr>
                             {{d.horaInicioActividad}}
                         </tr>
 
-                        <tr *ngFor="let main of actividad">
+                        <tr *ngFor="let main of arrActividades">
 
                             <td>
                                 {{main.nombreActividad}}

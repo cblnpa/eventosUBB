@@ -51,12 +51,10 @@ export class FormularioUtilidadesComponent implements OnInit {
   //Cargar parámetros de lo seleccionado
   cargarContenido(form) {
     this.idEvento = this.eventos.idEvento;
-    console.log('dentro del formulario');
-    console.log(this.selectUtilidad);
-    console.log(this.idEvento);
-
-    this.router.navigate(['/generarUtilidades/'+ this.idEvento + '/' + this.selectUtilidad]);
+    if(this.selectUtilidad == 'programa') {
+      this.router.navigate(['/programa/'+ this.idEvento]);
+    } else {
+      this.router.navigate(['/generarUtilidades/'+ this.idEvento + '/' + this.selectUtilidad]);
+    }
   }
-
-
 }
