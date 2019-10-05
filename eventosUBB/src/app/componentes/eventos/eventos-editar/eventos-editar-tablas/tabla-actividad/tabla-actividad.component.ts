@@ -19,7 +19,7 @@ export class TablaActividadComponent implements OnInit {
   public idActividadEdit: number = 0;
 
   public dataSourceActividad;
-  public displayedColumnsActividad: string[] = ['nombreActividad', 'horaInicioActividad', 'horaFinActividad', 'ubicacionActividad', 'actividadParalela', 'cupos', 'descripcionActividad', 'deleteActividad'];
+  public displayedColumnsActividad: string[] = ['nombreActividad', 'horaInicioActividad', 'horaFinActividad', 'ubicacionActividad', 'actividadParalela', 'cupos', 'descripcionActividad','editActividad', 'deleteActividad'];
   public cantActividades: number;
 
   constructor(private actividadService: ActividadService, private modalService: ModalService,

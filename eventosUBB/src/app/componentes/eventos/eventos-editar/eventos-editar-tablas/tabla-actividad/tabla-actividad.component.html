@@ -54,9 +54,14 @@
           </td>
       </ng-container>
 
+      <ng-container matColumnDef="editActividad">
+        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> <button class="btn btn-block btn-warning" (click)="editarActividad(actividad.idActividad)"><i class="mdi mdi-pencil"></i></button></td>
+    </ng-container>
+
       <ng-container matColumnDef="deleteActividad">
           <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-          <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> <button class="btn btn-block btn-danger mb-3" (click)="eliminarActividad(actividad.idActividad)"><i class="mdi mdi-delete"></i></button></td>
+          <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> <button class="m-l-5 btn btn-block btn-danger" (click)="eliminarActividad(actividad.idActividad)"><i class="mdi mdi-delete"></i></button></td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumnsActividad"></tr>
@@ -71,3 +76,7 @@
 <div *ngIf="contModal == 4">
   <app-modal-actividad-add></app-modal-actividad-add>
 </div>
+
+<div *ngIf="contModal == 5">
+    <app-modal-actividad-edit></app-modal-actividad-edit>
+  </div>

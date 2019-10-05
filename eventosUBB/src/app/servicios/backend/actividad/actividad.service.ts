@@ -30,6 +30,12 @@ export class ActividadService {
     return this.http.get(this.url+'actividad/' + idEvento, {headers: headers});
   }
 
+  //Obtener actividad por id
+  getActividadById(idActividad):Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'getActividad/' +idActividad, {headers: headers});
+  }
+
   // Eliminar actividad 
   deleteActividad(id) {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
