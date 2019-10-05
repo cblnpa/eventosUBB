@@ -13,7 +13,7 @@ export class ModalJornadaEditComponent implements OnInit {
   public jornadas: jornada;
   public idEvento;
 
-  @Input() idJornadaEdit: number;
+  @Input() idJornadaEdit: number; // recibe el id de la jornada a editar
 
   constructor(private modalService: ModalService, private jornadaService: JornadaService) {
     this.jornadas = new jornada('', null, null, null, '', '', null, null);
@@ -21,7 +21,6 @@ export class ModalJornadaEditComponent implements OnInit {
 
   ngOnInit() {
     this.getDatosJornada();
-    console.log(this.idJornadaEdit);
   }
 
   getDatosJornada() {
