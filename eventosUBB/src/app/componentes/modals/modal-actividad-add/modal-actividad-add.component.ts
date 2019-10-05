@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-modal-actividad-add',
   templateUrl: './modal-actividad-add.component.html',
-  styleUrls: ['./modal-actividad-add.component.css']
+  styleUrls: ['../modal.css']
 })
 export class ModalActividadAddComponent implements OnInit {
 

@@ -53,6 +53,7 @@ export class ModalExpositorEditComponent implements OnInit {
   getDatosExpositor() {
     this.expositorService.getExpositorById(this.idExpositorEdit).subscribe(
       response => {
+        console.log(response);
         this.expositores = response.expositor;
         //Carga los datos del expositor en el modal
         this.expositores = new expositor(this.expositores.nombreExpositor, this.expositores.apellidoExpositor,
@@ -71,8 +72,7 @@ export class ModalExpositorEditComponent implements OnInit {
         console.log(response);
         Swal.fire({
           type: 'success',
-          title: 'Creado con éxito',
-          text: 'Se ha creado la jornada sin ningún problema',
+          title: 'Expositor editado',
         })
       },
       error => {

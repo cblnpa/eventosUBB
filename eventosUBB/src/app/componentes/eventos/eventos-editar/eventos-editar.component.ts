@@ -5,10 +5,9 @@ import { global } from '../../../servicios/global'
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-import { eventoPojo, ciudad, evento, actividad, colaborador, expositor, material } from '../../../model/model.index';
+import { eventoPojo, ciudad, evento, colaborador, material } from '../../../model/model.index';
 import {
-  EventoPojoService, CiudadService, UserService, EventoService, TipoEventoService,
-  ExpositorService, ActividadService, ModalService, MaterialService, ColaboradorService, CategoriaService
+  EventoPojoService, CiudadService, UserService, EventoService, TipoEventoService, ModalService, MaterialService, ColaboradorService, CategoriaService
 } from '../../../servicios/servicio.index';
 
 @Component({
@@ -26,7 +25,6 @@ export class EventosEditarComponent implements OnInit {
   public ciudad: ciudad;
   public material: material;
   public eventos: evento;
-  public actividad: actividad;
   public colaborador: colaborador;
 
 
@@ -47,10 +45,6 @@ export class EventosEditarComponent implements OnInit {
   public contModal: number;
 
   //variables para el data table
-  public dataSourceActividad;
-  public displayedColumnsActividad: string[] = ['nombreActividad', 'horaInicioActividad', 'horaFinActividad', 'ubicacionActividad', 'actividadParalela', 'cupos', 'descripcionActividad', 'deleteActividad'];
-  public cantActividades: number;
-
   public dataSourceColaborador;
   public displayedColumnsColaborador: string[] = ['nombreColaborador', 'nombreRepresentante', 'telefonoColaborador', 'correoColaborador', 'tipoColaborador', 'sitioWeb', 'logo', 'deleteColaborador'];
   public cantColaboradores: number;
@@ -82,7 +76,7 @@ export class EventosEditarComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
     private userService: UserService, private eventoPojoService: EventoPojoService,
     private ciudadService: CiudadService, private categoriaService: CategoriaService, private modalService: ModalService, private tipoEventoService: TipoEventoService,
-    private eventoService: EventoService, private actividadService: ActividadService, public paginatorSettings: MatPaginatorIntl,
+    private eventoService: EventoService, public paginatorSettings: MatPaginatorIntl,
     private materialService: MaterialService, private colaboradorService: ColaboradorService) {
     //Objeto para editar el evento, step 1
     this.eventos = new evento('', '', '', '', '', null, '', null, null, null, null, null);
@@ -99,7 +93,6 @@ export class EventosEditarComponent implements OnInit {
     this.getCiudades();
     this.getCategorias();
     this.getTipoEventos();
-    this.mostrarActividades();
     this.mostrarColaboradores();
     this.mostrarMateriales();
     this.paginadorSettings();
@@ -206,40 +199,6 @@ export class EventosEditarComponent implements OnInit {
       }
     )
     this.router.navigate(['/eventoDetalle/' + this.id]);
-  }
-
-  mostrarActividades() {
-    this.actividadService.getActividades(this.id).subscribe(
-      response => {
-        console.log(response);
-        if (response.code == 200 && (response.actividades.length) > 0) {
-          this.cantActividades = response.actividades.length;
-          this.dataSourceActividad = new MatTableDataSource(response.actividades);
-          this.dataSourceActividad.sort = this.sort;
-          this.dataSourceActividad.paginator = this.paginator;
-        } else {
-          console.log('este evento aún no tiene actividades');
-        }
-      },
-      error => {
-        console.log(<any>error);
-      })
-  }
-
-  agregarActividadModal() {
-    this.contModal = 3;
-    this.modalService.mostrarModal();
-  }
-
-  eliminarActividad(idActividad) {
-    this.actividadService.deleteActividad(idActividad).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
   }
 
   mostrarColaboradores() {

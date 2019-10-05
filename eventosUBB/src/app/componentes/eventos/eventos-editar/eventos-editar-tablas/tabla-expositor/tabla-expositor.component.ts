@@ -60,6 +60,7 @@ export class TablaExpositorComponent implements OnInit {
     this.contModal = 2;
     this.idExpositorEdit = id;
     this.modalService.mostrarModal();
+    console.log(this.idExpositorEdit);
   }
 
   eliminarExpositor(idExpositor) {

@@ -12,7 +12,7 @@ import {
     UnidadesCrearComponent, UnidadesVerComponent, ReportesGenerarComponent, ComisionVerComponent,
     ComisionCrearComponent, GenerarUtilidadesComponent, FormularioUtilidadesComponent,
     ProgramaComponent, ModalJornadaEditComponent, ModalExpositorEditComponent,
-    TablaJornadaComponent, TablaExpositorComponent } from '../componentes/componentes.index';
+    TablaJornadaComponent, TablaExpositorComponent, TablaActividadComponent } from '../componentes/componentes.index';
 
 import {
     ModalJornadaAddComponent, ModalExpositorAddComponent, ModalMaterialAddComponent,
@@ -68,7 +68,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
         ModalExpositorEditComponent,
         ProgramaComponent,
         TablaJornadaComponent,
-        TablaExpositorComponent
+        TablaExpositorComponent,
+        TablaActividadComponent
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
