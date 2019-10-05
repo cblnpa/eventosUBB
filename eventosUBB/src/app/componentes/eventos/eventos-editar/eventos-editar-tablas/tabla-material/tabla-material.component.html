@@ -33,9 +33,15 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="editMaterial">
+        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td id="table-sort-cell" mat-cell *matCellDef="let material"> <button class="btn btn-block btn-warning"
+            (click)="editarMaterial(material.idMaterial)"><i class="mdi mdi-pencil"></i></button> </td>
+      </ng-container>
+
     <ng-container matColumnDef="deleteMaterial">
       <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-      <td id="table-sort-cell" mat-cell *matCellDef="let material"> <button class="btn btn-block btn-danger mb-3"
+      <td id="table-sort-cell" mat-cell *matCellDef="let material"> <button class="m-l-5 btn btn-block btn-danger"
           (click)="eliminarMaterial(material.idMaterial)"><i class="mdi mdi-delete"></i></button> </td>
     </ng-container>
 
@@ -53,6 +59,6 @@
     <app-modal-material-add></app-modal-material-add>
 </div>
 
-<!-- <div *ngIf="contModal == 9">
+<div *ngIf="contModal == 9">
     <app-modal-material-edit [idMaterialEdit]="idMaterialEdit"></app-modal-material-edit>
-</div> -->
+</div>

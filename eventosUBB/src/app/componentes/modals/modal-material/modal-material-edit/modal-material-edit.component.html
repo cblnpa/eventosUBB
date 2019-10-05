@@ -1,3 +1,45 @@
-<p>
-  modal-material-edit works!
-</p>
+<div class="modal blur" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  [ngStyle]="{ display: modalService.oculto }">
+  <div class="modal-dialog modal-lg" style="overflow-y: scroll">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="text-uppercase text-primary">Agregar material</h4>
+        <button type="button" class="close" (click)="salirModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal p-t-20" #editarMaterialForm="ngForm"
+          (ngSubmit)="editarMaterial(editarMaterialForm)">
+
+          <div class="col-md-12 mr-2">
+            <div class="form-group row">
+              <label class="col-sm-3 control-label">Nombre</label>
+              <mat-form-field class="col-sm-9">
+                <input matInput #input1 type="text" name="nombreMaterial" #nombreMaterial="ngModel"
+                  [(ngModel)]="material.nombreMaterial" maxlength="45" placeholder="Nombre">
+                <mat-hint align="start"><strong>Ingresa el nombre del material</strong> </mat-hint>
+                <mat-hint align="end">{{input1.value.length}} / 45</mat-hint>
+              </mat-form-field>
+            </div>
+
+            <div class="form-group row">
+              <label for="archivo" class="col-sm-3 control-label">Archivo</label>
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="mdi mdi-file"></i></div>
+                  <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="archivoUpload($event)">
+                  </angular-file-uploader>
+                </div>
+                <span class="help-block"><small>Selecciona los archivos que deseas subir</small></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger waves-effect" (click)="salirModal()">Cancelar</button>
+            <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

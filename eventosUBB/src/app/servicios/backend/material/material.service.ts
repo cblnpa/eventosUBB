@@ -30,6 +30,21 @@ export class MaterialService {
     return this.http.get(this.url + 'material/' + idEvento, { headers: headers });
   }
 
+  //Obtener material por id
+  getMaterialById(idMaterial): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url + 'getMaterial/' + idMaterial, { headers: headers });
+  }
+
+  //Actualizar un material
+  editMaterial(material, idMaterial) {
+    let json = JSON.stringify(material);
+    let params = 'json=' + json;
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.put(this.url + 'material/' + idMaterial, params, { headers: headers });
+
+  }
+
   // Eliminar material 
   deleteMaterial(id) {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

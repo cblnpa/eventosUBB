@@ -19,7 +19,7 @@ export class TablaMaterialComponent implements OnInit {
   public idMaterialEdit: number = 0;
 
   public dataSourceMaterial;
-  public displayedColumnsMaterial: string[] = ['nombreMaterial', 'archivo', 'created_at','deleteMaterial'];
+  public displayedColumnsMaterial: string[] = ['nombreMaterial', 'archivo', 'created_at','editMaterial','deleteMaterial'];
   public cantMateriales: number;
 
   @ViewChild(MatSort) sort: MatSort;
