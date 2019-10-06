@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-modal-material-add',
   templateUrl: './modal-material-add.component.html',
-  styleUrls: ['./modal-material-add.component.css']
+  styleUrls: ['../../modal.css']
 })
 export class ModalMaterialAddComponent implements OnInit {
 

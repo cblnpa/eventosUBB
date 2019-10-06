@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-modal-expositor-add',
   templateUrl: './modal-expositor-add.component.html',
-  styleUrls: ['./modal-expositor-add.component.css']
+  styleUrls: ['../../modal.css']
 })
 export class ModalExpositorAddComponent implements OnInit {
 
