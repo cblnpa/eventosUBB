@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventoPojoService } from '../../servicios/servicio.index';
 import { evento } from '../../model/model.index';
@@ -79,13 +79,27 @@ export class ProgramaComponent implements OnInit {
     })
 
   }
+
+  @ViewChild('content') content:ElementRef;
   downloadPDF() {
     
-    const elementToPrint = document.getElementById('pdf'); //The html element to become a pdf
-    const pdf = new jsPDF('auto', 'px', 'a4');
-    pdf.addHTML(elementToPrint, () => {
-      pdf.save('web.pdf');
-  });
+  //   const elementToPrint = document.getElementById('pdf'); //The html element to become a pdf
+  //   const pdf = new jsPDF('auto', 'px', 'a4');
+  //   pdf.addHTML(elementToPrint, () => {
+  //     pdf.save('web.pdf');
+  // });
 
+  let doc = new jsPDF();
+  let ElementHandlers = {
+    '#editor': function(element, renderer){
+      return true;
+    }
+  };
+let content = this.content.nativeElement;
+doc.fromHTML(content.innerHTML,15,15,{
+  'width': 'auto',
+  'elment':ElementHandlers
+});
+doc.save('web.pdf');
 }
 }
