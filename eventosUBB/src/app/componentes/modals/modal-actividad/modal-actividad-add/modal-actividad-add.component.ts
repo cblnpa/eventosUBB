@@ -48,7 +48,7 @@ export class ModalActividadAddComponent implements OnInit {
     moreText: 'más', // text to be displayed whenmore than one items are selected like Option 1 + 5 more
     noResultsFound: '¡No se encuentra el expositor!', // text to be displayed when no items are found while searching
     searchPlaceholder: 'Buscar expositor', // label thats displayed in search input,
-    searchOnKey: 'idExpositor' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
+    searchOnKey: '' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
 
   constructor(private modalService: ModalService, private actividadService: ActividadService,
@@ -88,7 +88,9 @@ export class ModalActividadAddComponent implements OnInit {
         let id = +params['id'];
         this.expositorService.getExpositoresActividad(id).subscribe(
           response => {
+            console.log(response);
             this.optionsExpositores = response.expositor;
+            console.log(this.optionsExpositores);
           },
           error => {
             console.log(<any>error);
