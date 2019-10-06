@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventoPojoService } from '../../servicios/servicio.index';
 import { evento } from '../../model/model.index';
+import * as jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-programa',
@@ -76,5 +77,15 @@ export class ProgramaComponent implements OnInit {
           console.log(error);
         })
     })
+
   }
+  downloadPDF() {
+    
+    const elementToPrint = document.getElementById('pdf'); //The html element to become a pdf
+    const pdf = new jsPDF('auto', 'px', 'a4');
+    pdf.addHTML(elementToPrint, () => {
+      pdf.save('web.pdf');
+  });
+
+}
 }

@@ -9,37 +9,45 @@
 
 <body>
 
-    <div>
-        Fecha:<span *ngFor="let jornada of arrJornadas; let i = index">
-                <span *ngIf="i!=0">-</span> {{jornada.fechaJornada}}
-        </span>
-    </div>
-    <div>
-        Ubicacion: <span>como llamo el evento</span>
-    </div>
+    <button type="button" class="btn btn-primary" (click)="downloadPDF();">Generar PDF</button>
 
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Hora</th>
-                    <th scope="col">Descripción</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let d of arrActividades">
+    <div id="pdf" class="content">
+        <img src="" alt="">
+        <h2 style="text-align: center">{{evento.nombreEvento}}</h2>
+        <div id="pdf">
+            Fecha:<span *ngFor="let jornada of arrJornadas; let i = index">
+                        <span *ngIf="i!=0">-</span> {{jornada.fechaJornada}}
+            </span>
+        </div>
+        <div id="pdf">
+            Ubicacion:<span>{{evento.ubicacion}}, {{evento.direccion}}, {{evento.ciudad.nombreCiudad}}</span>
+        </div>
+        <br>
 
-                <tr>
-                    <td>{{d.horaInicioActividad}} - {{d.horaFinActividad}}</td>
-                    <td>
-                        <p id="normal">{{d.descripcionActividad}}</p>
-                    </td>
-                </tr>
-            </tbody>
+        <div id="pdf" class="table-responsive">
+            <table id="pdf" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Descripción</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let d of arrActividades">
 
-        </table>
+                    <tr>
+                        <td>{{d.horaInicioActividad}} - {{d.horaFinActividad}}</td>
+                        <td>
+                            <p id="normal">{{d.descripcionActividad}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <section style="text-align: center">
+            Contacto: <span style="color: blue">seminarioicichillan@ubiobio.cl</span> </section>
+
     </div>
-    <section style="text-align: center">
-        Contacto: <span style="color: blue">seminarioicichillan@ubiobio.cl</span> </section>
 
 </body>
 
