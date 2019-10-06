@@ -8,28 +8,39 @@
 </head>
 
 <body>
-    <table>
-        <tr>
-            <td *ngFor="let d of arrActividades">
-                <table>
-                    <tbody>
-                        <tr>
-                            {{d.horaInicioActividad}}
-                        </tr>
 
-                        <tr *ngFor="let main of arrActividades">
+    <div>
+        Fecha:<span *ngFor="let jornada of arrJornadas; let i = index">
+                <span *ngIf="i!=0">-</span> {{jornada.fechaJornada}}
+        </span>
+    </div>
+    <div>
+        Ubicacion: <span>como llamo el evento</span>
+    </div>
 
-                            <td>
-                                {{main.nombreActividad}}
-                            </td>
-                        </tr>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Descripción</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let d of arrActividades">
 
-                    </tbody>
-                </table>
-                <td>
+                <tr>
+                    <td>{{d.horaInicioActividad}} - {{d.horaFinActividad}}</td>
+                    <td>
+                        <p id="normal">{{d.descripcionActividad}}</p>
+                    </td>
+                </tr>
+            </tbody>
 
-        </tr>
-    </table>
+        </table>
+    </div>
+    <section style="text-align: center">
+        Contacto: <span style="color: blue">seminarioicichillan@ubiobio.cl</span> </section>
+
 </body>
 
 </html>
