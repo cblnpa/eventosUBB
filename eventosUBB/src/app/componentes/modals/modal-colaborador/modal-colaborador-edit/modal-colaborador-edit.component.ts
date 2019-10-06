@@ -54,7 +54,8 @@ export class ModalColaboradorEditComponent implements OnInit {
         //Cargar los datos del colaborador en el modal
         this.colaborador = new colaborador(this.colaborador.nombreColaborador, this.colaborador.nombreRepresentante,
           this.colaborador.telefonoColaborador, this.colaborador.correoColaborador, this.colaborador.sitioWeb,
-          this.colaborador.logo, this.colaborador.tipoColaborador_idtipoColaborador, this.colaborador.evento_idEvento);
+          this.colaborador.logo, this.colaborador.tipoColaborador_idtipoColaborador, this.colaborador.evento_idEvento,
+          this.colaborador.idColaborador);
       }, error => {
         console.log(<any>error);
       }
@@ -74,6 +75,7 @@ export class ModalColaboradorEditComponent implements OnInit {
   editarColaborador(form) {
     this.colaboradorService.editColaborador(this.colaborador, this.colaborador.idColaborador).subscribe(
       response => {
+        console.log(this.colaborador);
         console.log(response);
         Swal.fire({
           title: 'Colaborador editado',
