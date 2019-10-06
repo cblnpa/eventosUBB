@@ -14,36 +14,36 @@
     <div id="pdf" class="content" #content>
         <img src="" alt="">
         <h2 style="text-align: center">{{evento.nombreEvento}}</h2>
-        <div id="pdf">
+        <div>
             Fecha:<span *ngFor="let jornada of arrJornadas; let i = index">
                         <span *ngIf="i!=0">-</span> {{jornada.fechaJornada}}
             </span>
         </div>
-        <div id="pdf">
+        <div>
             Ubicacion:<span>{{evento.ubicacion}}, {{evento.direccion}}, {{evento.ciudad.nombreCiudad}}</span>
         </div>
         <br>
 
-        <div id="pdf" class="table-responsive">
-            <table id="pdf" class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Hora</th>
-                        <th scope="col">Descripción</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let d of arrActividades">
 
-                    <tr>
-                        <td>{{d.horaInicioActividad}} - {{d.horaFinActividad}}</td>
-                        <td>
-                            <p id="normal">{{d.descripcionActividad}}</p>
-                        </td>
-                    </tr>
-                </tbody>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col-md-4">Hora</th>
+                    <th scope="col">Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            </table>
-        </div>
+                <tr *ngFor="let d of arrActividades">
+                    <td>{{d.horaInicioActividad}} - {{d.horaFinActividad}}</td>
+                    <td>
+                        <p id="normal">{{d.descripcionActividad}}</p>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
         <section style="text-align: center">
             Contacto: <span style="color: blue">seminarioicichillan@ubiobio.cl</span> </section>
 

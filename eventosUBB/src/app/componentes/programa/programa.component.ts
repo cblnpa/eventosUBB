@@ -97,7 +97,8 @@ export class ProgramaComponent implements OnInit {
   };
 let content = this.content.nativeElement;
 doc.fromHTML(content.innerHTML,15,15,{
-  'width': 'auto',
+  'width': 100,
+  'left': 200,
   'elment':ElementHandlers
 });
 doc.save('web.pdf');
