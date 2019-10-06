@@ -77,7 +77,7 @@ export class TablaJornadaComponent implements OnInit {
           response => {
             if (response) {
               this.mostrarJornadas();
-              Swal.fire('Jornada eliminada', 'success')
+              Swal.fire('Jornada eliminada','','success')
             }
           },
           error => {

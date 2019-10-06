@@ -60,7 +60,6 @@ export class TablaExpositorComponent implements OnInit {
     this.contModal = 2;
     this.idExpositorEdit = id;
     this.modalService.mostrarModal();
-    console.log(this.idExpositorEdit);
   }
 
   eliminarExpositor(idExpositor) {
@@ -76,8 +75,10 @@ export class TablaExpositorComponent implements OnInit {
       if (result.value) {
         this.expositorService.deleteExpositor(idExpositor).subscribe(
           response => {
-            this.mostrarExpositores();
-            Swal.fire('Expositor eliminado', 'success')
+            if(response){
+              this.mostrarExpositores();
+              Swal.fire('Expositor eliminado','', 'success')
+            }
           },
           error => {
             console.log(<any>error);

@@ -11,6 +11,7 @@ export class actividadPojo {
         public actividadParalela: number,
         public jornada_idJornada: number,
         public expositor: string,
-        public evento: number
+        public evento: number,
+        public idActividad?: number
     ){}
 }

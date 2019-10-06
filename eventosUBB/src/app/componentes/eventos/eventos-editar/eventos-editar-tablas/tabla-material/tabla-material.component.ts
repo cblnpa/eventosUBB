@@ -64,7 +64,7 @@ export class TablaMaterialComponent implements OnInit {
 
   eliminarMaterial(idMaterial){
     Swal.fire({
-      title: '¿Quiere eliminar esta material?',
+      title: '¿Quiere eliminar este material?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-modal-material-edit',
   templateUrl: './modal-material-edit.component.html',
-  styleUrls: ['./modal-material-edit.component.css']
+  styleUrls: ['../../modal.css']
 })
 export class ModalMaterialEditComponent implements OnInit {
 
@@ -53,7 +53,7 @@ export class ModalMaterialEditComponent implements OnInit {
         this.material = response.material;
         //Cargar los datos del material en el modal
         this.material = new material(this.material.nombreMaterial, this.material.archivo,
-          this.material.evento_idEvento);
+          this.material.evento_idEvento, this.material.idMaterial);
       }, error => {
         console.log(<any>error);
       }
@@ -63,6 +63,7 @@ export class ModalMaterialEditComponent implements OnInit {
   editarMaterial(form) {
     this.materialService.editMaterial(this.material, this.material.idMaterial).subscribe(
       response => {
+        console.log(response);
         if (response) {
           Swal.fire({
             title: 'Material editado',
