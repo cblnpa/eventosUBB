@@ -25,7 +25,7 @@ export class TablaJornadaComponent implements OnInit {
   constructor(private jornadaService: JornadaService, private modalService: ModalService,
     public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) {
     this.jornadaService.getGeneralEmitter().subscribe(e => {
-      console.log("Esto es desde la tabla: " + e);
+      console.log(e + " estoy en tabla");
       this.mostrarJornadas();
     })
   }
@@ -58,6 +58,7 @@ export class TablaJornadaComponent implements OnInit {
 
   agregarJornadaModal() {
     this.contModal = 1;
+    this.mostrarJornadas();
     this.modalService.mostrarModal();
   }
 
