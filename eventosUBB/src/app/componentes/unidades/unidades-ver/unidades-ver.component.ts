@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
 import { global } from '../../../servicios/global'
-import { UnidadService } from '../../../servicios/servicio.index';
+import { UnidadService, UserService } from '../../../servicios/servicio.index';
 
 @Component({
   selector: 'app-unidades-ver',
@@ -13,15 +13,25 @@ export class UnidadesVerComponent implements OnInit {
 
   public url;
   public unidades;
-  public cantidad;
+  public subUnidades;
+  public cantidadUnidades;
+  public cantidadSubUnidades;
+  public idPerfil;
+  public identity;
 
   //Data sorting
   displayedColumns: string[] = ['created_at','nombreUnidad','encargado','sede','logoUnidad'];
   dataSource;
   filtrar: string;
 
-  constructor(private unidadService: UnidadService, public paginatorSettings: MatPaginatorIntl) {
+  displayedColumns2: string[] = ['created_at','nombreUnidad','encargado','sede','logoUnidad'];
+  dataSource2;
+  filtrar2: string;
+
+  constructor( private unidadService: UnidadService, public paginatorSettings: MatPaginatorIntl,
+    private userService: UserService) {
     this.url = global.url;
+    this.identity = this.userService.getIdentity();
   }
 
   @ViewChild(MatSort) sort: MatSort; //ordenar datos de la tabla
@@ -30,14 +40,14 @@ export class UnidadesVerComponent implements OnInit {
   ngOnInit() {
     this.paginadorSettings();
     this.getUnidades();
+    this.getSubUnidades();
+    this.getPerfil();
   }
 
   getUnidades() {
     this.unidadService.getUnidades().subscribe(
       response => {
-        console.log('unidades!!');
-        console.log(response);
-        this.unidades = response.unidades.length;
+        this.cantidadUnidades = response.unidades.length;
         this.dataSource = new MatTableDataSource(response.unidades);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -46,6 +56,23 @@ export class UnidadesVerComponent implements OnInit {
         console.log(<any>error);
       })
   }
+
+  getSubUnidades() {
+    this.unidadService.getSubUnidades().subscribe(
+      response => {
+        this.cantidadSubUnidades = response.unidades.length;
+        this.dataSource2 = new MatTableDataSource(response.unidades);
+        this.dataSource2.sort = this.sort;
+        this.dataSource2.paginator = this.paginator;
+      }, error =>{
+        console.log(<any>error);
+      })
+  }
+
+    // Asignar a la variable idPerfil el perfil del usuario activo
+    getPerfil(){
+      this.idPerfil = this.identity.perfil_idPerfil;
+    }
 
   paginadorSettings() {
     this.paginatorSettings.itemsPerPageLabel = 'Elementos por página';
