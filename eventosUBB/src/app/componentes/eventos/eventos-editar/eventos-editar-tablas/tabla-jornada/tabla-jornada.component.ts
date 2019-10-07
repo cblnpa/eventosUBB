@@ -23,7 +23,12 @@ export class TablaJornadaComponent implements OnInit {
   public cantJornadas: number;
 
   constructor(private jornadaService: JornadaService, private modalService: ModalService,
-    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) { }
+    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) {
+    this.jornadaService.getGeneralEmitter().subscribe(e => {
+      console.log("Esto es desde la tabla: " + e);
+      this.mostrarJornadas();
+    })
+  }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -55,7 +60,7 @@ export class TablaJornadaComponent implements OnInit {
     this.contModal = 1;
     this.modalService.mostrarModal();
   }
-  
+
   editarJornada(id) {
     this.contModal = 2;
     this.idJornadaEdit = id;
@@ -77,7 +82,7 @@ export class TablaJornadaComponent implements OnInit {
           response => {
             if (response) {
               this.mostrarJornadas();
-              Swal.fire('Jornada eliminada','','success')
+              Swal.fire('Jornada eliminada', '', 'success')
             }
           },
           error => {

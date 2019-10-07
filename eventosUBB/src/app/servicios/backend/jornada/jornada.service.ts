@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { global } from '../../global';
@@ -9,6 +9,8 @@ import { global } from '../../global';
 export class JornadaService {
 
   public url: string; //acá se guarda el http://localhost:8000/api/ que esta en global.ts
+
+  public general = new EventEmitter();
 
   constructor(private http: HttpClient) {
     this.url = global.url;
@@ -21,6 +23,7 @@ export class JornadaService {
 
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'); //tipo de peticion
 
+    this.general.emit('Datos Atualizados');
     return this.http.post(this.url + 'jornada', params, { headers: headers });
   }
 
@@ -48,6 +51,10 @@ export class JornadaService {
     let params = 'json=' + json;
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.put(this.url+'jornada/' + idJornada, params, {headers:headers});
-
   }
+
+  getGeneralEmitter(){
+    return this.general;
+  }
+
 }

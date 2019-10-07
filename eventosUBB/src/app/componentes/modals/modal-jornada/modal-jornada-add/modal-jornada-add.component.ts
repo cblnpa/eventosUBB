@@ -17,6 +17,9 @@ export class ModalJornadaAddComponent implements OnInit {
   constructor(private modalService: ModalService, private jornadaService: JornadaService,
     private route: ActivatedRoute) {
       this.jornadaAdd = new jornada('',null,null,null,'','',null);
+      this.jornadaService.getGeneralEmitter().subscribe(e => {
+        console.log(e);
+      });
   }
 
   ngOnInit() {}
@@ -45,7 +48,6 @@ export class ModalJornadaAddComponent implements OnInit {
             title: 'Creado con éxito',
             text: 'Se ha creado la jornada sin ningún problema',
           });
-          this.cargarDatosJornada();
         }
         },
         error => {
@@ -54,17 +56,6 @@ export class ModalJornadaAddComponent implements OnInit {
       )
     });
     this.ocultarModal();
-  }
-
-  cargarDatosJornada(){
-    this.jornadaService.getJornadas(this.idEvento).subscribe(
-      response => {
-        console.log(response);
-      }, 
-      error => {
-        console.log(<any>error);
-      }
-    )
   }
 
 }
