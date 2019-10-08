@@ -19,8 +19,10 @@ export class UnidadesCrearComponent implements OnInit {
   public titulo: string;
   public url; //url del backend
   public unidad: unidad; //objeto de tipo unidad 
+  public miUnidad: unidad; //almacena los datos de la unidad a la que pertenece el usuario activo
   public token;
   public identity;
+  public idUsuario;
   public idPerfil; //almacenar perfil del usuario loggeado, util para los ngIf del HTML
 
   //variables para el select
@@ -77,7 +79,8 @@ export class UnidadesCrearComponent implements OnInit {
 
   constructor(private router: Router, private title: Title, private unidadService: UnidadService,
     private userService: UserService, private ciudadService: CiudadService) {
-    this.unidad = new unidad('','','','',null);
+    this.unidad = new unidad('', '', '', '', null);
+    this.miUnidad = new unidad('', '', '', '', null);
     this.usuario = new users('', '', '', '', '', null, null, null);
     this.ciudad = new ciudad(null, '');
     this.url = global.url;
@@ -96,6 +99,8 @@ export class UnidadesCrearComponent implements OnInit {
     this.getUsuarios();
     this.getCiudades();
     this.getPerfil();
+    this.getIdUsuario();
+    this.getDataUnidad();
   }
 
   //Función para obtener el nombre de la página actual
@@ -107,6 +112,16 @@ export class UnidadesCrearComponent implements OnInit {
     )
   }
 
+  getIdUsuario() {
+    if (!this.identity.id) {
+      this.idUsuario = this.identity.sub;
+    } else {
+      this.idUsuario = this.identity.id;
+    }
+    console.log(this.idUsuario);
+  }
+
+  //Obtiene los usuarios para el select-dropdown
   getUsuarios() {
     this.userService.getAll().subscribe(
       response => {
@@ -117,6 +132,7 @@ export class UnidadesCrearComponent implements OnInit {
       })
   }
 
+  //Obtiene las ciudades para el select-dropdown
   getCiudades() {
     this.ciudadService.getCiudades().subscribe(
       response => {
@@ -128,7 +144,7 @@ export class UnidadesCrearComponent implements OnInit {
   }
 
   // Asignar a la variable idPerfil el perfil del usuario activo
-  getPerfil(){
+  getPerfil() {
     this.idPerfil = this.identity.perfil_idPerfil;
   }
 
@@ -138,7 +154,7 @@ export class UnidadesCrearComponent implements OnInit {
     this.unidad.sede = this.ciudades.nombreCiudad;
     this.unidadService.guardarUnidad(this.unidad).subscribe(
       response => {
-        if(response.status == 'success'){
+        if (response.status == 'success') {
           Swal.fire({
             type: 'success',
             title: '¡Se ha creado con éxito la unidad!'
@@ -151,15 +167,31 @@ export class UnidadesCrearComponent implements OnInit {
       })
   }
 
-  // Función para guardar la Sub Unidad
-  guardarSubUnidad(form){
-    this.unidad.email = this.usuarios.email;
-    this.unidad.idAdminUnidad = this.idPerfil;
-    console.log('Guardar sub unidad');
-    console.log(this.unidad);
-    this.unidadService.guardarSubUnidad(this.unidad).subscribe(
+  //Obtener los datos de la unidad del usuario para crear su subunidad
+  getDataUnidad() {
+    this.unidadService.getUnidad(this.idUsuario).subscribe(
       response => {
-        if(response.code == 200){
+        if (response.code == 200) {
+          console.log(response);
+          this.miUnidad = response.unidad[0].unidad;
+          console.log(this.miUnidad);
+        }
+      }, error => {
+        console.log(<any>error);
+      })
+  }
+
+  // Función para guardar la Sub Unidad
+  guardarSubUnidad(form) {
+    console.log('Guardar sub unidad');
+    this.miUnidad.email = this.usuarios.email;
+    this.miUnidad.idAdminUnidad = this.idUsuario;
+    // this.unidad.email = this.usuarios.email;
+    // this.unidad.idAdminUnidad = this.idPerfil;
+    this.unidadService.guardarSubUnidad(this.miUnidad).subscribe(
+      response => {
+        console.log(response);
+        if (response.code == 200) {
           Swal.fire({
             type: 'success',
             title: '¡Se ha creado con éxito la sub unidad!'
@@ -169,8 +201,7 @@ export class UnidadesCrearComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
   //Función para subir el logo

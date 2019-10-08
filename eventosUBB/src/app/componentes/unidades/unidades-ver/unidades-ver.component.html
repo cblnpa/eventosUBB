@@ -50,6 +50,24 @@
                   src="{{url + 'logoImage/' + unidades.unidad.logoUnidad}}" alt="Responsive image"> </td>
             </ng-container>
 
+            <ng-container matColumnDef="editUnidad">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
+                <button class="m-l-5 btn btn-block btn-warning" (click)="editarUnidad(unidades.idusers_unidad)">
+                  <i class="mdi mdi-pencil"></i>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="deleteUnidad">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
+                <button class="btn btn-block btn-danger" (click)="eliminarUnidad(unidades.idusers_unidad)">
+                  <i class="mdi mdi-delete"></i>
+                </button>
+              </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
@@ -110,7 +128,8 @@
           </table>
 
           <!-- paginador -->
-          <mat-paginator [length]="cantidadSubUnidades" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]"></mat-paginator>
+          <mat-paginator [length]="cantidadSubUnidades" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
+          </mat-paginator>
 
         </div>
       </div>
