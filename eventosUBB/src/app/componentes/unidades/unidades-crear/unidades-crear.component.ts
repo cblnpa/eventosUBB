@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivationEnd } from '@angular/router';
+import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
 import { UnidadService, UserService, CiudadService } from '../../../servicios/servicio.index';
 import { global } from '../../../servicios/global';
 import { Title } from '@angular/platform-browser';
@@ -24,6 +24,8 @@ export class UnidadesCrearComponent implements OnInit {
   public identity;
   public idUsuario;
   public idPerfil; //almacenar perfil del usuario loggeado, util para los ngIf del HTML
+  public tipoVista; //si es 1 muestra crear si es 2 editar
+  public idUnidad;
 
   //variables para el select
   public usuario: users;
@@ -77,8 +79,9 @@ export class UnidadesCrearComponent implements OnInit {
     }
   };
 
-  constructor(private router: Router, private title: Title, private unidadService: UnidadService,
-    private userService: UserService, private ciudadService: CiudadService) {
+  constructor(private router: Router, private route: ActivatedRoute, private title: Title,
+    private unidadService: UnidadService, private userService: UserService,
+    private ciudadService: CiudadService) {
     this.unidad = new unidad('', '', '', '', null);
     this.miUnidad = new unidad('', '', '', '', null);
     this.usuario = new users('', '', '', '', '', null, null, null);
@@ -96,11 +99,13 @@ export class UnidadesCrearComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUrl();
     this.getUsuarios();
     this.getCiudades();
     this.getPerfil();
     this.getIdUsuario();
     this.getDataUnidad();
+    this.getDatosUnidad();
   }
 
   //Función para obtener el nombre de la página actual
@@ -112,6 +117,7 @@ export class UnidadesCrearComponent implements OnInit {
     )
   }
 
+  //Almacena el id del usuario verificando si el identity está con sub o id
   getIdUsuario() {
     if (!this.identity.id) {
       this.idUsuario = this.identity.sub;
@@ -119,6 +125,32 @@ export class UnidadesCrearComponent implements OnInit {
       this.idUsuario = this.identity.id;
     }
     console.log(this.idUsuario);
+  }
+
+  //Verifica si la url es para editar o agregar
+  getUrl() {
+    this.route.params.subscribe(params => {
+      let id = params['id'];
+      this.idUnidad = id;
+      if (this.idUnidad == undefined) {
+        this.tipoVista = 1;
+      } else {
+        this.tipoVista = 2;
+      }
+    })
+  }
+
+  //Obtener datos de la unidad y mostrar el nombre de la unidad en el input
+  getDatosUnidad() {
+    if (this.idUnidad != undefined) {
+      this.unidadService.getUnidadById(this.idUnidad).subscribe(
+        response => {
+          this.unidad.nombreUnidad = response.unidad.unidad.nombreUnidad;
+
+        }, error => {
+          console.log(<any>error);
+        })
+    }
   }
 
   //Obtiene los usuarios para el select-dropdown

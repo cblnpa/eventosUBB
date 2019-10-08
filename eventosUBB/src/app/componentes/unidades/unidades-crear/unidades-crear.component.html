@@ -2,8 +2,10 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h1 class="text-center" *ngIf="idPerfil == 1">Crear una nueva unidad</h1>
-                <h1 class="text-center" *ngIf="idPerfil == 3">Agregar sub unidad</h1>
+                <h1 class="text-center" *ngIf="idPerfil == 1 && tipoVista == 1">Crear una nueva unidad</h1>
+                <h1 class="text-center" *ngIf="idPerfil == 1 && tipoVista == 2">Editar unidad</h1>
+                <h1 class="text-center" *ngIf="idPerfil == 3 && tipoVista == 1">Agregar sub unidad</h1>
+                <h1 class="text-center" *ngIf="idPerfil == 3 && tipoVista == 2">Editar sub unidad</h1>
                 <hr>
                 <!-- Formulario para crear unidad -->
                 <form *ngIf="idPerfil == 1" class="form-horizontal p-t-20" #crearUnidadForm="ngForm"

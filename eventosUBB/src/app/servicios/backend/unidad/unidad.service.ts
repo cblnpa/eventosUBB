@@ -36,6 +36,12 @@ export class UnidadService {
     return this.http.get(this.url + 'unidad/' + idUsuario, { headers });
   }
 
+  //Obtener datos de la unidad seleccionada
+  getUnidadById(idUnidad): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url + 'getUnidadById/' + idUnidad, {headers});
+  }
+
   deleteUnidad(idUnidad): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.delete(this.url + 'subUnidad/' + idUnidad, { headers });
@@ -50,8 +56,6 @@ export class UnidadService {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.post(this.url + 'subUnidad', params, { headers: headers });
   }
-
-
 
   //Listar todas las subunidades del usuario
   getSubUnidades(idUser): Observable<any> {

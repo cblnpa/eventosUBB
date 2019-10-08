@@ -25,6 +25,7 @@ const componentesRoutes: Routes = [
             { path: 'eventosEditar/:id/:idUsuario', component: EventosEditarComponent, data: { titulo: 'Editar el evento' } },
             { path: 'editLogin', component: EditLoginComponent, data: { titulo: 'Editar mi perfil' }  },
             { path: 'crearUnidad', component: UnidadesCrearComponent, data: { titulo: 'Crear' } },
+            { path: 'editarUnidad/:id', component: UnidadesCrearComponent, data: { titulo: 'Editar' } },
             { path: 'verUnidades', component: UnidadesVerComponent, data: { titulo: 'Unidades' } },
             { path: 'reportes', component: ReportesGenerarComponent, data: { titulo: 'Reportes' } },
             { path: 'verComisiones', component: ComisionVerComponent, data: { titulo: 'Comisiones' } },

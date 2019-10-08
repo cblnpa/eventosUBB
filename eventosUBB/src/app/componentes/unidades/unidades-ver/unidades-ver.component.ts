@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { global } from '../../../servicios/global';
 import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
+import { Router } from '@angular/router';
 import { UnidadService, UserService } from '../../../servicios/servicio.index';
+import { global } from '../../../servicios/global';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -31,8 +32,8 @@ export class UnidadesVerComponent implements OnInit {
   dataSource2;
   filtrar2: string;
 
-  constructor(private unidadService: UnidadService, public paginatorSettings: MatPaginatorIntl,
-    private userService: UserService) {
+  constructor( private unidadService: UnidadService, public paginatorSettings: MatPaginatorIntl,
+    private userService: UserService, private router: Router ) {
     this.identity = this.userService.getIdentity();
     this.url = global.url;
   }
@@ -77,6 +78,7 @@ export class UnidadesVerComponent implements OnInit {
 
   editarUnidad(id) {
     console.log('Dentro del editar unidad con el id ' + id);
+    this.router.navigate(['/editarUnidad/'+id]);
   }
 
   eliminarUnidad(id) {
