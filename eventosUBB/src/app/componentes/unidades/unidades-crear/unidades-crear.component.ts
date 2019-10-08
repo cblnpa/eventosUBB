@@ -173,8 +173,10 @@ export class UnidadesCrearComponent implements OnInit {
       response => {
         if (response.code == 200) {
           console.log(response);
-          this.miUnidad = response.unidad[0].unidad;
-          console.log(this.miUnidad);
+          if (response.unidad.length > 0) {
+            this.miUnidad = response.unidad[0].unidad;
+            console.log(this.miUnidad);
+          }
         }
       }, error => {
         console.log(<any>error);
