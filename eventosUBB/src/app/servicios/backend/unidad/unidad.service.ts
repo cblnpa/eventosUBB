@@ -44,7 +44,7 @@ export class UnidadService {
 
   deleteUnidad(idUnidad): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.delete(this.url + 'subUnidad/' + idUnidad, { headers });
+    return this.http.delete(this.url + 'unidad/' + idUnidad, { headers });
   }
 
   /* SUB UNIDADES */

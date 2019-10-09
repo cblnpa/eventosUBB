@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { global } from '../../global';
@@ -10,6 +10,8 @@ export class MaterialService {
 
   public url: string; //acá se guarda el http://localhost:8000/api/ que esta en global.ts
 
+  public general = new EventEmitter();
+
   constructor(private http: HttpClient) {
     this.url = global.url;
   }
@@ -18,8 +20,9 @@ export class MaterialService {
   guardarMaterial(material): Observable<any> {
     let json = JSON.stringify(material); //convierte el evento que se pasa por parámetro a un tipo JSON
     let params = 'json=' + json; //se definene los parametros que se mandan al api
-
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'); //tipo de peticion
+
+    this.general.emit('Material agregado');
 
     return this.http.post(this.url + 'material', params, { headers: headers });
   }
@@ -42,13 +45,16 @@ export class MaterialService {
     let params = 'json=' + json;
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.put(this.url + 'material/' + idMaterial, params, { headers: headers });
-
   }
 
   // Eliminar material 
   deleteMaterial(id) {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.delete(this.url + 'material/' + id, { headers: headers });
+  }
+
+  getGeneralEmitter(){
+    return this.general;
   }
 
 }

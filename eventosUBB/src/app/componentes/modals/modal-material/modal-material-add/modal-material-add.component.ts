@@ -42,6 +42,9 @@ export class ModalMaterialAddComponent implements OnInit {
     this.materialAdd = new material('', '', null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
+    this.materialService.getGeneralEmitter().subscribe(e => {
+      console.log(e);
+    })
   }
 
   ngOnInit() {
