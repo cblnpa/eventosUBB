@@ -25,7 +25,12 @@ export class TablaMaterialComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private materialService: MaterialService, private modalService: ModalService,
-    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) { }
+    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) {
+    this.materialService.getGeneralEmitter().subscribe(e => {
+      console.log(e + ' estoy en la tabla');
+      this.mostrarMateriales();
+    })
+  }
 
   ngOnInit() {
     this.mostrarMateriales();

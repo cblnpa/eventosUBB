@@ -61,6 +61,9 @@ export class ModalMaterialAddComponent implements OnInit {
                 title: 'Creado con éxito',
                 text: 'Se ha agregado un archivo al material',
               })
+              this.materialService.getGeneralEmitter().subscribe(e => {
+                console.log(e);
+              })
             }
           },
           error => {
@@ -87,10 +90,7 @@ export class ModalMaterialAddComponent implements OnInit {
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
-    this.materialService.getGeneralEmitter().subscribe(e => {
-      console.log(e);
-    })
-    this.materialAdd = new material('','',null);
+    this.materialAdd = new material('', '', null);
   }
 
 }
