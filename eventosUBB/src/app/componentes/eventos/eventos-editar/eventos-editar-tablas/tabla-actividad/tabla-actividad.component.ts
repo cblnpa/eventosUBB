@@ -19,11 +19,16 @@ export class TablaActividadComponent implements OnInit {
   public idActividadEdit: number = 0;
 
   public dataSourceActividad;
-  public displayedColumnsActividad: string[] = ['nombreActividad', 'horaInicioActividad', 'horaFinActividad', 'ubicacionActividad', 'actividadParalela', 'cupos', 'descripcionActividad','editActividad', 'deleteActividad'];
+  public displayedColumnsActividad: string[] = ['nombreActividad', 'horaInicioActividad', 'horaFinActividad', 'ubicacionActividad', 'actividadParalela', 'cupos', 'descripcionActividad', 'editActividad', 'deleteActividad'];
   public cantActividades: number;
 
   constructor(private actividadService: ActividadService, private modalService: ModalService,
-    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) { }
+    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) {
+    this.actividadService.getGeneralEmitter().subscribe(e => {
+      console.log(e + " estoy en tabla");
+      this.mostrarActividades();
+    })
+  }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -85,7 +90,7 @@ export class TablaActividadComponent implements OnInit {
           response => {
             if (response) {
               this.mostrarActividades();
-              Swal.fire('Actividad eliminada','' ,'success')
+              Swal.fire('Actividad eliminada', '', 'success')
             }
           },
           error => {

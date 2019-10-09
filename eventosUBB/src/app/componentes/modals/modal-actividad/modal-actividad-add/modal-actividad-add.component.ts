@@ -58,6 +58,10 @@ export class ModalActividadAddComponent implements OnInit {
     this.jornada = new jornada('', null, null, null, '', '');
     this.expositor = new expositor('','','','','','','',null,null);
     this.actividadPojo = new actividadPojo('', null, null, '', '', null, null, null, '', null);
+
+    this.actividadService.getGeneralEmitter().subscribe(e => {
+      console.log(e);
+    })
   }
 
   ngOnInit() {
