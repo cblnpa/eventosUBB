@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
 import { JornadaService, ModalService } from '../../../../../servicios/servicio.index';
 import { jornada } from '../../../../../model/model.index';
@@ -26,7 +25,12 @@ export class TablaJornadaComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private jornadaService: JornadaService, private modalService: ModalService,
-    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) { }
+    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) {
+    this.jornadaService.getGeneralEmitter().subscribe(e => {
+      console.log(e + ' tabla jornada');
+      this.mostrarJornadas();
+    })
+  }
 
   ngOnInit() {
     this.mostrarJornadas();

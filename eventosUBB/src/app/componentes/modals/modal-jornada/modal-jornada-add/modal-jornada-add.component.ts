@@ -35,6 +35,9 @@ export class ModalJornadaAddComponent implements OnInit {
               title: 'Creado con éxito',
               text: 'Se ha creado la jornada sin ningún problema',
             });
+            this.jornadaService.getGeneralEmitter().subscribe(e => {
+              console.log(e);
+            })
           }
         },
         error => {
@@ -53,9 +56,6 @@ export class ModalJornadaAddComponent implements OnInit {
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
-    this.jornadaService.getGeneralEmitter().subscribe(e => {
-      console.log(e);
-    });
     this.jornadaAdd = new jornada('',null,null,null,'','');
   }
 
