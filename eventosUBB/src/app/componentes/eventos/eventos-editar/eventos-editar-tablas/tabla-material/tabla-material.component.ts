@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 import { MaterialService, ModalService } from '../../../../../servicios/servicio.index';
 import { material } from '../../../../../model/model.index';
 import Swal from 'sweetalert2';
@@ -61,9 +60,14 @@ export class TablaMaterialComponent implements OnInit {
   }
 
   editarMaterial(id) {
+    this.mostrarMateriales();
     this.contModal = 9;
     this.idMaterialEdit = id;
     this.modalService.mostrarModal();
+    this.materialService.getGeneralEmitter().subscribe(e => {
+      console.log(e + ' estoy en la tabla');
+      this.mostrarMateriales();
+    })
   }
 
   eliminarMaterial(idMaterial) {

@@ -16,23 +16,10 @@ export class ModalJornadaAddComponent implements OnInit {
 
   constructor(private modalService: ModalService, private jornadaService: JornadaService,
     private route: ActivatedRoute) {
-      this.jornadaAdd = new jornada('',null,null,null,'','',null);
-      this.jornadaService.getGeneralEmitter().subscribe(e => {
-        console.log(e);
-      });
+    this.jornadaAdd = new jornada('', null, null, null, '', '', null);
   }
 
-  ngOnInit() {}
-
-  //pregunta si quiere salir del modal
-  salirModal() {
-    this.modalService.salirModal();
-  }
-
-  //oculta el modal luego de agregar los datos
-  ocultarModal(){
-    this.modalService.ocultarModal();
-  }
+  ngOnInit() { }
 
   //Formulario para agregar jornada
   agregarJornada(form) {
@@ -42,20 +29,34 @@ export class ModalJornadaAddComponent implements OnInit {
       this.jornadaAdd.evento_idEvento = id;
       this.jornadaService.guardarJornada(this.jornadaAdd).subscribe(
         response => {
-          if(response.code == 200 ){ 
-          Swal.fire({
-            type: 'success',
-            title: 'Creado con éxito',
-            text: 'Se ha creado la jornada sin ningún problema',
-          });
-        }
+          if (response.code == 200) {
+            Swal.fire({
+              type: 'success',
+              title: 'Creado con éxito',
+              text: 'Se ha creado la jornada sin ningún problema',
+            });
+          }
         },
         error => {
           console.log(<any>error);
         }
       )
+      this.ocultarModal();
     });
-    this.ocultarModal();
+  }
+
+  //pregunta si quiere salir del modal
+  salirModal() {
+    this.modalService.salirModal();
+  }
+
+  //oculta el modal luego de agregar los datos
+  ocultarModal() {
+    this.modalService.ocultarModal();
+    this.jornadaService.getGeneralEmitter().subscribe(e => {
+      console.log(e);
+    });
+    this.jornadaAdd = new jornada('',null,null,null,'','');
   }
 
 }

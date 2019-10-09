@@ -61,6 +61,7 @@ export class ModalMaterialEditComponent implements OnInit {
   }
 
   editarMaterial(form) {
+    this.getDatosMaterial();
     this.materialService.editMaterial(this.material, this.material.idMaterial).subscribe(
       response => {
         console.log(response);
@@ -85,6 +86,10 @@ export class ModalMaterialEditComponent implements OnInit {
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
+    this.materialService.getGeneralEmitter().subscribe(e => {
+      console.log(e);
+    })
+    this.material = new material('', '', null);
   }
 
   //archivo

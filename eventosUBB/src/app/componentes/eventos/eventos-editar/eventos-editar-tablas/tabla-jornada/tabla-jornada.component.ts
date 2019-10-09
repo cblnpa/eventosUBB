@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
@@ -22,16 +22,11 @@ export class TablaJornadaComponent implements OnInit {
   public displayedColumnsJornada: string[] = ['nombreJornada', 'fechaJornada', 'horaInicioJornada', 'horaFinJornada', 'ubicacionJornada', 'descripcionJornada', 'editJornada', 'deleteJornada'];
   public cantJornadas: number;
 
-  constructor(private jornadaService: JornadaService, private modalService: ModalService,
-    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) {
-    this.jornadaService.getGeneralEmitter().subscribe(e => {
-      console.log(e + " estoy en tabla");
-      this.mostrarJornadas();
-    })
-  }
-
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  constructor(private jornadaService: JornadaService, private modalService: ModalService,
+    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.mostrarJornadas();
@@ -58,8 +53,11 @@ export class TablaJornadaComponent implements OnInit {
 
   agregarJornadaModal() {
     this.contModal = 1;
-    this.mostrarJornadas();
     this.modalService.mostrarModal();
+    this.jornadaService.getGeneralEmitter().subscribe(e => {
+      console.log(e + " estoy en tabla");
+      this.mostrarJornadas();
+    })
   }
 
   editarJornada(id) {
