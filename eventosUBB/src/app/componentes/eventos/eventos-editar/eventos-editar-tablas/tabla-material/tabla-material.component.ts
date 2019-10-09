@@ -30,6 +30,10 @@ export class TablaMaterialComponent implements OnInit {
       console.log(e + ' estoy en la tabla');
       this.mostrarMateriales();
     })
+    this.materialService.getGeneralEmitter().subscribe(edit => {
+      console.log(edit + ' editado');
+      this.mostrarMateriales();
+    })
   }
 
   ngOnInit() {
@@ -65,12 +69,11 @@ export class TablaMaterialComponent implements OnInit {
   }
 
   editarMaterial(id) {
-    this.mostrarMateriales();
     this.contModal = 9;
-    this.idMaterialEdit = id;
     this.modalService.mostrarModal();
-    this.materialService.getGeneralEmitter().subscribe(e => {
-      console.log(e + ' estoy en la tabla');
+    this.idMaterialEdit = id;
+    this.materialService.getGeneralEmitter().subscribe(edit => {
+      console.log(edit + ' estoy en la tabla');
       this.mostrarMateriales();
     })
   }

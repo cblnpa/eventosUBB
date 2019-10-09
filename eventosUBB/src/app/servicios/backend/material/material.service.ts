@@ -44,6 +44,9 @@ export class MaterialService {
     let json = JSON.stringify(material);
     let params = 'json=' + json;
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    
+    this.general.emit('Material editado');
+
     return this.http.put(this.url + 'material/' + idMaterial, params, { headers: headers });
   }
 

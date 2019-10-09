@@ -41,6 +41,8 @@ export class ModalMaterialEditComponent implements OnInit {
   constructor(private modalService: ModalService, private materialService: MaterialService,
     private userService: UserService) {
     this.material = new material('', '', null);
+    this.identity = this.userService.getIdentity();
+    this.token = this.userService.getToken();
   }
 
   ngOnInit() {
@@ -56,19 +58,20 @@ export class ModalMaterialEditComponent implements OnInit {
           this.material.evento_idEvento, this.material.idMaterial);
       }, error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
   editarMaterial(form) {
-    this.getDatosMaterial();
     this.materialService.editMaterial(this.material, this.material.idMaterial).subscribe(
       response => {
-        console.log(response);
         if (response) {
+          console.log(response);
           Swal.fire({
             title: 'Material editado',
             type: 'success'
+          })
+          this.materialService.getGeneralEmitter().subscribe(edit => {
+            console.log(edit);
           })
         }
       }, error => {
@@ -81,15 +84,12 @@ export class ModalMaterialEditComponent implements OnInit {
   //pregunta si quiere salir del modal
   salirModal() {
     this.modalService.salirModal();
+    this.getDatosMaterial();
   }
 
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
-    this.materialService.getGeneralEmitter().subscribe(e => {
-      console.log(e);
-    })
-    this.material = new material('', '', null);
   }
 
   //archivo
