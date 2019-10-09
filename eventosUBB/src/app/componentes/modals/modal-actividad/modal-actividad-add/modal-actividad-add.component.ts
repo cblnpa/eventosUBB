@@ -56,12 +56,8 @@ export class ModalActividadAddComponent implements OnInit {
     private expositorService: ExpositorService) {
     this.actividadAdd = new actividad('', null, null, '', '', null, null);
     this.jornada = new jornada('', null, null, null, '', '');
-    this.expositor = new expositor('','','','','','','',null,null);
+    this.expositor = new expositor('', '', '', '', '', '', '', null, null);
     this.actividadPojo = new actividadPojo('', null, null, '', '', null, null, null, '', null);
-
-    this.actividadService.getGeneralEmitter().subscribe(e => {
-      console.log(e);
-    })
   }
 
   ngOnInit() {
@@ -92,9 +88,7 @@ export class ModalActividadAddComponent implements OnInit {
         let id = +params['id'];
         this.expositorService.getExpositoresActividad(id).subscribe(
           response => {
-            console.log(response);
             this.optionsExpositores = response.expositor;
-            console.log(this.optionsExpositores);
           },
           error => {
             console.log(<any>error);
@@ -102,24 +96,11 @@ export class ModalActividadAddComponent implements OnInit {
       });
   }
 
-  //pregunta si quiere salir del modal
-  salirModal() {
-    this.modalService.salirModal();
-  }
-
-  //oculta el modal luego de agregar los datos
-  ocultarModal(){
-    this.modalService.ocultarModal();
-  }
-  
-
   //Formulario para agregar actividad
   agregarActividad(form) {
-
     //asignar el id de la jornada seleccionada
     this.idJornada = this.jornadas.idJornada;
     this.actividadPojo.jornada_idJornada = this.idJornada;
-
     if (this.expositores != '') {
       //asignar el arreglo de expositores 
       this.actividadPojo.expositor = this.expositores;
@@ -128,18 +109,18 @@ export class ModalActividadAddComponent implements OnInit {
       console.log(this.actividadPojo.expositor);
       console.log(this.actividadPojo);
     }
-
     //asginar el id del evento
     this.actividadPojo.evento = this.idEvento;
-
     this.actividadService.guardarActividad(this.actividadPojo).subscribe(
       response => {
-        if (response.status == 'success') {
-          console.log(response);
+        if (response.code == 200) {
           Swal.fire({
             type: 'success',
             title: 'Creado con éxito',
             text: 'Se ha creado la actividad sin ningún problema',
+          })
+          this.actividadService.getGeneralEmitter().subscribe(e => {
+            console.log(e);
           })
         }
       },
@@ -148,6 +129,17 @@ export class ModalActividadAddComponent implements OnInit {
       }
     );
     this.ocultarModal();
+  }
+
+  //pregunta si quiere salir del modal
+  salirModal() {
+    this.modalService.salirModal();
+  }
+
+  //oculta el modal luego de agregar los datos
+  ocultarModal() {
+    this.modalService.ocultarModal();
+    this.actividadPojo = new actividadPojo('',null,null,'','',null,null,null,'',null);
   }
 
 }

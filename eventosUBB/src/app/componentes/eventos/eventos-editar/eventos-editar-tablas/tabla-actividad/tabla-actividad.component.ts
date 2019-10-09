@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
 import { ActividadService, ModalService } from '../../../../../servicios/servicio.index';
 import { actividad } from '../../../../../model/model.index';
@@ -22,16 +21,17 @@ export class TablaActividadComponent implements OnInit {
   public displayedColumnsActividad: string[] = ['nombreActividad', 'horaInicioActividad', 'horaFinActividad', 'ubicacionActividad', 'actividadParalela', 'cupos', 'descripcionActividad', 'editActividad', 'deleteActividad'];
   public cantActividades: number;
 
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(private actividadService: ActividadService, private modalService: ModalService,
     public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) {
     this.actividadService.getGeneralEmitter().subscribe(e => {
-      console.log(e + " estoy en tabla");
+      console.log(e + " tabla actividad");
       this.mostrarActividades();
     })
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
     this.mostrarActividades();
@@ -67,6 +67,9 @@ export class TablaActividadComponent implements OnInit {
   agregarActividadModal() {
     this.contModal = 4;
     this.modalService.mostrarModal();
+    this.actividadService.getGeneralEmitter().subscribe(e => {
+      console.log(e);
+    })
   }
 
   editarActividad(id) {
