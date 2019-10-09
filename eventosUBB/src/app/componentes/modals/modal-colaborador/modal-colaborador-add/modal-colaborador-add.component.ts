@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService, ColaboradorService, UserService } from '../../../../servicios/servicio.index';
-import { colaborador, tipoColaborador } from '../../../../model/model.index';
+import { colaborador } from '../../../../model/model.index';
 import { ActivatedRoute } from '@angular/router';
 import { global } from '../../../../servicios/global';
 import Swal from 'sweetalert2';
@@ -43,9 +43,6 @@ export class ModalColaboradorAddComponent implements OnInit {
     this.colaboradorAdd = new colaborador('', '', null, '', '', '', null, null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
-    this.colaboradorService.getGeneralEmitter().subscribe(e => {
-      console.log(e);
-    });
   }
 
   ngOnInit() {
@@ -59,18 +56,7 @@ export class ModalColaboradorAddComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
-      }
-    )
-  }
-
-  //pregunta si quiere salir del modal
-  salirModal() {
-    this.modalService.salirModal();
-  }
-
-  //oculta el modal luego de agregar los datos
-  ocultarModal() {
-    this.modalService.ocultarModal();
+      })
   }
 
   agregarColaborador(form) {
@@ -81,18 +67,23 @@ export class ModalColaboradorAddComponent implements OnInit {
         console.log(this.colaboradorAdd);
         this.colaboradorService.guardarColaborador(this.colaboradorAdd).subscribe(
           response => {
-            console.log(response);
-            Swal.fire({
-              type: 'success',
-              title: 'Creado con éxito',
-              text: 'Se ha agregado un colaborador sin ningún problema',
-            })
+            if (response.code == 200) {
+              console.log(response);
+              Swal.fire({
+                type: 'success',
+                title: 'Creado con éxito',
+                text: 'Se ha agregado un colaborador sin ningún problema',
+              })
+              this.colaboradorService.getGeneralEmitter().subscribe(e => {
+                console.log(e);
+              });
+            }
           },
           error => {
             console.log(<any>error);
           })
+        this.ocultarModal();
       })
-    this.ocultarModal();
   }
 
   //logo del colaborador
@@ -101,4 +92,14 @@ export class ModalColaboradorAddComponent implements OnInit {
     this.colaboradorAdd.logo = data.image;
   }
 
+  //pregunta si quiere salir del modal
+  salirModal() {
+    this.modalService.salirModal();
+  }
+
+  //oculta el modal luego de agregar los datos
+  ocultarModal() {
+    this.modalService.ocultarModal();
+    this.colaboradorAdd = new colaborador('', '', null, '', '', '', null, null);
+  }
 }

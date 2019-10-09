@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
 import { ColaboradorService, ModalService } from '../../../../../servicios/servicio.index';
 import { colaborador } from '../../../../../model/model.index';
@@ -28,7 +27,7 @@ export class TablaColaboradorComponent implements OnInit {
   constructor(private colaboradorService: ColaboradorService, private modalService: ModalService,
     public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) {
     this.colaboradorService.getGeneralEmitter().subscribe(e => {
-      console.log(e + " estoy en tabla");
+      console.log(e + " tabla colaborador");
       this.mostrarColaboradores();
     })
   }
@@ -62,6 +61,10 @@ export class TablaColaboradorComponent implements OnInit {
   agregarColaboradorModal() {
     this.contModal = 6;
     this.modalService.mostrarModal();
+    this.colaboradorService.getGeneralEmitter().subscribe(e => {
+      console.log(e + ' tabla colaborador');
+      this.mostrarColaboradores();
+    })
   }
 
   editarColaborador(id) {
