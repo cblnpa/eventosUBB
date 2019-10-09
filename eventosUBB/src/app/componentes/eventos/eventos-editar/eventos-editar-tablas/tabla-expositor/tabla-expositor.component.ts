@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
 import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 import { ExpositorService, ModalService } from '../../../../../servicios/servicio.index';
 import { expositor } from '../../../../../model/model.index';
 import Swal from 'sweetalert2';
@@ -23,12 +22,7 @@ export class TablaExpositorComponent implements OnInit {
   public cantExpositores: number;
 
   constructor(private expositorService: ExpositorService, private modalService: ModalService,
-    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) {
-      this.expositorService.getGeneralEmitter().subscribe(e => {
-        console.log(e + ' Estoy en la tabla');
-        this.mostrarExpositores();
-      })
-     }
+    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) { }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -59,6 +53,10 @@ export class TablaExpositorComponent implements OnInit {
   agregarExpositorModal() {
     this.contModal = 1;
     this.modalService.mostrarModal();
+    this.expositorService.getGeneralEmitter().subscribe(e => {
+      console.log(e + ' Estoy en la tabla');
+      this.mostrarExpositores();
+    })
   }
 
   editarExpositor(id) {

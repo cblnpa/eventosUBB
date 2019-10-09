@@ -42,22 +42,9 @@ export class ModalExpositorAddComponent implements OnInit {
     this.expositorAdd = new expositor('', '', '', '', '', '', '', null, null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
-    this.expositorService.getGeneralEmitter().subscribe(e => {
-      console.log(e);
-    })
   }
 
   ngOnInit() {
-  }
-
-  //pregunta si quiere salir del modal
-  salirModal() {
-    this.modalService.salirModal();
-  }
-
-  //oculta el modal luego de agregar los datos
-  ocultarModal() {
-    this.modalService.ocultarModal();
   }
 
   //Formulario para agregar expositor
@@ -69,19 +56,35 @@ export class ModalExpositorAddComponent implements OnInit {
 
         this.expositorService.guardarExpositor(this.expositorAdd).subscribe(
           response => {
-            console.log(response);
-            Swal.fire({
-              type: 'success',
-              title: 'Creado con éxito',
-              text: 'Se ha agregado el expositor sin ningún problema',
-            })
+            if (response.code == 200) {
+              console.log(response);
+              Swal.fire({
+                type: 'success',
+                title: 'Creado con éxito',
+                text: 'Se ha agregado el expositor sin ningún problema',
+              })
+            }
           },
           error => {
             console.log(<any>error);
           }
         )
+        this.ocultarModal();
       });
-    this.ocultarModal();
+  }
+
+  //pregunta si quiere salir del modal
+  salirModal() {
+    this.modalService.salirModal();
+  }
+
+  //oculta el modal luego de agregar los datos
+  ocultarModal() {
+    this.modalService.ocultarModal();
+    this.expositorService.getGeneralEmitter().subscribe(e => {
+      console.log(e);
+    })
+    this.expositorAdd = new expositor('', '', '', '', '', '', '', null, null);
   }
 
   //foto del expositor
