@@ -44,8 +44,7 @@ export class ModalExpositorAddComponent implements OnInit {
     this.token = this.userService.getToken();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   //Formulario para agregar expositor
   agregarExpositor(form) {
@@ -53,15 +52,16 @@ export class ModalExpositorAddComponent implements OnInit {
       params => {
         let id = +params['id'];
         this.expositorAdd.evento = id;
-
         this.expositorService.guardarExpositor(this.expositorAdd).subscribe(
           response => {
             if (response.code == 200) {
-              console.log(response);
               Swal.fire({
                 type: 'success',
                 title: 'Creado con éxito',
                 text: 'Se ha agregado el expositor sin ningún problema',
+              })
+              this.expositorService.getGeneralEmitter().subscribe(e => {
+                console.log(e);
               })
             }
           },
@@ -81,9 +81,6 @@ export class ModalExpositorAddComponent implements OnInit {
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
-    this.expositorService.getGeneralEmitter().subscribe(e => {
-      console.log(e);
-    })
     this.expositorAdd = new expositor('', '', '', '', '', '', '', null, null);
   }
 

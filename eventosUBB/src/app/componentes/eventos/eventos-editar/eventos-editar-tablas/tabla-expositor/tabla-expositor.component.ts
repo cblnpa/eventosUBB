@@ -22,7 +22,12 @@ export class TablaExpositorComponent implements OnInit {
   public cantExpositores: number;
 
   constructor(private expositorService: ExpositorService, private modalService: ModalService,
-    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) { }
+    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) {
+    this.expositorService.getGeneralEmitter().subscribe(e => {
+      console.log(e + ' tabla expositor');
+      this.mostrarExpositores();
+    })
+  }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -78,9 +83,9 @@ export class TablaExpositorComponent implements OnInit {
       if (result.value) {
         this.expositorService.deleteExpositor(idExpositor).subscribe(
           response => {
-            if(response){
+            if (response) {
               this.mostrarExpositores();
-              Swal.fire('Expositor eliminado','', 'success')
+              Swal.fire('Expositor eliminado', '', 'success')
             }
           },
           error => {
