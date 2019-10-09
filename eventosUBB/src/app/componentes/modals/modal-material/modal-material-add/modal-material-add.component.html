@@ -7,7 +7,7 @@
                 <button type="button" class="close" (click)="salirModal()">×</button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal p-t-20" #agregarMaterialForm="ngForm"
+                <form id="formularioMaterial" class="form-horizontal p-t-20" #agregarMaterialForm="ngForm"
                     (ngSubmit)="agregarMaterial(agregarMaterialForm)">
 
                     <div class="col-md-12 mr-2">
@@ -38,7 +38,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger waves-effect"
                             (click)="salirModal()">Cancelar</button>
-                        <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                        <button id="btnGuardar" type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
                     </div>
                 </form>
             </div>

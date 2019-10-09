@@ -42,12 +42,41 @@ export class ModalMaterialAddComponent implements OnInit {
     this.materialAdd = new material('', '', null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
-    this.materialService.getGeneralEmitter().subscribe(e => {
-      console.log(e);
-    })
   }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  //Formulario para agregar material
+  agregarMaterial(form) {
+    this.route.params.subscribe(
+      params => {
+        let id = +params['id'];
+        this.materialAdd.evento_idEvento = id;
+        this.materialService.guardarMaterial(this.materialAdd).subscribe(
+          response => {
+            if (response.code == 200) {
+              console.log(response);
+              Swal.fire({
+                type: 'success',
+                title: 'Creado con éxito',
+                text: 'Se ha agregado un archivo al material',
+              })
+            }
+          },
+          error => {
+            console.log(<any>error);
+          }
+        )
+        this.ocultarModal();
+      })
+  }
+
+  //archivo
+  archivoUpload(datos) {
+    let data = JSON.parse(datos.response);
+    console.log('data');
+    console.log(data);
+    this.materialAdd.archivo = data.image;
   }
 
   //pregunta si quiere salir del modal
@@ -58,36 +87,10 @@ export class ModalMaterialAddComponent implements OnInit {
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
-  }
-  //Formulario para agregar material
-  agregarMaterial(form) {
-    this.route.params.subscribe(
-      params => {
-        let id = +params['id'];
-        this.materialAdd.evento_idEvento = id;
-        this.materialService.guardarMaterial(this.materialAdd).subscribe(
-          response => {
-            console.log(response);
-            Swal.fire({
-              type: 'success',
-              title: 'Creado con éxito',
-              text: 'Se ha agregado un archivo al material',
-            })
-          },
-          error => {
-            console.log(<any>error);
-          }
-        )
-      })
-    this.ocultarModal();
-  }
-
-  //archivo
-  archivoUpload(datos) {
-    let data = JSON.parse(datos.response);
-    console.log('data');
-    console.log(data);
-    this.materialAdd.archivo = data.image;
+    this.materialService.getGeneralEmitter().subscribe(e => {
+      console.log(e);
+    })
+    this.materialAdd = new material('','',null);
   }
 
 }

@@ -19,19 +19,14 @@ export class TablaMaterialComponent implements OnInit {
   public idMaterialEdit: number = 0;
 
   public dataSourceMaterial;
-  public displayedColumnsMaterial: string[] = ['nombreMaterial', 'archivo', 'created_at','editMaterial','deleteMaterial'];
+  public displayedColumnsMaterial: string[] = ['nombreMaterial', 'archivo', 'created_at', 'editMaterial', 'deleteMaterial'];
   public cantMateriales: number;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor( private materialService: MaterialService, private modalService: ModalService,
-    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute ) {
-      this.materialService.getGeneralEmitter().subscribe(e => {
-        console.log(e + ' estoy en la tabla');
-        this.mostrarMateriales();
-      })
-     }
+  constructor(private materialService: MaterialService, private modalService: ModalService,
+    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.mostrarMateriales();
@@ -59,6 +54,10 @@ export class TablaMaterialComponent implements OnInit {
   agregarMaterialModal() {
     this.contModal = 8;
     this.modalService.mostrarModal();
+    this.materialService.getGeneralEmitter().subscribe(e => {
+      console.log(e + ' estoy en la tabla');
+      this.mostrarMateriales();
+    })
   }
 
   editarMaterial(id) {
@@ -67,7 +66,7 @@ export class TablaMaterialComponent implements OnInit {
     this.modalService.mostrarModal();
   }
 
-  eliminarMaterial(idMaterial){
+  eliminarMaterial(idMaterial) {
     Swal.fire({
       title: '¿Quiere eliminar este material?',
       type: 'warning',
@@ -77,10 +76,10 @@ export class TablaMaterialComponent implements OnInit {
       confirmButtonText: 'Sí, eliminar material',
       cancelButtonText: 'No'
     }).then((result) => {
-      if(result.value) {
+      if (result.value) {
         this.materialService.deleteMaterial(idMaterial).subscribe(
           response => {
-            if(response){
+            if (response) {
               this.mostrarMateriales();
               Swal.fire('Material eliminado', '', 'success')
             }
