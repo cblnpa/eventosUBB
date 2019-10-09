@@ -40,16 +40,19 @@ export class ModalColaboradorAddComponent implements OnInit {
 
   constructor(private modalService: ModalService, private colaboradorService: ColaboradorService,
     private route: ActivatedRoute, private userService: UserService) {
-    this.colaboradorAdd = new colaborador('', '', null, '', '', '',null,null);
+    this.colaboradorAdd = new colaborador('', '', null, '', '', '', null, null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
+    this.colaboradorService.getGeneralEmitter().subscribe(e => {
+      console.log(e);
+    });
   }
 
   ngOnInit() {
     this.getTipoColaboradores();
   }
 
-  getTipoColaboradores(){
+  getTipoColaboradores() {
     this.colaboradorService.getTipoColaboradores().subscribe(
       response => {
         this.tipoColaboradores = response.tipoColaborador;

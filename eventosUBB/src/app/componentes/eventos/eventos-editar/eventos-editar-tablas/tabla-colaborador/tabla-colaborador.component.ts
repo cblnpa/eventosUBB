@@ -19,14 +19,19 @@ export class TablaColaboradorComponent implements OnInit {
   public idColaboradorEdit: number = 0;
 
   public dataSourceColaborador;
-  public displayedColumnsColaborador: string[] = ['nombreColaborador', 'nombreRepresentante', 'telefonoColaborador', 'correoColaborador', 'tipoColaborador', 'sitioWeb', 'logo', 'editColaborador' ,'deleteColaborador'];
+  public displayedColumnsColaborador: string[] = ['nombreColaborador', 'nombreRepresentante', 'telefonoColaborador', 'correoColaborador', 'tipoColaborador', 'sitioWeb', 'logo', 'editColaborador', 'deleteColaborador'];
   public cantColaboradores: number;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private colaboradorService: ColaboradorService, private modalService: ModalService,
-    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) { }
+    public paginatorSettings: MatPaginatorIntl, private route: ActivatedRoute) {
+    this.colaboradorService.getGeneralEmitter().subscribe(e => {
+      console.log(e + " estoy en tabla");
+      this.mostrarColaboradores();
+    })
+  }
 
   ngOnInit() {
     this.mostrarColaboradores();
