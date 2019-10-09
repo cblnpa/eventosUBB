@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs'; 
 import { global } from '../../global';
@@ -10,6 +10,8 @@ export class ExpositorService {
 
   public url: string; //acá se guarda el http://localhost:8000/api/ que esta en global.ts
 
+  public general = new EventEmitter();
+
   constructor( private http: HttpClient ) { 
     this.url = global.url; 
   }
@@ -18,8 +20,9 @@ export class ExpositorService {
   guardarExpositor(expositor): Observable<any>{
     let json = JSON.stringify(expositor); //convierte el evento que se pasa por parámetro a un tipo JSON
     let params = 'json='+json; //se definene los parametros que se mandan al api
-    
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'); //tipo de peticion
+
+    this.general.emit('Expositor agregado');
     
     return this.http.post(this.url+'expositor', params, {headers: headers});
   }
@@ -49,5 +52,9 @@ export class ExpositorService {
     
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.put(this.url+'expositor/' +idExpositor, params, {headers:headers});
+  }
+
+  getGeneralEmitter(){
+    return this.general;
   }
 }

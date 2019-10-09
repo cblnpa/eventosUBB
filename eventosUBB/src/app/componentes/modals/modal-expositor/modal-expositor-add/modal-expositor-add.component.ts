@@ -39,9 +39,12 @@ export class ModalExpositorAddComponent implements OnInit {
 
   constructor(private modalService: ModalService, private expositorService: ExpositorService,
     private userService: UserService, private route: ActivatedRoute) {
-    this.expositorAdd = new expositor('','','','','','','',null,null);
+    this.expositorAdd = new expositor('', '', '', '', '', '', '', null, null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
+    this.expositorService.getGeneralEmitter().subscribe(e => {
+      console.log(e);
+    })
   }
 
   ngOnInit() {
