@@ -95,6 +95,7 @@ export class UnidadesVerComponent implements OnInit {
       if (result.value) {
         this.unidadService.deleteUnidad(id).subscribe(
           response => {
+            console.log(response);
             if (response.code == 200) {
               this.getUnidades();
               Swal.fire('Unidad eliminada', '', 'success')

@@ -21,7 +21,7 @@ export class UnidadService {
     let json = JSON.stringify(unidad);
     let params = 'json=' + json;
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.post(this.url + 'userUnidad', params, { headers: headers });
+    return this.http.post(this.url + 'unidad', params, { headers: headers });
   }
 
   //Listar todas las unidades

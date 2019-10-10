@@ -184,9 +184,11 @@ export class UnidadesCrearComponent implements OnInit {
   guardarUnidad(form) {
     this.unidad.email = this.usuarios.email;
     this.unidad.sede = this.ciudades.nombreCiudad;
+    console.log(this.unidad);
     this.unidadService.guardarUnidad(this.unidad).subscribe(
       response => {
-        if (response.status == 'success') {
+        console.log(response);
+        if (response ) {
           Swal.fire({
             type: 'success',
             title: '¡Se ha creado con éxito la unidad!'

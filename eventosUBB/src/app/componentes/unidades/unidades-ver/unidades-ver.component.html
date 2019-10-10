@@ -62,7 +62,7 @@
             <ng-container matColumnDef="deleteUnidad">
               <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
-                <button class="btn btn-block btn-danger" (click)="eliminarUnidad(unidades.idusers_unidad)">
+                <button class="btn btn-block btn-danger" (click)="eliminarUnidad(unidades.unidad.idUnidad)">
                   <i class="mdi mdi-delete"></i>
                 </button>
               </td>
