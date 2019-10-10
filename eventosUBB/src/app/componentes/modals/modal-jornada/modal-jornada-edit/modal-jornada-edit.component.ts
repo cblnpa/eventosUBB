@@ -40,11 +40,16 @@ export class ModalJornadaEditComponent implements OnInit {
   editarJornada(form) {
     this.jornadaService.editJornada(this.jornadas, this.jornadas.idJornada).subscribe(
       response => {
-        Swal.fire({
-          title: 'Jornada editada',
-          type: 'success'
-        })
-        console.log(response);
+        if(response){
+          Swal.fire({
+            title: 'Jornada editada',
+            type: 'success'
+          })
+          console.log(response);
+          this.jornadaService.getGeneralEmitter().subscribe(edit => {
+            console.log(edit);
+          })
+        }
       }, error => {
         console.log(<any>error);
       }

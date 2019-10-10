@@ -27,6 +27,11 @@ export class TablaExpositorComponent implements OnInit {
       console.log(e + ' tabla expositor');
       this.mostrarExpositores();
     })
+    this.expositorService.getGeneralEmitter().subscribe(edit => {
+      console.log(edit + ' tabla expositor');
+      this.mostrarExpositores();
+    })
+
   }
 
   @ViewChild(MatSort) sort: MatSort;
@@ -68,6 +73,10 @@ export class TablaExpositorComponent implements OnInit {
     this.contModal = 2;
     this.idExpositorEdit = id;
     this.modalService.mostrarModal();
+    this.expositorService.getGeneralEmitter().subscribe(edit => {
+      console.log(edit + ' tabla expositor');
+      this.mostrarExpositores();
+    })
   }
 
   eliminarExpositor(idExpositor) {

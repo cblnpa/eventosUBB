@@ -69,11 +69,16 @@ export class ModalExpositorEditComponent implements OnInit {
   editarExpositor(form) {
     this.expositorService.editExpositor(this.expositores, this.expositores.idExpositor).subscribe(
       response => {
-        console.log(response);
-        Swal.fire({
-          type: 'success',
-          title: 'Expositor editado',
-        })
+        if( response ) {
+          console.log(response);
+          Swal.fire({
+            type: 'success',
+            title: 'Expositor editado',
+          })
+          this.expositorService.getGeneralEmitter().subscribe(edit => {
+            console.log(edit);
+          })
+        }
       },
       error => {
         console.log(<any>error);
@@ -90,11 +95,13 @@ export class ModalExpositorEditComponent implements OnInit {
   //pregunta si quiere salir del modal
   salirModal() {
     this.modalService.salirModal();
+    this.getDatosExpositor();
   }
 
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
+    this.getDatosExpositor();
   }
 
 }
