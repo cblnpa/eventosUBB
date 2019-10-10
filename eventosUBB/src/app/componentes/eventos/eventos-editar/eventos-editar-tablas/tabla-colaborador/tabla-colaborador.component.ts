@@ -30,6 +30,10 @@ export class TablaColaboradorComponent implements OnInit {
       console.log(e + " tabla colaborador");
       this.mostrarColaboradores();
     })
+    this.colaboradorService.getGeneralEmitter().subscribe(edit => {
+      console.log(edit + " tabla colaborador");
+      this.mostrarColaboradores();
+    })
   }
 
   ngOnInit() {
@@ -71,6 +75,10 @@ export class TablaColaboradorComponent implements OnInit {
     this.contModal = 7;
     this.idColaboradorEdit = id;
     this.modalService.mostrarModal();
+    this.colaboradorService.getGeneralEmitter().subscribe(editar => {
+      console.log(editar + ' tabla colaborador');
+      this.mostrarColaboradores();
+    })
   }
 
   eliminarColaborador(idColaborador) {

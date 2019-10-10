@@ -75,12 +75,17 @@ export class ModalColaboradorEditComponent implements OnInit {
   editarColaborador(form) {
     this.colaboradorService.editColaborador(this.colaborador, this.colaborador.idColaborador).subscribe(
       response => {
-        console.log(this.colaborador);
-        console.log(response);
-        Swal.fire({
-          title: 'Colaborador editado',
-          type: 'success'
-        })
+        if(response){
+          console.log(this.colaborador);
+          console.log(response);
+          Swal.fire({
+            title: 'Colaborador editado',
+            type: 'success'
+          })
+          this.colaboradorService.getGeneralEmitter().subscribe(edit=> {
+            console.log(edit);
+          })
+        }
       }, error => {
         console.log(<any>error);
       })

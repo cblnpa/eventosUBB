@@ -49,6 +49,9 @@ export class ColaboradorService {
     let json = JSON.stringify(colaborador); 
     let params = 'json=' + json;
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+    this.general.emit('Colaborador editado');
+
     return this.http.put(this.url+'colaborador/' + idColaborador, params, {headers:headers});
 
   }
