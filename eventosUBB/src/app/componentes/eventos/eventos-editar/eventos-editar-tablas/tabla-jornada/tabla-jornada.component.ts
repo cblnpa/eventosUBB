@@ -30,6 +30,11 @@ export class TablaJornadaComponent implements OnInit {
       console.log(e + ' tabla jornada');
       this.mostrarJornadas();
     })
+    this.jornadaService.getGeneralEmitter().subscribe(edit => {
+      console.log(edit + ' tabla jornada');
+      this.mostrarJornadas();
+    })
+    
   }
 
   ngOnInit() {
@@ -68,6 +73,10 @@ export class TablaJornadaComponent implements OnInit {
     this.contModal = 2;
     this.idJornadaEdit = id;
     this.modalService.mostrarModal();
+    this.jornadaService.getGeneralEmitter().subscribe(edit => {
+      console.log(edit + ' tabla jornada');
+      this.mostrarJornadas();
+    })
   }
 
   eliminarJornada(idJornada) {

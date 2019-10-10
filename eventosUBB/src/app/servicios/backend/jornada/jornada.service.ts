@@ -20,10 +20,10 @@ export class JornadaService {
   guardarJornada(jornada): Observable<any> {
     let json = JSON.stringify(jornada); //convierte el evento que se pasa por parámetro a un tipo JSON
     let params = 'json=' + json; //se definene los parametros que se mandan al api
-
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'); //tipo de peticion
 
     this.general.emit('Datos Atualizados');
+
     return this.http.post(this.url + 'jornada', params, { headers: headers });
   }
 
@@ -50,6 +50,9 @@ export class JornadaService {
     let json = JSON.stringify(jornada); 
     let params = 'json=' + json;
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+    this.general.emit('Jornada editada');
+    
     return this.http.put(this.url+'jornada/' + idJornada, params, {headers:headers});
   }
 

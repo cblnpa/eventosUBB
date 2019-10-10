@@ -55,10 +55,12 @@ export class ModalJornadaEditComponent implements OnInit {
   //pregunta si quiere salir del modal
   salirModal() {
     this.modalService.salirModal();
+    this.getDatosJornada();
   }
 
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
+    this.getDatosJornada();
   }
 }

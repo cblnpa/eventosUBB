@@ -90,6 +90,7 @@ export class ModalMaterialEditComponent implements OnInit {
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
+    this.getDatosMaterial();
   }
 
   //archivo
