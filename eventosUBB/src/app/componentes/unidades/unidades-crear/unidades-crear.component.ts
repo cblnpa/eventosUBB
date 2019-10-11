@@ -3,7 +3,7 @@ import { Router, ActivationEnd, ActivatedRoute } from '@angular/router';
 import { UnidadService, UserService, CiudadService } from '../../../servicios/servicio.index';
 import { global } from '../../../servicios/global';
 import { Title } from '@angular/platform-browser';
-import { unidad, users, ciudad } from '../../../model/model.index';
+import { unidad, users, ciudad, unidadEdit } from '../../../model/model.index';
 import { filter, map } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
@@ -26,6 +26,7 @@ export class UnidadesCrearComponent implements OnInit {
   public idPerfil; //almacenar perfil del usuario loggeado, util para los ngIf del HTML
   public tipoVista; //si es 1 muestra crear si es 2 editar
   public idUnidad;
+  public unidadEdit;
 
   //variables para el select
   public usuario: users;
@@ -84,6 +85,7 @@ export class UnidadesCrearComponent implements OnInit {
     private ciudadService: CiudadService) {
     this.unidad = new unidad('', '', '', '', null);
     this.miUnidad = new unidad('', '', '', '', null);
+    this.unidadEdit = new unidadEdit('', '', '');
     this.usuario = new users('', '', '', '', '', null, null, null);
     this.ciudad = new ciudad(null, '');
     this.url = global.url;
@@ -104,8 +106,8 @@ export class UnidadesCrearComponent implements OnInit {
     this.getCiudades();
     this.getPerfil();
     this.getIdUsuario();
-    this.getDataUnidad();
     this.getDatosUnidad();
+    this.getDataUnidad();
   }
 
   //Función para obtener el nombre de la página actual
@@ -124,7 +126,6 @@ export class UnidadesCrearComponent implements OnInit {
     } else {
       this.idUsuario = this.identity.id;
     }
-    console.log(this.idUsuario);
   }
 
   //Verifica si la url es para editar o agregar
@@ -145,8 +146,8 @@ export class UnidadesCrearComponent implements OnInit {
     if (this.idUnidad != undefined) {
       this.unidadService.getUnidadById(this.idUnidad).subscribe(
         response => {
-          this.unidad.nombreUnidad = response.unidad.unidad.nombreUnidad;
-
+          console.log(response);
+          this.unidadEdit.nombreUnidad = response.nombreUnidad;
         }, error => {
           console.log(<any>error);
         })
@@ -184,21 +185,39 @@ export class UnidadesCrearComponent implements OnInit {
   guardarUnidad(form) {
     this.unidad.email = this.usuarios.email;
     this.unidad.sede = this.ciudades.nombreCiudad;
-    console.log(this.unidad);
+    Swal.showLoading();
     this.unidadService.guardarUnidad(this.unidad).subscribe(
       response => {
-        console.log(response);
-        if (response ) {
+        if (response) {
           Swal.fire({
             type: 'success',
             title: '¡Se ha creado con éxito la unidad!'
           });
+          this.router.navigate(['/verUnidades']);
         }
-        this.router.navigate(['/verUnidades']);
       },
       error => {
         console.log(<any>error);
+        Swal.close();
       })
+  }
+
+  //Editar unidad
+  editarUnidad(form) {
+    this.unidadEdit.sede = this.ciudades.nombreCiudad;
+    this.unidadService.editarUnidad(this.unidadEdit, this.idUnidad).subscribe(
+      response => {
+        if (response) {
+          Swal.fire({
+            type: 'success',
+            title: '¡Se ha creado con éxito la sub unidad!'
+          });
+          this.router.navigate(['/verUnidades']);
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   //Obtener los datos de la unidad del usuario para crear su subunidad
@@ -206,10 +225,8 @@ export class UnidadesCrearComponent implements OnInit {
     this.unidadService.getUnidad(this.idUsuario).subscribe(
       response => {
         if (response.code == 200) {
-          console.log(response);
           if (response.unidad.length > 0) {
             this.miUnidad = response.unidad[0].unidad;
-            console.log(this.miUnidad);
           }
         }
       }, error => {
@@ -222,8 +239,6 @@ export class UnidadesCrearComponent implements OnInit {
     console.log('Guardar sub unidad');
     this.miUnidad.email = this.usuarios.email;
     this.miUnidad.idAdminUnidad = this.idUsuario;
-    // this.unidad.email = this.usuarios.email;
-    // this.unidad.idAdminUnidad = this.idPerfil;
     this.unidadService.guardarSubUnidad(this.miUnidad).subscribe(
       response => {
         console.log(response);
@@ -243,9 +258,8 @@ export class UnidadesCrearComponent implements OnInit {
   //Función para subir el logo
   logoUpload(logo) {
     let data = JSON.parse(logo.response);
-    console.log(logo.response);
     this.unidad.logoUnidad = data.image;
-    console.log(this.unidad.logoUnidad);
+    this.unidadEdit.logoUnidad = data.image;
   }
 
 }

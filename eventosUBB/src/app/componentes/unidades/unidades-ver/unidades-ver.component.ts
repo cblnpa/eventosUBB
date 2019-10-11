@@ -32,14 +32,14 @@ export class UnidadesVerComponent implements OnInit {
   dataSource2;
   filtrar2: string;
 
-  constructor( private unidadService: UnidadService, public paginatorSettings: MatPaginatorIntl,
-    private userService: UserService, private router: Router ) {
+  @ViewChild(MatSort) sort: MatSort; //ordenar datos de la tabla
+  @ViewChild(MatPaginator) paginator: MatPaginator; //paginación de la tabla
+
+  constructor(private unidadService: UnidadService, public paginatorSettings: MatPaginatorIntl,
+    private userService: UserService, private router: Router) {
     this.identity = this.userService.getIdentity();
     this.url = global.url;
   }
-
-  @ViewChild(MatSort) sort: MatSort; //ordenar datos de la tabla
-  @ViewChild(MatPaginator) paginator: MatPaginator; //paginación de la tabla
 
   ngOnInit() {
     this.getIdUsuario();
@@ -63,26 +63,11 @@ export class UnidadesVerComponent implements OnInit {
       })
   }
 
-  getSubUnidades() {
-    this.unidadService.getSubUnidades(this.idUsuario).subscribe(
-      response => {
-        console.log(response);
-        this.cantidadSubUnidades = response.subUnidad.length;
-        this.dataSource2 = new MatTableDataSource(response.subUnidad);
-        this.dataSource2.sort = this.sort;
-        this.dataSource2.paginator = this.paginator;
-      }, error => {
-        console.log(<any>error);
-      })
-  }
-
   editarUnidad(id) {
-    console.log('Dentro del editar unidad con el id ' + id);
-    this.router.navigate(['/editarUnidad/'+id]);
+    this.router.navigate(['/editarUnidad/' + id]);
   }
 
   eliminarUnidad(id) {
-    console.log('Dentro del eliminar unidad con el id ' + id);
     Swal.fire({
       title: '¿Quiere eliminar esta unidad?',
       type: 'warning',
@@ -93,6 +78,7 @@ export class UnidadesVerComponent implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.value) {
+        Swal.showLoading();
         this.unidadService.deleteUnidad(id).subscribe(
           response => {
             console.log(response);
@@ -102,9 +88,22 @@ export class UnidadesVerComponent implements OnInit {
             }
           }, error => {
             console.log(<any>error);
+            Swal.close();
           })
       }
     })
+  }
+
+  getSubUnidades() {
+    this.unidadService.getSubUnidades(this.idUsuario).subscribe(
+      response => {
+        this.cantidadSubUnidades = response.subUnidad.length;
+        this.dataSource2 = new MatTableDataSource(response.subUnidad);
+        this.dataSource2.sort = this.sort;
+        this.dataSource2.paginator = this.paginator;
+      }, error => {
+        console.log(<any>error);
+      })
   }
 
   // Asignar a la variable idPerfil el perfil del usuario activo

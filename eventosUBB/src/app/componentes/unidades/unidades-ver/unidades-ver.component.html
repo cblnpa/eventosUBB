@@ -46,14 +46,18 @@
 
             <ng-container matColumnDef="logoUnidad">
               <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Logo</th>
-              <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> <img class="imageLogo"
-                  src="{{url + 'logoImage/' + unidades.unidad.logoUnidad}}" alt="Responsive image"> </td>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
+                <img *ngIf="unidades.unidad.logoUnidad" class="imageLogo"
+                  src="{{url + 'logoImage/' + unidades.unidad.logoUnidad}}" alt="logo-unidad">
+                <img *ngIf="!unidades.unidad.logoUnidad" class="imageLogo" src="../../../assets/images/sin-imagen.png"
+                  alt="sin-logo-unidad">
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="editUnidad">
               <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
-                <button class="m-l-5 btn btn-block btn-warning" (click)="editarUnidad(unidades.idusers_unidad)">
+                <button class="m-l-5 btn btn-block btn-warning" (click)="editarUnidad(unidades.unidad.idUnidad)">
                   <i class="mdi mdi-pencil"></i>
                 </button>
               </td>

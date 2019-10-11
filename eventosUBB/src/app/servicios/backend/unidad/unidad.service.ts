@@ -39,7 +39,16 @@ export class UnidadService {
   //Obtener datos de la unidad seleccionada
   getUnidadById(idUnidad): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.url + 'getUnidadById/' + idUnidad, {headers});
+    return this.http.get(this.url + 'getUnidadById/' + idUnidad, { headers });
+  }
+
+  //Modificar una unidad
+  editarUnidad(unidad, idUnidad) {
+    let json = JSON.stringify(unidad);
+    let params = 'json=' + json;
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+    return this.http.put(this.url + 'unidad/' + idUnidad, params, { headers: headers });
   }
 
   deleteUnidad(idUnidad): Observable<any> {

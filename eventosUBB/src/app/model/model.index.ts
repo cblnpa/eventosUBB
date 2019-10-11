@@ -17,3 +17,4 @@ export { actividadPojo } from './actividadPojo';
 export { tipoEvento } from './tipoEvento';
 export { tipoColaborador } from './tipoColaborador';
 export { deleteComision } from './deleteComision';
+export { unidadEdit } from './unidadEdit';
