@@ -1,58 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global';
-
 import { EventoPojoService, EventoUsersService, UserService, EventoService, ComisionService, RepositorioService, ModalService } from '../../../servicios/servicio.index';
-import { evento, material, colaborador, jornada, expositor, actividad, evento_users, asistencia, deleteComision } from '../../../model/model.index';
-
+import { evento_users, asistencia, deleteComision } from '../../../model/model.index';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-eventos-detalles',
   templateUrl: './eventos-detalles.component.html',
-  styleUrls: ['./eventos-detalles.component.css'],
-  providers: [EventoPojoService, EventoUsersService, UserService, EventoService]
+  styleUrls: ['./eventos-detalles.component.css']
 })
 export class EventosDetallesComponent implements OnInit {
 
-  public url: string; // url que posee el localhost.. 
+  public url;
   public participantes;
   public idPersona;
   public comisiones; //almacenar los integrantes
-  public repositorio; 
+  public repositorio;
 
   //verificar el usuario activo
   public token;
   public identity;
   public rol; //almacena el rol del usuario activo
 
-  public idEventoUsers: number; /* este es el id del evento para el eventousers */
+  public idEvento: number; /* este es el id del evento para el eventousers */
   public status;
 
   public eventoUsers: evento_users;
 
-  public actividad: actividad;
-  public evento: evento;
-  public material: material;
-  public colaborador: colaborador;
-  public jornada: jornada;
-  public expositor: expositor;
- 
+  //arreglos que almacenan los objetos
+  public arrActividades = [];
+  public arrColaboradores = [];
+  public arrJornadas = [];
+  public arrExpositores = [];
+  public evento;
+
   public deleteC: deleteComision; //modelo para enviar los id del integrante de la comisión a eliminar
   public asistencia: asistencia; //modelo que posee evento_idEvento & users_id *se ocupa para el request
 
   constructor(private eventoPojoService: EventoPojoService, private eventoUsersService: EventoUsersService,
     private userService: UserService, private eventoService: EventoService, private route: ActivatedRoute,
     private router: Router, private comisionService: ComisionService, private repositorioService: RepositorioService,
-    private modalService: ModalService ) {
+    private modalService: ModalService) {
     this.url = global.url;
     this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();
     this.asistencia = new asistencia(null, null);
-    this.deleteC = new deleteComision(null,null);
+    this.deleteC = new deleteComision(null, null);
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getEventosDetalle();
     this.getEventoUsers();
     this.getRol();
@@ -62,51 +59,56 @@ export class EventosDetallesComponent implements OnInit {
 
   getEventosDetalle() {
     this.route.params.subscribe(params => {
-
       let idEvento = +params['id'];
-      this.idEventoUsers = idEvento;
-
+      this.idEvento = idEvento;
       this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
-
         response => {
-          if (response.status == 'success') {
-
-            if (response.Jornada == null) {
-            } else {
-              this.jornada = response.Jornada;
+          console.log(response);
+          if (response.code == 200) {
+            //Almacenar las actividades
+            if (response.actividad.length > 0) {
+              for (var i = 0; i < response.actividad.length; i++) {
+                if (response.actividad[i] != null)
+                  this.arrActividades.push(response.actividad[i]);
+              }
             }
-            if (response.actividad == null) {
-            } else {
-              this.actividad = response.actividad;
+            //Almacenar los colaboradores
+            if (response.colaborador.length > 0) {
+              for (var i = 0; i < response.colaborador.length; i++) {
+                if (response.colaborador[i] != null)
+                  this.arrColaboradores.push(response.colaborador[i]);
+              }
             }
-            if (response.expositor == null) {
-            } else {
-              this.expositor = response.expositor;
+            console.log(this.arrColaboradores);
+            //Almacenar jornadas
+            if (response.Jornada.length > 0) {
+              for (var i = 0; i < response.Jornada.length; i++) {
+                if (response.Jornada[i] != null)
+                  this.arrJornadas.push(response.Jornada[i]);
+              }
             }
-            if (response.colaborador == null) {
-            } else {
-              this.colaborador = response.colaborador;
+            //Almacenar expositores
+            if (response.expositor.length > 0) {
+              for (var i = 0; i < response.expositor.length; i++) {
+                if (response.expositor[i] != null)
+                  this.arrExpositores.push(response.expositor[i]);
+              }
             }
-            if (response.evento == null) {
-            } else {
-              this.evento = response.evento;
-            }
-            if (response.material == null) {
-            } else {
-              this.material = response.material;
-            }
-          } else {
-            this.router.navigate(['/inicio']);
+            console.log(this.arrExpositores);
+            //Datos básicos del evento
+            this.evento = response.evento;
           }
+          // this.router.navigate(['/inicio']);
         },
         error => {
           console.log(error);
-        })})
+        })
+    })
   }
 
   //Obtener los participantes del evento 
   getEventoUsers() {
-    this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
+    this.eventoUsersService.getEventoUsersById(this.idEvento).subscribe(
       response => {
         this.participantes = response.evento;
         this.idPersona = this.participantes.users_id;
@@ -118,9 +120,9 @@ export class EventosDetallesComponent implements OnInit {
   }
 
   editarEvento(id: number) {
-    this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
+    this.eventoUsersService.getEventoUsersById(this.idEvento).subscribe(
       response => {
-        this.router.navigate(['/eventosEditar/' + this.idEventoUsers + '/' + this.identity.sub]);
+        this.router.navigate(['/eventosEditar/' + this.idEvento + '/' + this.identity.sub]);
         console.log(response);
       }
     )
@@ -162,7 +164,7 @@ export class EventosDetallesComponent implements OnInit {
 
   //Obtener el rol del usuario
   getRol() {
-    this.eventoUsersService.getUsuarios(this.idEventoUsers, this.identity.sub).subscribe(
+    this.eventoUsersService.getUsuarios(this.idEvento, this.identity.sub).subscribe(
       response => {
         this.rol = response.evento[0].rol_idRol;
       },
@@ -174,7 +176,7 @@ export class EventosDetallesComponent implements OnInit {
 
   //Obtener integrantes de la comisión
   getComision() {
-    this.comisionService.getComisiones(this.idEventoUsers).subscribe(
+    this.comisionService.getComisiones(this.idEvento).subscribe(
       response => {
         this.comisiones = response.comisiones;
         console.log(this.comisiones);
@@ -186,9 +188,9 @@ export class EventosDetallesComponent implements OnInit {
   }
 
   //Eliminar comisión, el parámetro es el id del usuario a eliminar
-  eliminarComision(id){
-    this.deleteC.evento_idEvento = this.idEventoUsers;
-    this.deleteC.users_id = id; 
+  eliminarComision(id) {
+    this.deleteC.evento_idEvento = this.idEvento;
+    this.deleteC.users_id = id;
 
     Swal.fire({
       title: '¿Está seguro que desea eliminar este integrante de la comisión?',
@@ -198,8 +200,8 @@ export class EventosDetallesComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'No'
-    }).then((result)=> {
-      if(result.value){
+    }).then((result) => {
+      if (result.value) {
         this.comisionService.deleteComision(this.deleteC).subscribe(
           response => {
             console.log(response);
@@ -210,7 +212,7 @@ export class EventosDetallesComponent implements OnInit {
           },
           error => {
             console.log(<any>error);
-          })    
+          })
       }
     })
 
@@ -218,7 +220,7 @@ export class EventosDetallesComponent implements OnInit {
 
   //Obtener los archivos del repositorio 
   mostrarRepositorio() {
-    this.repositorioService.getRepositorios(this.idEventoUsers).subscribe(
+    this.repositorioService.getRepositorios(this.idEvento).subscribe(
       response => {
         this.repositorio = response.repositorio;
       },
@@ -226,13 +228,13 @@ export class EventosDetallesComponent implements OnInit {
         console.log(<any>error);
       })
   }
-  
-  agregarRepositorioModal(){
+
+  agregarRepositorioModal() {
     this.modalService.mostrarModal();
   }
 
   //descargar el archivo, se le pasa el nombre del que se quiere descargar 
-  downloadFile(archivo){
+  downloadFile(archivo) {
     console.log(archivo);
     this.repositorioService.downloadFile(archivo).subscribe(
       response => {

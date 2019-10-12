@@ -63,7 +63,7 @@ export class ProgramaComponent implements OnInit {
 
             //Almacenar los expositores
             if (response.expositor.length > 0) {
-              for (var i = 0; i < response.expositor; i++) {
+              for (var i = 0; i < response.expositor.length; i++) {
                 if (response.expositor[i] != null)
                   this.arrExpositores.push(response.expositor[i]);
               }
