@@ -76,4 +76,10 @@ export class EventoUsersService {
     return this.http.get(this.url+'evento_users/'+idEvento+'/'+idUsuario, {headers: headers});
   }
 
+  //Obtener todos los usuarios pertenecientes al evento
+  getAllUsuariosByEvent(idEvento): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+ 'getUsersByEventoId/' + idEvento, {headers});
+  }
+
 }

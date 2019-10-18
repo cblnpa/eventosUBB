@@ -79,7 +79,6 @@ export class EventosDetallesComponent implements OnInit {
                   this.arrColaboradores.push(response.colaborador[i]);
               }
             }
-            console.log(this.arrColaboradores);
             //Almacenar jornadas
             if (response.Jornada.length > 0) {
               for (var i = 0; i < response.Jornada.length; i++) {
@@ -94,7 +93,6 @@ export class EventosDetallesComponent implements OnInit {
                   this.arrExpositores.push(response.expositor[i]);
               }
             }
-            console.log(this.arrExpositores);
             //Datos básicos del evento
             this.evento = response.evento;
           }

@@ -112,11 +112,10 @@ export class UnidadesVerComponent implements OnInit {
   }
 
   getIdUsuario() {
-    if (!this.identity.id) {
+    if (!this.identity.id)
       this.idUsuario = this.identity.sub;
-    } else {
+    else
       this.idUsuario = this.identity.id;
-    }
   }
 
   paginadorSettings() {

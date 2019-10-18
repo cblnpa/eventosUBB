@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { EventoPojoService, EventoUsersService, UserService, MaterialService } from '../../../servicios/servicio.index';
 import { global } from '../../../servicios/global';
-
-import { EventoPojoService, EventoUsersService, UserService } from '../../../servicios/servicio.index';
-import { evento, material, colaborador, jornada, expositor, actividad, users, evento_users } from '../../../model/model.index';
-
+import { users, evento_users } from '../../../model/model.index';
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
 import '../icons';
 import Swal from 'sweetalert2';
@@ -12,8 +10,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-eventos-detalles-public',
   templateUrl: './eventos-detalles-public.component.html',
-  styleUrls: ['./eventos-detalles-public.component.css'],
-  providers: [UserService, EventoPojoService, EventoUsersService]
+  styleUrls: ['./eventos-detalles-public.component.css']
 })
 export class EventosDetallesPublicComponent implements OnInit {
 
@@ -21,23 +18,28 @@ export class EventosDetallesPublicComponent implements OnInit {
 
   public url: string;
   public identity;
-  public inscrito: boolean; //para ocultar el botón si ya está participando
 
   public idEventoUsers: number; //id del evento
+  public idUsuario;
+  public showParticipar; //indica si muestra el botón participar según el usuario activo
+  public participando; //1 indica que está participando
+
   // atributos para mostrar participantes
-  public participantes: users;
-  public index: number; //contador de cantidad de participantes
+  public contadorEvento: number; //contador de cantidad de participantes (para la tabla evento_user)
+  public cupos: number = 0; //tiene los cupos del evento
   public eventoUsers: evento_users;
 
-  public actividad: actividad;
-  public evento: evento;
-  public material: material;
-  public colaborador: colaborador;
-  public jornada: jornada;
-  public expositor: expositor;
+  //arreglos que almacenan los objetos
+  public arrActividades = [];
+  public arrColaboradores = [];
+  public arrJornadas = [];
+  public arrExpositores = [];
+  public arrMateriales = [];
+  public evento;
 
   constructor(private userService: UserService, private eventoPojoService: EventoPojoService,
-    private eventoUsersService: EventoUsersService, private route: ActivatedRoute, private router: Router) {
+    private eventoUsersService: EventoUsersService, private route: ActivatedRoute,
+    private materialService: MaterialService) {
     this.url = global.url;
     this.identity = this.userService.getIdentity();
   }
@@ -45,44 +47,62 @@ export class EventosDetallesPublicComponent implements OnInit {
   ngOnInit(): void {
     this.getEventosDetalle();
     this.getEventoUsers();
+    this.getIdUsuario();
+    this.getAllUsers();
+  }
+
+  getIdUsuario() {
+    if (!this.identity.id)
+      this.idUsuario = this.identity.sub;
+    else
+      this.idUsuario = this.identity.id;
   }
 
   getEventosDetalle() {
     this.route.params.subscribe(params => {
-
       let idEvento = +params['id'];
       this.idEventoUsers = idEvento;
       this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
         response => {
-          console.log('response con los datos del evento');
           console.log(response);
-          if (response.status == 'success') {
-            this.actividad = response.actividad;
-            console.log('actividad');
-            console.log(this.actividad);
-
-            this.colaborador = response.colaborador;
-            console.log('colaborador');
-            console.log(this.colaborador);
-
+          if (response.code == 200) {
+            //Almacenar las actividades
+            if (response.actividad.length > 0) {
+              for (var i = 0; i < response.actividad.length; i++) {
+                if (response.actividad[i] != null)
+                  this.arrActividades.push(response.actividad[i]);
+              }
+            }
+            //Almacenar los colaboradores
+            if (response.colaborador.length > 0) {
+              for (var i = 0; i < response.colaborador.length; i++) {
+                if (response.colaborador[i] != null)
+                  this.arrColaboradores.push(response.colaborador[i]);
+              }
+            }
+            //Almacenar jornadas
+            if (response.Jornada.length > 0) {
+              for (var i = 0; i < response.Jornada.length; i++) {
+                if (response.Jornada[i] != null)
+                  this.arrJornadas.push(response.Jornada[i]);
+              }
+            }
+            //Almacenar expositores
+            if (response.expositor.length > 0) {
+              for (var i = 0; i < response.expositor.length; i++) {
+                if (response.expositor[i] != null)
+                  this.arrExpositores.push(response.expositor[i]);
+              }
+            }
+            //Almacenar los materiales
+            if (response.material.length > 0) {
+              for (var i = 0; i < response.material.length; i++) {
+                if (response.material[i] != null)
+                  this.arrMateriales.push(response.material[i]);
+              }
+            }
+            //Datos básicos del evento
             this.evento = response.evento;
-            console.log('evento');
-            console.log(this.evento);
-
-            this.expositor = response.expositor;
-            console.log('expositor');
-            console.log(this.expositor);
-
-            this.jornada = response.Jornada;
-            console.log('jornada');
-            console.log(this.jornada);
-
-            this.material = response.material;
-            console.log('material');
-            console.log(this.material);
-
-          } else {
-            this.router.navigate(['/inicio']);
           }
         },
         error => {
@@ -91,33 +111,69 @@ export class EventosDetallesPublicComponent implements OnInit {
     })
   }
 
-  //Obtiene los participantes de la tabla EventoUsers 
-  getEventoUsers() {
-    this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
+  //Obtiene todos los usuarios del evento y revisa el rol para bloquear el botón de participar 
+  getAllUsers() {
+    this.eventoUsersService.getAllUsuariosByEvent(this.idEventoUsers).subscribe(
       response => {
-        this.participantes = response.evento;
-        this.index = (response.evento).length + 1;
-
-        console.log('get eventos');
-        this.eventoUsers = new evento_users(this.index, null, this.idEventoUsers, null, this.identity.sub);
-        console.log(this.eventoUsers);
+        console.log(response);
+        if (response.code == 200) {
+          for (var i = 0; i < response.evento.length; i++) {
+            if (response.evento[i].users.id == this.idUsuario) {
+              this.showParticipar = response.evento[i].rol_idRol;
+              console.log(this.showParticipar);
+            }
+            if (response.evento[i].rol_idRol == 2) {
+              this.cupos++;
+              console.log(this.cupos);
+            }
+          }
+        }
       },
       error => {
         console.log(<any>error);
       })
   }
 
-  participarEvento() {
-    this.eventoUsersService.guardarEventoUser(this.eventoUsers, this.identity.sub).subscribe(
+  //Obtiene sólo los participantes de la tabla EventoUsers 
+  getEventoUsers() {
+    this.eventoUsersService.getEventoUsersById(this.idEventoUsers).subscribe(
       response => {
-        console.log(response);
-        if( response.status == 'success' ){
+        this.contadorEvento = (response.evento).length + 1;
+        this.eventoUsers = new evento_users(this.contadorEvento, null, this.idEventoUsers, null, this.identity.sub);
+      },
+      error => {
+        console.log(<any>error);
+      })
+  }
+
+  participarEvento(capacidad) {
+    if(capacidad == this.cupos){
+      
+    } else {
+    this.eventoUsersService.guardarEventoUser(this.eventoUsers, this.idUsuario).subscribe(
+      response => {
+        if (response.code == 200) {
           Swal.fire({
             type: 'success',
             title: '¡Inscrito correctamente en este evento!'
           })
-          this.inscrito = true;
         }
+        if (response.code == 400) {
+          this.participando = 1;
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )}
+  }
+
+  descargarMaterial(archivo) {
+    console.log('estoy en descargar !!');
+    console.log(archivo);
+    this.materialService.downloadMaterial(archivo).subscribe(
+      response => {
+        console.log(response);
       },
       error => {
         console.log(<any>error);

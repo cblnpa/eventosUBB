@@ -21,7 +21,6 @@ export class MaterialService {
     let json = JSON.stringify(material); //convierte el evento que se pasa por parámetro a un tipo JSON
     let params = 'json=' + json; //se definene los parametros que se mandan al api
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'); //tipo de peticion
-
     this.general.emit('Material agregado');
 
     return this.http.post(this.url + 'material', params, { headers: headers });
@@ -44,7 +43,7 @@ export class MaterialService {
     let json = JSON.stringify(material);
     let params = 'json=' + json;
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    
+  
     this.general.emit('Material editado');
 
     return this.http.put(this.url + 'material/' + idMaterial, params, { headers: headers });
@@ -54,6 +53,12 @@ export class MaterialService {
   deleteMaterial(id) {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.delete(this.url + 'material/' + id, { headers: headers });
+  }
+
+  //Descargar material
+  downloadMaterial(material): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url + 'downloadMaterial/' + material, {headers});
   }
 
   getGeneralEmitter(){

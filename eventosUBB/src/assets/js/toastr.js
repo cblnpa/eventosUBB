@@ -46,13 +46,11 @@ $(function() {
 
       $(".tst4").click(function(){
            $.toast({
-            heading: 'Welcome to Material Pro admin',
-            text: 'Use the predefined ones, or specify a custom position object.',
+            heading: '¡No hay cupos disponibles!',
             position: 'top-right',
             loaderBg:'#ff6849',
             icon: 'error',
             hideAfter: 3500
-            
           });
 
      });
