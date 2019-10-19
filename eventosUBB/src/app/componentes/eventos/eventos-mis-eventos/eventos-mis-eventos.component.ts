@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
 import { Router } from '@angular/router';
 import { global } from '../../../servicios/global';
-
 import { EventoUsersService, UserService, EventoPojoService } from '../../../servicios/servicio.index';
+import { evento } from 'src/app/model/evento';
 
 @Component({
   selector: 'app-eventos-mis-eventos',
@@ -19,6 +19,7 @@ export class EventosMisEventosComponent implements OnInit {
   public identity;
 
   public idEvento: number;
+  public evento: evento;
 
   public misEventos; // guarda los eventos en los que participa el usuario
   public misEventosAdmin; //  guarda los eventos que administra el usuario admin
@@ -44,11 +45,18 @@ export class EventosMisEventosComponent implements OnInit {
 
   ngOnInit() {
     this.perfil = this.identity.perfil_idPerfil;
-    this.sub = this.identity.sub;
+    this.getIdUsuario();
     this.paginadorSettings();
     this.getMisEventos();
     this.getMisEventosAdmin();
     this.getUsuarios();
+  }
+
+  getIdUsuario() {
+    if (!this.identity.id)
+      this.sub = this.identity.sub;
+    else
+      this.sub = this.identity.id;
   }
 
   //Obtener los eventos en los que el usuario participa 
@@ -76,6 +84,17 @@ export class EventosMisEventosComponent implements OnInit {
           this.dataSource = new MatTableDataSource(response.eventos);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+
+          this.dataSource.filterPredicate = (data: evento, filterJson: string) => {
+            const matchFilter = [];
+            const filters = JSON.parse(filterJson);
+
+            filters.forEach(filter => {
+              const val = data[filter.id] === null ? '' : data[filter.id];
+              matchFilter.push(val.toLowerCase().includes(filter.value.toLowerCase()));
+            });
+            return matchFilter.every(Boolean);
+          };
         }
       },
       error => {
@@ -92,12 +111,6 @@ export class EventosMisEventosComponent implements OnInit {
     )
   }
 
-  paginadorSettings() {
-    this.paginatorSettings.itemsPerPageLabel = 'Elementos por página';
-    this.paginatorSettings.previousPageLabel = 'Página anterior';
-    this.paginatorSettings.nextPageLabel = 'Página siguiente';
-  }
-
   //Redirección a la vista administrativa del evento
   eventosDetalles(idEvento: number) {
     this.router.navigate(['/eventoDetalle/' + idEvento]);
@@ -106,7 +119,25 @@ export class EventosMisEventosComponent implements OnInit {
   //Redirección a la vista general del evento
   verEvento(idEvento: number) {
     this.router.navigate(['/eventoDetallePublic/' + idEvento]);
+  }
 
+  doFilterMisEventosAdmin(filterValue){
+    const tableFilters = [];
+    tableFilters.push({
+      id: 'nombreEvento',
+      value: filterValue
+    });
+
+    this.dataSource.filter = JSON.stringify(tableFilters);
+    if(this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  paginadorSettings() {
+    this.paginatorSettings.itemsPerPageLabel = 'Elementos por página';
+    this.paginatorSettings.previousPageLabel = 'Página anterior';
+    this.paginatorSettings.nextPageLabel = 'Página siguiente';
   }
 
 }
