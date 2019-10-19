@@ -147,7 +147,7 @@ export class EventosDetallesPublicComponent implements OnInit {
   }
 
   participarEvento(capacidad) {
-    if(capacidad == this.cupos){
+    if(capacidad == this.cupos ){
       
     } else {
     this.eventoUsersService.guardarEventoUser(this.eventoUsers, this.idUsuario).subscribe(

@@ -32,12 +32,12 @@
                                 <div class="dw-user-box">
                                     <div class="u-img"> 
                                         <img *ngIf="!identity.avatar" src="../../../assets/images/user.png" alt="user">
-                                        <!-- <img *ngIf="identity && identity.avatar" src="{{url + 'user/avatar/' + identity.avatar}}" class="avatar">  -->
                                         <img *ngIf="identity && identity.avatar" [src]="identity.avatar | imagen">
                                     </div>
                                     <div class="u-text">
                                         <h4> {{ identity.nombreUsuario + ' ' + identity.apellidoUsuario }} </h4>
                                         <p class="text-muted"> {{ identity.email }} </p>
+                                        <p class="text-muted"> {{tipoUsuario}} </p>
                                     </div>
                                 </div>
                             </li>
