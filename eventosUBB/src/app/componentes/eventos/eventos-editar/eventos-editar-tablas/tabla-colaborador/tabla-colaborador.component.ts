@@ -52,6 +52,17 @@ export class TablaColaboradorComponent implements OnInit {
             this.dataSourceColaborador = new MatTableDataSource(response.colaborador);
             this.dataSourceColaborador.sort = this.sort;
             this.dataSourceColaborador.paginator = this.paginator;
+
+            this.dataSourceColaborador.filterPredicate = (data: colaborador, filterJson: string) => {
+              const matchFilter = [];
+              const filters = JSON.parse(filterJson);
+
+              filters.forEach(filter => {
+                const val = data[filter.id] === null ? '' : data[filter.id];
+                matchFilter.push(val.toLowerCase().includes(filter.value.toLowerCase()));
+              });
+              return matchFilter.every(Boolean);
+            };
           } else {
             console.log('aún no hay ningún colaborador en este evento');
           }
@@ -104,6 +115,19 @@ export class TablaColaboradorComponent implements OnInit {
           })
       }
     })
+  }
+
+  doFilterColaborador(filterValue){
+    const tableFilters = [];
+    tableFilters.push({
+      id: 'nombreColaborador',
+      value: filterValue
+    });
+
+    this.dataSourceColaborador.filter = JSON.stringify(tableFilters);
+    if(this.dataSourceColaborador.paginator) {
+      this.dataSourceColaborador.paginator.firstPage();
+    }
   }
 
   paginadorSettings() {
