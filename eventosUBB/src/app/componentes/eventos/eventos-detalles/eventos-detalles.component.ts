@@ -50,61 +50,157 @@ export class EventosDetallesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getEventosDetalle();
+    this.getIdEvento();
+    this.getDatosEvento();
+    this.getDatosJornadas();
+    this.getDatosActividades();
+    this.getDatosExpositores();
+    this.getDatosColaboradores();
+    // this.getEventosDetalle();
     this.getEventoUsers();
     this.getRol();
     this.getComision();
     this.mostrarRepositorio();
   }
 
-  getEventosDetalle() {
+  getIdEvento() {
     this.route.params.subscribe(params => {
-      let idEvento = +params['id'];
-      this.idEvento = idEvento;
-      this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
-        response => {
-          console.log(response);
-          if (response.code == 200) {
-            //Almacenar las actividades
-            if (response.actividad.length > 0) {
-              for (var i = 0; i < response.actividad.length; i++) {
-                if (response.actividad[i] != null)
-                  this.arrActividades.push(response.actividad[i]);
-              }
-            }
-            //Almacenar los colaboradores
-            if (response.colaborador.length > 0) {
-              for (var i = 0; i < response.colaborador.length; i++) {
-                if (response.colaborador[i] != null)
-                  this.arrColaboradores.push(response.colaborador[i]);
-              }
-            }
-            //Almacenar jornadas
-            if (response.Jornada.length > 0) {
-              for (var i = 0; i < response.Jornada.length; i++) {
-                if (response.Jornada[i] != null)
-                  this.arrJornadas.push(response.Jornada[i]);
-              }
-            }
-            //Almacenar expositores
-            if (response.expositor.length > 0) {
-              for (var i = 0; i < response.expositor.length; i++) {
-                if (response.expositor[i] != null)
-                  this.arrExpositores.push(response.expositor[i]);
-              }
-            }
-            //Datos básicos del evento
-            this.evento = response.evento;
-          }
-          // this.router.navigate(['/inicio']);
-        },
-        error => {
-          console.log(error);
-        })
+      let id = +params['id'];
+      this.idEvento = id;
     })
   }
 
+  getDatosEvento() {
+    this.eventoPojoService.getEventoPojoById(this.idEvento).subscribe(
+      response => {
+        if (response.code == 200)
+          this.evento = response.evento;
+      },
+      error => {
+        console.log(<any>error);
+      })
+  }
+
+  getDatosJornadas() {
+    this.eventoPojoService.getEventoPojoById(this.idEvento).subscribe(
+      response => {
+        if (response.code == 200) {
+          if (response.Jornada.length > 0) {
+            for (var i = 0; i < response.Jornada.length; i++) {
+              if (response.Jornada[i] != null)
+                this.arrJornadas.push(response.Jornada[i]);
+            }
+          }
+        }
+      },
+      error => {
+        console.log(<any>error);
+      })
+  }
+
+  getDatosActividades() {
+    this.eventoPojoService.getEventoPojoById(this.idEvento).subscribe(
+      response => {
+        if (response.code == 200) {
+          if (response.actividad.length > 0) {
+            for (var i = 0; i < response.actividad.length; i++) {
+              if (response.actividad[i] != null)
+                this.arrActividades.push(response.actividad[i]);
+            }
+          }
+        }
+      },
+      error => {
+        console.log(<any>error);
+      })
+  }
+
+  getDatosExpositores() {
+    this.eventoPojoService.getEventoPojoById(this.idEvento).subscribe(
+      response => {
+        if (response.code == 200) {
+          if (response.expositor.length > 0) {
+            for (var i = 0; i < response.expositor.length; i++) {
+              if (response.expositor[i] != null)
+                this.arrExpositores.push(response.expositor[i]);
+            }
+          }
+        }
+      },
+      error => {
+        console.log(<any>error);
+      })
+  }
+
+  getDatosColaboradores() {
+    this.eventoPojoService.getEventoPojoById(this.idEvento).subscribe(
+      response => {
+        if (response.code == 200) {
+          if (response.colaborador.length > 0) {
+            for (var i = 0; i < response.colaborador.length; i++) {
+              if (response.colaborador[i] != null)
+                this.arrColaboradores.push(response.colaborador[i]);
+            }
+          }
+        }
+      },
+      error => {
+        console.log(<any>error);
+      })
+  }
+
+
+  // getEventosDetalle() {
+  //   Swal.showLoading();
+  //   this.route.params.subscribe(params => {
+  //     let idEvento = +params['id'];
+  //     this.idEvento = idEvento;
+  //     this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
+  //       response => {
+  //         console.log(response);
+  //         if (response.code == 200) {
+  //           //Almacenar las actividades
+  //           if (response.actividad.length > 0) {
+  //             for (var i = 0; i < response.actividad.length; i++) {
+  //               if (response.actividad[i] != null)
+  //                 this.arrActividades.push(response.actividad[i]);
+  //             }
+  //           }
+  //           //Almacenar los colaboradores
+  //           if (response.colaborador.length > 0) {
+  //             for (var i = 0; i < response.colaborador.length; i++) {
+  //               if (response.colaborador[i] != null)
+  //                 this.arrColaboradores.push(response.colaborador[i]);
+  //             }
+  //           }
+  //           //Almacenar jornadas
+  //           if (response.Jornada.length > 0) {
+  //             for (var i = 0; i < response.Jornada.length; i++) {
+  //               if (response.Jornada[i] != null)
+  //                 this.arrJornadas.push(response.Jornada[i]);
+  //             }
+  //           }
+  //           //Almacenar expositores
+  //           if (response.expositor.length > 0) {
+  //             for (var i = 0; i < response.expositor.length; i++) {
+  //               if (response.expositor[i] != null)
+  //                 this.arrExpositores.push(response.expositor[i]);
+  //             }
+  //           }
+  //           //Datos básicos del evento
+  //           this.evento = response.evento;
+  //           Swal.close();
+  //         }
+  //         // this.router.navigate(['/inicio']);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       })
+  //   })
+  // }
+
   //Obtener los participantes del evento 
+
   getEventoUsers() {
     this.eventoUsersService.getEventoUsersById(this.idEvento).subscribe(
       response => {

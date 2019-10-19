@@ -6,10 +6,10 @@
             <!-- evento.imagen -->
             <div class="card-img-overlay card-inverse social-profile d-flex">
                 <div class="align-self-center">
-                    <h2 *ngIf="evento.nombreEvento != null" class="card-title"> {{evento.nombreEvento}} </h2>
+                    <h2 *ngIf="evento.nombreEvento != null" class="card-subtitle"> {{evento.nombreEvento}} </h2>
                     <h2 *ngIf="evento.nombreEvento == null" class="card-subtitle"> {{evento.nombreEventoInterno}} </h2>
                     <hr>
-                    <h4 *ngIf="arrJornadas != null" class="card-subtitle"><i class="fa fa-calendar"></i>
+                    <h4 *ngIf="arrJornadas.length > 0" class="card-subtitle"><i class="fa fa-calendar"></i>
                         {{arrJornadas[0].fechaJornada}} </h4>
                 </div>
             </div>
@@ -26,16 +26,16 @@
         <div class="card">
             <div class="card-body">
                 <h5><i class="fa fa-users"></i> Cupos</h5>
-                <h6> {{evento.capacidad}} </h6>
+                <h6 *ngIf="evento.capacidad != null"> {{evento.capacidad}} </h6>
                 <hr>
                 <h5><i class="mdi mdi-home-map-marker"></i> Dependencia </h5>
-                <h6> {{evento.ubicacion}} </h6>
+                <h6 *ngIf="evento.ubicacion != null"> {{evento.ubicacion}} </h6>
                 <hr>
                 <h5><i class="mdi mdi-map-marker"></i> Dirección</h5>
-                <h6> {{evento.direccion}} </h6>
+                <h6 *ngIf="evento.direccion != null"> {{evento.direccion}} </h6>
                 <hr>
                 <h5><i class="mdi mdi-information"></i> Descripción</h5>
-                <h6> {{evento.detalles}} </h6>
+                <h6 *ngIf="evento.detalles != null"> {{evento.detalles}} </h6>
             </div>
         </div>
     </div>
