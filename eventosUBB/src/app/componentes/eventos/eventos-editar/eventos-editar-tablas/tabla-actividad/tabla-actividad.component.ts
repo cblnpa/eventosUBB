@@ -54,6 +54,17 @@ export class TablaActividadComponent implements OnInit {
             this.dataSourceActividad = new MatTableDataSource(arreglo);
             this.dataSourceActividad.sort = this.sort;
             this.dataSourceActividad.paginator = this.paginator;
+
+            this.dataSourceActividad.filterPredicate = (data: actividad, filterJson: string) => {
+              const matchFilter = [];
+              const filters = JSON.parse(filterJson);
+
+              filters.forEach(filter => {
+                const val = data[filter.id] === null ? '' : data[filter.id];
+                matchFilter.push(val.toLowerCase().includes(filter.value.toLowerCase()));
+              });
+              return matchFilter.every(Boolean);
+            };
           } else {
             console.log('este evento aún no tiene actividades');
           }
@@ -102,6 +113,19 @@ export class TablaActividadComponent implements OnInit {
         )
       }
     })
+  }
+
+  doFilterActividad(filterValue){
+    const tableFilters = [];
+    tableFilters.push({
+      id: 'nombreActividad',
+      value: filterValue
+    });
+
+    this.dataSourceActividad.filter = JSON.stringify(tableFilters);
+    if(this.dataSourceActividad.paginator) {
+      this.dataSourceActividad.paginator.firstPage();
+    }
   }
 
   paginadorSettings() {
