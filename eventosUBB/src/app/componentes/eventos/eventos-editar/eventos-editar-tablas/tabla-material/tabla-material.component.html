@@ -5,7 +5,7 @@
 </div>
 
 <mat-form-field>
-  <input matInput placeholder="Buscar...">
+  <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Buscar...">
 </mat-form-field>
 
 <div class="mat-elevation-z8">

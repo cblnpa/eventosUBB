@@ -47,10 +47,22 @@ export class TablaMaterialComponent implements OnInit {
       this.materialService.getMateriales(idEvento).subscribe(
         response => {
           if (response.status == 'success') {
+            let materialData = response.material;
+            console.log(materialData);
             this.cantMateriales = response.material.length;
             this.dataSourceMaterial = new MatTableDataSource(response.material);
             this.dataSourceMaterial.sort = this.sort;
             this.dataSourceMaterial.paginator = this.paginator;
+            this.dataSourceMaterial.filterPredicate = (data: material, filterJson: string) => {
+              const matchFilter = [];
+              const filters = JSON.parse(filterJson);
+
+              filters.forEach(filter => {
+                const val = data[filter.id] === null ? '' : data[filter.id];
+                matchFilter.push(val.toLowerCase().includes(filter.value.toLowerCase()));
+              });
+              return matchFilter.every(Boolean);
+            };
           }
         },
         error => {
@@ -101,6 +113,20 @@ export class TablaMaterialComponent implements OnInit {
           })
       }
     })
+  }
+
+  doFilter(filterValue) {
+    // this.dataSourceMaterial.filter = value.trim().toLocaleLowerCase();
+    const tableFilters = [];
+    tableFilters.push({
+      id: 'nombreMaterial',
+      value: filterValue
+    });
+
+    this.dataSourceMaterial.filter = JSON.stringify(tableFilters);
+    if(this.dataSourceMaterial.paginator) {
+      this.dataSourceMaterial.paginator.firstPage();
+    }
   }
 
   paginadorSettings() {
