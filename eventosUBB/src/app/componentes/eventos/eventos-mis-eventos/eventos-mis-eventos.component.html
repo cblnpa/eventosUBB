@@ -56,7 +56,7 @@
 
                   <ng-container matColumnDef="nombreEvento">
                     <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre evento</th>
-                    <td id="table-sort-cell" mat-cell *matCellDef="let eventos"> {{eventos.nombreEvento}} </td>
+                    <td id="table-sort-cell" mat-cell *matCellDef="let eventos"> {{eventos.nombreEvento || eventos.nombreEventoInterno}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="created_at">
