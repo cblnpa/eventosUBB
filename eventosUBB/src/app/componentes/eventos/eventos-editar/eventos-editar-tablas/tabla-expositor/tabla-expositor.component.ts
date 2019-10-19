@@ -52,6 +52,17 @@ export class TablaExpositorComponent implements OnInit {
             this.dataSourceExpositor = new MatTableDataSource(response.expositor);
             this.dataSourceExpositor.sort = this.sort;
             this.dataSourceExpositor.paginator = this.paginator;
+
+            this.dataSourceExpositor.filterPredicate = (data: expositor, filterJson: string) => {
+              const matchFilter = [];
+              const filters = JSON.parse(filterJson);
+
+              filters.forEach(filter => {
+                const val = data[filter.id] === null ? '' : data[filter.id];
+                matchFilter.push(val.toLowerCase().includes(filter.value.toLowerCase()));
+              });
+              return matchFilter.every(Boolean);
+            };
           }
         },
         error => {
@@ -102,6 +113,19 @@ export class TablaExpositorComponent implements OnInit {
           })
       }
     })
+  }
+
+  doFilterExpositor(filterValue){
+    const tableFilters = [];
+    tableFilters.push({
+      id: 'nombreExpositor',
+      value: filterValue
+    });
+
+    this.dataSourceExpositor.filter = JSON.stringify(tableFilters);
+    if(this.dataSourceExpositor.paginator) {
+      this.dataSourceExpositor.paginator.firstPage();
+    }
   }
 
   paginadorSettings() {
