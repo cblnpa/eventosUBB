@@ -52,6 +52,17 @@ export class TablaJornadaComponent implements OnInit {
             this.dataSourceJornada = new MatTableDataSource(response.jornadas);
             this.dataSourceJornada.sort = this.sort;
             this.dataSourceJornada.paginator = this.paginator;
+
+            this.dataSourceJornada.filterPredicate = (data: jornada, filterJson: string) => {
+              const matchFilter = [];
+              const filters = JSON.parse(filterJson);
+
+              filters.forEach(filter => {
+                const val = data[filter.id] === null ? '' : data[filter.id];
+                matchFilter.push(val.toLowerCase().includes(filter.value.toLowerCase()));
+              });
+              return matchFilter.every(Boolean);
+            };
           }
         },
         error => {
@@ -102,6 +113,20 @@ export class TablaJornadaComponent implements OnInit {
           })
       }
     })
+  }
+
+  doFilterJornada(filterValue){
+    const tableFilters = [];
+    tableFilters.push({
+      id: 'nombreJornada',
+      value: filterValue
+    });
+
+    this.dataSourceJornada.filter = JSON.stringify(tableFilters);
+    if(this.dataSourceJornada.paginator){
+      this.dataSourceJornada.paginator.firstPage();
+    }
+
   }
 
   paginadorSettings() {
