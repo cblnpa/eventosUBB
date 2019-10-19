@@ -53,16 +53,16 @@ export class EventosCrearComponent implements OnInit {
     //pasar el id del usuario activo
     this.evento.id = this.idUsuario;
     this.evento.email = this.usuarios.email;
-    
-    console.log(this.evento);
+    Swal.showLoading(); 
     this.eventoPojoService.guardarEventoPojo(this.evento).subscribe(
       response => {
-        console.log(response);
-        Swal.fire({
-          type: 'success',
-          title: '¡Registro exitoso!'
-        });
-        this.router.navigate(['/inicio']);
+        if(response.code == 200){
+          Swal.fire({
+            type: 'success',
+            title: '¡Registro exitoso!'
+          });
+          this.router.navigate(['/inicio']);
+        }
       },
       error => {
         console.log(<any>error);
