@@ -156,7 +156,7 @@ export class UnidadesCrearComponent implements OnInit {
 
   //Obtiene los usuarios para el select-dropdown
   getUsuarios() {
-    this.userService.getAll().subscribe(
+    this.userService.getAll(this.idUsuario).subscribe(
       response => {
         this.optionsUsuario = response.users;
       },

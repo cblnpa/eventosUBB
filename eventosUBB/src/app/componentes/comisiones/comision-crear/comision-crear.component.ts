@@ -54,14 +54,22 @@ export class ComisionCrearComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.idUsuario = this.identity.sub;
+    this.getIdUsuario();
     this.listarEventos();
     this.getUsuarios();
   }
 
+  getIdUsuario() {
+    if (!this.identity.id)
+      this.idUsuario = this.identity.sub;
+    else
+      this.idUsuario = this.identity.id;
+  }
+
   getUsuarios(){
-    this.userService.getAll().subscribe(
+    this.userService.getAll(this.idUsuario).subscribe(
       response => {
+        console.log(response);
         this.options = response.users;
       },
       error => {

@@ -46,7 +46,26 @@ export class EventosCrearComponent implements OnInit {
      }
 
   ngOnInit() {
+    this.getIdUsuario();
     this.getUsuarios();
+  }
+
+  getIdUsuario() {
+    if (!this.identity.id)
+      this.idUsuario = this.identity.sub;
+    else
+      this.idUsuario = this.identity.id;
+  }
+
+  getUsuarios() {
+    this.userService.getAll(this.idUsuario).subscribe(
+      response => {
+        console.log(response);
+        this.optionsUsuario = response.users;
+      },
+      error => {
+        console.log(<any>error);
+      })
   }
 
   guardarEvento(form){
@@ -69,13 +88,4 @@ export class EventosCrearComponent implements OnInit {
       })
   }
 
-  getUsuarios() {
-    this.userService.getAll().subscribe(
-      response => {
-        this.optionsUsuario = response.users;
-      },
-      error => {
-        console.log(<any>error);
-      })
-  }
 }
