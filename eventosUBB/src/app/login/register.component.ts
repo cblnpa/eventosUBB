@@ -55,7 +55,8 @@ export class RegisterComponent implements OnInit {
       //Si las contraseñas son iguales, se crea el usuario
       this.userService.register(this.user).subscribe(
         response => {
-          if (response.status == "success") {
+          console.log(response);
+          if (response.code == 200) {
             registerForm.reset();
             Swal.fire({
               type: 'success',
@@ -64,6 +65,13 @@ export class RegisterComponent implements OnInit {
             })
 
             this.router.navigate(['/login']);
+          }
+          if( response.code == 404){
+            Swal.fire({
+              type: 'warning',
+              title: 'Ya existe una cuenta asociada al correo'
+            })
+            registerForm.reset();
           }
         },
         error => {

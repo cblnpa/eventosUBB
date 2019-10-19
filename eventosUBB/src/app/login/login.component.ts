@@ -105,7 +105,11 @@ export class LoginComponent implements OnInit {
               }
             },
             error => {
-              this.status = 'error';
+              Swal.fire({
+                title: 'Problemas con el servidor',
+                type: 'error'
+              })
+              Swal.close();
               console.log(<any>error);
             }
           );
@@ -121,6 +125,15 @@ export class LoginComponent implements OnInit {
               type: 'error'
             })}
         }
+      },
+      error => {
+        if(error){
+          Swal.fire({
+            title: 'Problemas con el servidor',
+            type: 'error'
+          })
+        }
+        console.log(<any>error);
       }
     );
   }

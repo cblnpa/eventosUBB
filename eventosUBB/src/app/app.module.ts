@@ -19,6 +19,8 @@ import { APP_ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './login/register.component';
 import { LoginComponent } from './login/login.component';
+import { RecuperarPassComponent } from './login/recuperar-pass.component';
+import { CambioPassComponent } from './login/cambio-pass.component';
 
 // Módulos
 import { ComponentesModule } from './componentes/componentes.module';
@@ -37,7 +39,9 @@ registerLocaleData(localeEsCL, 'es-CL');
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    RecuperarPassComponent,
+    CambioPassComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,30 @@
+<section id="wrapper">
+  <div class="login-register" style="background-image:url(../assets/images/fondo-login.jpg);">
+      <div class="login-box card">
+          <div class="card-body">
+
+              <form class="form-horizontal form-material" #emailForm="ngForm"
+                  (ngSubmit)="onSubmit(emailForm)">
+
+                  <h2 class="box-title text-center text-dark m-b-15">Recuperar contraseña</h2>
+
+                  <div class="login">
+                      <mat-form-field appearance="outline">
+                          <mat-label>Correo</mat-label>
+                          <input matInput placeholder="Ingresa tu email" type="email" name="email" #email="ngModel"
+                              [(ngModel)]="user.email" required>
+                          <mat-error>Este campo no puede estar vacío</mat-error>
+                      </mat-form-field>
+                  </div>
+
+                  <div class="form-group text-center m-b-5">
+                      <div class="col-xs-12">
+                          <button class="btn btn-block waves-effect btn-lg btn-info btn-rounded" type="submit" [disabled]="emailForm.invalid">Enviar</button>
+                      </div>
+                  </div>
+
+              </form>
+          </div>
+      </div>
+  </div>
+</section>

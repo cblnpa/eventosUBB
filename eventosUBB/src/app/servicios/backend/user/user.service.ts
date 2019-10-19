@@ -18,7 +18,6 @@ export class UserService {
     this.url = global.url;
   }
 
-
   getAll(idUsuario): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.url + 'getAll/' + idUsuario, { headers: headers });
@@ -31,6 +30,24 @@ export class UserService {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
     return this.http.post(this.url + 'register', params, { headers: headers });
+  }
+
+  //Enviar el correo para verificar
+  cambiarPass(correo): Observable<any> {
+    let json = JSON.stringify(correo);
+    let params = 'json=' + json;
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+    return this.http.post(this.url + 'sendPassword', params, { headers: headers });
+  }
+
+  //Envía la nueva contraseña para guardar en la base de datos
+  nuevaPass(pass): Observable<any> {
+    let json = JSON.stringify(pass);
+    let params = 'json=' + json;
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+    return this.http.post(this.url + 'changePassword', params, { headers: headers });
   }
 
   // Iniciar sesión con Google
