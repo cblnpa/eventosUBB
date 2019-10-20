@@ -82,6 +82,10 @@ export class TablaColaboradorComponent implements OnInit {
     })
   }
 
+  changeFromParent(){
+    this.idColaboradorEdit;
+  }
+
   editarColaborador(id) {
     this.contModal = 7;
     this.idColaboradorEdit = id;

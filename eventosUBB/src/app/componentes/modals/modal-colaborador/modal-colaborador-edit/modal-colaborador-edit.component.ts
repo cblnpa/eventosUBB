@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ModalService, ColaboradorService, UserService } from '../../../../servicios/servicio.index';
 import { colaborador, tipoColaborador } from '../../../../model/model.index';
-import { ActivatedRoute } from '@angular/router';
 import { global } from '../../../../servicios/global';
 import Swal from 'sweetalert2';
 
@@ -37,14 +36,19 @@ export class ModalColaboradorEditComponent implements OnInit {
     }
   };
 
-  constructor(private modalService: ModalService, private colaboradorService: ColaboradorService,
-    private route: ActivatedRoute, private userService: UserService) {
+  constructor(private modalService: ModalService, private colaboradorService: ColaboradorService, 
+    private userService: UserService) {
     this.colaborador = new colaborador('', '', null, '', '', '', null, null);
   }
 
   ngOnInit() {
     this.getDatosColaborador();
     this.getTipoColaboradores();
+  }
+
+  ngOnChanges(changes: SimpleChanges ){
+    this.colaborador.idColaborador = this.idColaboradorEdit;
+    this.getDatosColaborador();
   }
 
   getDatosColaborador() {
@@ -55,7 +59,7 @@ export class ModalColaboradorEditComponent implements OnInit {
         this.colaborador = new colaborador(this.colaborador.nombreColaborador, this.colaborador.nombreRepresentante,
           this.colaborador.telefonoColaborador, this.colaborador.correoColaborador, this.colaborador.sitioWeb,
           this.colaborador.logo, this.colaborador.tipoColaborador_idtipoColaborador, this.colaborador.evento_idEvento,
-          this.colaborador.idColaborador);
+          this.idColaboradorEdit);
       }, error => {
         console.log(<any>error);
       }
