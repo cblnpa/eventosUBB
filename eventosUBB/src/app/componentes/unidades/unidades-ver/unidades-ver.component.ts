@@ -57,6 +57,12 @@ export class UnidadesVerComponent implements OnInit {
         this.dataSource = new MatTableDataSource(response.unidades);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+
+        this.dataSource.filterPredicate = (data, filter) => {
+          return this.displayedColumns.some(ele => {
+            return data.unidad.nombreUnidad.toLowerCase().indexOf(filter) != -1;
+          });
+        }
       },
       error => {
         console.log(<any>error);
@@ -101,6 +107,12 @@ export class UnidadesVerComponent implements OnInit {
         this.dataSource2 = new MatTableDataSource(response.subUnidad);
         this.dataSource2.sort = this.sort;
         this.dataSource2.paginator = this.paginator;
+
+        this.dataSource2.filterPredicate = (data, filter) => {
+          return this.displayedColumns2.some(ele => {
+            return data.unidad.nombreUnidad.toLowerCase().indexOf(filter) != -1;
+          });
+        }
       }, error => {
         console.log(<any>error);
       })
@@ -118,19 +130,19 @@ export class UnidadesVerComponent implements OnInit {
       this.idUsuario = this.identity.id;
   }
 
+  applyFilter() {
+    this.dataSource.filter = this.filtrar.trim().toLowerCase();
+  }
+
+  applyFilter2() {
+    this.dataSource2.filter = this.filtrar2.trim().toLowerCase();
+  }
+
   paginadorSettings() {
     this.paginatorSettings.itemsPerPageLabel = 'Elementos por página';
     this.paginatorSettings.previousPageLabel = 'Página anterior';
     this.paginatorSettings.nextPageLabel = 'Página siguiente';
   }
 
-  limpiarBuscador() {
-    this.filtrar = "";
-    this.applyFilter();
-  }
-
-  applyFilter() {
-    this.dataSource.filter = this.filtrar.trim().toLowerCase();
-  }
 
 }
