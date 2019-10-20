@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ModalService, ExpositorService, UserService } from '../../../../servicios/servicio.index';
 import { ActivatedRoute } from '@angular/router';
 import { expositor } from 'src/app/model/expositor';
@@ -50,6 +50,11 @@ export class ModalExpositorEditComponent implements OnInit {
     this.getDatosExpositor();
   }
 
+  ngOnChanges(changes: SimpleChanges){
+    this.expositores.idExpositor = this.idExpositorEdit;
+    this.getDatosExpositor();
+  }
+
   getDatosExpositor() {
     this.expositorService.getExpositorById(this.idExpositorEdit).subscribe(
       response => {
@@ -95,13 +100,11 @@ export class ModalExpositorEditComponent implements OnInit {
   //pregunta si quiere salir del modal
   salirModal() {
     this.modalService.salirModal();
-    this.getDatosExpositor();
   }
 
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
-    this.getDatosExpositor();
   }
 
 }

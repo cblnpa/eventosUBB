@@ -80,6 +80,10 @@ export class TablaExpositorComponent implements OnInit {
     })
   }
 
+  changeFromParent(){
+    this.idExpositorEdit;
+  }
+
   editarExpositor(id) {
     this.contModal = 2;
     this.idExpositorEdit = id;
