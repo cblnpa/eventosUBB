@@ -31,6 +31,11 @@ export class EventosMisEventosComponent implements OnInit {
   displayedColumns: string[] = ['nombreEvento', 'created_at', 'button'];
   dataSource;
   cantidadEventos: number;
+
+  //Data sorting para eventos inscritos
+  displayedColumns2: string[] = ['nombreEvento', 'created_at', 'button'];
+  dataSource2;
+  cantidadEventos2: number;
   filtrar: string;
 
   constructor(private eventoUsersService: EventoUsersService, private userService: UserService,
@@ -49,7 +54,6 @@ export class EventosMisEventosComponent implements OnInit {
     this.paginadorSettings();
     this.getMisEventos();
     this.getMisEventosAdmin();
-    this.getUsuarios();
   }
 
   getIdUsuario() {
@@ -63,7 +67,19 @@ export class EventosMisEventosComponent implements OnInit {
   getMisEventos() {
     this.eventoUsersService.getMisEventos(this.sub).subscribe(
       response => {
-        this.misEventos = response.eventos;
+        if (response.code == 200) {
+          this.misEventos = response.eventos;
+          this.cantidadEventos2 = response.eventos.length;
+          this.dataSource2 = new MatTableDataSource(response.eventos);
+          this.dataSource2.sort = this.sort;
+          this.dataSource2.paginator = this.paginator;
+
+          this.dataSource2.filterPredicate = (data, filter) => {
+            return this.displayedColumns2.some(ele => {
+              return data.evento.nombreEvento.toLowerCase().indexOf(filter) != -1;
+            });
+          }
+        }
       },
       error => {
         console.log(<any>error);
@@ -73,13 +89,11 @@ export class EventosMisEventosComponent implements OnInit {
 
   //Obtener los eventos que el usuario administra
   getMisEventosAdmin() {
-    console.log(this.sub);
     this.eventoUsersService.getMisEventosAdmin2(this.sub).subscribe(
       response => {
         console.log(response);
-        if (response.status == 'success') {
+        if (response.code == 200) {
           this.misEventosAdmin = response.eventos;
-          console.log(this.misEventosAdmin);
           this.cantidadEventos = response.eventos.length; //cantidad de eventos
           this.dataSource = new MatTableDataSource(response.eventos);
           this.dataSource.sort = this.sort;
@@ -88,7 +102,6 @@ export class EventosMisEventosComponent implements OnInit {
           this.dataSource.filterPredicate = (data: evento, filterJson: string) => {
             const matchFilter = [];
             const filters = JSON.parse(filterJson);
-
             filters.forEach(filter => {
               const val = data[filter.id] === null ? '' : data[filter.id];
               matchFilter.push(val.toLowerCase().includes(filter.value.toLowerCase()));
@@ -103,14 +116,6 @@ export class EventosMisEventosComponent implements OnInit {
     )
   }
 
-  getUsuarios() {
-    this.eventoUsersService.getEventoUsersById(this.idEvento).subscribe(
-      response => {
-        console.log(response);
-      }
-    )
-  }
-
   //Redirección a la vista administrativa del evento
   eventosDetalles(idEvento: number) {
     this.router.navigate(['/eventoDetalle/' + idEvento]);
@@ -121,7 +126,7 @@ export class EventosMisEventosComponent implements OnInit {
     this.router.navigate(['/eventoDetallePublic/' + idEvento]);
   }
 
-  doFilterMisEventosAdmin(filterValue){
+  doFilterMisEventosAdmin(filterValue) {
     const tableFilters = [];
     tableFilters.push({
       id: 'nombreEvento',
@@ -129,9 +134,13 @@ export class EventosMisEventosComponent implements OnInit {
     });
 
     this.dataSource.filter = JSON.stringify(tableFilters);
-    if(this.dataSource.paginator) {
+    if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  applyFilter() {
+    this.dataSource2.filter = this.filtrar.trim().toLowerCase();
   }
 
   paginadorSettings() {
