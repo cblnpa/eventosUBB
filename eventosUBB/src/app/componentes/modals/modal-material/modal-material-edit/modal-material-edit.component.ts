@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ModalService, MaterialService, UserService } from '../../../../servicios/servicio.index';
 import { material } from 'src/app/model/material';
 import { global } from '../../../../servicios/global';
@@ -49,13 +49,18 @@ export class ModalMaterialEditComponent implements OnInit {
     this.getDatosMaterial();
   }
 
+  ngOnChanges(changes: SimpleChanges ){
+    this.material.idMaterial = this.idMaterialEdit;
+    this.getDatosMaterial();
+  }
+
   getDatosMaterial() {
     this.materialService.getMaterialById(this.idMaterialEdit).subscribe(
       response => {
         this.material = response.material;
         //Cargar los datos del material en el modal
         this.material = new material(this.material.nombreMaterial, this.material.archivo,
-          this.material.evento_idEvento, this.material.idMaterial);
+          this.material.evento_idEvento, this.idMaterialEdit);
       }, error => {
         console.log(<any>error);
       })
@@ -84,13 +89,11 @@ export class ModalMaterialEditComponent implements OnInit {
   //pregunta si quiere salir del modal
   salirModal() {
     this.modalService.salirModal();
-    this.getDatosMaterial();
   }
 
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
-    this.getDatosMaterial();
   }
 
   //archivo

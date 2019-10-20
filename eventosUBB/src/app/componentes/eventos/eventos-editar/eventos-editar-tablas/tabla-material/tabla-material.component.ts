@@ -15,7 +15,7 @@ export class TablaMaterialComponent implements OnInit {
   public material: material;
   public contModal: number;
   public idMaterial: number;
-  public idMaterialEdit: number = 0;
+  public idMaterialEdit: number;
 
   public dataSourceMaterial;
   public displayedColumnsMaterial: string[] = ['nombreMaterial', 'archivo', 'created_at', 'editMaterial', 'deleteMaterial'];
@@ -30,10 +30,12 @@ export class TablaMaterialComponent implements OnInit {
       console.log(e + ' estoy en la tabla');
       this.mostrarMateriales();
     })
+    
     this.materialService.getGeneralEmitter().subscribe(edit => {
-      console.log(edit + ' editado');
+      console.log(edit + ' estoy en la tabla');
       this.mostrarMateriales();
     })
+    
   }
 
   ngOnInit() {
@@ -80,10 +82,14 @@ export class TablaMaterialComponent implements OnInit {
     })
   }
 
+  changeFromParent(){
+    this.idMaterialEdit;
+  }
+
   editarMaterial(id) {
     this.contModal = 9;
-    this.modalService.mostrarModal();
     this.idMaterialEdit = id;
+    this.modalService.mostrarModal();
     this.materialService.getGeneralEmitter().subscribe(edit => {
       console.log(edit + ' estoy en la tabla');
       this.mostrarMateriales();
@@ -124,7 +130,7 @@ export class TablaMaterialComponent implements OnInit {
     });
 
     this.dataSourceMaterial.filter = JSON.stringify(tableFilters);
-    if(this.dataSourceMaterial.paginator) {
+    if (this.dataSourceMaterial.paginator) {
       this.dataSourceMaterial.paginator.firstPage();
     }
   }

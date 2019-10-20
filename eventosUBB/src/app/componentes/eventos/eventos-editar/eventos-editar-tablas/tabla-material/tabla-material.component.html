@@ -36,7 +36,7 @@
     <ng-container matColumnDef="editMaterial">
         <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td id="table-sort-cell" mat-cell *matCellDef="let material"> <button class="btn btn-block btn-warning"
-            (click)="editarMaterial(material.idMaterial)"><i class="mdi mdi-pencil"></i></button> </td>
+            id="editar-material" (click)="editarMaterial(material.idMaterial)"><i class="mdi mdi-pencil"></i></button> </td>
       </ng-container>
 
     <ng-container matColumnDef="deleteMaterial">
