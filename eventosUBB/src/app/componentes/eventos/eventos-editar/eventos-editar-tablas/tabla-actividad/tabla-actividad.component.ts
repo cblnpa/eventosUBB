@@ -30,6 +30,11 @@ export class TablaActividadComponent implements OnInit {
       console.log(e + " tabla actividad");
       this.mostrarActividades();
     })
+
+    this.actividadService.getGeneralEmitter().subscribe(editar => {
+      console.log(editar + " tabla actividad");
+      this.mostrarActividades();
+    })
   }
 
 
@@ -83,10 +88,20 @@ export class TablaActividadComponent implements OnInit {
     })
   }
 
+  changeFromParent(){
+    this.idActividadEdit;
+    console.log(this.idActividadEdit);
+  }
+
   editarActividad(id) {
     this.contModal = 5;
     this.idActividadEdit = id;
+    console.log(id);
     this.modalService.mostrarModal();
+    this.actividadService.getGeneralEmitter().subscribe(edit=>{
+      console.log(edit);
+      this.mostrarActividades();
+    })
   }
 
   eliminarActividad(idActividad) {

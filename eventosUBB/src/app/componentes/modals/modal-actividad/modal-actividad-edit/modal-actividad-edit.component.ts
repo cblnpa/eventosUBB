@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ModalService, ActividadService, JornadaService, ExpositorService } from '../../../../servicios/servicio.index';
 import { jornada, expositor, actividadPojo } from '../../../../model/model.index';
 import { ActivatedRoute } from '@angular/router';
@@ -67,6 +67,13 @@ export class ModalActividadEditComponent implements OnInit {
     this.mostrarJornadas();
   }
 
+  ngOnChanges(changes: SimpleChanges){
+    console.log(changes);
+    console.log(this.idActividadEdit);
+    this.actividadPojo.idActividad = this.idActividadEdit;
+    this.getDatosActividad();
+  }
+
   getDatosActividad() {
     this.actividadService.getActividadById(this.idActividadEdit).subscribe(
       response => {
@@ -75,7 +82,7 @@ export class ModalActividadEditComponent implements OnInit {
         this.actividadPojo = new actividadPojo(this.actividadPojo.nombreActividad, this.actividadPojo.horaInicioActividad,
           this.actividadPojo.horaFinActividad, this.actividadPojo.ubicacionActividad, this.actividadPojo.descripcionActividad,
           this.actividadPojo.cupos, this.actividadPojo.actividadParalela, this.actividadPojo.jornada_idJornada,
-          this.actividadPojo.expositor, this.actividadPojo.evento, this.actividadPojo.idActividad);
+          this.actividadPojo.expositor, this.actividadPojo.evento, this.idActividadEdit);
       }, error => {
         console.log(<any>error);
       }
@@ -116,12 +123,15 @@ export class ModalActividadEditComponent implements OnInit {
   editarActividad(form){
     this.actividadService.editActividad(this.actividadPojo,this.actividadPojo.idActividad).subscribe(
       response => {
-        console.log(this.actividadPojo.idActividad);
-        console.log(response);
-        Swal.fire({
-          title: 'Actividad editada',
-          type: 'success'
-        })
+        if(response){
+          Swal.fire({
+            title: 'Actividad editada',
+            type: 'success'
+          })
+          this.actividadService.getGeneralEmitter().subscribe(edit => {
+            console.log(edit);
+          })
+        }
       }, error => {
         console.log(<any>error);
       }

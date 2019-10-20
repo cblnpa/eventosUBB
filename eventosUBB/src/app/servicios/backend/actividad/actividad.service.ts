@@ -44,6 +44,8 @@ export class ActividadService {
     let json = JSON.stringify(actividad);
     let params = 'json=' + json;
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    this.general.emit('Actividad editada');
+    
     return this.http.put(this.url + 'actividad/' + idActividad, params, { headers: headers });
   }
 
