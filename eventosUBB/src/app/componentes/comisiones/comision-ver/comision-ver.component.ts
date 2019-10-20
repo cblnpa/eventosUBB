@@ -62,11 +62,6 @@ export class ComisionVerComponent implements OnInit {
     this.paginatorSettings.nextPageLabel = 'Página siguiente';
   }
 
-  limpiarBuscador(){
-    this.filtrar = "";
-    this.applyFilter();
-  }
-
   applyFilter(){
     this.dataSource.filter = this.filtrar.trim().toLowerCase();
   }

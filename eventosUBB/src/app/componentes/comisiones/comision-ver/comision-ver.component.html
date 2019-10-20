@@ -14,9 +14,6 @@
           <mat-form-field class="example-full-width">
             <input matInput [(ngModel)]="filtrar" (keyup)="applyFilter()"
               placeholder="Buscar comisión por nombre del evento">
-            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="filtrar" (click)="limpiarBuscador()">
-              <i class="ti-close"></i>
-            </button>
           </mat-form-field>
         </div>
 
