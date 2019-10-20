@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ModalService, JornadaService } from '../../../../servicios/servicio.index';
 import { jornada } from 'src/app/model/jornada';
 import Swal from 'sweetalert2';
@@ -20,6 +20,11 @@ export class ModalJornadaEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getDatosJornada();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.jornadas.idJornada = this.idJornadaEdit;
     this.getDatosJornada();
   }
 
@@ -45,7 +50,6 @@ export class ModalJornadaEditComponent implements OnInit {
             title: 'Jornada editada',
             type: 'success'
           })
-          console.log(response);
           this.jornadaService.getGeneralEmitter().subscribe(edit => {
             console.log(edit);
           })
@@ -60,12 +64,10 @@ export class ModalJornadaEditComponent implements OnInit {
   //pregunta si quiere salir del modal
   salirModal() {
     this.modalService.salirModal();
-    this.getDatosJornada();
   }
 
   //oculta el modal luego de agregar los datos
   ocultarModal() {
     this.modalService.ocultarModal();
-    this.getDatosJornada();
   }
 }

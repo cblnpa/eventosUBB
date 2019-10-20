@@ -80,6 +80,10 @@ export class TablaJornadaComponent implements OnInit {
     })
   }
 
+  changeFromParent(){
+    this.idJornadaEdit;
+  }
+
   editarJornada(id) {
     this.contModal = 2;
     this.idJornadaEdit = id;
