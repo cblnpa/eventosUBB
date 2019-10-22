@@ -11,7 +11,7 @@ declare function init_plugins();
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  styleUrls: ['./login.component.css'],
   providers: [UserService]
 })
 export class RegisterComponent implements OnInit {

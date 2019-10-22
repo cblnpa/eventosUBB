@@ -5,7 +5,7 @@
   height: 100%;
   width: 100%;
   padding: 5% 0;
-  position: center;
+  position: fixed;
 }
 
 .login-box {
@@ -16,6 +16,20 @@
 @media screen and (max-width: 600px){
   .login-box{
     width: 280px;
+  }
+
+  mat-form-field {
+    font-size: 10pt;
+  }
+  
+  #registro-responsivo{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 12pt;
+  }
+
+  #registro-responsivo2{
+    font-size: 11pt;
   }
 }
 

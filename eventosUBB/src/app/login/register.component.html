@@ -1,15 +1,14 @@
-<section id="wrapper">
-    
-    <div class="register-div" style="background-image:url(../assets/images/fondo-login.jpg);">
-        <div class="login-box card">
+<section id="wrapper" class="overflow-auto">
+    <div class="login-register" style="background-image:url(../assets/images/fondo-login.jpg);">
+        <div class="login-box card overflow-auto">
             <div class="card-body">
 
                 <form class="form-horizontal form-material" id="loginform" #registerForm="ngForm"
                     (ngSubmit)="onSubmit(registerForm)">
 
-                    <h2 class="box-title text-center text-dark m-b-15">Crear una cuenta</h2>
+                    <h2 id="registro-responsivo" class="box-title text-center text-dark m-b-15">Crear una cuenta</h2>
 
-                    <div class="register">
+                    <div class="login">
                         <mat-form-field appearance="outline">
                             <mat-label for="nombreUsuario">Nombre</mat-label>
                             <input matInput placeholder="Ingresa tu nombre" type="text" name="nombreUsuario"
@@ -18,7 +17,7 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="register">
+                    <div class="login">
                         <mat-form-field appearance="outline">
                             <mat-label for="apellidoUsuario">Apellido</mat-label>
                             <input matInput placeholder="Ingresa tu apellido" type="text" name="apellidoUsuario"
@@ -27,7 +26,7 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="register">
+                    <div class="login">
                         <mat-form-field appearance="outline">
                             <mat-label for="correo">Correo</mat-label>
                             <input matInput placeholder="Ingresa tu correo" type="email" name="email" #email="ngModel"
@@ -36,7 +35,7 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="register">
+                    <div class="login">
                         <mat-form-field appearance="outline">
                             <mat-label for="password">Contraseña</mat-label>
                             <input matInput placeholder="Ingresa tu contraseña" type="password" name="password"
@@ -50,11 +49,11 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="register">
+                    <div class="login">
                         <mat-form-field appearance="outline">
                             <mat-label for="password2">Repite la contraseña</mat-label>
                             <input matInput placeholder="Ingresa nuevamente tu contraseña"
-                            [type]="hide2 ? 'password' : 'text'" type="password" name="password2" required>
+                                [type]="hide2 ? 'password' : 'text'" type="password" name="password2" required>
                             <mat-error>Este campo no puede estar vacío</mat-error>
                             <button type="button" mat-icon-button matSuffix (click)="hide2 = !hide2"
                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
@@ -63,16 +62,16 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="register text-center mt-2">
-                        <button class="btn btn-info btn-lg btn-block btn-rounded waves-effect" type="submit"
+                    <div class="form-group text-center mt-2">
+                        <button class="btn btn-info btn-lg btn-block btn-rounded waves-effect" id="registro-responsivo" type="submit"
                             [disabled]="registerForm.invalid">Registrarme</button>
                     </div>
 
-                    <div class="register mt-2">
-                        <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 mt-2" id="registro-responsivo">
+                        <div class="col-sm-12 text-center" id="registro-responsivo2">
                             ¿Ya tienes una cuenta?
                             <a routerLink="/login" class="text-info m-l-5">
-                                <b>Inicia sesión acá</b>
+                                <b id="registro-responsivo2">Inicia sesión acá</b>
                             </a>
                         </div>
                     </div>
