@@ -1,4 +1,5 @@
 export class evento {
+  ciudad: any;
     constructor(
         public nombreEvento: string,
         public ubicacion: string,

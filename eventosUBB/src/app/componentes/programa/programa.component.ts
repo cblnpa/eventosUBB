@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventoPojoService } from '../../servicios/servicio.index';
-import { evento } from '../../model/model.index';
 import * as jsPDF from 'jspdf';
 
 @Component({
@@ -20,7 +19,9 @@ export class ProgramaComponent implements OnInit {
   public arrExpositores = [];
 
   //acá están los datos del evento
-  public evento: evento;
+  public evento = [];
+  public fechas = [];
+  public fechaEvento;
 
   constructor(private eventoPojoService: EventoPojoService, private route: ActivatedRoute) { }
 
@@ -54,11 +55,19 @@ export class ProgramaComponent implements OnInit {
             }
 
             //Almacenar las jornadas
+            var primeraFecha = '';
             if (response.Jornada.length > 0) {
               for (var i = 0; i < response.Jornada.length; i++) {
-                if (response.Jornada[i] != null)
+                if (response.Jornada[i] != null) {
                   this.arrJornadas.push(response.Jornada[i]);
+                  this.fechas.push(response.Jornada[i].fechaJornada);
+                }
               }
+            }
+            //Seleccionar la fecha más pronta de las jornadas
+            for (var i = 0; i < this.fechas.length; i++) {
+              if (primeraFecha < this.fechas[i])
+                this.fechaEvento = this.fechas[i];
             }
 
             //Almacenar los expositores
@@ -70,7 +79,8 @@ export class ProgramaComponent implements OnInit {
             }
 
             //Almacenar los datos del evento
-            this.evento = response.evento;
+            this.evento.push(response.evento);
+            console.log(this.evento);
           }
         },
         error => {
@@ -80,27 +90,27 @@ export class ProgramaComponent implements OnInit {
 
   }
 
-  @ViewChild('content') content:ElementRef;
+  @ViewChild('content') content: ElementRef;
   downloadPDF() {
-    
-  //   const elementToPrint = document.getElementById('pdf'); //The html element to become a pdf
-  //   const pdf = new jsPDF('auto', 'px', 'a4');
-  //   pdf.addHTML(elementToPrint, () => {
-  //     pdf.save('web.pdf');
-  // });
 
-  let doc = new jsPDF();
-  let ElementHandlers = {
-    '#editor': function(element, renderer){
-      return true;
-    }
-  };
-let content = this.content.nativeElement;
-doc.fromHTML(content.innerHTML,15,15,{
-  'width': 100,
-  'left': 200,
-  'elment':ElementHandlers
-});
-doc.save('web.pdf');
-}
+    //   const elementToPrint = document.getElementById('pdf'); //The html element to become a pdf
+    //   const pdf = new jsPDF('auto', 'px', 'a4');
+    //   pdf.addHTML(elementToPrint, () => {
+    //     pdf.save('web.pdf');
+    // });
+
+    let doc = new jsPDF();
+    let ElementHandlers = {
+      '#editor': function (element, renderer) {
+        return true;
+      }
+    };
+    let content = this.content.nativeElement;
+    doc.fromHTML(content.innerHTML, 15, 15, {
+      'width': 100,
+      'left': 200,
+      'elment': ElementHandlers
+    });
+    doc.save('web.pdf');
+  }
 }

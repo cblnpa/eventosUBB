@@ -13,14 +13,12 @@
 
     <div id="pdf" class="content" #content>
         <img src="" alt="">
-        <h2 style="text-align: center">{{evento.nombreEvento}}</h2>
+        <h2 style="text-align: center">{{evento[0].nombreEvento}}</h2>
         <div>
-            Fecha:<span *ngFor="let jornada of arrJornadas; let i = index">
-                        <span *ngIf="i!=0">-</span> {{jornada.fechaJornada}}
-            </span>
+            Fecha: {{fechaEvento | date: 'fullDate'}}
         </div>
         <div>
-            Ubicacion:<span>{{evento.ubicacion}}, {{evento.direccion}}, {{evento.ciudad.nombreCiudad}}</span>
+            Ubicacion:<span>{{evento[0].ubicacion}}, {{evento[0].direccion}}, {{evento[0].ciudad.nombreCiudad}}</span>
         </div>
         <br>
 
