@@ -1,69 +1,71 @@
 <section id="wrapper">
-        <div class="login-register" style="background-image:url(../assets/images/fondo-login.jpg);">
-            <div class="login-box card">
-                <div class="card-body">
-    
-                    <form class="form-horizontal form-material" id="loginform" #loginForm="ngForm"
-                        (ngSubmit)="onSubmit(loginForm)">
-    
-                        <h2 class="box-title text-center text-dark m-b-15">Iniciar sesión</h2>
-    
-                        <div class="login">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Correo</mat-label>
-                                <input matInput placeholder="Ingresa tu email" type="email" name="email" #email="ngModel"
-                                    [(ngModel)]="user.email" required>
-                                <mat-error>Este campo no puede estar vacío</mat-error>
-                            </mat-form-field>
+    <div class="login-register" style="background-image:url(../assets/images/fondo-login.jpg);">
+        <div class="login-box card">
+            <div class="card-body">
+
+                <form class="form-horizontal form-material" id="loginform" #loginForm="ngForm"
+                    (ngSubmit)="onSubmit(loginForm)">
+
+                    <h2 class="box-title text-center text-dark m-b-15">Iniciar sesión</h2>
+
+                    <div class="login">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Correo</mat-label>
+                            <input matInput placeholder="Ingresa tu email" type="email" name="email" #email="ngModel"
+                                [(ngModel)]="user.email" required>
+                            <mat-error>Este campo no puede estar vacío</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="login">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput placeholder="Ingresa la contraseña" [type]="hide ? 'password' : 'text'"
+                                type="password" name="password" #password="ngModel" [(ngModel)]="user.password"
+                                required>
+                            <mat-error>Este campo no puede estar vacío</mat-error>
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group text-center m-b-5">
+                        <div class="col-xs-12">
+                            <button class="btn btn-block waves-effect btn-lg btn-info btn-rounded" type="submit"
+                                [disabled]="loginForm.invalid">Entrar</button>
                         </div>
-    
-                        <div class="login">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Contraseña</mat-label>
-                                <input matInput placeholder="Ingresa la contraseña" [type]="hide ? 'password' : 'text'"
-                                    type="password" name="password" #password="ngModel" [(ngModel)]="user.password"
-                                    required>
-                                <mat-error>Este campo no puede estar vacío</mat-error>
-                                <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
-                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                </button>
-                            </mat-form-field>
+                    </div>
+
+                    <div class="form-group m-b-5">
+                        <div class="col-xs-12 text-center">
+                            <button id="btnGoogle" class="btn" type="button"><img
+                                    src="../../assets//images//login-google.png"></button>
                         </div>
-    
-                        <div class="form-group text-center m-b-5">
-                            <div class="col-xs-12">
-                                <button class="btn btn-block waves-effect btn-lg btn-info btn-rounded" type="submit" [disabled]="loginForm.invalid">Entrar</button>
-                            </div>
+                        <!-- <div class="g-signin2" id="btnGoogle"></div> -->
+                        <div class="text-center">
+                            <small>Inicia sesión con google</small>
                         </div>
-    
-                        <div class="form-group m-b-5">
-                            <div class="col-sm-12 text-center">
-                                <button id="btnGoogle" class="btn waves-effect waves-light" type="button"><img
-                                        src="../../assets//images//login-google.png"></button>
-                            </div>
-                            <div class="col-sm-12 text-center">
-                                <small>Inicia sesión con google</small>
-                            </div>
+                    </div>
+
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            ¿No tienes una cuenta?
+                            <a routerLink="/register" class="text-info m-l-5">
+                                <b>Regístrate aquí</b>
+                            </a>
                         </div>
-    
-                        <div class="form-group m-b-0">
-                            <div class="col-sm-12 text-center">
-                                ¿No tienes una cuenta?
-                                <a routerLink="/register" class="text-info m-l-5">
-                                    <b>Regístrate aquí</b>
-                                </a>
-                            </div>
-                            <div class="col-sm-12 text-center">
-                                ¿Olvidaste tu contraseña?
-                                <a routerLink="/recuperarPass" class="text-info m-l-5">
-                                    <b>Recupera aquí</b>
-                                </a>
-                            </div>
+                        <div class="col-sm-12 text-center">
+                            ¿Olvidaste tu contraseña?
+                            <a routerLink="/recuperarPass" class="text-info m-l-5">
+                                <b>Recupera aquí</b>
+                            </a>
                         </div>
-    
-                    </form>
-                </div>
+                    </div>
+
+                </form>
             </div>
         </div>
-    </section>
+    </div>
+</section>

@@ -13,6 +13,12 @@
   margin: 0 auto;
 }
 
+@media screen and (max-width: 600px){
+  .login-box{
+    width: 280px;
+  }
+}
+
 .login-box .footer {
   width: 100%;
   left: 0px;
