@@ -1,52 +1,46 @@
-<html lang="es">
+<body class="fix-header card-no-border fix-sidebar">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Programa</title>
-</head>
+    <div class="col-md-12">
+        <button type="button" class="btn btn-primary" (click)="downloadPDF();">Generar PDF</button>
 
-<body>
 
-    <button type="button" class="btn btn-primary" (click)="downloadPDF();">Generar PDF</button>
+        <div id="pdf" #content>
+            <img src="" alt="">
+            <h2 style="text-align: center">{{evento[0]?.nombreEvento}}</h2>
+            <div>
+                Fecha: {{fechaEvento | date: 'fullDate'}}
+            </div>
+            <div>
+                Ubicacion:<span>{{evento[0]?.ubicacion}}, {{evento[0]?.direccion}},
+                    {{evento[0]?.ciudad.nombreCiudad}}</span>
+            </div>
+            <br>
 
-    <div id="pdf" class="content" #content>
-        <img src="" alt="">
-        <h2 style="text-align: center">{{evento[0].nombreEvento}}</h2>
-        <div>
-            Fecha: {{fechaEvento | date: 'fullDate'}}
+
+            <div class="col-md-12">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th scope="col-md-4">Hora</th>
+                            <th scope="col">Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let d of arrActividades">
+                            <td>{{d.horaInicioActividad}} - {{d.horaFinActividad}}</td>
+                            <td>
+                                <p id="normal">{{d.descripcionActividad}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <section style="text-align: center">
+                Contacto: <span style="color: blue">seminarioicichillan@ubiobio.cl</span> </section>
+
         </div>
-        <div>
-            Ubicacion:<span>{{evento[0].ubicacion}}, {{evento[0].direccion}}, {{evento[0].ciudad.nombreCiudad}}</span>
-        </div>
-        <br>
-
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col-md-4">Hora</th>
-                    <th scope="col">Descripción</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr *ngFor="let d of arrActividades">
-                    <td>{{d.horaInicioActividad}} - {{d.horaFinActividad}}</td>
-                    <td>
-                        <p id="normal">{{d.descripcionActividad}}</p>
-                    </td>
-                </tr>
-            </tbody>
-
-        </table>
-
-        <section style="text-align: center">
-            Contacto: <span style="color: blue">seminarioicichillan@ubiobio.cl</span> </section>
-
     </div>
-
 </body>
-
-</html>

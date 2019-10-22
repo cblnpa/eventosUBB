@@ -91,6 +91,7 @@ export class ProgramaComponent implements OnInit {
   }
 
   @ViewChild('content') content: ElementRef;
+  
   downloadPDF() {
 
     //   const elementToPrint = document.getElementById('pdf'); //The html element to become a pdf
