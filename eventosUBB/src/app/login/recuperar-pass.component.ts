@@ -27,9 +27,6 @@ export class RecuperarPassComponent implements OnInit {
       response => {
         if(response.code == 200){
           console.log(response);
-          Swal.close();
-          let algo = 4;
-          this.router.navigate(['/cambioPass/' + algo]);
         }
       },
       error => {

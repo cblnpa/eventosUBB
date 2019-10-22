@@ -17,6 +17,7 @@ export class EventosDetallesPublicComponent implements OnInit {
   fbIcon = faFacebookSquare;
 
   public url: string;
+  public urlCompartir;
   public identity;
 
   public idEventoUsers: number; //id del evento
@@ -62,6 +63,8 @@ export class EventosDetallesPublicComponent implements OnInit {
     this.route.params.subscribe(params => {
       let idEvento = +params['id'];
       this.idEventoUsers = idEvento;
+      //crear la url para los botones de compartir
+      this.urlCompartir = `http://parra.chillan.ubiobio.cl:8090/~gaston.lara1401/eventosUBB/api/eventoDetallePublic/${this.idEventoUsers}`;
       this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
         response => {
           console.log(response);
