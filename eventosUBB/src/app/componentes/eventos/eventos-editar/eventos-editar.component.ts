@@ -36,6 +36,7 @@ export class EventosEditarComponent implements OnInit {
   public tipoEvento;
   public id; //id del evento
   public idUsuario; //id del usuario (sub) 
+  public visibilidadEvento;
 
   public afuConfig = {
     multiple: false,
@@ -59,8 +60,8 @@ export class EventosEditarComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
     private userService: UserService, private eventoPojoService: EventoPojoService,
-    private ciudadService: CiudadService, private categoriaService: CategoriaService, 
-    private tipoEventoService: TipoEventoService, private eventoService: EventoService ) {
+    private ciudadService: CiudadService, private categoriaService: CategoriaService,
+    private tipoEventoService: TipoEventoService, private eventoService: EventoService) {
     this.eventos = new evento('', '', '', '', '', null, '', null, null, null, null, null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
@@ -106,7 +107,6 @@ export class EventosEditarComponent implements OnInit {
   getTipoEventos() {
     this.tipoEventoService.getTiposEventos().subscribe(
       response => {
-        console.log(response);
         if (response.status == 'success') {
           this.tipoEvento = response.tipoEvento;
         }
@@ -123,12 +123,18 @@ export class EventosEditarComponent implements OnInit {
         this.id = idEvento; //asignar el id del evento a la variable 
         this.eventoService.getEventoById(idEvento).subscribe(
           response => {
+            console.log(response);
             this.eventos = response.evento;
             //Mostrar los datos del evento en el stepper 
             this.eventos = new evento(this.eventos.nombreEvento, this.eventos.ubicacion, this.eventos.direccion,
               this.eventos.detalles, this.eventos.imagen, this.eventos.capacidad, this.eventos.nombreEventoInterno,
               this.eventos.ciudad_idCiudad, this.eventos.categoria_idCategoria, this.eventos.visibilidad,
-              this.eventos.tipoEvento_idtipoEvento)
+              this.eventos.tipoEvento_idtipoEvento);
+
+            if (response.evento.visibilidad == 1)
+              this.visibilidadEvento = 'Visible';
+            else
+              this.visibilidadEvento = 'Oculto';
           },
           error => {
             console.log(<any>error);

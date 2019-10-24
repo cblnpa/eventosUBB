@@ -133,7 +133,8 @@
 
             <div class="row mt-4">
                 <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
@@ -148,7 +149,8 @@
 
             <div class="row mt-4">
                 <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
@@ -163,7 +165,8 @@
 
             <div class="row mt-4">
                 <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
@@ -178,7 +181,8 @@
 
             <div class="row mt-4">
                 <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
@@ -193,7 +197,8 @@
 
             <div class="row mt-4">
                 <div class="col-md-6 col-sm-12">
-                    <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
+                    <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                        type="button">Anterior</button>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button mat-button matStepperNext class="btn btn-primary btn-block" type="button">Siguiente</button>
@@ -209,28 +214,39 @@
                 <hr>
 
                 <div class="col-12">
+                    <!-- <div class="form-group m-l-5">
+                        <p>Estado actual del evento:</p>
+                        <div class="col-sm-9">
+                            <span class="badge badge-primary m-l-5"> {{visibilidadEvento}} </span>
+                        </div>
+                    </div> -->
+
                     <div class="row">
-                        <mat-form-field>
-                            <mat-label for="visibilidad">Visibilidad</mat-label>
-                            <mat-select name="visibilidad" #visibilidad="ngModel" [(ngModel)]="eventos.visibilidad">
-                                <mat-option [value]='0'>Ocultar</mat-option>
-                                <mat-option [value]='1'>Publicar</mat-option>
-                            </mat-select>
-                            <mat-hint>Independiente de la opción seleccionada, usted puede modificar este evento las
-                                veces que sean necesarias.</mat-hint>
-                        </mat-form-field>
-                        <button type="button" class="m-t-5 btn btn-secondary btn-circle" data-toggle="popover"
-                            data-placement="top"
-                            data-content="El evento no se mostrará en el inicio hasta que seleccione la opción 'Publicar'">
-                            <small id="small-btn">?</small>
-                        </button>
+                        <div class="col-md-7">
+                            <mat-form-field>
+                                <mat-label for="visibilidad">Visibilidad</mat-label>
+                                <mat-select name="visibilidad" #visibilidad="ngModel" [(ngModel)]="eventos.visibilidad">
+                                    <mat-option [value]='0'>Ocultar</mat-option>
+                                    <mat-option [value]='1'>Publicar</mat-option>
+                                </mat-select>
+                                <mat-hint>Independiente de la opción seleccionada, usted puede modificar este evento las
+                                    veces que sean necesarias.</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-5 text-right">
+                            <h5>Estado actual del evento:</h5>
+                            <span class="badge badge-primary m-l-5"> {{visibilidadEvento}} </span>
+                        </div>
+
                     </div>
                 </div>
                 <br>
 
                 <div class="row mt-4">
                     <div class="col-md-6 col-sm-12">
-                        <button mat-button matStepperPrevious class="btn btn-primary btn-block" type="button">Anterior</button>
+                        <button mat-button matStepperPrevious class="btn btn-primary btn-block"
+                            type="button">Anterior</button>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <button class="btn btn-success btn-block" (click)="guardarEvento(eventoPojoForm)"

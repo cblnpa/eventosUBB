@@ -51,12 +51,7 @@ export class EventosDetallesComponent implements OnInit {
 
   ngOnInit() {
     this.getIdEvento();
-    this.getDatosEvento();
-    this.getDatosJornadas();
-    this.getDatosActividades();
-    this.getDatosExpositores();
-    this.getDatosColaboradores();
-    // this.getEventosDetalle();
+    this.getEventosDetalle();
     this.getEventoUsers();
     this.getRol();
     this.getComision();
@@ -70,137 +65,66 @@ export class EventosDetallesComponent implements OnInit {
     })
   }
 
-  getDatosEvento() {
-    this.eventoPojoService.getEventoPojoById(this.idEvento).subscribe(
+  //Obtener el rol del usuario
+  getRol() {
+    this.eventoUsersService.getUsuarios(this.idEvento, this.identity.sub).subscribe(
       response => {
-        if (response.code == 200)
-          this.evento = response.evento;
+        this.rol = response.evento[0].rol_idRol;
       },
       error => {
         console.log(<any>error);
       })
   }
 
-  getDatosJornadas() {
-    this.eventoPojoService.getEventoPojoById(this.idEvento).subscribe(
-      response => {
-        if (response.code == 200) {
-          if (response.Jornada.length > 0) {
-            for (var i = 0; i < response.Jornada.length; i++) {
-              if (response.Jornada[i] != null)
-                this.arrJornadas.push(response.Jornada[i]);
+  getEventosDetalle() {
+    Swal.showLoading();
+    this.route.params.subscribe(params => {
+      let idEvento = +params['id'];
+      this.idEvento = idEvento;
+      this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
+        response => {
+          console.log(response);
+          if (response.code == 200) {
+            //Almacenar las actividades
+            if (response.actividad.length > 0) {
+              for (var i = 0; i < response.actividad.length; i++) {
+                if (response.actividad[i] != null)
+                  this.arrActividades.push(response.actividad[i]);
+              }
             }
-          }
-        }
-      },
-      error => {
-        console.log(<any>error);
-      })
-  }
-
-  getDatosActividades() {
-    this.eventoPojoService.getEventoPojoById(this.idEvento).subscribe(
-      response => {
-        if (response.code == 200) {
-          if (response.actividad.length > 0) {
-            for (var i = 0; i < response.actividad.length; i++) {
-              if (response.actividad[i] != null)
-                this.arrActividades.push(response.actividad[i]);
+            //Almacenar los colaboradores
+            if (response.colaborador.length > 0) {
+              for (var i = 0; i < response.colaborador.length; i++) {
+                if (response.colaborador[i] != null)
+                  this.arrColaboradores.push(response.colaborador[i]);
+              }
             }
-          }
-        }
-      },
-      error => {
-        console.log(<any>error);
-      })
-  }
-
-  getDatosExpositores() {
-    this.eventoPojoService.getEventoPojoById(this.idEvento).subscribe(
-      response => {
-        if (response.code == 200) {
-          if (response.expositor.length > 0) {
-            for (var i = 0; i < response.expositor.length; i++) {
-              if (response.expositor[i] != null)
-                this.arrExpositores.push(response.expositor[i]);
+            //Almacenar jornadas
+            if (response.Jornada.length > 0) {
+              for (var i = 0; i < response.Jornada.length; i++) {
+                if (response.Jornada[i] != null)
+                  this.arrJornadas.push(response.Jornada[i]);
+              }
             }
-          }
-        }
-      },
-      error => {
-        console.log(<any>error);
-      })
-  }
-
-  getDatosColaboradores() {
-    this.eventoPojoService.getEventoPojoById(this.idEvento).subscribe(
-      response => {
-        if (response.code == 200) {
-          if (response.colaborador.length > 0) {
-            for (var i = 0; i < response.colaborador.length; i++) {
-              if (response.colaborador[i] != null)
-                this.arrColaboradores.push(response.colaborador[i]);
+            //Almacenar expositores
+            if (response.expositor.length > 0) {
+              for (var i = 0; i < response.expositor.length; i++) {
+                if (response.expositor[i] != null)
+                  this.arrExpositores.push(response.expositor[i]);
+              }
             }
+            //Datos básicos del evento
+            this.evento = response.evento;
+            Swal.close();
           }
-        }
-      },
-      error => {
-        console.log(<any>error);
-      })
+        },
+        error => {
+          console.log(error);
+        })
+    })
   }
-
-
-  // getEventosDetalle() {
-  //   Swal.showLoading();
-  //   this.route.params.subscribe(params => {
-  //     let idEvento = +params['id'];
-  //     this.idEvento = idEvento;
-  //     this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
-  //       response => {
-  //         console.log(response);
-  //         if (response.code == 200) {
-  //           //Almacenar las actividades
-  //           if (response.actividad.length > 0) {
-  //             for (var i = 0; i < response.actividad.length; i++) {
-  //               if (response.actividad[i] != null)
-  //                 this.arrActividades.push(response.actividad[i]);
-  //             }
-  //           }
-  //           //Almacenar los colaboradores
-  //           if (response.colaborador.length > 0) {
-  //             for (var i = 0; i < response.colaborador.length; i++) {
-  //               if (response.colaborador[i] != null)
-  //                 this.arrColaboradores.push(response.colaborador[i]);
-  //             }
-  //           }
-  //           //Almacenar jornadas
-  //           if (response.Jornada.length > 0) {
-  //             for (var i = 0; i < response.Jornada.length; i++) {
-  //               if (response.Jornada[i] != null)
-  //                 this.arrJornadas.push(response.Jornada[i]);
-  //             }
-  //           }
-  //           //Almacenar expositores
-  //           if (response.expositor.length > 0) {
-  //             for (var i = 0; i < response.expositor.length; i++) {
-  //               if (response.expositor[i] != null)
-  //                 this.arrExpositores.push(response.expositor[i]);
-  //             }
-  //           }
-  //           //Datos básicos del evento
-  //           this.evento = response.evento;
-  //           Swal.close();
-  //         }
-  //         // this.router.navigate(['/inicio']);
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       })
-  //   })
-  // }
 
   //Obtener los participantes del evento 
-
   getEventoUsers() {
     this.eventoUsersService.getEventoUsersById(this.idEvento).subscribe(
       response => {
@@ -209,8 +133,7 @@ export class EventosDetallesComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
   editarEvento(id: number) {
@@ -218,8 +141,7 @@ export class EventosDetallesComponent implements OnInit {
       response => {
         this.router.navigate(['/eventosEditar/' + this.idEvento + '/' + this.identity.sub]);
         console.log(response);
-      }
-    )
+      })
   }
 
   // Función para eliminar el evento 
@@ -231,16 +153,7 @@ export class EventosDetallesComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
-      }
-    )
-    // this.eventoUsersService.deleteEvento(this.token, id).subscribe(
-    //   response => {
-    //     console.log("has eliminado un evento de eventousers");
-    //   },
-    //   error => {
-    //     console.log(<any>error);
-    //   }
-    // )
+      })
   }
 
   //Debo mandar el id del usuario e id del evento 
@@ -252,33 +165,21 @@ export class EventosDetallesComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
-      }
-    )
-  }
-
-  //Obtener el rol del usuario
-  getRol() {
-    this.eventoUsersService.getUsuarios(this.idEvento, this.identity.sub).subscribe(
-      response => {
-        this.rol = response.evento[0].rol_idRol;
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
+      })
   }
 
   //Obtener integrantes de la comisión
   getComision() {
     this.comisionService.getComisiones(this.idEvento).subscribe(
       response => {
+        console.log(this.idEvento);
+        console.log(response);
         this.comisiones = response.comisiones;
         console.log(this.comisiones);
       },
       error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
   //Eliminar comisión, el parámetro es el id del usuario a eliminar
@@ -298,18 +199,17 @@ export class EventosDetallesComponent implements OnInit {
       if (result.value) {
         this.comisionService.deleteComision(this.deleteC).subscribe(
           response => {
-            console.log(response);
-            Swal.fire(
-              '¡Eliminado!',
-              'El integrante ha sido eliminado',
-              'success')
+            if (response.code == 200) {
+              Swal.fire(
+                '¡Eliminado!',
+                'El integrante ha sido eliminado',
+                'success')
+              this.getComision();
+            }
           },
           error => {
             console.log(<any>error);
-          })
-      }
-    })
-
+          })}})
   }
 
   //Obtener los archivos del repositorio 
@@ -336,8 +236,7 @@ export class EventosDetallesComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
 }
