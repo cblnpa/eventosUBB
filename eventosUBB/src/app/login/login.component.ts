@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   public status: string;
   public token;
   public identity;
+  public notificacion = 0;
 
   auth2: any; //declarar objeto con info de google
 
@@ -102,6 +103,12 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('identity', JSON.stringify(this.identity));
                 Swal.close();
                 this.router.navigate(['/inicio']);
+              } else {
+                this.notificacion = 1;
+                Swal.fire({
+                  title: 'Correo no verificado',
+                  type: 'warning'
+                })
               }
             },
             error => {

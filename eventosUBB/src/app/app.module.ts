@@ -17,8 +17,8 @@ import { APP_ROUTES } from './app.routes';
 
 // Componentes
 import { AppComponent } from './app.component';
-import { RegisterComponent } from './login/register.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './login/register.component';
 import { RecuperarPassComponent } from './login/recuperar-pass.component';
 import { CambioPassComponent } from './login/cambio-pass.component';
 

@@ -16,6 +16,14 @@
                         </mat-form-field>
                     </div>
 
+                    <div *ngIf="notificacion == 1" class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                                aria-hidden="true">&times;</span> </button>
+                        <h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3>
+                        ¡Te hemos enviado un correo!
+                        Revisa tu correo y sigue las instrucciones.
+                    </div>
+
                     <div class="form-group text-center m-b-5">
                         <div class="col-xs-12">
                             <button class="btn btn-block waves-effect btn-lg btn-info btn-rounded" type="submit"

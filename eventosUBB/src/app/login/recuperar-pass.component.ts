@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class RecuperarPassComponent implements OnInit {
 
   public user: users;
+  public notificacion = 0;
 
   constructor( private userService: UserService, private router: Router) { 
     this.user = new users('', '', '', '', '', null, null);
@@ -22,11 +23,14 @@ export class RecuperarPassComponent implements OnInit {
 
   onSubmit(form){
     Swal.showLoading();
+    setInterval(() => {
+      Swal.close();
+    },3000)
     this.user.email = form.form.value.email;
     this.userService.cambiarPass(this.user).subscribe(
       response => {
         if(response.code == 200){
-          console.log(response);
+          this.notificacion = 1;
         }
       },
       error => {
