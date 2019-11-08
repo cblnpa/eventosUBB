@@ -64,7 +64,7 @@ export class EventosDetallesPublicComponent implements OnInit {
       let idEvento = +params['id'];
       this.idEventoUsers = idEvento;
       //crear la url para los botones de compartir
-      this.urlCompartir = `http://parra.chillan.ubiobio.cl:8090/~gaston.lara1401/eventosUBB/api/eventoDetallePublic/${this.idEventoUsers}`;
+      this.urlCompartir = `http://parra.chillan.ubiobio.cl:8090/~gaston.lara1401/eventosUBB/#/eventoDetallePublic/${this.idEventoUsers}`;
       this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
         response => {
           console.log(response);
@@ -149,26 +149,29 @@ export class EventosDetallesPublicComponent implements OnInit {
       })
   }
 
-  participarEvento(capacidad) {
-    if(capacidad == this.cupos ){
-      
-    } else {
+  participarEvento() {
     this.eventoUsersService.guardarEventoUser(this.eventoUsers, this.idUsuario).subscribe(
       response => {
-        if (response.code == 200) {
-          Swal.fire({
-            type: 'success',
-            title: '¡Inscrito correctamente en este evento!'
-          })
+        if(response.code == 200){
+          if(this.cupos == response.evento.capacidad){
+            console.log('No quedan cupos');
+          } else {
+            Swal.fire({
+              type: 'success',
+              title: '¡Inscrito correctamente en este evento!'
+            })
+          }
         }
         if (response.code == 400) {
+          // response 400 indica que ya está participando en el evento
+          console.log(response);
           this.participando = 1;
         }
       },
       error => {
         console.log(<any>error);
       }
-    )}
+    )
   }
 
   descargarMaterial(archivo) {

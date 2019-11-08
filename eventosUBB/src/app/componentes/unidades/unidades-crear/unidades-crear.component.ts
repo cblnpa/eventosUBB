@@ -188,6 +188,7 @@ export class UnidadesCrearComponent implements OnInit {
     Swal.showLoading();
     this.unidadService.guardarUnidad(this.unidad).subscribe(
       response => {
+        console.log(response);
         if (response) {
           Swal.fire({
             type: 'success',
