@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EventoPojoService } from '../../servicios/servicio.index';
-// import * as jsPDF from 'jspdf';
+import { EventoPojoService, ExpositorService } from '../../servicios/servicio.index';
 
 declare const require: any;
 const jsPDF = require('jspdf');
-require ('jspdf-autotable');
+require('jspdf-autotable');
 
 @Component({
   selector: 'app-programa',
@@ -21,13 +20,15 @@ export class ProgramaComponent implements OnInit {
   public arrColaboradores = [];
   public arrJornadas = [];
   public arrExpositores = [];
+  public arrExpositorActividad = [];
 
   //acá están los datos del evento
   public evento = [];
   public fechas = [];
   public fechaEvento;
 
-  constructor(private eventoPojoService: EventoPojoService, private route: ActivatedRoute) { }
+  constructor(private eventoPojoService: EventoPojoService, private route: ActivatedRoute,
+    private expositorService: ExpositorService) { }
 
   ngOnInit() {
     this.getEventosDetalle();
@@ -49,6 +50,7 @@ export class ProgramaComponent implements OnInit {
                   this.arrActividades.push(response.actividad[i]);
               }
             }
+            console.log(this.arrActividades);
 
             //Almacenar los colaboradores
             if (response.colaborador.length > 0) {
@@ -84,56 +86,51 @@ export class ProgramaComponent implements OnInit {
 
             //Almacenar los datos del evento
             this.evento.push(response.evento);
-            console.log(this.evento);
           }
         },
         error => {
           console.log(error);
         })
+
+      this.expositorService.getExpositorActividad(idEvento).subscribe(
+        response => {
+          console.log(response);
+          if (response.code == 200) {
+            for (var i = 0; i < response.expositor.length; i++) {
+              if (response.expositor[i] != null)
+                this.arrExpositorActividad.push(response.expositor[i]);
+            }
+          }
+          console.log(this.arrExpositorActividad);
+        },
+        error => {
+          console.log(<any>error);
+        })
     })
-
   }
-
-  @ViewChild('content') content: ElementRef;
-
-  // downloadPDF() {
-
-  //   //   const elementToPrint = document.getElementById('pdf'); //The html element to become a pdf
-  //   //   const pdf = new jsPDF('auto', 'px', 'a4');
-  //   //   pdf.addHTML(elementToPrint, () => {
-  //   //     pdf.save('web.pdf');
-  //   // });
-
-  //   let doc = new jsPDF({orientation: 'p', format: 'letter', putOnlyUsedFonts: true});
-  //   // let ElementHandlers = {
-  //   //   '#editor': function (element, renderer) {
-  //   //     return true;
-  //   //   }
-  //   // };
-  //   let content = this.content.nativeElement;
-  //   doc.fromHTML(content.innerHTML, 15, 15, {
-  //     'width': 300
-  //   });
-  //   doc.save('web.pdf');
-  // }
 
   // intento con jspdf autotable
   downloadPDF() {
     let columns = [
       { title: 'Hora', dataKey: 'hora' },
-      { title: 'Actividad', dataKey: 'nombre'},
+      { title: 'Actividad', dataKey: 'nombre' },
       { title: 'Descripción', dataKey: 'descripcion' }
     ]
 
     //data o contenido de la tabla
     let data = [];
-    let rows = { horaInicio: '', horaFin: '', nombre: '' ,descripcion: '' };
+    let rows = { horaInicio: '', horaFin: '', nombre: '', descripcion: '' };
 
     for (var i = 0; i < this.arrActividades.length; i++) {
       rows.horaInicio = this.arrActividades[i].horaInicioActividad;
       rows.horaFin = this.arrActividades[i].horaFinActividad;
       rows.descripcion = this.arrActividades[i].descripcionActividad;
-      rows.nombre = this.arrActividades[i].nombreActividad;
+      
+      if(this.arrActividades[i].idActividad == this.arrExpositorActividad[i].actividad_idActividad){
+        rows.nombre = this.arrActividades[i].nombreActividad + ' ' + this.arrExpositorActividad[i].expositor.nombreExpositor + ' ' + this.arrExpositorActividad[i].expositor.apellidoExpositor;
+      } else {
+        rows.nombre = this.arrActividades[i].nombreActividad + ' ';
+      }
 
       data.push({ 'hora': rows.horaInicio + ' - ' + rows.horaFin, 'nombre': rows.nombre, 'descripcion': rows.descripcion });
       // data.push(rows.horaInicio, rows.horaFin, rows.descripcion);
@@ -141,22 +138,22 @@ export class ProgramaComponent implements OnInit {
     var doc = new jsPDF({ orientation: 'p', format: 'letter', putOnlyUsedFonts: true });
     //Configuracion para el nombre del evento
     doc.setFontSize(22);
-    doc.text(this.evento[0].nombreEvento,14,20);
+    doc.text(this.evento[0].nombreEvento, 14, 20);
 
     //Configuracion para los datos del evento
     doc.setFontSize(16);
-    doc.text('Fecha: ' + this.fechaEvento,14,30);
-    doc.text('Ubicación: ' + this.evento[0].ubicacion + ', ' + this.evento[0].direccion + ', ' + this.evento[0].ciudad.nombreCiudad, 14, 40 );
+    doc.text('Fecha: ' + this.fechaEvento, 14, 30);
+    doc.text('Ubicación: ' + this.evento[0].ubicacion + ', ' + this.evento[0].direccion + ', ' + this.evento[0].ciudad.nombreCiudad, 14, 40);
 
     //Configuracion para la tabla con las actividades
     doc.setFontSize(12);
     doc.autoTable(columns, data, {
       columnStyles: {
-        hora: {cellWidth: 27},
-        nombre: {cellWidth: 30},
-        descripcion: {cellWidth: 'auto'}
+        hora: { cellWidth: 27 },
+        nombre: { cellWidth: 30 },
+        descripcion: { cellWidth: 'auto' }
       },
-      margin: {top: 50}
+      margin: { top: 50 }
     });
 
     //Exportar a pdf

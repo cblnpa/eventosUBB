@@ -39,6 +39,12 @@ export class ExpositorService {
     return this.http.get(this.url+'getExpositor/' +idExpositor, {headers: headers});
   }
 
+  //Obtener expositor con datos de la actividad
+  getExpositorActividad(idEvento):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'getExpositorActividad/' +idEvento, {headers: headers});
+  }
+
   // Eliminar expositor 
   deleteExpositor(id) {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
