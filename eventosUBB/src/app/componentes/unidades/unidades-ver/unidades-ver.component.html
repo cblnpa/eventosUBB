@@ -15,6 +15,21 @@
           </mat-form-field>
         </div>
 
+        <div *ngIf="existUnidad == 1" class="col-md-12">
+          <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                aria-hidden="true">&times;</span> </button>
+            <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Información </h3>
+            Actualmente no existen unidades.
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="text-right">
+            <button class="btn btn-success" (click)="crearUnidad()">Crear unidad</button>
+          </div>
+        </div>
+
         <div class="table-responsive">
           <table id="table-sort" mat-table matSortActive="created_at" matSortDirection="desc" [dataSource]="dataSource"
             matSort class="mat-elevation-z8">
@@ -22,6 +37,16 @@
             <ng-container matColumnDef="created_at">
               <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha creación</th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.created_at | date:'shortDate'}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="logoUnidad">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Logo</th>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
+                <img *ngIf="unidades.unidad.logoUnidad" class="imageLogo"
+                  src="{{url + 'logoImage/' + unidades.unidad.logoUnidad}}" alt="logo-unidad">
+                <img *ngIf="!unidades.unidad.logoUnidad" class="imageLogo" src="../../../assets/images/sin-imagen.png"
+                  alt="sin-logo-unidad">
               </td>
             </ng-container>
 
@@ -39,16 +64,6 @@
             <ng-container matColumnDef="sede">
               <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Sede</th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.unidad.sede}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="logoUnidad">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Logo</th>
-              <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
-                <img *ngIf="unidades.unidad.logoUnidad" class="imageLogo"
-                  src="{{url + 'logoImage/' + unidades.unidad.logoUnidad}}" alt="logo-unidad">
-                <img *ngIf="!unidades.unidad.logoUnidad" class="imageLogo" src="../../../assets/images/sin-imagen.png"
-                  alt="sin-logo-unidad">
-              </td>
             </ng-container>
 
             <ng-container matColumnDef="editUnidad">

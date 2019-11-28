@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class UnidadesVerComponent implements OnInit {
 
   public unidades;
+  public existUnidad = 0; //variable para ocultar mensaje
   public subUnidades;
   public cantidadUnidades;
   public cantidadSubUnidades;
@@ -23,12 +24,12 @@ export class UnidadesVerComponent implements OnInit {
   public url;
 
   //Data sorting para unidad
-  displayedColumns: string[] = ['created_at', 'nombreUnidad', 'encargado', 'sede', 'logoUnidad', 'editUnidad', 'deleteUnidad'];
+  displayedColumns: string[] = ['created_at','logoUnidad', 'nombreUnidad', 'encargado', 'sede', 'editUnidad', 'deleteUnidad'];
   dataSource;
   filtrar: string;
 
   //Data sorting para sub unidad
-  displayedColumns2: string[] = ['created_at', 'nombreUnidad', 'encargado', 'sede', 'logoUnidad'];
+  displayedColumns2: string[] = ['created_at', 'logoUnidad', 'nombreUnidad', 'encargado', 'sede'];
   dataSource2;
   filtrar2: string;
 
@@ -52,21 +53,30 @@ export class UnidadesVerComponent implements OnInit {
   getUnidades() {
     this.unidadService.getUnidades().subscribe(
       response => {
-        console.log(response);
-        this.cantidadUnidades = response.unidades.length;
-        this.dataSource = new MatTableDataSource(response.unidades);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        if (response.code == 200) {
+          console.log(response);
+          this.cantidadUnidades = response.unidades.length;
+          console.log(this.cantidadUnidades);
+          this.dataSource = new MatTableDataSource(response.unidades);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
 
-        this.dataSource.filterPredicate = (data, filter) => {
-          return this.displayedColumns.some(ele => {
-            return data.unidad.nombreUnidad.toLowerCase().indexOf(filter) != -1;
-          });
+          this.dataSource.filterPredicate = (data, filter) => {
+            return this.displayedColumns.some(ele => {
+              return data.unidad.nombreUnidad.toLowerCase().indexOf(filter) != -1;
+            });
+          }
         }
+        if (response.unidades.length == 0)
+          this.existUnidad = 1;
       },
       error => {
         console.log(<any>error);
       })
+  }
+
+  crearUnidad(){
+    this.router.navigate(['/crearUnidad']);
   }
 
   editarUnidad(id) {

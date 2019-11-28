@@ -14,6 +14,7 @@ import { evento } from 'src/app/model/evento';
 export class EventosMisEventosComponent implements OnInit {
 
   public url: string;
+  public auxEvento = 0; //variable para ocultar o mostrar botón en vista
 
   public token;
   public identity;
@@ -80,6 +81,8 @@ export class EventosMisEventosComponent implements OnInit {
             });
           }
         }
+        if (response.eventos.length == 0)
+          this.auxEvento = 1;
       },
       error => {
         console.log(<any>error);
@@ -91,7 +94,6 @@ export class EventosMisEventosComponent implements OnInit {
   getMisEventosAdmin() {
     this.eventoUsersService.getMisEventosAdmin2(this.sub).subscribe(
       response => {
-        console.log(response);
         if (response.code == 200) {
           this.misEventosAdmin = response.eventos;
           this.cantidadEventos = response.eventos.length; //cantidad de eventos
@@ -114,6 +116,10 @@ export class EventosMisEventosComponent implements OnInit {
         console.log(<any>error);
       }
     )
+  }
+
+  irAEventos(){
+    this.router.navigate(['/inicio/']);
   }
 
   //Redirección a la vista administrativa del evento

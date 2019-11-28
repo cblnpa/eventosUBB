@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit {
     
     this.userService.signUp(this.user).subscribe(
       response => {
+        console.log(response);
         // Recibir el TOKEN 
         if (response.status != 'error') {
           this.status = 'success';
@@ -97,6 +98,7 @@ export class LoginComponent implements OnInit {
           // Objeto usuario identificado 
           this.userService.signUp(this.user, true).subscribe(
             response => {
+              console.log(response);
               this.identity = response;
               if(this.identity.verified == 1){
                 localStorage.setItem('token', this.token);
@@ -131,6 +133,12 @@ export class LoginComponent implements OnInit {
               title: 'Correo incorrecto',
               type: 'error'
             })}
+            if( response.code == 404 ) {
+              Swal.fire({
+                title: 'Usuario no encontrado',
+                type: 'error'
+              })
+            }
         }
       },
       error => {

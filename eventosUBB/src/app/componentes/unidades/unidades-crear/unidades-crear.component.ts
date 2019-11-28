@@ -203,6 +203,23 @@ export class UnidadesCrearComponent implements OnInit {
       })
   }
 
+  salirCrearUnidad(){
+    Swal.fire({
+      title: '¿Está seguro que desea salir?',
+      text: "Al salir, la unidad no se creará",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#03C303',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, quiero salir',
+      cancelButtonText: 'No, no quiero salir'
+    }).then((result) => {
+      if (result.value) {
+        this.router.navigate(['/verUnidades']);
+      }
+    })
+  }
+
   //Editar unidad
   editarUnidad(form) {
     this.unidadEdit.sede = this.ciudades.nombreCiudad;
