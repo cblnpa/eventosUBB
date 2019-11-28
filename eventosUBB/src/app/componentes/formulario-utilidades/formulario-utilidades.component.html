@@ -1,32 +1,36 @@
 <body class="fix-header card-no-border fix-sidebar">
-  <div class="container">
-    <div class="row">
-      <div class="col-xl-12">
+  <div class="col-lg-12">
+    <div class="card card-outline-info">
+      <div class="card-header mt-3">
+        <h1 class="text-center text-white">Generar utilidades</h1>
+      </div>
 
+      <div class="card-body bordes-card">
         <form class="form-horizontal" #utilidadesForm="ngForm" (ngSubmit)="cargarContenido(utilidadesForm)">
-          <h3 class="text-center text-black-50 mt-2">Seleccione lo requerido</h3>
-          <hr>
 
           <!-- Seleccionar el evento en el cual se quiere crear la utilidad -->
-          <div class="form-group row">
-                <label class="col-sm-2">Seleccionar evento:</label>
-                <div class="col-sm-9">
-                    <ngx-select-dropdown tabindex="0" [config]="configEvento" [options]="optionEvento"
-                        [multiple]="false" name="evento_idEvento" #evento_idEvento="ngModel"
-                        [(ngModel)]="eventos" required></ngx-select-dropdown>
-                </div>
-                <div class="col-sm-1 text-left">
-                    <button type="button" class="btn btn-secondary btn-circle" data-toggle="popover"
-                        data-placement="top"
-                        data-content="Selecciona el evento al que quieres agregar integrantes en la comisión">
-                        <small id="small-btn">?</small>
-                    </button>
-                </div>
+          <div class="form-group row mt-3">
+            <label class="col-sm-4 control-label text-right">Seleccionar evento *</label>
+            <div class="col-sm-6">
+              <ngx-select-dropdown tabindex="0" [config]="configEvento" [options]="optionEvento" [multiple]="false"
+                name="evento_idEvento" #evento_idEvento="ngModel" [(ngModel)]="eventos" required></ngx-select-dropdown>
             </div>
 
+            <div class="col-sm-1 mt-2">
+              <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
+                <span class="tooltip-content5">
+                  <span class="tooltip-text3">
+                    <span class="tooltip-inner2"> Seleccione el evento al cual quiere generar utilidades.
+                    </span>
+                  </span>
+                </span>
+              </a>
+            </div>
+          </div>
+
           <div class="form-group row">
-            <label class="col-sm-2 mt-3">Utilidad a generar:</label>
-            <mat-form-field class="col-sm-9">
+            <label class="col-sm-4 mt-3 control-label text-right">Utilidad a generar *</label>
+            <mat-form-field class="col-sm-6" required>
               <mat-select [(value)]="selectUtilidad" matNativeControl required>
                 <mat-option disabled>Seleccione un tipo de utilidad para generar</mat-option>
                 <mat-option value="diploma">Diploma</mat-option>
@@ -35,10 +39,21 @@
                 <mat-option value="programa">Programa</mat-option>
               </mat-select>
             </mat-form-field>
+
+            <div class="col-sm-1 mt-2">
+              <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
+                <span class="tooltip-content5">
+                  <span class="tooltip-text3">
+                    <span class="tooltip-inner2"> Seleccione el tipo de utilidad que desea generar.</span>
+                  </span>
+                </span>
+              </a>
+            </div>
           </div>
 
           <div class="form-group row m-b-0">
-            <div class="offset-sm-3 col-sm-12">
+            <div class="col-md-7"></div>
+            <div class="col-md-3 text-right">
               <button type="submit" [disabled]="utilidadesForm.invalid"
                 class="btn btn-block btn-success waves-effect waves-light">Crear utilidades</button>
             </div>

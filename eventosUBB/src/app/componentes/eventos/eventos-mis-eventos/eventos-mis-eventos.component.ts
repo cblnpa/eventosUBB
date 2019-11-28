@@ -15,6 +15,7 @@ export class EventosMisEventosComponent implements OnInit {
 
   public url: string;
   public auxEvento = 0; //variable para ocultar o mostrar botón en vista
+  public estadoEvento;
 
   public token;
   public identity;
@@ -28,13 +29,13 @@ export class EventosMisEventosComponent implements OnInit {
   public perfil; // id del perfil del usuario activo
   public sub; // pruebas para el login con google el sub es el id del usuario
 
-  //Data sorting
+  //Data sorting para eventos admin
   displayedColumns: string[] = ['nombreEvento', 'created_at', 'button'];
   dataSource;
   cantidadEventos: number;
 
   //Data sorting para eventos inscritos
-  displayedColumns2: string[] = ['nombreEvento', 'created_at', 'button'];
+  displayedColumns2: string[] = ['nombreEvento', 'fecha_inscripcion', 'estado', 'button'];
   dataSource2;
   cantidadEventos2: number;
   filtrar: string;
@@ -69,6 +70,7 @@ export class EventosMisEventosComponent implements OnInit {
     this.eventoUsersService.getMisEventos(this.sub).subscribe(
       response => {
         if (response.code == 200) {
+          console.log(response);
           this.misEventos = response.eventos;
           this.cantidadEventos2 = response.eventos.length;
           this.dataSource2 = new MatTableDataSource(response.eventos);
@@ -118,7 +120,7 @@ export class EventosMisEventosComponent implements OnInit {
     )
   }
 
-  irAEventos(){
+  irAEventos() {
     this.router.navigate(['/inicio/']);
   }
 

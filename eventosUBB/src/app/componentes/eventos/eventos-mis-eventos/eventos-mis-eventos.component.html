@@ -55,12 +55,19 @@
                         {{eventos.evento.nombreEvento || eventos.evento.nombreEventoInterno}} </td>
                     </ng-container>
 
-                    <ng-container matColumnDef="created_at">
-                      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha creación</th>
+                    <ng-container matColumnDef="fecha_inscripcion">
+                      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha inscripción</th>
                       <td id="table-sort-cell" mat-cell *matCellDef="let eventos">
-                        {{eventos.evento.created_at | date:'shortDate'}}
+                        {{eventos.created_at | date:'fullDate'}}
                       </td>
                     </ng-container>
+
+                    <ng-container matColumnDef="estado">
+                        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+                        <td id="table-sort-cell" mat-cell *matCellDef="let eventos">
+                          <span> {{eventos.evento.visibilidad | estadoEvento}} </span>
+                        </td>
+                      </ng-container>
 
                     <ng-container matColumnDef="button">
                       <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header> </th>
