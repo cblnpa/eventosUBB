@@ -1,58 +1,72 @@
 <body class="fix-header card-no-border fix-sidebar">
     <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <h1 class="text-center">Crear un nuevo evento</h1>
-                <hr>
+        <div class="card card-outline-info" >
+            <div class="card-header mt-3">
+                <h1 class="text-center text-white">Crear un nuevo evento</h1>
+            </div>
+            <div class="card-body bordes-card">
                 <form class="form-horizontal p-t-20" #crearEventoForm="ngForm"
                     (ngSubmit)="guardarEvento(crearEventoForm)">
 
                     <!-- Nombre del evento-->
                     <div class="form-group row">
-                        <label for="nombreEventoInterno" class="col-sm-2 control-label">Nombre del evento</label>
-                        <div class="col-sm-9">
+                        <label for="nombreEventoInterno" class="col-sm-4 control-label text-right">Nombre del
+                            evento *</label>
+                        <div class="col-sm-6">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="mdi mdi-city"></i></div>
                                 <input type="text" class="form-control" id="nombre" name="nombreEventoInterno"
                                     #nombreEventoInterno="ngModel" [(ngModel)]="evento.nombreEventoInterno" required>
                             </div>
-                            <span class="help-block"><small>Este nombre puede ser modificado por el
-                                    encargado</small></span>
+                            <span class="help-block"><small>Ingresar nombre del evento</small></span>
                         </div>
-                        <div class="col-sm-1 text-left mt-2">
-                            <button type="button" class="btn btn-secondary btn-circle" data-toggle="popover"
-                                data-placement="top"
-                                data-content="Puedes escribir cualquier nombre de evento, como por ejemplo: 'Evento interno 1'">
-                                <small id="small-btn">?</small>
-                            </button>
+                        <div class="col-sm-1 mt-2">
+                            <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
+                                <span class="tooltip-content5">
+                                    <span class="tooltip-text3">
+                                        <span class="tooltip-inner2"> Ingresa cualquier nombre, este será momentáneo ya
+                                            que puede ser modificado por el encargado.<br>Por ejemplo: "Evento interno ICI"
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
                         </div>
                     </div>
 
                     <!-- Agregar el encargado del evento -->
                     <div class="form-group row">
-                        <label for="email" class="col-sm-2 control-label">Encargado</label>
-                        <div class="col-sm-9">
+                        <label for="email" class="col-sm-4 control-label text-right">Encargado *</label>
+                        <div class="col-sm-6">
                             <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="optionsUsuario"
-                                [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios">
+                                [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios" required>
                             </ngx-select-dropdown>
-                            <span class="help-block"><small>Selecciona la persona que va a estar a cargo del
-                                    evento</small></span>
+                            <span class="help-block"><small>Seleccionar persona encargada del evento</small></span>
+                            <h5 *ngIf="nombreEventoInterno.hasError('required') || email.hasError('required')"
+                                class="mt-3 text-danger">* Estos campos son requeridos</h5>
+
                         </div>
-                        <div class="col-sm-1 text-left mt-2">
-                            <button type="button" class="btn btn-secondary btn-circle" data-toggle="popover"
-                                data-placement="top"
-                                data-content="Este encargado será notificado de que tiene a cargo el evento recientemente creado">
-                                <small id="small-btn">?</small>
-                            </button>
+                        <div class="col-sm-1 mt-2">
+                            <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
+                                <span class="tooltip-content5">
+                                    <span class="tooltip-text3">
+                                        <span class="tooltip-inner2"> Selecciona al encargado del evento que estás
+                                            creando.</span>
+                                    </span>
+                                </span>
+                            </a>
                         </div>
                     </div>
 
                     <div class="form-group row m-b-0">
-                        <div class="offset-sm-3 col-sm-12">
-                            <button type="submit" class="btn btn-block btn-success waves-effect waves-light"
-                                [disabled]="crearEventoForm.invalid">Crear</button>
+                            <div class="col-md-8"></div>
+                            <div class="col-md-2 text-right">
+                                    <button type="submit" class="btn btn-block btn-success waves-effect waves-light"
+                                    [disabled]="crearEventoForm.invalid">Crear</button>
+                            </div>
+                            <div class="col-md-2 text-left">
+                                <button type="button" class="btn btn-danger btn-block waves-effect" (click)="salirCrearEvento()">Cancelar</button>
+                            </div>
                         </div>
-                    </div>
 
                 </form>
             </div>

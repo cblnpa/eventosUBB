@@ -58,6 +58,16 @@ Global Styles
 @import url(../scss/icons/material-design-iconic-font/css/materialdesignicons.min.css);
 @import url(../css/spinners.css);
 @import url(../css/animate.css);
+
+/*
+  ESTILOS PERSONALIZADOS
+*/
+.bordes-card {
+  border-style: double;
+  border-width: 2px;
+  border-color: #398bf7;
+}
+
 * {
   outline: none; }
 

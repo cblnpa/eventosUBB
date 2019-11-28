@@ -308,7 +308,7 @@ Stylish tooltip
   width: 300px;
   left: 50%;
   bottom: 100%;
-  font-size: 20px;
+  font-size: 14px;
   line-height: 1.4;
   text-align: center;
   font-weight: 400;
@@ -337,7 +337,7 @@ Stylish tooltip
 
 .tooltip-inner2 {
   background: #2b2b2b;
-  padding: 40px;
+  padding: 10px;
   -webkit-transform: translate3d(0, 100%, 0);
   transform: translate3d(0, 100%, 0);
   -webkit-transition: -webkit-transform 0.3s;

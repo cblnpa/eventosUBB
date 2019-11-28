@@ -72,6 +72,11 @@ export class UnidadService {
     return this.http.get(this.url + 'subUnidad/' + idUser, { headers: headers });
   }
 
+  deleteSubUnidad(idUnidad): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.delete(this.url + 'subUnidad/' + idUnidad, { headers });
+  }
+
   //Obtener logo
   getLogo(archivo): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

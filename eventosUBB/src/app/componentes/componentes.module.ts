@@ -34,7 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { 
     MatStepperModule, MatInputModule, MatCardModule, MatButtonModule, MatPaginatorModule,
     MatSortModule, MatTableModule, MatSelectModule, MatProgressSpinnerModule,
-    MatProgressBarModule, MatNativeDateModule, MatRippleModule
+    MatProgressBarModule, MatNativeDateModule, MatRippleModule, MatTooltipModule
 } from '@angular/material'
 
 //Botón compartir
@@ -132,6 +132,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
         MatProgressBarModule,
         MatProgressSpinnerModule,
         MatSelectModule,
+        MatTooltipModule,
         FormsModule,
         AngularFileUploaderModule,
         ReactiveFormsModule,

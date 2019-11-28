@@ -1,9 +1,10 @@
-<body class="fix-header card-no-border fix-sidebar">
+<body class="fix-header card-no-border card-outline-info fix-sidebar">
   <div class="row el-element-overlay">
     <div class="col-md-12 mr-2 mt-2">
-      <h1 class="m-t-15 text-center" *ngIf="idPerfil == 1"> Unidades </h1>
-      <h1 class="m-t-15 text-center" *ngIf="idPerfil == 3"> Sub unidades </h1>
-      <hr>
+      <div class="card-header">
+        <h1 class="m-t-15 text-center text-white" *ngIf="idPerfil == 1"> Unidades </h1>
+        <h1 class="m-t-15 text-center text-white" *ngIf="idPerfil == 3"> Sub unidades </h1>
+      </div>
 
       <!-- unidad -->
       <div *ngIf="idPerfil == 1" class="col-md-12 col-lg-12 col-xs-12">
@@ -104,6 +105,21 @@
           </mat-form-field>
         </div>
 
+        <div *ngIf="existSubUnidad == 1" class="col-md-12">
+          <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                aria-hidden="true">&times;</span> </button>
+            <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Información </h3>
+            Actualmente no existen sub unidades.
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="text-right">
+            <button class="btn btn-success" (click)="crearSubUnidad()">Crear sub unidad</button>
+          </div>
+        </div>
+
         <div class="table-responsive">
           <table id="table-sort" mat-table matSortActive="created_at" matSortDirection="desc" [dataSource]="dataSource2"
             matSort class="mat-elevation-z8">
@@ -112,6 +128,15 @@
               <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha creación</th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.created_at | date:'shortDate'}}
               </td>
+            </ng-container>
+
+            <ng-container matColumnDef="logoUnidad">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Logo</th>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
+                <img *ngIf="unidades.unidad.logoUnidad" class="imageLogo"
+                  src="{{url + 'logoImage/' + unidades.unidad.logoUnidad}}" alt="logo-unidad">
+                <img *ngIf="!unidades.unidad.logoUnidad" class="imageLogo" src="../../../assets/images/sin-imagen.png"
+                  alt="sin-logo-unidad"></td>
             </ng-container>
 
             <ng-container matColumnDef="nombreUnidad">
@@ -130,10 +155,13 @@
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.unidad.sede}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="logoUnidad">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Logo</th>
-              <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> <img class="imageLogo"
-                  src="{{url + 'logoImage/' + unidades.unidad.logoUnidad}}" alt="Responsive image"> </td>
+            <ng-container matColumnDef="deleteSubUnidad">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
+                <button class="btn btn-block btn-danger" (click)="eliminarSubUnidad(unidades.idusers_unidad)">
+                  <i class="mdi mdi-delete"></i>
+                </button>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>

@@ -4,6 +4,7 @@ import { EventoPojoService, UserService } from '../../../servicios/servicio.inde
 import { eventoPojo, users } from '../../../model/model.index';
 import {global} from '../../../servicios/global'
 
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -86,6 +87,23 @@ export class EventosCrearComponent implements OnInit {
       error => {
         console.log(<any>error);
       })
+  }
+
+  salirCrearEvento(){
+    Swal.fire({
+      title: '¿Está seguro que desea salir?',
+      text: "Al salir, el evento no se creará",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#03C303',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, quiero salir',
+      cancelButtonText: 'No, no quiero salir'
+    }).then((result) => {
+      if (result.value) {
+        this.router.navigate(['/misEventos']);
+      }
+    })
   }
 
 }

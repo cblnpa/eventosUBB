@@ -15,6 +15,7 @@ export class UnidadesVerComponent implements OnInit {
 
   public unidades;
   public existUnidad = 0; //variable para ocultar mensaje
+  public existSubUnidad = 0; //variable para ocultar mensaje
   public subUnidades;
   public cantidadUnidades;
   public cantidadSubUnidades;
@@ -24,12 +25,12 @@ export class UnidadesVerComponent implements OnInit {
   public url;
 
   //Data sorting para unidad
-  displayedColumns: string[] = ['created_at','logoUnidad', 'nombreUnidad', 'encargado', 'sede', 'editUnidad', 'deleteUnidad'];
+  displayedColumns: string[] = ['created_at', 'logoUnidad', 'nombreUnidad', 'encargado', 'sede', 'editUnidad', 'deleteUnidad'];
   dataSource;
   filtrar: string;
 
   //Data sorting para sub unidad
-  displayedColumns2: string[] = ['created_at', 'logoUnidad', 'nombreUnidad', 'encargado', 'sede'];
+  displayedColumns2: string[] = ['created_at', 'logoUnidad', 'nombreUnidad', 'encargado', 'sede', 'deleteSubUnidad'];
   dataSource2;
   filtrar2: string;
 
@@ -54,9 +55,7 @@ export class UnidadesVerComponent implements OnInit {
     this.unidadService.getUnidades().subscribe(
       response => {
         if (response.code == 200) {
-          console.log(response);
           this.cantidadUnidades = response.unidades.length;
-          console.log(this.cantidadUnidades);
           this.dataSource = new MatTableDataSource(response.unidades);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
@@ -75,7 +74,7 @@ export class UnidadesVerComponent implements OnInit {
       })
   }
 
-  crearUnidad(){
+  crearUnidad() {
     this.router.navigate(['/crearUnidad']);
   }
 
@@ -113,19 +112,56 @@ export class UnidadesVerComponent implements OnInit {
   getSubUnidades() {
     this.unidadService.getSubUnidades(this.idUsuario).subscribe(
       response => {
-        this.cantidadSubUnidades = response.subUnidad.length;
-        this.dataSource2 = new MatTableDataSource(response.subUnidad);
-        this.dataSource2.sort = this.sort;
-        this.dataSource2.paginator = this.paginator;
+        if (response.code == 200) {
+          console.log(response);
+          this.cantidadSubUnidades = response.subUnidad.length;
+          this.dataSource2 = new MatTableDataSource(response.subUnidad);
+          this.dataSource2.sort = this.sort;
+          this.dataSource2.paginator = this.paginator;
 
-        this.dataSource2.filterPredicate = (data, filter) => {
-          return this.displayedColumns2.some(ele => {
-            return data.unidad.nombreUnidad.toLowerCase().indexOf(filter) != -1;
-          });
+          this.dataSource2.filterPredicate = (data, filter) => {
+            return this.displayedColumns2.some(ele => {
+              return data.unidad.nombreUnidad.toLowerCase().indexOf(filter) != -1;
+            });
+          }
         }
+        if (response.subUnidad.length == 0)
+          this.existSubUnidad = 1;
       }, error => {
         console.log(<any>error);
       })
+  }
+
+  crearSubUnidad() {
+    this.router.navigate(['/crearUnidad']);
+  }
+
+  eliminarSubUnidad(id) {
+    console.log(id);
+    Swal.fire({
+      title: '¿Quiere eliminar esta sub unidad?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar sub unidad',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        Swal.showLoading();
+        this.unidadService.deleteSubUnidad(id).subscribe(
+          response => {
+            console.log(response);
+            if (response.code == 200) {
+              this.getSubUnidades();
+              Swal.fire('Sub unidad eliminada', '', 'success')
+            }
+          }, error => {
+            console.log(<any>error);
+            Swal.close();
+          })
+      }
+    })
   }
 
   // Asignar a la variable idPerfil el perfil del usuario activo
