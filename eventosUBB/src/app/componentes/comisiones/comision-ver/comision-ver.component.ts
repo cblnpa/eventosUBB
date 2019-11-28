@@ -11,15 +11,16 @@ import { Router } from '@angular/router';
 })
 export class ComisionVerComponent implements OnInit {
 
+  public comisionExist = 0; //variable para ocultar mensaje
   public url;
   public eventos;
   public identity;
   public cantEventos; //número de eventos encontrados
 
   //Data sorting
-  displayedColumns: string[] = ['nombreEvento','created_at', 'button'];
+  displayedColumns: string[] = ['nombreEvento', 'created_at', 'button'];
   dataSource;
-  filtrar: string; 
+  filtrar: string;
 
   constructor(private eventoUsersService: EventoUsersService, private userService: UserService,
     private router: Router, public paginatorSettings: MatPaginatorIntl) {
@@ -34,16 +35,19 @@ export class ComisionVerComponent implements OnInit {
     this.paginadorSettings();
     this.eventoUsersService.getMisEventosAdmin(this.identity.sub).subscribe(
       response => {
-        console.log(response);
-        this.cantEventos = response.eventos.length; //cantidad de eventos
-        this.dataSource = new MatTableDataSource(response.eventos);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data, filter) => {
-          return this.displayedColumns.some(ele => {
-            return ele != 'button' && data[ele].toLowerCase().indexOf(filter) != -1;
-          });
+        if (response.code == 200) {
+          this.cantEventos = response.eventos.length; //cantidad de eventos
+          this.dataSource = new MatTableDataSource(response.eventos);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = (data, filter) => {
+            return this.displayedColumns.some(ele => {
+              return ele != 'button' && data[ele].toLowerCase().indexOf(filter) != -1;
+            });
+          }
         }
+        if (response.eventos.length == 0)
+          this.comisionExist = 1;
       },
       error => {
         console.log(<any>error);
@@ -56,13 +60,17 @@ export class ComisionVerComponent implements OnInit {
     this.router.navigate(['/eventoDetalle/' + idEvento]);
   }
 
+  crearComision(){
+    this.router.navigate(['/crearComision']);
+  }
+
   paginadorSettings() {
     this.paginatorSettings.itemsPerPageLabel = 'Elementos por página';
     this.paginatorSettings.previousPageLabel = 'Página anterior';
     this.paginatorSettings.nextPageLabel = 'Página siguiente';
   }
 
-  applyFilter(){
+  applyFilter() {
     this.dataSource.filter = this.filtrar.trim().toLowerCase();
   }
 

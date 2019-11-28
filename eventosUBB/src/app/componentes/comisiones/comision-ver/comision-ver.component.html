@@ -1,11 +1,9 @@
-<body class="fix-header card-no-border fix-sidebar">
+<body class="fix-header card-no-border card-outline-info fix-sidebar">
   <div class="row el-element-overlay">
-    <div class="col-md-12 mt-2 mb-2 mr-2">
-      <h1 class="text-center text-black-50"> Comisiones </h1>
-      <hr>
-      <p class="ml-4">Seleccione su evento correspondiente para visualizar la comisión. <br>Los eventos están ordenados por
-        fecha de creación en orden descendente.
-      </p>
+    <div class="col-md-12 mt-2 mr-2">
+      <div class="card-header">
+        <h1 class="text-center text-white"> Comisiones </h1>
+      </div>
 
       <div class="col-md-12 col-lg-12 col-xs-12">
 
@@ -15,6 +13,25 @@
             <input matInput [(ngModel)]="filtrar" (keyup)="applyFilter()"
               placeholder="Buscar comisión por nombre del evento">
           </mat-form-field>
+        </div>
+
+        <div class="alert alert-success"> Para ver los integrantes de las comisiones que has creado
+          selecciona el evento del cual quieras ver su comisión.
+        </div>
+
+        <div *ngIf="comisionExist == 1" class="col-md-12">
+          <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                aria-hidden="true">&times;</span> </button>
+            <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Información </h3>
+            Actualmente no existen comisiones asociadas a tu(s) evento(s).
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="text-right">
+            <button class="btn btn-success" (click)="crearComision()">Crear comisión</button>
+          </div>
         </div>
 
         <div class="table-responsive">
@@ -36,7 +53,7 @@
               <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header> </th>
               <td id="table-sort-cell" mat-cell *matCellDef="let eventos">
                 <button class="btn btn-block btn-outline-info waves-effect waves-light"
-                  (click)="eventosDetalles(eventos.idEvento)" type="button">ver detalles
+                  (click)="eventosDetalles(eventos.idEvento)" type="button">ver comisión
                 </button>
               </td>
             </ng-container>
