@@ -113,7 +113,7 @@
                   <ng-container matColumnDef="created_at">
                     <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha creación</th>
                     <td id="table-sort-cell" mat-cell *matCellDef="let eventos">
-                      {{eventos.created_at | date:'shortDate'}}
+                      {{eventos.created_at | date:'fullDate'}}
                     </td>
                   </ng-container>
 

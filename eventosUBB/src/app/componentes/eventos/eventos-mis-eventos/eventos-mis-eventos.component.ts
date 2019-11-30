@@ -97,6 +97,7 @@ export class EventosMisEventosComponent implements OnInit {
     this.eventoUsersService.getMisEventosAdmin2(this.sub).subscribe(
       response => {
         if (response.code == 200) {
+          console.log(response);
           this.misEventosAdmin = response.eventos;
           this.cantidadEventos = response.eventos.length; //cantidad de eventos
           this.dataSource = new MatTableDataSource(response.eventos);
