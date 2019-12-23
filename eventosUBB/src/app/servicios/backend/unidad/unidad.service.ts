@@ -30,6 +30,12 @@ export class UnidadService {
     return this.http.get(this.url + 'getAllUnidad', { headers: headers });
   }
 
+   //Listar todas las unidades para crear un evento (ng-select-dropdown)
+   getUnidades2(): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url + 'getAllUnidad2', { headers: headers });
+  }
+
   //Obtener unidad del usuario
   getUnidad(idUsuario): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
