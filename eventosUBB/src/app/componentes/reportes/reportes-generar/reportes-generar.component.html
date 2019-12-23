@@ -1,3 +1,61 @@
-<p>
-  reportes-generar works!
-</p>
+<body class="fix-header card-no-border fix-sidebar">
+  <div class="row el-element-overlay">
+    <div class="col-md-12">
+
+      <!-- Reportes del AdminUBB -->
+      <div class="table-responsive">
+        <table id="table-sort" mat-table matSortActive="created_at" matSortDirection="desc" [dataSource]="dataSource"
+          matSort class="mat-elevation-z8">
+
+          <ng-container matColumnDef="nombreUnidad">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre unidad</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="encargadoUnidad">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Encargado unidad</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombreEvento">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre evento</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="encargadoEvento">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Encargado del evento</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="fechaEvento">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha evento</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="cantParticipantes">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad de participantes</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="cupos">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Cupos del evento</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="ciudad">
+            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Ciudad</th>
+            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <!-- paginador -->
+        <mat-paginator [length]="datosAdminUBB" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
+        </mat-paginator>
+
+      </div>
+    </div>
+  </div>
+</body>
