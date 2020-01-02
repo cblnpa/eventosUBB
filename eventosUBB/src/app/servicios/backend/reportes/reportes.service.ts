@@ -20,4 +20,13 @@ export class ReportesService {
     return this.http.get(this.url + 'reporteAdminUBB', { headers: headers });
   }
 
+  //Obtener el reporte Administrador Unidad
+  getReporteAdminUnidad(unidad): Observable<any> {
+    let json = JSON.stringify(unidad);
+    let params = 'json=' + json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'); //tipo de peticion
+    return this.http.post(this.url + 'getReporteAdminUnidad', params, { headers: headers });
+  }
+
 }

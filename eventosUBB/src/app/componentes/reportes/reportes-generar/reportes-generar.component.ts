@@ -1,6 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort, MatPaginator, MatTableDataSource, MatPaginatorIntl } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
 import { UserService, ReportesService } from '../../../servicios/servicio.index';
+
+declare const require: any;
+const jsPDF = require('jspdf');
+require('jspdf-autotable');
 
 @Component({
   selector: 'app-reportes-generar',
@@ -11,47 +14,168 @@ export class ReportesGenerarComponent implements OnInit {
 
   public token;
   public identity;
+  // public sinComision; //variable que muestra el texto cuando no existe una comisión en el evento
   public perfil; // id del perfil del usuario activo
-  public sub; // pruebas para el login con google el sub es el id del usuario
+  public idPerfil; //almacena el id del usuario para mostrar la tabla correspondiente
+  public tituloUBB = 'Reportes Administrador UBB';
+  public subtituloUBB = 'El reporte generado contiene la información asociada a todos los eventos realizados en la Universidad del Bío-Bío sede Chillán, se listan todas las unidades con sus eventos correspondientes, indicando el encargado del evento, la fecha de realización y la cantidad de participantes';
+  public tituloUnidad = 'Reportes Administrador Unidad';
+  public subtituloUnidad = 'El reporte generado contiene la información asociada a todos los eventos realizados en la unidad de Ingeniería Civil en Informática, se listan todos los eventos correspondientes, indicando el encargado del evento, la fecha de realización, la cantidad de participantes, dependencia e integrantes de la comisión.'
 
-  //Data sorting para mostrar los datos del admin UBB
-  displayedColumns: string[] = ['nombreUnidad', 'encargadoUnidad', 'nombreEvento', 'encargadoEvento', 'fechaEvento', 'cantParticipantes', 'cupos', 'ciudad'];
-  dataSource;
-  datosAdminUBB: number; //almacena la info para los reportes del admin UBB
+  public dataAdminUBB = [];
+  public dataAdminUnidad = [];
+  public dataComision = [];
 
-  //Data sorting para mostrar los datos del admin Unidad
-  displayedColumns2: string[] = ['encargado', 'nombreEvento', 'fechaEvento', 'comision', 'participantes', 'dependencia', 'ciudad'];
-  dataSource2;
-  datosAdminUnidad: number; //almacena la info para los reportes del admin unidad
-
-  constructor(private userService: UserService, public paginatorSettings: MatPaginatorIntl,
-    private reporteService: ReportesService) {
+  constructor(private userService: UserService, private reporteService: ReportesService) {
     this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();
   }
 
-  @ViewChild(MatSort) sort: MatSort; //ordenar datos de la tabla
-  @ViewChild(MatPaginator) paginator: MatPaginator; //paginación de la tabla
-
   ngOnInit() {
     this.perfil = this.identity.perfil_idPerfil;
-    this.getIdUsuario();
-    this.getReportes();
+    this.getPerfil();
+    this.getReportesUBB();
+    this.getReportesUnidad();
   }
 
-  getIdUsuario() {
-    if (!this.identity.id)
-      this.sub = this.identity.sub;
-    else
-      this.sub = this.identity.id;
+  getPerfil() {
+    this.idPerfil = this.identity.perfil_idPerfil;
+    console.log(this.idPerfil);
   }
 
-  getReportes() {
+  getReportesUBB() {
     this.reporteService.getReporteAdminUBB().subscribe(
       response => {
+        for (var i = 0; i < response.reporte.length; i++) {
+          if (response.reporte[i] != null && response.reporte[i].nombreEvento != null)
+            this.dataAdminUBB.push(response.reporte[i]);
+        }
+      })
+  }
+
+  getReportesUnidad() {
+    let nombreUnidad = 'Facultad de Ciencias Empresariales';
+    this.reporteService.getReporteAdminUnidad(nombreUnidad).subscribe(
+      response => {
         console.log(response);
-      }
-    )
+        for (var i = 0; i < response.reporte.length; i++) {
+          if (response.reporte[i] != null && response.reporte[i].evento.nombreEvento != null)
+            this.dataAdminUnidad.push(response.reporte[i]);
+          for (var j = 0; j < response.reporte[i].comision.length; j++) {
+            if (response.reporte[i] != null && response.reporte[i].comision.length > 0 && response.reporte[i].evento.nombreEvento != null)
+              this.dataComision.push(response.reporte[i].comision[j]);
+          }
+        }
+      })
+    console.log(this.dataAdminUnidad);
+    console.log(this.dataComision);
+  }
+
+  downloadAdminUBB() {
+    let columns = [
+      { title: 'Unidad', dataKey: 'unidad' },
+      { title: 'Encargado unidad', dataKey: 'encargadoU' },
+      { title: 'Evento', dataKey: 'evento' },
+      { title: 'Encargado del evento', dataKey: 'encargadoE' },
+      { title: 'Fecha del evento', dataKey: 'fecha' },
+      { title: 'Cupos', dataKey: 'participantes' },
+      { title: 'Ciudad', dataKey: 'ciudad' },
+    ]
+
+    //data o contenido de la tabla
+    let dataUBB = [];
+    let rowsAdminUBB = { unidad: '', encargadoUnidad: '', nombreEvento: '', encargadoEvento: '', fechaEvento: '', cantidadParticipantes: '', nombreCiudad: '' };
+
+    for (var i = 0; i < this.dataAdminUBB.length; i++) {
+      rowsAdminUBB.unidad = this.dataAdminUBB[i].nombreUnidad;
+      rowsAdminUBB.encargadoUnidad = this.dataAdminUBB[i].encargadoUnidad;
+      rowsAdminUBB.nombreEvento = this.dataAdminUBB[i].nombreEvento;
+      rowsAdminUBB.encargadoEvento = this.dataAdminUBB[i].encargadoEvento;
+      rowsAdminUBB.fechaEvento = this.dataAdminUBB[i].fechaEvento.created_at;
+      rowsAdminUBB.cantidadParticipantes = this.dataAdminUBB[i].cantidadParticipante;
+      rowsAdminUBB.nombreCiudad = this.dataAdminUBB[i].ciudad.ciudad.nombreCiudad;
+
+      dataUBB.push({
+        'unidad': rowsAdminUBB.unidad, 'encargadoU': rowsAdminUBB.encargadoUnidad,
+        'evento': rowsAdminUBB.nombreEvento, 'encargadoE': rowsAdminUBB.encargadoEvento,
+        'fecha': rowsAdminUBB.fechaEvento, 'participantes': rowsAdminUBB.cantidadParticipantes,
+        'ciudad': rowsAdminUBB.nombreCiudad
+      });
+    }
+
+    //acá va la configuración del PDF
+    var docAdminUBB = new jsPDF({ orientation: 'landscape', format: 'letter', putOnlyUsedFonts: true });
+    docAdminUBB.setFontSize(22);
+    docAdminUBB.text(this.tituloUBB,100,20, {align: 'center'});
+
+    //SplitText separa las frases extensas para dejarlas como párrafos
+    var lines = docAdminUBB.splitTextToSize(this.subtituloUBB, 550);
+    docAdminUBB.setFontSize(10);
+    docAdminUBB.text(lines,14,30);
+
+    //configuración de la tabla
+    docAdminUBB.setFontSize(12);
+    docAdminUBB.autoTable(columns, dataUBB, {
+      margin: { top: 40 }
+    });
+
+    docAdminUBB.setFontSize(9);
+    docAdminUBB.text('fechaCreacion',14,200);
+
+    // var str = "Hola";
+    // docAdminUBB.setFontSize(8);
+    // docAdminUBB.text(str, 50, docAdminUBB.internal.pageSize.heigh - 10);
+
+    docAdminUBB.save('reporte.pdf');
+  }
+
+  downloadAdminUnidad() {
+    let columnsUnidad = [
+      { title: 'Encargado', dataKey: 'encargado' },
+      { title: 'Evento', dataKey: 'evento' },
+      { title: 'Fecha del evento', dataKey: 'fecha' },
+      { title: 'Comision', dataKey: 'comision' },
+      { title: 'Cupos', dataKey: 'cupos' },
+      { title: 'Dependencia', dataKey: 'dependencia' },
+      { title: 'Ciudad', dataKey: 'ciudad' },
+    ]
+
+    //data o contenido de la tabla
+    let dataUnidad = [];
+    let rowsAdminUnidad = { encargado: '', evento: '', fecha: '', comision: '', cupos: '', dependencia: '', ciudad: '' };
+
+    for (var i = 0; i < this.dataAdminUnidad.length; i++) {
+      rowsAdminUnidad.encargado = this.dataAdminUnidad[i].encargado;
+      rowsAdminUnidad.evento = this.dataAdminUnidad[i].evento.nombreEvento;
+      rowsAdminUnidad.fecha = this.dataAdminUnidad[i].evento.created_at;
+      rowsAdminUnidad.comision = 'comision'; //*
+      rowsAdminUnidad.cupos = this.dataAdminUnidad[i].evento.capacidad;
+      rowsAdminUnidad.dependencia = this.dataAdminUnidad[i].evento.ubicacion;
+      rowsAdminUnidad.ciudad = this.dataAdminUnidad[i].evento.ciudad.nombreCiudad;
+
+      dataUnidad.push({
+        'encargado': rowsAdminUnidad.encargado, 'evento': rowsAdminUnidad.evento,
+        'fecha': rowsAdminUnidad.fecha, 'comision': rowsAdminUnidad.comision,
+        'cupos': rowsAdminUnidad.cupos, 'dependencia': rowsAdminUnidad.dependencia,
+        'ciudad': rowsAdminUnidad.ciudad
+      });
+    }
+
+    //acá va la configuración del PDF
+    var docAdminUnidad = new jsPDF({ orientation: 'landscape', format: 'letter', putOnlyUsedFonts: true });
+    docAdminUnidad.setFontSize(22);
+    docAdminUnidad.text(this.tituloUnidad);
+
+    docAdminUnidad.setFontSize(16);
+    docAdminUnidad.text(this.subtituloUnidad);
+
+    //configuración de la tabla
+    docAdminUnidad.setFontSize(12);
+    docAdminUnidad.autoTable(columnsUnidad, dataUnidad, {
+      margin: { top: 50 }
+    });
+
+    docAdminUnidad.save('reporte.pdf');
   }
 
 }

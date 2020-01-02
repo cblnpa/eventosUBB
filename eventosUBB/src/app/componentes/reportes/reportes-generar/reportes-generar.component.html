@@ -3,58 +3,89 @@
     <div class="col-md-12">
 
       <!-- Reportes del AdminUBB -->
-      <div class="table-responsive">
-        <table id="table-sort" mat-table matSortActive="created_at" matSortDirection="desc" [dataSource]="dataSource"
-          matSort class="mat-elevation-z8">
+      <div *ngIf="idPerfil == 1" class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center"> {{tituloUBB}} </h2>
+          <h5 class="card-subtitle"> {{subtituloUBB}} </h5>
+          <div class="mb-3 text-right">
+            <button type="button" class="btn btn-success btn-rounded" (click)="downloadAdminUBB();"><i
+                class="fa fa-download"></i> Exportar PDF</button>
+          </div>
+          <div class="table-responsive">
+            <table class="display nowrap table table-hover table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Unidad</th>
+                  <th>Encargado unidad</th>
+                  <th>Evento</th>
+                  <th>Encargado del evento</th>
+                  <th>Fecha del evento</th>
+                  <th>Cupos</th>
+                  <th>Ciudad</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let dataUBB of dataAdminUBB">
+                <tr>
+                  <td> {{dataUBB?.nombreUnidad}} </td>
+                  <td> {{dataUBB?.encargadoUnidad}} </td>
+                  <td> {{dataUBB.nombreEvento}} </td>
+                  <td> {{dataUBB?.encargadoEvento}} </td>
+                  <td> {{dataUBB.fechaEvento.created_at | date: 'shortDate'}} </td>
+                  <td> {{dataUBB?.cantidadParticipante}} </td>
+                  <td> {{dataUBB?.ciudad.ciudad.nombreCiudad}} </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <p>Acá hacer un paginador</p>
+          </div>
 
-          <ng-container matColumnDef="nombreUnidad">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre unidad</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
-          </ng-container>
+        </div>
+      </div>
 
-          <ng-container matColumnDef="encargadoUnidad">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Encargado unidad</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
-          </ng-container>
+      <!-- Reportes del AdminUnidad -->
+      <div *ngIf="idPerfil == 3" class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center"> {{tituloUnidad}} </h2>
+          <h5 class="card-subtitle"> {{subtituloUnidad}} </h5>
+          <div class="mb-3 text-right">
+            <button type="button" class="btn btn-success btn-rounded" (click)="downloadAdminUnidad();"><i
+                class="fa fa-download"></i> Descargar PDF</button>
+          </div>
+          <div class="table-responsive">
+            <table class="display nowrap table table-hover table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Encargado</th>
+                  <th>Evento</th>
+                  <th>Fecha del evento</th>
+                  <th>Comisión</th>
+                  <th>Cupos</th>
+                  <th>Dependencia</th>
+                  <th>Ciudad</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let dataUnidad of dataAdminUnidad">
+                <tr>
+                  <td> {{dataUnidad?.encargado}} </td>
+                  <td> {{dataUnidad?.evento.nombreEvento}} </td>
+                  <td> {{dataUnidad.evento.created_at | date: 'shortDate'}} </td>
+                  <td> <span *ngFor="let comision of dataComision">
+                      {{comision?.nombreUsuario + ' ' + comision?.apellidoUsuario}}<br> </span>
+                  </td>
+                  <td> {{dataUnidad?.evento.capacidad}} </td>
+                  <td> {{dataUnidad?.evento.ubicacion}} </td>
+                  <td> {{dataUnidad?.evento.ciudad.nombreCiudad}} </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <p>Acá hacer un paginador</p>
+          </div>
 
-          <ng-container matColumnDef="nombreEvento">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre evento</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
-          </ng-container>
-
-          <ng-container matColumnDef="encargadoEvento">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Encargado del evento</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
-          </ng-container>
-
-          <ng-container matColumnDef="fechaEvento">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha evento</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
-          </ng-container>
-
-          <ng-container matColumnDef="cantParticipantes">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad de participantes</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
-          </ng-container>
-
-          <ng-container matColumnDef="cupos">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Cupos del evento</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
-          </ng-container>
-
-          <ng-container matColumnDef="ciudad">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Ciudad</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let eventos"></td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-        <!-- paginador -->
-        <mat-paginator [length]="datosAdminUBB" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
-        </mat-paginator>
-
+        </div>
       </div>
     </div>
   </div>
