@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventoPojoService, EventoUsersService, UserService, MaterialService } from '../../../servicios/servicio.index';
 import { global } from '../../../servicios/global';
-import { users, evento_users } from '../../../model/model.index';
+import { evento_users } from '../../../model/model.index';
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
 import '../icons';
 import Swal from 'sweetalert2';
@@ -152,6 +152,7 @@ export class EventosDetallesPublicComponent implements OnInit {
   participarEvento() {
     this.eventoUsersService.guardarEventoUser(this.eventoUsers, this.idUsuario).subscribe(
       response => {
+        console.log(response);
         if(response.code == 200){
           if(this.cupos == response.evento.capacidad){
             console.log('No quedan cupos');
@@ -164,14 +165,12 @@ export class EventosDetallesPublicComponent implements OnInit {
         }
         if (response.code == 400) {
           // response 400 indica que ya está participando en el evento
-          console.log(response);
           this.participando = 1;
         }
       },
       error => {
         console.log(<any>error);
-      }
-    )
+      })
   }
 
   descargarMaterial(archivo) {
