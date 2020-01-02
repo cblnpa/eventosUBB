@@ -147,7 +147,8 @@ export class UnidadesCrearComponent implements OnInit {
       this.unidadService.getUnidadById(this.idUnidad).subscribe(
         response => {
           console.log(response);
-          this.unidadEdit.nombreUnidad = response.nombreUnidad;
+          this.unidadEdit.nombreUnidad = response.unidad.nombreUnidad;
+          this.unidadEdit.sede = response.unidad.sede;
         }, error => {
           console.log(<any>error);
         })
