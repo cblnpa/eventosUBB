@@ -24,10 +24,12 @@ export class EventosDetallesPublicComponent implements OnInit {
   public idUsuario;
   public showParticipar; //indica si muestra el botón participar según el usuario activo
   public participando; //1 indica que está participando
+  public sinCupos = 0; //si es igual a 1, indica que no quedan cupos
 
   // atributos para mostrar participantes
   public contadorEvento: number; //contador de cantidad de participantes (para la tabla evento_user)
   public cupos: number = 0; //tiene los cupos del evento
+  public totalCupos; //tiene el total de cupos del evento
   public eventoUsers: evento_users;
 
   //arreglos que almacenan los objetos
@@ -106,6 +108,7 @@ export class EventosDetallesPublicComponent implements OnInit {
             }
             //Datos básicos del evento
             this.evento = response.evento;
+            this.totalCupos = response.evento.capacidad;
           }
         },
         error => {
@@ -122,13 +125,12 @@ export class EventosDetallesPublicComponent implements OnInit {
         if (response.code == 200) {
           for (var i = 0; i < response.evento.length; i++) {
             if (response.evento[i].users.id == this.idUsuario) {
+              //se asigna a showParticipar el rol del usuario activo
               this.showParticipar = response.evento[i].rol_idRol;
-              console.log(this.showParticipar);
             }
-            if (response.evento[i].rol_idRol == 2) {
+            //se cuentan los cupos actuales que posee el evento
+            if (response.evento[i].rol_idRol == 2)
               this.cupos++;
-              console.log(this.cupos);
-            }
           }
         }
       },
@@ -150,28 +152,50 @@ export class EventosDetallesPublicComponent implements OnInit {
   }
 
   participarEvento() {
-    this.eventoUsersService.guardarEventoUser(this.eventoUsers, this.idUsuario).subscribe(
-      response => {
-        console.log(response);
-        if(response.code == 200){
-          if(this.cupos == response.evento.capacidad){
-            console.log('No quedan cupos');
-          } else {
+    if (this.cupos < this.totalCupos) {
+      this.eventoUsersService.guardarEventoUser(this.eventoUsers, this.idUsuario).subscribe(
+        response => {
+          if (response.code == 200) {
             Swal.fire({
               type: 'success',
               title: '¡Inscrito correctamente en este evento!'
             })
           }
+          if (response.code == 400)
+            // response 400 indica que ya está participando en el evento
+            this.participando = 1;
         }
-        if (response.code == 400) {
-          // response 400 indica que ya está participando en el evento
-          this.participando = 1;
-        }
-      },
-      error => {
-        console.log(<any>error);
-      })
+      )
+    } else {
+      console.log('no quedan cupos');
+      this.sinCupos = 1;
+    }
   }
+
+  // participarEvento() {
+  //   this.eventoUsersService.guardarEventoUser(this.eventoUsers, this.idUsuario).subscribe(
+  //     response => {
+  //       console.log(response);
+  //       if (response.code == 200) {
+  //         if (this.cupos == response.evento.capacidad) {
+  //           console.log('No quedan cupos');
+  //         } else {
+  //           Swal.fire({
+  //             type: 'success',
+  //             title: '¡Inscrito correctamente en este evento!'
+  //           })
+  //         }
+  //       }
+  //       if (response.code == 400) {
+  //         // response 400 indica que ya está participando en el evento
+  //         this.participando = 1;
+  //       }
+  //     }
+  //     ,
+  //     error => {
+  //       console.log(<any>error);
+  //     })
+  // }
 
   descargarMaterial(archivo) {
     console.log('estoy en descargar !!');

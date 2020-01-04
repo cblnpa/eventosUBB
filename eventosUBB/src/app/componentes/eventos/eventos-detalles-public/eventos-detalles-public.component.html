@@ -33,9 +33,11 @@
 
   <div class="col-md-4">
     <button *ngIf="showParticipar != 1" type="button" (click)="participarEvento()"
-      class="btn tst4 waves-effect btn-block waves-light btn-rounded btn-outline-primary">
+      class="btn waves-effect tst4 btn-block waves-light btn-rounded btn-outline-primary">
       <i class="mdi mdi-plus"></i>Participar</button>
   </div>
+
+  <!-- <div *ngIf="sinCupos == 1" class="col-md-4 tst4"></div> -->
 
   <div *ngIf="participando == 1" class="alert alert-warning"> <i class="mdi mdi-information"></i> Ya estás participando en este evento.
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span>
