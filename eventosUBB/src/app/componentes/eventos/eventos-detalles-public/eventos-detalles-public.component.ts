@@ -25,6 +25,8 @@ export class EventosDetallesPublicComponent implements OnInit {
   public showParticipar; //indica si muestra el botón participar según el usuario activo
   public participando; //1 indica que está participando
   public sinCupos = 0; //si es igual a 1, indica que no quedan cupos
+  public fechas = []; //almacena todas las fechas del evento
+  public fechaEvento; //almacena la fecha inicial del evento 
 
   // atributos para mostrar participantes
   public contadorEvento: number; //contador de cantidad de participantes (para la tabla evento_user)
@@ -86,10 +88,13 @@ export class EventosDetallesPublicComponent implements OnInit {
               }
             }
             //Almacenar jornadas
+            var primeraFecha = '';
             if (response.Jornada.length > 0) {
               for (var i = 0; i < response.Jornada.length; i++) {
-                if (response.Jornada[i] != null)
+                if (response.Jornada[i] != null) {
                   this.arrJornadas.push(response.Jornada[i]);
+                  this.fechas.push(response.Jornada[i].fechaJornada);
+                }
               }
             }
             //Almacenar expositores
@@ -106,9 +111,15 @@ export class EventosDetallesPublicComponent implements OnInit {
                   this.arrMateriales.push(response.material[i]);
               }
             }
+            //Seleccionar la fecha más pronta de las jornadas
+            for (var i = 0; i < this.fechas.length; i++) {
+              if (primeraFecha < this.fechas[i])
+                this.fechaEvento = this.fechas[i];
+            }
             //Datos básicos del evento
             this.evento = response.evento;
             this.totalCupos = response.evento.capacidad;
+            console.log(this.fechaEvento);
           }
         },
         error => {
