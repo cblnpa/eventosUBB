@@ -75,6 +75,7 @@ export class EventosDetallesPublicComponent implements OnInit {
           if (response.code == 200) {
             //Almacenar las actividades
             if (response.actividad.length > 0) {
+              //&& primeraHora < response.actividad[i].horaInicioActividad
               for (var i = 0; i < response.actividad.length; i++) {
                 if (response.actividad[i] != null)
                   this.arrActividades.push(response.actividad[i]);

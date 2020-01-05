@@ -1,192 +1,181 @@
-<!-- Foto del evento + información básica -->
-<div class="row">
-  <div class="col-md-12 col-xs-12 col-md-12">
-    <!-- foto del evento -->
-    <div *ngIf="evento != null" class="card">
-      <img *ngIf="evento.imagen" class="image-evento-detalle" src="{{url + 'image/' + evento.imagen}}"
-        alt="Portada del evento" />
-      <img *ngIf="!evento.imagen" class="image-evento-detalle" src="../../../assets/images/sin-imagen.png"
-        alt="Evento sin foto de portada" />
-      <div class="card-img-overlay card-inverse social-profile flex">
-        <div class="align-self-center m-t-40">
-          <h1 class="card-title display-4"> {{evento.nombreEvento}} </h1> <!-- nombre del evento -->
-          <hr>
-          <div>
-            <h2 class="card-subtitle"><i class="fa fa-calendar"></i> {{fechaEvento | date:'fullDate'}} </h2>
-            <!-- fecha evento -->
+<body class="fix-header card-no-border card-outline-info fix-sidebar">
+  <!-- Foto del evento + información básica -->
+  <div class="row">
+    <div class="col-md-12 col-xs-12 col-md-12">
+      <!-- foto del evento -->
+      <div *ngIf="evento != null" class="card">
+        <img *ngIf="evento.imagen" class="image-evento-detalle" src="{{url + 'image/' + evento.imagen}}"
+          alt="Portada del evento" />
+        <img *ngIf="!evento.imagen" class="image-evento-detalle" src="../../../assets/images/sin-imagen.png"
+          alt="Evento sin foto de portada" />
+        <div class="card-img-overlay card-inverse social-profile flex">
+          <div class="align-self-center m-t-40">
+            <h1 class="card-title display-4"> {{evento.nombreEvento}} </h1> <!-- nombre del evento -->
+            <hr>
+            <div>
+              <h2 class="card-subtitle"><i class="fa fa-calendar"></i> {{fechaEvento | date:'fullDate'}} </h2>
+              <!-- fecha evento -->
+            </div>
+            <h2 class="card-subtitle"><i class="mdi mdi-home-map-marker"></i> {{evento.ubicacion}} </h2>
+            <!-- ubicación del evento-->
+            <h2 class="card-subtitle"><i class="mdi mdi-map-marker"></i> {{evento.direccion}} </h2>
+            <!-- dirección del evento -->
+            <h2 class="card-subtitle"><i class="fa fa-users"></i> {{evento.capacidad}} </h2> <!-- cupos del evento -->
           </div>
-          <h2 class="card-subtitle"><i class="mdi mdi-home-map-marker"></i> {{evento.ubicacion}} </h2>
-          <!-- ubicación del evento-->
-          <h2 class="card-subtitle"><i class="mdi mdi-map-marker"></i> {{evento.direccion}} </h2>
-          <!-- dirección del evento -->
-          <h2 class="card-subtitle"><i class="fa fa-users"></i> {{evento.capacidad}} </h2> <!-- cupos del evento -->
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Botones interactivos del evento -->
-<div class="row">
-  <div class="col-md-8">
-    <share-buttons [theme]="'default'" [include]="['facebook','twitter','linkedin','email','copy', 'print']" [show]="6"
-      [showText]="true" [url]="urlCompartir"></share-buttons>
+  <!-- Botones interactivos del evento -->
+  <div class="row">
+    <div class="col-md-8">
+      <share-buttons [theme]="'default'" [include]="['facebook','twitter','linkedin','email','copy', 'print']"
+        [show]="6" [showText]="true" [url]="urlCompartir"></share-buttons>
+    </div>
+
+    <div class="col-md-4">
+      <button *ngIf="showParticipar != 1" type="button" (click)="participarEvento()"
+        class="btn waves-effect tst4 btn-block waves-light btn-outline-primary">
+        <i class="mdi mdi-plus"></i>Participar</button>
+    </div>
+
+    <div *ngIf="participando == 1" class="alert alert-warning"> <i class="mdi mdi-information"></i> Ya estás
+      participando en este evento.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+          aria-hidden="true">&times;</span>
+      </button>
+    </div>
   </div>
 
-  <div class="col-md-4">
-    <button *ngIf="showParticipar != 1" type="button" (click)="participarEvento()"
-      class="btn waves-effect tst4 btn-block waves-light btn-rounded btn-outline-primary">
-      <i class="mdi mdi-plus"></i>Participar</button>
-  </div>
-
-  <div *ngIf="participando == 1" class="alert alert-warning"> <i class="mdi mdi-information"></i> Ya estás
-    participando en este evento.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-</div>
-
-<!-- Cartas con expositores del evento -->
-<div *ngIf="arrExpositores.length > 0" class="row">
-  <div class="row el-element-overlay">
-    <div class="col-md-12 m-t-20">
-      <div class="card">
-        <div class="box bg-info text-center">
-          <h1 class="font-light text-white">Expositores</h1>
+  <!-- Cartas con expositores del evento -->
+  <div *ngIf="arrExpositores.length > 0" class="row">
+    <div class="row el-element-overlay">
+      <div class="col-md-12 m-t-20">
+        <div class="card">
+          <div class="box bg-info text-center">
+            <h1 class="font-light text-white">Expositores</h1>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- expositores del evento -->
-    <div *ngFor="let expositor of arrExpositores" class="col-lg-4 col-xlg-3 col-md-3">
-      <div class="card">
-        <div class="el-card-item">
-          <div class="el-card-avatar el-overlay-1">
-            <!-- expositor.foto -->
-            <img *ngIf="!expositor.foto" src="../../../assets/images/user.png" alt="Card image" />
-            <img *ngIf="expositor.foto" src="{{url + 'image/' + expositor.foto}}" alt="user" />
+      <!-- expositores del evento -->
+      <div *ngFor="let expositor of arrExpositores" class="col-lg-4 col-xlg-3 col-md-3">
+        <div class="card">
+          <div class="el-card-item">
+            <div class="el-card-avatar el-overlay-1">
+              <!-- expositor.foto -->
+              <img *ngIf="!expositor.foto" src="../../../assets/images/user.png" alt="Card image" />
+              <img *ngIf="expositor.foto" src="{{url + 'image/' + expositor.foto}}" alt="user" />
 
-            <div class="el-overlay">
-              <!-- overlay son efectos al pasar sobre la foto -->
-              <ul class="el-info">
-                <li>
-                  <!-- <a *ngIf="!expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
+              <div class="el-overlay">
+                <!-- overlay son efectos al pasar sobre la foto -->
+                <ul class="el-info">
+                  <li>
+                    <!-- <a *ngIf="!expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
                         href="../../../assets/images/user.png">
                         <i class="icon-magnifier"></i>
                     </a> -->
-                  <!-- <a *ngIf="expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
+                    <!-- <a *ngIf="expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
                         href="{{url + 'image/' + expositor.foto}}">
                         <i class="icon-magnifier"></i>
                     </a> -->
-                </li>
-                <!-- este li contiene el link -->
-                <!-- expositor.empresa -->
-              </ul>
-            </div>
-
-          </div>
-          <div class="el-card-content">
-            <h3 class="box-tittle"> {{expositor.empresa}} </h3>
-            <h3 class="box-tittle">
-              {{expositor.nombreExpositor + ' ' + expositor.apellidoExpositor + ' ' + expositor.apellido2Expositor}}
-            </h3>
-            <h6><i class="fa fa-envelope"></i> {{expositor.correoExpositor}} </h6>
-            <br>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Jornadas del evento -->
-<div *ngIf="arrJornadas.length > 0" class="row">
-  <!-- jornadas del evento -->
-  <div class="col-md-12 m-t-20">
-    <div class="card">
-      <div class="box bg-info text-center">
-        <h1 class="font-light text-white">Jornadas</h1>
-      </div>
-    </div>
-
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <div *ngFor="let jornada of arrJornadas" class="row pricing-plan">
-            <div class="col-md-6 col-xs-12 col-sm-12 no-padding">
-              <div class="pricing-box featured-plan">
-                <div class="pricing-body">
-                  <div class="ribbon ribbon-warning"> {{jornada.nombreJornada}} </div>
-                  <div class="pricing-header">
-                    <h5 class="text-center"> {{jornada.descripcionJornada}} </h5>
-                    <span style="font-style: italic">descripción de la jornada</span>
-                  </div>
-                  <div class="price-table-content">
-                    <div class="price-row">
-                      <i class="mdi mdi-calendar"></i>
-                      {{jornada.fechaJornada | date:'fullDate' }}
-                      <br><span style="font-style: italic">fecha de la jornada</span>
-                    </div>
-                    <div class="price-row">
-                      <i class="mdi mdi-clock"></i>
-                      {{jornada.horaInicioJornada}}
-                      <br><span style="font-style: italic">hora de inicio</span>
-                    </div>
-                    <div class="price-row">
-                      <i class="mdi mdi-clock"></i>
-                      {{jornada.horaFinJornada}}
-                      <br><span style="font-style: italic">hora de término</span>
-                    </div>
-                    <div class="price-row">
-                      <i class="mdi mdi-map-marker"></i>
-                      {{jornada.ubicacionJornada}}
-                      <br><span style="font-style: italic">ubicación de la jornada</span>
-                    </div>
-                  </div>
-                </div>
+                  </li>
+                  <!-- este li contiene el link -->
+                  <!-- expositor.empresa -->
+                </ul>
               </div>
+
+            </div>
+            <div class="el-card-content">
+              <h3 class="box-tittle"> {{expositor.empresa}} </h3>
+              <h3 class="box-tittle">
+                {{expositor.nombreExpositor + ' ' + expositor.apellidoExpositor + ' ' + expositor.apellido2Expositor}}
+              </h3>
+              <h6><i class="fa fa-envelope"></i> {{expositor.correoExpositor}} </h6>
+              <br>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Actividades del evento -->
-<div *ngIf="arrActividades.length > 0" class="row">
-  <div class="col-md-12 m-t-20">
-    <div class="card">
-      <div class="box bg-info text-center">
-        <h1 class="font-light text-white">Actividades</h1>
+  <!-- Jornadas del evento -->
+  <div *ngIf="arrJornadas.length > 0" class="row">
+
+    <div class="col-md-12 m-t-20">
+      <div class="card">
+        <div class="box bg-info text-center">
+          <h1 class="font-light text-white">Jornadas</h1>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div *ngFor="let actividad of arrActividades" class="col-md-6">
-    <div class="card card-outline-warning">
-      <div class="card-header">
-        <h4 class="m-b-0 text-white"> {{actividad.nombreActividad}} </h4>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table color-table muted-table">
-            <tbody class="text-center">
-              <tr> {{actividad.descripcionActividad}} </tr>
-              <tr><i class="mdi mdi-clock"></i> {{actividad.horaInicioActividad}} </tr>
-              <tr><i class="mdi mdi-clock"></i> {{actividad.horaFinActividad}} </tr>
-              <tr><i class="mdi mdi-map-marker"></i> {{actividad.ubicacionActividad}} </tr>
-            </tbody>
-          </table>
+    <div *ngFor="let jornada of arrJornadas" class="col-lg-4 col-md-2 col-xs-12">
+      <div class="ribbon-wrapper card">
+        <div class="ribbon ribbon-primary"> {{jornada.nombreJornada}} </div>
+        <div class="ribbon-content m-t-20">
+          <span><small class="font-weight-light text-info">Descripción</small></span> {{jornada.descripcionJornada}}<br>
+          <span><small class="font-weight-light text-info">Ubicación</small></span> {{jornada.ubicacionJornada}}<br>
+          <span><small class="font-weight-light text-info">Fecha</small></span>
+          {{jornada.fechaJornada | date:'fullDate'}}<br>
+          <span><small class="font-weight-light text-info">Hora inicio</small></span> {{jornada.horaInicioJornada}}<br>
+          <span><small class="font-weight-light text-info">Hora fin</small></span> {{jornada.horaFinJornada}}<br>
         </div>
       </div>
     </div>
   </div>
 
-</div>
+  <!-- Actividades del evento -->
+  <div *ngIf="arrActividades.length > 0" class="row">
+    <div class="col-md-12 m-t-20">
+      <div class="card">
+        <div class="box bg-info text-center">
+          <h1 class="font-light text-white">Actividades</h1>
+        </div>
+      </div>
+    </div>
 
-<!-- Colaboradores del evento -->
-<div *ngIf="arrColaboradores.length > 0" class="row">
-  <div class="row el-element-overlay">
+    <div *ngFor="let actividad of arrActividades" class="col-md-6 col-xl-6 col-xs-12">
+      <div class="card">
+        <div class="card-footer"> {{actividad.nombreActividad}} </div>
+        <div class="card-body">
+          <i class="mdi mdi-clock"></i> <span><small class="font-weight-light text-info">Hora inicio</small></span>
+          {{actividad.horaInicioActividad}} <br>
+          <i class="mdi mdi-clock"></i> <span><small class="font-weight-light text-info">Hora término</small></span>
+          {{actividad.horaFinActividad}} <br>
+          <i class="mdi mdi-map-marker"></i> <span><small class="font-weight-light text-info">Ubicación</small></span>
+          {{actividad.ubicacionActividad}} <br>
+          <span><small class="font-weight-light text-info">Descripción</small></span> {{actividad.descripcionActividad}}
+        </div>
+      </div>
+    </div>
+
+    <!-- <div *ngFor="let actividad of arrActividades" class="col-md-6">
+      <div class="card card-outline-warning">
+        <div class="card-header">
+          <h4 class="m-b-0 text-white"> {{actividad.nombreActividad}} </h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table color-table muted-table">
+              <tbody class="text-center">
+                <tr> {{actividad.descripcionActividad}} </tr>
+                <tr><i class="mdi mdi-clock"></i> {{actividad.horaInicioActividad}} </tr>
+                <tr><i class="mdi mdi-clock"></i> {{actividad.horaFinActividad}} </tr>
+                <tr><i class="mdi mdi-map-marker"></i> {{actividad.ubicacionActividad}} </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+
+  <!-- Colaboradores del evento -->
+  <div *ngIf="arrColaboradores.length > 0" class="row">
+
     <div class="col-md-12 m-t-20">
       <div class="card">
         <div class="box bg-info text-center">
@@ -195,65 +184,49 @@
       </div>
     </div>
 
-    <div *ngFor="let colaborador of arrColaboradores" class="col-lg-4 col-xlg-3 col-md-3">
-      <div class="card">
-        <div class="el-card-item">
-          <div class="el-card-avatar el-overlay-1">
-            <!-- expositor.foto -->
-            <img *ngIf="!colaborador.foto" src="../../../assets/images/user.png" alt="Card image" />
-            <img *ngIf="colaborador.foto" src="{{url + 'image/' + colaborador.foto}}" alt="user" />
-
-            <div class="el-overlay">
-              <!-- overlay son efectos al pasar sobre la foto -->
-              <ul class="el-info">
-                <li>
-                  <!-- <a *ngIf="!expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
-                            href="../../../assets/images/user.png">
-                            <i class="icon-magnifier"></i>
-                        </a> -->
-                  <!-- <a *ngIf="expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
-                            href="{{url + 'image/' + expositor.foto}}">
-                            <i class="icon-magnifier"></i>
-                        </a> -->
-                </li>
-                <!-- este li contiene el link -->
-                <!-- expositor.empresa -->
-              </ul>
+    <div class="row el-element-overlay">
+      <div *ngFor="let colaborador of arrColaboradores" class="col-lg-6 col-xlg-4 col-md-4">
+        <div class="card">
+          <div class="el-card-item">
+            <div class="el-card-avatar el-overlay-1">
+              <img *ngIf="!colaborador.logo" src="../../../assets/images/user.png" alt="Card image" />
+              <img *ngIf="colaborador.logo" src="{{url + 'image/' + colaborador.logo}}" alt="user" />
+              <div class="el-overlay"></div>
             </div>
-
-          </div>
-          <div class="el-card-content">
-            <h3 class="box-tittle"> {{colaborador.nombreColaborador}} </h3>
-            <h3 class="box-tittle"> {{colaborador.nombreRepresentante}} </h3>
-            <h6><i class="fa fa-envelope"></i> {{colaborador.correoColaborador}} </h6>
-            <br>
+            <div class="el-card-content">
+              <h3 class="box-tittle"> {{colaborador.nombreColaborador}} </h3>
+              <h3 class="box-tittle"> {{colaborador.nombreRepresentante}} </h3>
+              <h6><i class="fa fa-envelope"></i> {{colaborador.correoColaborador}} </h6>
+              <br>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Material para descargar -->
-<div *ngIf="arrMateriales.length > 0" class="row">
-  <div class="col-md-12 m-t-20">
-    <div class="card">
-      <div class="box bg-info text-center">
-        <h1 class="font-light text-white">Materiales</h1>
+  <!-- Material para descargar -->
+  <div *ngIf="arrMateriales.length > 0" class="row">
+    <div class="col-md-12 m-t-20">
+      <div class="card">
+        <div class="box bg-info text-center">
+          <h1 class="font-light text-white">Materiales</h1>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div *ngFor="let material of arrMateriales" class="col-md-4">
-    <div class="card">
-      <div class="card-body">
-        <div class="stats text-center">
-          <h3 class="text-center text-black-50">{{material.nombreMaterial}}</h3>
-          <h6 class="text-muted">{{material.created_at | date:'fullDate'}}</h6>
-          <button class="btn btn-rounded btn-outline btn-success m-t-10"
-            (click)="descargarMaterial(material.archivo)"><i class="mdi mdi-download"></i> Descargar</button>
+    <div *ngFor="let material of arrMateriales" class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="stats text-center">
+            <h3 class="text-center text-black-50">{{material.nombreMaterial}}</h3>
+            <h6 class="text-muted">{{material.created_at | date:'fullDate'}}</h6>
+            <button class="btn btn-rounded btn-outline btn-success m-t-10"
+              (click)="descargarMaterial(material.archivo)"><i class="mdi mdi-download"></i> Descargar</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+</body>
