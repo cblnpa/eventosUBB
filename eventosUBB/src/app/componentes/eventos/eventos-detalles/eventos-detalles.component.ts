@@ -209,7 +209,9 @@ export class EventosDetallesComponent implements OnInit {
           },
           error => {
             console.log(<any>error);
-          })}})
+          })
+      }
+    })
   }
 
   //Obtener los archivos del repositorio 
@@ -230,13 +232,17 @@ export class EventosDetallesComponent implements OnInit {
   //descargar el archivo, se le pasa el nombre del que se quiere descargar 
   downloadFile(archivo) {
     console.log(archivo);
-    this.repositorioService.downloadFile(archivo).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(<any>error);
-      })
+    window.open('http://localhost:8000/api/downloadRepositorio/' + archivo, '_blank');
+
+
+    // this.repositorioService.downloadFile(archivo).subscribe(
+    //   response => {
+    //     console.log(response);
+    //   },
+    //   error => {
+    //     console.log("paso al error");
+    //     console.log(<any>error);
+    //   })
   }
 
 }
