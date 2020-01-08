@@ -212,14 +212,17 @@ export class EventosDetallesPublicComponent implements OnInit {
   descargarMaterial(archivo) {
     console.log('estoy en descargar !!');
     console.log(archivo);
-    this.materialService.downloadMaterial(archivo).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
+    console.log('http://localhost:8000/api/downloadMaterial/'+archivo);
+    window.open('http://localhost:8000/api/downloadMaterial/'+archivo,'_blank' );
+    // this.materialService.downloadMaterial(archivo).subscribe(
+    //   response => {
+    //     console.log(response);
+    //   },
+    //   error => {
+    //     window.open('http://localhost:8000/api/downloadMaterial/'+archivo,'_blank' );
+    //     console.log(<any>error);
+    //   }
+    // )
   }
 
 }
