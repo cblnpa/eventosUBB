@@ -31,7 +31,7 @@ export class RepositorioService {
 
   downloadFile(nombreArchivo): Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.get(this.url+'repositorios/' + nombreArchivo, {headers: headers});
+    return this.http.get(this.url+'downloadRepositorio/' + nombreArchivo, {headers: headers});
   }
 
 }
