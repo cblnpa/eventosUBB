@@ -19,7 +19,7 @@ export class ModalMaterialAddComponent implements OnInit {
 
   public afuConfig = {
     multiple: false,
-    formatsAllowed: ".pptx, .pdf, .txt",
+    formatsAllowed: ".pptx, .pdf, .txt , .docx, .xlsx",
     maxSize: "50",
     uploadAPI: {
       url: global.url + 'materiales/upload',

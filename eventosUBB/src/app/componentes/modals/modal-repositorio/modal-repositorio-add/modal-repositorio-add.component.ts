@@ -19,7 +19,7 @@ export class ModalRepositorioAddComponent implements OnInit {
 
   public afuConfig = {
     multiple: false,
-    formatsAllowed: ".pptx, .pdf, .txt, .jpg, .png",
+    formatsAllowed: ".pptx, .pdf, .txt, .jpg, .png, .xlsx, .docx",
     maxSize: "50",
     uploadAPI: {
       url: global.url + 'repo',
