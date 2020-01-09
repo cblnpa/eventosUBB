@@ -128,7 +128,7 @@ export class LoginComponent implements OnInit {
               title: 'Contraseña incorrecta',
               type: 'error'
             });}
-          if( response.login ){
+          if( response.correo ){
             Swal.fire({
               title: 'Correo incorrecto',
               type: 'error'
