@@ -18,9 +18,22 @@ export class UserService {
     this.url = global.url;
   }
 
+  //Obtiene los usuarios para crear una unidad
   getAll(idUsuario): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(this.url + 'getAll/' + idUsuario, { headers: headers });
+  }
+
+  //Obtiene los usuarios para crear un evento
+  getUsuarioEncargado(): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url + 'getUsuariosEncargado', { headers: headers });
+  }
+
+  //Obtiene los usuarios para crear una comision
+  getUsuarioComision(idUsuario): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url + 'getUsuarioComision/' + idUsuario, { headers: headers });
   }
 
   // Registrar usuario 

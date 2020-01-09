@@ -15,6 +15,7 @@ export class ComisionCrearComponent implements OnInit {
   public idUsuario; //almacena id del usuario identificado
   public idEvento; //almacena el id del evento para enviar al servicio
   public comision;
+  public integrante; //almacena el nombre completo del integrante de la comisión
 
   //variables para el select
   public evento: evento;
@@ -67,7 +68,7 @@ export class ComisionCrearComponent implements OnInit {
   }
 
   getUsuarios() {
-    this.userService.getAll(this.idUsuario).subscribe(
+    this.userService.getUsuarioComision(this.idUsuario).subscribe(
       response => {
         if (response.code == 200) {
           console.log(response);
@@ -95,6 +96,7 @@ export class ComisionCrearComponent implements OnInit {
     this.idEvento = this.eventos.idEvento;
     this.eventoUsersService.crearComision(this.usuarios, this.idEvento).subscribe(
       response => {
+        console.log(response);
         if (response.code == 200) {
           console.log(response);
           Swal.fire({
@@ -103,6 +105,11 @@ export class ComisionCrearComponent implements OnInit {
           });
           this.router.navigate(['/verComisiones']);
         }
+        if(response.code == 400) {
+          this.integrante = response.encargado.users.nombreUsuario + ' ' + response.encargado.users.apellidoUsuario;
+          console.log(this.integrante);
+        }
+
       },
       error => {
         console.log(<any>error);

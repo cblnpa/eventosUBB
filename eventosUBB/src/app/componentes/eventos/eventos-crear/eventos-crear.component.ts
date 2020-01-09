@@ -74,7 +74,7 @@ export class EventosCrearComponent implements OnInit {
   }
 
   getUsuarios() {
-    this.userService.getAll(this.idUsuario).subscribe(
+    this.userService.getUsuarioEncargado().subscribe(
       response => {
         this.optionsUsuario = response.users;
       },

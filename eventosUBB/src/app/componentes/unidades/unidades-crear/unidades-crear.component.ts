@@ -37,11 +37,11 @@ export class UnidadesCrearComponent implements OnInit {
   public ciudades: any = []; //almacena las ciudades (o sedes)
   public optionsCiudad;
 
-  //Configuraciones del ngx-select-dropdown
+  //Configuraciones del ngx-select-dropdown para crear unidad
   configUsuario = {
     displayKey: 'email', //if objects array passed which key to be displayed defaults to description
     search: true, //true/false for the search functionlity defaults to false,
-    height: '150px', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
+    height: '100px', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
     placeholder: 'Seleccionar usuario', // text to be displayed when no item is selected defaults to Select,
     noResultsFound: '¡No se encuentra el usuario!', // text to be displayed when no items are found while searching
     searchPlaceholder: 'Buscar usuario', // label thats displayed in search input,
@@ -159,6 +159,8 @@ export class UnidadesCrearComponent implements OnInit {
   getUsuarios() {
     this.userService.getAll(this.idUsuario).subscribe(
       response => {
+        console.log(response);
+        console.log(this.idUsuario);
         this.optionsUsuario = response.users;
       },
       error => {
