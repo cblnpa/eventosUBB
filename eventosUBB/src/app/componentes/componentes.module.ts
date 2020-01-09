@@ -15,7 +15,8 @@ import {
     UnidadesCrearComponent, UnidadesVerComponent, ReportesGenerarComponent, ComisionVerComponent,
     ComisionCrearComponent, GenerarUtilidadesComponent, FormularioUtilidadesComponent,
     ProgramaComponent, TablaJornadaComponent, TablaExpositorComponent, TablaActividadComponent,
-    TablaColaboradorComponent, TablaMaterialComponent
+    TablaColaboradorComponent, TablaMaterialComponent, EventosAdministrarComponent,
+    EventosInscritosComponent
 } from '../componentes/componentes.index';
 
 // Componentes modals
@@ -31,7 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Angular material
-import { 
+import {
     MatStepperModule, MatInputModule, MatCardModule, MatButtonModule, MatPaginatorModule,
     MatSortModule, MatTableModule, MatSelectModule, MatProgressSpinnerModule,
     MatProgressBarModule, MatNativeDateModule, MatRippleModule, MatTooltipModule
@@ -75,6 +76,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
         GenerarUtilidadesComponent,
         FormularioUtilidadesComponent,
         ProgramaComponent,
+        EventosAdministrarComponent,
+        EventosInscritosComponent,
 
         //Componentes modals
         ModalActividadAddComponent,
@@ -96,12 +99,16 @@ import { ColorPickerModule } from 'ngx-color-picker';
         TablaActividadComponent,
         TablaColaboradorComponent,
         TablaMaterialComponent,
+        EventosInscritosComponent,
+        EventosAdministrarComponent,
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [
         ComponentesComponent,
         EventosDetallesComponent,
         EventosEditarComponent,
+        EventosAdministrarComponent,
+        EventosInscritosComponent,
         EditLoginComponent,
         InicioComponent,
         EventosMisEventosComponent,

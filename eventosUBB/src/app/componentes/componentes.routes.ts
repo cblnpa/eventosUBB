@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { ComponentesComponent } from './componentes.component';
 
 import { LoginComponent, EditLoginComponent, InicioComponent, EventosDetallesComponent,
-        EventosEditarComponent, EventosMisEventosComponent, EventosCrearComponent, 
-        GenerarUtilidadesComponent, EventosDetallesPublicComponent, 
-        UnidadesCrearComponent, UnidadesVerComponent, ReportesGenerarComponent, 
-        ComisionVerComponent, ComisionCrearComponent, FormularioUtilidadesComponent, ProgramaComponent } from '../componentes/componentes.index';
+        EventosEditarComponent, EventosCrearComponent, GenerarUtilidadesComponent, 
+        EventosDetallesPublicComponent, ProgramaComponent, UnidadesCrearComponent, 
+        UnidadesVerComponent, ReportesGenerarComponent, ComisionVerComponent, ComisionCrearComponent, 
+        FormularioUtilidadesComponent, EventosAdministrarComponent, EventosInscritosComponent } from '../componentes/componentes.index';
 
 import { LoginGuard } from '../servicios/guards/login.guard';
 
@@ -20,7 +20,8 @@ const componentesRoutes: Routes = [
             { path: 'inicio', component: InicioComponent , data: { titulo: 'Inicio' } },
             { path: 'eventoDetalle/:id', component: EventosDetallesComponent, data: { titulo: 'Detalles del evento' } },
             { path: 'programa/:id', component: ProgramaComponent, data: { titulo: 'Generar programa' } },
-            { path: 'misEventos', component: EventosMisEventosComponent, data: { titulo: 'Mis eventos' } },
+            { path: 'eventosInscritos', component: EventosInscritosComponent, data: { titulo: 'Eventos inscritos' } },
+            { path: 'adminEventos', component: EventosAdministrarComponent, data: { titulo: 'Administrar eventos' } },
             { path: 'crearEvento', component: EventosCrearComponent, data: { titulo: 'Crear nuevo evento' } },
             { path: 'eventosEditar/:id/:idUsuario', component: EventosEditarComponent, data: { titulo: 'Editar el evento' } },
             { path: 'editLogin', component: EditLoginComponent, data: { titulo: 'Editar mi perfil' }  },

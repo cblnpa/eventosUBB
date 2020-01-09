@@ -1,39 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import '~@ngx-share/button/themes/default/default-theme';
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~@ngx-share/button/themes/default/default-theme";
 body {
-    font-family: Roboto, Arial, sans-serif;
-    margin: 0;
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
 }
 
 .basic-container {
-    padding: 30px;
+  padding: 30px;
 }
 
 .version-info {
-    font-size: 8pt;
-    float: right;
+  font-size: 8pt;
+  float: right;
 }
 
 .avatar {
-    width: 45px;
+  width: 45px;
 }
 
 .avatar_mask {
-    width: 60px;
-    height: 60px;
-    border-radius: 900px;
-    overflow: hidden;
+  width: 60px;
+  height: 60px;
+  border-radius: 900px;
+  overflow: hidden;
 }
 
 .avatar-sidebar {
-    width: 25px;
-    height: 25px;
-    border-radius: 900px;
-    overflow: hidden;
+  width: 25px;
+  height: 25px;
+  border-radius: 900px;
+  overflow: hidden;
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+#table-sort-miseventos {
+  width: 100%;
+}
+
+#table-sort-cell-miseventos {
+  font-size: 12pt;
 }
