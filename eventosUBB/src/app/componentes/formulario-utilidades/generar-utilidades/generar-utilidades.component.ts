@@ -633,27 +633,35 @@ export class GenerarUtilidadesComponent implements OnInit {
     // doc.addImage(a, 'JPEG', 0, 0, a.width, a.height);
     // doc.save('testCanvas.pdf');
     var letra = this.participantes;
+    console.log("prueba");
     console.log(this.canvas);
 
-    const doc = new jsPDF({
-      orientation: 'auto',
-      unit: 'px',
-      format: [this.size.width, this.size.height]
-    });
-    var width = doc.internal.pageSize.getWidth();
-    var height = doc.internal.pageSize.getHeight();
+    // const doc = new jsPDF({
+    //   orientation: 'auto',
+    //   unit: 'px',
+    //   format: [this.size.width, this.size.height]
+    // });
+
+
+    // var width = doc.internal.pageSize.getWidth();
+    // var height = doc.internal.pageSize.getHeight();
     // var w = window.open("");
+
+    const doc = new jsPDF('p', 'mm', [216 ,279]);
+  
     if (this.canvas._iTextInstances != null) {
       for (let i = 0; i < letra.length; i++) {
         this.canvas._iTextInstances[0].text = letra[i].users.nombreUsuario + ' ' + letra[i].users.apellidoUsuario;
         let imgData = this.canvas.toDataURL('image/jpeg', 1.0);
-        doc.addImage(imgData, 'JPGE', 0, 0, width, height);
+        doc.addImage(imgData, 'JPGE', 0, 0);
         doc.addPage();
       }
       doc.save("prueba.pdf");
     } else {
+    
       let imgData = this.canvas.toDataURL('image/jpeg', 1.0);
-      doc.addImage(imgData, 'JPGE', 0, 0, width, height);
+      //
+      doc.addImage(imgData, 'JPGE', 0, 0, this.canvas.width, this.canvas.height);
       doc.addPage();
       doc.save("prueba.pdf");
     }
