@@ -94,22 +94,23 @@ export class ComisionCrearComponent implements OnInit {
 
   crearComision(form) {
     this.idEvento = this.eventos.idEvento;
+    Swal.showLoading();
     this.eventoUsersService.crearComision(this.usuarios, this.idEvento).subscribe(
       response => {
         console.log(response);
-        if (response.code == 200) {
-          console.log(response);
+        if (response.evento) {
           Swal.fire({
             type: 'success',
-            title: '¡Se ha creado con éxito la comisión!'
+            title: 'Se han agregado correctamente los integrantes a la comisión'
           });
           this.router.navigate(['/verComisiones']);
         }
-        if(response.code == 400) {
-          // this.integrante = response.encargado.users.nombreUsuario + ' ' + response.encargado.users.apellidoUsuario;
-          // console.log(this.integrante);
+        if (response.evento == null){
+          Swal.fire({
+            type: 'error',
+            title: 'El usuario seleccionado ya pertenece a la comisión'
+          });
         }
-
       },
       error => {
         console.log(<any>error);
@@ -119,7 +120,7 @@ export class ComisionCrearComponent implements OnInit {
   salirCrearComision() {
     Swal.fire({
       title: '¿Está seguro que desea salir?',
-      text: "Al salir, la comisión no se creará",
+      text: "Al salir, no se agregarán los integrantes a la comisión",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#03C303',
