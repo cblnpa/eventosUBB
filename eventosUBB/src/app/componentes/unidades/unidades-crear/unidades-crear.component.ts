@@ -260,6 +260,7 @@ export class UnidadesCrearComponent implements OnInit {
     console.log('Guardar sub unidad');
     this.miUnidad.email = this.usuarios.email;
     this.miUnidad.idAdminUnidad = this.idUsuario;
+    Swal.showLoading();
     this.unidadService.guardarSubUnidad(this.miUnidad).subscribe(
       response => {
         console.log(response);
@@ -268,11 +269,12 @@ export class UnidadesCrearComponent implements OnInit {
             type: 'success',
             title: '¡Se ha creado con éxito la sub unidad!'
           });
+          this.router.navigate(['/verUnidades']);
         }
-        this.router.navigate(['/verUnidades']);
       },
       error => {
         console.log(<any>error);
+        Swal.close();
       })
   }
 

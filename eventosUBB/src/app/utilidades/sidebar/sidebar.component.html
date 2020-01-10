@@ -13,12 +13,12 @@
 
                     <ul aria-expanded="false" class="collapse">
                         <li><a class="pointer" routerLinkActive="active" [routerLink]="['/editLogin']">
-                            <i class="fa fa-edit"></i> Modificar perfil</a></li>
+                                <i class="fa fa-edit"></i> Modificar perfil</a></li>
 
                     </ul>
                     <ul aria-expanded="false" class="collapse">
                         <li><a class="pointer" (click)="userService.logout()">
-                            <i class="fa fa-power-off"></i> Cerrar sesión</a></li>
+                                <i class="fa fa-power-off"></i> Cerrar sesión</a></li>
                     </ul>
                 </li>
 
@@ -37,20 +37,11 @@
                     <ul aria-expanded="false" class="collapse">
                         <li> <a routerLinkActive="active" routerLink="/inicio"> Ver eventos </a> </li>
                         <li> <a routerLinkActive="active" routerLink="/eventosInscritos"> Eventos inscritos </a> </li>
-                        <li> <a routerLinkActive="active" routerLink="/adminEventos"> Eventos a cargo </a> </li>
-                        <li *ngIf="idPerfil == 3 || idPerfil == 5"> <a routerLinkActive="active" routerLink="/crearEvento"> Crear evento
+                        <li *ngIf="idPerfil != 1 && idPerfil != 2"> <a routerLinkActive="active"
+                                routerLink="/adminEventos"> Eventos a cargo </a> </li>
+                        <li *ngIf="idPerfil == 3 || idPerfil == 5"> <a routerLinkActive="active"
+                                routerLink="/crearEvento"> Crear evento
                             </a> </li>
-                    </ul>
-                </li>
-
-                <!-- Opción de generar utilidades -->
-                <li *ngIf="idPerfil == 4 || idPerfil == 5 || idPerfil == 6">
-                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
-                        <i class="mdi mdi-pencil-box-outline"></i><span class="hide-menu"> Utilidades</span>
-                    </a>
-
-                    <ul aria-expanded="false" class="collapse">
-                        <li> <a routerLinkActive="active" id="diploma" routerLink="/generarUtilidades"> Generar utilidades</a> </li>
                     </ul>
                 </li>
 
@@ -78,19 +69,8 @@
                     </ul>
                 </li>
 
-                <!-- Opción de Reportes -->
-                <li *ngIf="idPerfil == 1 || idPerfil == 3">
-                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
-                        <i class="mdi mdi-file-document"></i><span class="hide-menu"> Reportes</span>
-                    </a>
-
-                    <ul aria-expanded="false" class="collapse">
-                        <li> <a routerLinkActive="active" routerLink="/reportes"> Reportes </a> </li>
-                    </ul>
-                </li>
-
                 <!-- Opción de comisión -->
-                <li *ngIf="idPerfil == 4 || idPerfil == 5">
+                <li *ngIf="idPerfil != 1 && idPerfil != 2 && idPerfil != 6">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <i class="mdi mdi-account-multiple"></i><span class="hide-menu"> Comisiones</span>
                     </a>
@@ -98,6 +78,29 @@
                     <ul aria-expanded="false" class="collapse">
                         <li> <a routerLinkActive="active" routerLink="/verComisiones"> Ver comisiones </a> </li>
                         <li> <a routerLinkActive="active" routerLink="/crearComision"> Crear comisión </a> </li>
+                    </ul>
+                </li>
+
+                <!-- Opción de generar utilidades -->
+                <li *ngIf="idPerfil != 1 && idPerfil != 2">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <i class="mdi mdi-pencil-box-outline"></i><span class="hide-menu"> Utilidades</span>
+                    </a>
+
+                    <ul aria-expanded="false" class="collapse">
+                        <li> <a routerLinkActive="active" id="diploma" routerLink="/generarUtilidades"> Generar
+                                utilidades</a> </li>
+                    </ul>
+                </li>
+
+                <!-- Opción de Reportes -->
+                <li *ngIf="idPerfil == 1 || idPerfil == 3">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <i class="mdi mdi-file-document"></i><span class="hide-menu"> Reportes</span>
+                    </a>
+
+                    <ul aria-expanded="false" class="collapse">
+                        <li> <a routerLinkActive="active" routerLink="/reportes"> Generar reporte </a> </li>
                     </ul>
                 </li>
             </ul>
