@@ -27,7 +27,7 @@ const componentesRoutes: Routes = [
             { path: 'editLogin', component: EditLoginComponent, data: { titulo: 'Editar mi perfil' }  },
             { path: 'crearUnidad', component: UnidadesCrearComponent, data: { titulo: 'Crear' } },
             { path: 'editarUnidad/:id', component: UnidadesCrearComponent, data: { titulo: 'Editar' } },
-            { path: 'verUnidades', component: UnidadesVerComponent, data: { titulo: 'Unidades' } },
+            { path: 'verUnidades', component: UnidadesVerComponent, data: { titulo: 'Unidades y ayudantes' } },
             { path: 'reportes', component: ReportesGenerarComponent, data: { titulo: 'Reportes' } },
             { path: 'verComisiones', component: ComisionVerComponent, data: { titulo: 'Comisiones' } },
             { path: 'crearComision', component: ComisionCrearComponent, data: { titulo: 'Crear nueva comisión' } },

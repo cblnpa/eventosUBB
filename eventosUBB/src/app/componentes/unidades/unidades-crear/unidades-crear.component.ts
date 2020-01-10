@@ -206,7 +206,7 @@ export class UnidadesCrearComponent implements OnInit {
       })
   }
 
-  salirCrearUnidad(){
+  salirCrearUnidad() {
     Swal.fire({
       title: '¿Está seguro que desea salir?',
       text: "Al salir, la unidad no se creará",
@@ -231,7 +231,7 @@ export class UnidadesCrearComponent implements OnInit {
         if (response) {
           Swal.fire({
             type: 'success',
-            title: '¡Se ha creado con éxito la sub unidad!'
+            title: 'Se han modificado con éxito los datos de la unidad'
           });
           this.router.navigate(['/verUnidades']);
         }
@@ -257,7 +257,6 @@ export class UnidadesCrearComponent implements OnInit {
 
   // Función para guardar la Sub Unidad
   guardarSubUnidad(form) {
-    console.log('Guardar sub unidad');
     this.miUnidad.email = this.usuarios.email;
     this.miUnidad.idAdminUnidad = this.idUsuario;
     Swal.showLoading();
@@ -267,9 +266,15 @@ export class UnidadesCrearComponent implements OnInit {
         if (response.code == 200) {
           Swal.fire({
             type: 'success',
-            title: '¡Se ha creado con éxito la sub unidad!'
+            title: 'Ayudante asignado a su unidad exitosamente'
           });
           this.router.navigate(['/verUnidades']);
+        }
+        if (response.code == 400) {
+          Swal.fire({
+            type: 'error',
+            title: 'Verifica el ayudante que has seleccionado'
+          });
         }
       },
       error => {
@@ -278,10 +283,10 @@ export class UnidadesCrearComponent implements OnInit {
       })
   }
 
-  salirCrearSubUnidad(){
+  salirCrearSubUnidad() {
     Swal.fire({
       title: '¿Está seguro que desea salir?',
-      text: "Al salir, la sub unidad no se creará",
+      text: "Al salir, no aasignará ningún ayudante a su unidad",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#03C303',

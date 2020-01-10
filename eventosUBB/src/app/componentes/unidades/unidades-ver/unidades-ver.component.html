@@ -3,7 +3,18 @@
     <div class="col-md-12 mr-2 mt-2">
       <div class="card-header">
         <h1 class="m-t-15 text-center text-white" *ngIf="idPerfil == 1"> Unidades </h1>
-        <h1 class="m-t-15 text-center text-white" *ngIf="idPerfil == 3"> Sub unidades </h1>
+        <h1 class="m-t-15 text-center text-white" *ngIf="idPerfil == 3"> Sub unidades</h1>
+      </div>
+
+      <div *ngIf="idPerfil == 3" class="col-md-12 m-t-10">
+        <div class="alert alert-warning">
+          La sub unidad corresponde a un ayudante el cual tiene como función agilizar el proceso 
+          de creación de eventos que posee la unidad actual.
+        </div>
+      </div>
+
+      <div *ngIf="idPerfil ==3" class="col-md-12 m-t-10">
+        <h4 *ngIf="nombreUnidad != null"> {{nombreUnidad}} <span class="badge badge-primary"> unidad actual</span></h4>
       </div>
 
       <!-- unidad -->
@@ -101,7 +112,7 @@
         <!-- buscador -->
         <div class="col-md-12">
           <mat-form-field class="example-full-width">
-            <input matInput [(ngModel)]="filtrar2" (keyup)="applyFilter2()" placeholder="Buscar unidad">
+            <input matInput [(ngModel)]="filtrar2" (keyup)="applyFilter2()" placeholder="Buscar ayudante">
           </mat-form-field>
         </div>
 
@@ -116,7 +127,7 @@
 
         <div class="col-md-12">
           <div class="text-right">
-            <button class="btn btn-success" (click)="crearSubUnidad()">Crear sub unidad</button>
+            <button class="btn btn-success" (click)="crearSubUnidad()">Agregar ayudante</button>
           </div>
         </div>
 
@@ -125,8 +136,8 @@
             matSort class="mat-elevation-z8">
 
             <ng-container matColumnDef="created_at">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha creación</th>
-              <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.created_at | date:'shortDate'}}
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Creación</th>
+              <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.created_at | date:'dd-MM-yyyy'}}
               </td>
             </ng-container>
 
@@ -145,18 +156,18 @@
             </ng-container>
 
             <ng-container matColumnDef="encargado">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Encargado</th>
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Ayudante</th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
                 {{unidades.user.nombreUsuario + ' ' + unidades.user.apellidoUsuario }} </td>
             </ng-container>
 
             <ng-container matColumnDef="sede">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Sede</th>
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Sede</th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.unidad.sede}} </td>
             </ng-container>
 
             <ng-container matColumnDef="deleteSubUnidad">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef></th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
                 <button class="btn btn-block btn-danger" (click)="eliminarSubUnidad(unidades.idusers_unidad)">
                   <i class="mdi mdi-delete"></i>

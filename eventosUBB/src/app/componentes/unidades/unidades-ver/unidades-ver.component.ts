@@ -23,6 +23,7 @@ export class UnidadesVerComponent implements OnInit {
   public identity;
   public idUsuario;
   public url;
+  public nombreUnidad;
 
   //Data sorting para unidad
   displayedColumns: string[] = ['created_at', 'logoUnidad', 'nombreUnidad', 'encargado', 'sede', 'editUnidad', 'deleteUnidad'];
@@ -121,9 +122,13 @@ export class UnidadesVerComponent implements OnInit {
 
           this.dataSource2.filterPredicate = (data, filter) => {
             return this.displayedColumns2.some(ele => {
-              return data.unidad.nombreUnidad.toLowerCase().indexOf(filter) != -1;
+              return data.user.nombreUsuario.toLowerCase().indexOf(filter) != -1;
             });
           }
+        }
+        if (response.code == 200 && response.subUnidad.length > 0) {
+          this.nombreUnidad = response.subUnidad[0].unidad.nombreUnidad;
+          console.log(this.nombreUnidad);
         }
         if (response.subUnidad.length == 0)
           this.existSubUnidad = 1;

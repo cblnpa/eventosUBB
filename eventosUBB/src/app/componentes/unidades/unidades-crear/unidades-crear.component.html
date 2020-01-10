@@ -4,8 +4,7 @@
             <div class="card-header mt-3">
                 <h1 class="text-center text-white" *ngIf="idPerfil == 1 && tipoVista == 1">Crear una nueva unidad</h1>
                 <h1 class="text-center text-white" *ngIf="idPerfil == 1 && tipoVista == 2">Editar unidad</h1>
-                <h1 class="text-center text-white" *ngIf="idPerfil == 3 && tipoVista == 1">Agregar sub unidad</h1>
-                <h1 class="text-center text-white" *ngIf="idPerfil == 3 && tipoVista == 2">Editar sub unidad</h1>
+                <h1 class="text-center text-white" *ngIf="idPerfil == 3 && tipoVista == 1">Agregar ayudante</h1>
             </div>
             <div class="card-body bordes-card">
                 <!-- Formulario para crear unidad -->
@@ -112,12 +111,14 @@
                         <label for="nombreCiudad" class="col-sm-3 control-label">Sede *</label>
                         <div class="col-sm-9">
                             <ngx-select-dropdown tabindex="0" [config]="configCiudad" [options]="optionsCiudad"
-                                [multiple]="false" name="nombreCiudad" #nombreCiudad="ngModel" [(ngModel)]="ciudades" required>
+                                [multiple]="false" name="nombreCiudad" #nombreCiudad="ngModel" [(ngModel)]="ciudades"
+                                required>
                             </ngx-select-dropdown>
                             <span class="help-block">
                                 <small>Selecciona la sede asociada a la unidad.
-                                    Actualmente la sede es: <span class="badge badge-primary m-l-5">{{unidadEdit.sede}}</span>
-                            </small></span>
+                                    Actualmente la sede es: <span
+                                        class="badge badge-primary m-l-5">{{unidadEdit.sede}}</span>
+                                </small></span>
                             <h5 *ngIf="nombreUnidad.hasError('required') || nombreCiudad.hasError('required')"
                                 class="mt-3 text-danger">* Estos campos son requeridos</h5>
                         </div>
@@ -137,21 +138,22 @@
 
                     <!-- Agregar el encargado de la unidad -->
                     <div class="form-group row">
-                        <label for="email" class="col-sm-4 control-label text-right">Encargado *</label>
+                        <label for="email" class="col-sm-4 control-label text-right">Ayudante *</label>
                         <div class="col-sm-6">
                             <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="optionsUsuario"
                                 [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios" required>
                             </ngx-select-dropdown>
-                            <span class="help-block"><small>Selecciona al encargado de la sub unidad</small></span>
+                            <span class="help-block"><small>Selecciona un ayudante para tu unidad</small></span>
                         </div>
 
                         <div class="col-sm-1 mt-2">
                             <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
                                 <span class="tooltip-content5">
                                     <span class="tooltip-text3">
-                                        <span class="tooltip-inner2"> El encargado de la sub unidad tiene la opción
-                                            de crear un evento. Este usuario no podrá visualizar los otros integrantes
-                                            de las sub unidades.
+                                        <span class="tooltip-inner2">
+                                            Un ayudante de unidad tiene como función agilizar el proceso
+                                            de creación de eventos. Este usuario no podrá visualizar los
+                                            otros ayudantes que existan en la unidad.
                                         </span>
                                     </span>
                                 </span>
@@ -161,13 +163,13 @@
 
                     <div class="form-group row m-b-0">
                         <div class="col-md-8"></div>
-                        <div class="col-md-2 text-right">
-                            <button type="submit" class="btn btn-block btn-success waves-effect waves-light"
-                                [disabled]="crearSubUnidadForm.invalid">Crear</button>
-                        </div>
                         <div class="col-md-2 text-left">
-                            <button type="button" class="btn btn-danger btn-block waves-effect"
+                            <button type="button" class="btn btn-danger btn-block"
                                 (click)="salirCrearSubUnidad()">Cancelar</button>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <button type="submit" class="btn btn-block btn-success"
+                                [disabled]="crearSubUnidadForm.invalid">Agregar</button>
                         </div>
                     </div>
 
