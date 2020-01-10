@@ -653,7 +653,7 @@ export class GenerarUtilidadesComponent implements OnInit {
       for (let i = 0; i < letra.length; i++) {
         this.canvas._iTextInstances[0].text = letra[i].users.nombreUsuario + ' ' + letra[i].users.apellidoUsuario;
         let imgData = this.canvas.toDataURL('image/jpeg', 1.0);
-        doc.addImage(imgData, 'JPGE', 0, 0);
+        doc.addImage(imgData, 'JPGE', 0, 0, 216, 279);
         doc.addPage();
       }
       doc.save("prueba.pdf");
@@ -661,8 +661,8 @@ export class GenerarUtilidadesComponent implements OnInit {
     
       let imgData = this.canvas.toDataURL('image/jpeg', 1.0);
       //
-      doc.addImage(imgData, 'JPGE', 0, 0, this.canvas.width, this.canvas.height);
-      doc.addPage();
+      doc.addImage(imgData, 'JPGE', 0, 0, 216, 279);
+      
       doc.save("prueba.pdf");
     }
   }
