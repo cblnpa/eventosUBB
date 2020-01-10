@@ -4,7 +4,6 @@ import { global } from '../../../servicios/global';
 import { EventoPojoService, EventoUsersService, UserService, EventoService, ComisionService, RepositorioService, ModalService } from '../../../servicios/servicio.index';
 import { evento_users, asistencia, deleteComision } from '../../../model/model.index';
 import Swal from 'sweetalert2';
-import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-eventos-detalles',
@@ -35,6 +34,8 @@ export class EventosDetallesComponent implements OnInit {
   public arrJornadas = [];
   public arrExpositores = [];
   public evento;
+  public fechas = []; //almacena todas las fechas del evento
+  public fechaEvento; //almacena la fecha inicial del evento 
 
   public deleteC: deleteComision; //modelo para enviar los id del integrante de la comisión a eliminar
   public asistencia: asistencia; //modelo que posee evento_idEvento & users_id *se ocupa para el request
@@ -48,6 +49,9 @@ export class EventosDetallesComponent implements OnInit {
     this.identity = this.userService.getIdentity();
     this.asistencia = new asistencia(null, null);
     this.deleteC = new deleteComision(null, null);
+    this.repositorioService.getGeneralEmitter().subscribe(e => {
+      this.mostrarRepositorio();
+    })
   }
 
   ngOnInit() {
@@ -101,11 +105,14 @@ export class EventosDetallesComponent implements OnInit {
               }
             }
             //Almacenar jornadas
+            var primeraFecha = '';
             if (response.Jornada.length > 0) {
               for (var i = 0; i < response.Jornada.length; i++) {
-                if (response.Jornada[i] != null)
+                if (response.Jornada[i] != null) {
                   this.arrJornadas.push(response.Jornada[i]);
+                  this.fechas.push(response.Jornada[i].fechaJornada);
                 }
+              }
             }
             //Almacenar expositores
             if (response.expositor.length > 0) {
@@ -113,6 +120,11 @@ export class EventosDetallesComponent implements OnInit {
                 if (response.expositor[i] != null)
                   this.arrExpositores.push(response.expositor[i]);
               }
+            }
+            //Seleccionar la fecha más pronta de las jornadas
+            for (var i = 0; i < this.fechas.length; i++) {
+              if (primeraFecha < this.fechas[i])
+                this.fechaEvento = this.fechas[i];
             }
             //Datos básicos del evento
             this.evento = response.evento;
@@ -228,22 +240,24 @@ export class EventosDetallesComponent implements OnInit {
 
   agregarRepositorioModal() {
     this.modalService.mostrarModal();
+    this.repositorioService.getGeneralEmitter().subscribe(e => {
+      this.mostrarRepositorio();
+    })
+  }
+
+  agregarComision() {
+    this.router.navigate(['/crearComision']);
   }
 
   //descargar el archivo, se le pasa el nombre del que se quiere descargar 
   downloadFile(archivo) {
     console.log(archivo);
     window.open('http://localhost:8000/api/downloadRepositorio/' + archivo, '_blank');
+  }
 
-
-    // this.repositorioService.downloadFile(archivo).subscribe(
-    //   response => {
-    //     console.log(response);
-    //   },
-    //   error => {
-    //     console.log("paso al error");
-    //     console.log(<any>error);
-    //   })
+  //eliminar el repositorio
+  deleteFile(archivo){
+    console.log(archivo);
   }
 
 }

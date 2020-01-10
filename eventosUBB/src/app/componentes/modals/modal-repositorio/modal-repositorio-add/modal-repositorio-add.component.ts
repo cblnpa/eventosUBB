@@ -64,12 +64,16 @@ export class ModalRepositorioAddComponent implements OnInit {
         console.log(this.repositorioAdd);
         this.repositorioService.guardarRepositorio(this.repositorioAdd).subscribe(
           response => {
-            console.log(response);
-            Swal.fire({
-              type: 'success',
-              title: 'Creado con éxito',
-              text: 'Se subido un archivo al repositorio',
-            })
+            if(response.code == 200){
+              Swal.fire({
+                type: 'success',
+                title: 'Creado con éxito',
+                text: 'Se subido un archivo al repositorio',
+              });
+              this.repositorioService.getGeneralEmitter().subscribe(e => {
+                console.log(e);
+              })
+            }
           },
           error => {
             console.log(<any>error);

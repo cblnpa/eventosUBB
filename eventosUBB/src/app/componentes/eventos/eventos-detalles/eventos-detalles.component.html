@@ -1,19 +1,19 @@
 <body class="fix-header card-no-border fix-sidebar">
     <div class="row">
+
         <!-- Column -->
         <div class="col-lg-3 col-xlg-3 col-md-3">
-            <div class="card">
-                <img *ngIf="!evento?.imagen" src="../../../assets/images/socialbg.jpg" alt="Card image" />
-                <img *ngIf="evento?.imagen" src="{{url + 'image/' + evento.imagen}}" alt="user" />
-                <!-- evento.imagen -->
-                <div class="card-img-overlay card-inverse social-profile d-flex">
-                    <div class="align-self-center">
-                        <h2 class="card-subtitle"> {{evento?.nombreEvento}} </h2>
-                        <hr>
-                        <h4 *ngIf="arrJornadas.length > 0" class="card-subtitle"><i class="fa fa-calendar"></i>
-                            {{arrJornadas[0].fechaJornada}} </h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-title card-info text-center">
+                        <h2 class="text-white"> {{evento?.nombreEvento}} </h2>
                     </div>
                 </div>
+            </div>
+            <div class="card">
+                <img *ngIf="!evento?.imagen" src="../../../assets/images/socialbg.jpg" alt="fondo evento" />
+                <img style="height: 300px;" *ngIf="evento?.imagen" src="{{url + 'image/' + evento.imagen}}"
+                    alt="fondo evento" />
             </div>
 
             <!-- Botones -->
@@ -29,6 +29,9 @@
                 <div class="card-body">
                     <h5><i class="fa fa-users"></i> Cupos</h5>
                     <h6> {{evento?.capacidad}} </h6>
+                    <hr>
+                    <h5><i class="fa fa-calendar"></i> Fecha</h5>
+                    <h6> {{fechaEvento | date:'dd/MM/yyyy'}} </h6>
                     <hr>
                     <h5><i class="mdi mdi-home-map-marker"></i> Dependencia </h5>
                     <h6> {{evento?.ubicacion}} </h6>
@@ -119,6 +122,7 @@
                             <div class="card-title text-center">
                                 <h1>Actividades</h1>
                             </div>
+
                             <div class="card-body col-md-10">
                                 <div class="table-responsive">
                                     <table class="table table-bordered color-table info-table">
@@ -166,12 +170,17 @@
                                                 <img *ngIf="expositor.foto" src="{{url + 'image/' + expositor.foto}}" />
                                             </div>
                                             <div class="el-card-content">
-                                                <h2 class="box-tittle text-dark"> <i class="fa fa-building"></i> {{expositor.empresa}} </h2>
+                                                <h2 class="box-tittle text-dark"> <i class="fa fa-building"></i>
+                                                    {{expositor.empresa}} </h2>
                                                 <h3 class="box-tittle">
                                                     {{expositor.nombreExpositor + ' ' + expositor.apellidoExpositor + ' ' + expositor.apellido2Expositor}}
                                                 </h3>
-                                                <h6 class="mailbox"><i class="fa fa-envelope"></i> <a href="mailto:{{expositor.correoExpositor}}">{{expositor.correoExpositor}}</a></h6>
-                                                <h6><i class="fa fa-phone"></i> <a href="tel:{{expositor.telefonoExpositor}}"> {{expositor.telefonoExpositor}}</a> </h6>
+                                                <h6 class="mailbox"><i class="fa fa-envelope"></i> <a
+                                                        href="mailto:{{expositor.correoExpositor}}">{{expositor.correoExpositor}}</a>
+                                                </h6>
+                                                <h6><i class="fa fa-phone"></i> <a
+                                                        href="tel:{{expositor.telefonoExpositor}}">
+                                                        {{expositor.telefonoExpositor}}</a> </h6>
                                                 <br>
                                             </div>
                                         </div>
@@ -180,11 +189,14 @@
                             </div>
                         </div>
 
+                        <!-- colaboradores tab -->
                         <div class="tab-pane" id="colaboradores" role="tabpanel">
-                            <h2 class="mt-3 ml-3">Colaboradores</h2>
-                            <br>
+                            <div class="card-title text-center">
+                                <h1>Colaboradores</h1>
+                            </div>
+
                             <div class="row el-element-overlay">
-                                <div *ngFor="let colaborador of arrColaboradores" class="col-lg-4 col-xlg-3 col-md-3">
+                                <div *ngFor="let colaborador of arrColaboradores" class="col-lg-6 col-xs-12 col-md-6">
                                     <!-- agregar a este div un ngFor por cada expositor -->
                                     <div class="card">
                                         <div class="el-card-item">
@@ -193,34 +205,20 @@
                                                     alt="Card image" />
                                                 <img *ngIf="colaborador.logo"
                                                     src="{{url + 'image/' + colaborador.logo}}" alt="user" />
-
-                                                <div class="el-overlay">
-                                                    <!-- overlay son efectos al pasar sobre la foto -->
-                                                    <ul class="el-info">
-                                                        <li>
-                                                            <a *ngIf="!colaborador.logo"
-                                                                class="btn default btn-outline image-popup-vertical-fit"
-                                                                href="../../../assets/images/user.png">
-                                                                <i class="icon-magnifier"></i>
-                                                            </a>
-                                                            <a *ngIf="colaborador.logo"
-                                                                class="btn default btn-outline image-popup-vertical-fit"
-                                                                href="{{url + 'image/' + colaborador.logo}}">
-                                                                <i class="icon-magnifier"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
                                             </div>
                                             <div class="el-card-content">
-                                                <h2 class="box-tittle"><strong> {{ colaborador.nombreColaborador}}
-                                                    </strong>
-                                                </h2> <!-- colaborador -->
+                                                <h2 class="box-tittle text-dark"> <i class="fa fa-building"></i>
+                                                    {{ colaborador.nombreColaborador}} </h2>
                                                 <h3 class="box-tittle"> {{ colaborador.nombreRepresentante }} </h3>
-                                                <!-- colaborador -->
-                                                <h6><i class="fa fa-envelope"></i> {{colaborador.correoColaborador}}
-                                                </h6>
-                                                <!-- expositor.correo -->
+                                                <h6 class="mailbox"><i class="fa fa-envelope"></i> <a
+                                                        href="mailto:{{colaborador.correoColaborador}}">
+                                                        {{colaborador.correoColaborador}}</a></h6>
+                                                <h6 *ngIf="colaborador.sitioWeb"><i class="fa fa-globe"></i> <a
+                                                        href="http://{{colaborador.sitioWeb}}" target="_blank">
+                                                        {{colaborador.sitioWeb}}</a> </h6>
+                                                <h6><i class="fa fa-phone"></i> <a
+                                                        href="tel:{{colaborador.telefonoColaborador}}">
+                                                        {{colaborador.telefonoColaborador}}</a> </h6>
                                                 <br>
                                             </div>
                                         </div>
@@ -229,87 +227,125 @@
                             </div>
                         </div>
 
+                        <!-- participantes tab-->
                         <div class="tab-pane" id="participantes" role="tabpanel">
-                            <table
-                                class="table color-table inverse-table full-inverse-table full-color-table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th class="text-center">Asistencia</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let persona of participantes; let i = index">
-                                        <td> {{i+1}} </td>
-                                        <td> {{persona.users.nombreUsuario + ' ' + persona.users.apellidoUsuario}} </td>
-                                        <td class="text-center"><button class="btn btn-success"
-                                                (click)="acreditar(persona.users_id,evento.idEvento)">
-                                                <i class="mdi mdi-check"></i> </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="card-title text-center">
+                                <h1>Participantes inscritos</h1>
+                            </div>
+
+                            <div class="card-body col-md-11">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered color-table info-table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nombre</th>
+                                                <th>Fecha inscripción</th>
+                                                <th>Hora inscripción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let persona of participantes; let i = index">
+                                                <td> {{i+1}} </td>
+                                                <td> {{persona.users.nombreUsuario + ' ' + persona.users.apellidoUsuario}}
+                                                </td>
+                                                <td> {{persona.created_at | date:'dd/MM/yyyy'}} </td>
+                                                <td> {{persona.created_at | date:'hh:mm'}} </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
 
+                        <!-- comision tab -->
                         <div class="tab-pane" id="comision" role="tabpanel">
-                            <div class="card-body">
-                                <h1>Integrantes de la comisión</h1>
+                            <div class="card-title text-center">
+                                <h1>Comisión</h1>
                             </div>
-                            <table class="table color-table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Correo</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngFor="let comision of comisiones; let i = index">
-                                    <tr>
-                                        <td> {{i+1}} </td>
-                                        <td> {{comision.users.nombreUsuario + ' ' + comision.users.apellidoUsuario}}
-                                        </td>
-                                        <td> {{comision.users.email}} </td>
-                                        <td> <button class="btn btn-block btn-danger mb-3"
-                                                (click)="eliminarComision(comision.users.id)"> <i
-                                                    class="mdi mdi-delete"></i>
-                                            </button> </td>
-                                    </tr>
-                                </tbody>
 
-                            </table>
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <button type="button" class="btn btn-success" (click)="agregarComision()"><i
+                                            class="fa fa-plus"></i> Agregar integrante </button>
+                                </div>
+                            </div>
+
+                            <div class="card-body col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered color-table info-table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nombre</th>
+                                                <th>Correo</th>
+                                                <th>Fecha asignación</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let comision of comisiones; let i = index">
+                                            <tr>
+                                                <td> {{i+1}} </td>
+                                                <td> {{comision.users.nombreUsuario + ' ' + comision.users.apellidoUsuario}}
+                                                </td>
+                                                <td> {{comision.users.email}} </td>
+                                                <td> {{comision.created_at | date:'dd/MM/yyyy'}} </td>
+                                                <td *ngIf="rol == 1">
+                                                    <button class="btn btn-block btn-danger mb-3"
+                                                        (click)="eliminarComision(comision.users.id)">
+                                                        <i class="mdi mdi-delete"></i> </button></td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+
+
                         </div>
 
+                        <!-- repositorio tab -->
                         <div class="tab-pane" id="repositorio" role="tabpanel">
-                            <div class="col-md-12 text-center m-t-15">
-                                <button type="button" class="btn btn-success" (click)="agregarRepositorioModal()">
-                                    <i class="mdi mdi-plus"></i> Agregar nuevo archivo
-                                </button>
+                            <div class="card-title text-center">
+                                <h1>Repositorio</h1>
                             </div>
 
-                            <table
-                                class="table color-table m-t-15 inverse-table full-inverse-table full-color-table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Archivo</th>
-                                        <th>Fecha de creación</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngFor="let repo of repositorio; let i = index">
-                                    <tr>
-                                        <td> {{i+1}} </td>
-                                        <td> {{repo.archivo}} </td>
-                                        <td> {{repo.created_at | date}} </td>
-                                        <td><button class="btn btn-outline-success"
-                                                (click)="downloadFile(repo.archivo)"><i
-                                                    class="mdi mdi-download"></i></button></td>
-                                    </tr>
-                                </tbody>
+                            <div class="row">
+                                <div class="col-md-12 m-t-15 text-right">
+                                    <button type="button" class="btn btn-success" (click)="agregarRepositorioModal()">
+                                        <i class="mdi mdi-plus"></i> Subir nuevo archivo
+                                    </button>
+                                </div>
+                            </div>
 
-                            </table>
+
+                            <div class="card-body col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered color-table info-table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Archivo</th>
+                                                <th>Fecha de creación</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let repo of repositorio; let i = index">
+                                            <tr>
+                                                <td> {{i+1}} </td>
+                                                <td> {{repo.archivo}} </td>
+                                                <td> {{repo.created_at | date:'dd/MM/yyyy'}} </td>
+                                                <td><button class="btn btn-outline-success"
+                                                        (click)="downloadFile(repo.archivo)">
+                                                        <i class="mdi mdi-download"></i></button></td>
+                                                <td><button class="btn btn-outline-danger" (click)="deleteFile(repo.archivo)">
+                                                    <i class="mdi mdi-delete"></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div> <!-- div final de los tab -->
                 </div>
