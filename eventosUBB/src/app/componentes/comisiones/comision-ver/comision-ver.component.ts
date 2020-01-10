@@ -46,8 +46,9 @@ export class ComisionVerComponent implements OnInit {
             });
           }
         }
-        if (response.eventos.length == 0)
+        if (response.code == 404)
           this.comisionExist = 1;
+
       },
       error => {
         console.log(<any>error);
@@ -60,7 +61,7 @@ export class ComisionVerComponent implements OnInit {
     this.router.navigate(['/eventoDetalle/' + idEvento]);
   }
 
-  crearComision(){
+  crearComision() {
     this.router.navigate(['/crearComision']);
   }
 

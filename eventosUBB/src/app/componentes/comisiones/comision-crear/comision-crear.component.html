@@ -63,15 +63,15 @@
 
                     <div class="form-group row m-b-0">
                         <div class="col-md-8"></div>
-                        <div class="col-md-2 text-right">
-                            <button type="submit" [disabled]="crearComisionForm.invalid"
-                                class="btn btn-block btn-success waves-effect waves-light">Crear</button>
-                        </div>
                         <div class="col-md-2 text-left">
-                            <button type="button" class="btn btn-danger btn-block waves-effect"
+                            <button type="button" class="btn btn-danger btn-block"
                                 (click)="salirCrearComision()">
                                 Cancelar
                             </button>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <button type="submit" [disabled]="crearComisionForm.invalid"
+                                class="btn btn-block btn-success">Agregar</button>
                         </div>
                     </div>
 

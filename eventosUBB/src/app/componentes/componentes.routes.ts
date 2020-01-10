@@ -30,7 +30,7 @@ const componentesRoutes: Routes = [
             { path: 'verUnidades', component: UnidadesVerComponent, data: { titulo: 'Unidades y ayudantes' } },
             { path: 'reportes', component: ReportesGenerarComponent, data: { titulo: 'Reportes' } },
             { path: 'verComisiones', component: ComisionVerComponent, data: { titulo: 'Comisiones' } },
-            { path: 'crearComision', component: ComisionCrearComponent, data: { titulo: 'Crear nueva comisión' } },
+            { path: 'crearComision', component: ComisionCrearComponent, data: { titulo: 'Crear comisión' } },
             { path: 'eventoDetallePublic/:id', component: EventosDetallesPublicComponent, data: { titulo: 'Detalles del evento' } },
             { path: 'generarUtilidades', component: FormularioUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },
             { path: 'generarUtilidades/:id/:tipo', component: GenerarUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },   
