@@ -10,7 +10,6 @@ export { EventosCrearComponent } from './eventos/eventos-crear/eventos-crear.com
 export { EventosEditarComponent } from './eventos/eventos-editar/eventos-editar.component';
 export { EventosDetallesComponent } from './eventos/eventos-detalles/eventos-detalles.component';
 export { EventosDetallesPublicComponent } from './eventos/eventos-detalles-public/eventos-detalles-public.component';
-export { EventosMisEventosComponent } from './eventos/eventos-mis-eventos/eventos-mis-eventos.component';
 export { EventosInscritosComponent } from './eventos/eventos-inscritos/eventos-inscritos.component';
 export { EventosAdministrarComponent } from './eventos/eventos-administrar/eventos-administrar.component';
 

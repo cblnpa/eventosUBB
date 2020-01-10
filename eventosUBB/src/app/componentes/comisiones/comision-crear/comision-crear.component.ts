@@ -106,8 +106,8 @@ export class ComisionCrearComponent implements OnInit {
           this.router.navigate(['/verComisiones']);
         }
         if(response.code == 400) {
-          this.integrante = response.encargado.users.nombreUsuario + ' ' + response.encargado.users.apellidoUsuario;
-          console.log(this.integrante);
+          // this.integrante = response.encargado.users.nombreUsuario + ' ' + response.encargado.users.apellidoUsuario;
+          // console.log(this.integrante);
         }
 
       },

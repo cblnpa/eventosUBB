@@ -11,7 +11,7 @@ import { UtilidadesModule } from '../utilidades/utilidades.module';
 // Componentes
 import {
     ComponentesComponent, EditLoginComponent, InicioComponent, EventosDetallesComponent,
-    EventosEditarComponent, EventosMisEventosComponent, EventosCrearComponent, EventosDetallesPublicComponent,
+    EventosEditarComponent, EventosCrearComponent, EventosDetallesPublicComponent,
     UnidadesCrearComponent, UnidadesVerComponent, ReportesGenerarComponent, ComisionVerComponent,
     ComisionCrearComponent, GenerarUtilidadesComponent, FormularioUtilidadesComponent,
     ProgramaComponent, TablaJornadaComponent, TablaExpositorComponent, TablaActividadComponent,
@@ -65,7 +65,6 @@ import { ColorPickerModule } from 'ngx-color-picker';
         EventosEditarComponent,
         EditLoginComponent,
         InicioComponent,
-        EventosMisEventosComponent,
         EventosCrearComponent,
         EventosDetallesPublicComponent,
         UnidadesCrearComponent,
@@ -111,7 +110,6 @@ import { ColorPickerModule } from 'ngx-color-picker';
         EventosInscritosComponent,
         EditLoginComponent,
         InicioComponent,
-        EventosMisEventosComponent,
         EventosCrearComponent,
         EventosDetallesPublicComponent,
         UnidadesCrearComponent,
