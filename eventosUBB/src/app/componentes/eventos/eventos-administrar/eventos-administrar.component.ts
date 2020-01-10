@@ -65,6 +65,8 @@ export class EventosAdministrarComponent implements OnInit {
             return matchFilter.every(Boolean);
           };
         }
+        if (response.code == 404)
+          this.auxEvento = 1;
       },
       error => {
         console.log(<any>error);
