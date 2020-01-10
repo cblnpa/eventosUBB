@@ -2,16 +2,22 @@ import { NgModule } from '@angular/core';
 
 import { ImagenPipe } from './imagen/imagen.pipe';
 import { EstadoEventoPipe } from './estado_evento/estado-evento.pipe';
+import { RolPipe } from './rol/rol.pipe';
+import { CambiarHoraPipe } from './cambiar_hora/cambiar-hora.pipe';
 
 @NgModule({
   declarations: [
     ImagenPipe,
-    EstadoEventoPipe
+    EstadoEventoPipe,
+    RolPipe,
+    CambiarHoraPipe
   ],
   imports: [],
   exports: [
     ImagenPipe,
-    EstadoEventoPipe
+    EstadoEventoPipe,
+    RolPipe,
+    CambiarHoraPipe
   ]
 })
 export class PipesModule { }

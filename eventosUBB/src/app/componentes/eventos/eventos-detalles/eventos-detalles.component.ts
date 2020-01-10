@@ -4,6 +4,7 @@ import { global } from '../../../servicios/global';
 import { EventoPojoService, EventoUsersService, UserService, EventoService, ComisionService, RepositorioService, ModalService } from '../../../servicios/servicio.index';
 import { evento_users, asistencia, deleteComision } from '../../../model/model.index';
 import Swal from 'sweetalert2';
+import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-eventos-detalles',
@@ -104,7 +105,7 @@ export class EventosDetallesComponent implements OnInit {
               for (var i = 0; i < response.Jornada.length; i++) {
                 if (response.Jornada[i] != null)
                   this.arrJornadas.push(response.Jornada[i]);
-              }
+                }
             }
             //Almacenar expositores
             if (response.expositor.length > 0) {
