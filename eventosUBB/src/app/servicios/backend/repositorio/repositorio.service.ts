@@ -37,6 +37,11 @@ export class RepositorioService {
     return this.http.get(this.url+'downloadRepositorio/' + nombreArchivo, {headers: headers});
   }
 
+  deleteRepositorio(id): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.delete(this.url + 'repositorio/' + id, { headers: headers });
+  }
+
   getGeneralEmitter(){
     return this.general;
   }

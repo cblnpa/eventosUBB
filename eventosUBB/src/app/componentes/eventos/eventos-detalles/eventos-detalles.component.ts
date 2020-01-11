@@ -159,14 +159,28 @@ export class EventosDetallesComponent implements OnInit {
 
   // Función para eliminar el evento 
   eliminarEvento(id) {
-    this.eventoService.deleteEvento(this.token, id).subscribe(
-      response => {
-        console.log('Has eliminado un evento');
-        console.log(response);
-      },
-      error => {
-        console.log(<any>error);
-      })
+    Swal.fire({
+      title: '¿Quiere eliminar esta evento?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar evento',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        this.eventoService.deleteEvento(this.token, id).subscribe(
+          response => {
+            console.log(response);
+            console.log('Has eliminado un evento');
+            this.router.navigate(['/inicio']);
+          },
+          error => {
+            console.log(<any>error);
+          })
+      }
+    })
+
   }
 
   //Debo mandar el id del usuario e id del evento 
@@ -232,6 +246,7 @@ export class EventosDetallesComponent implements OnInit {
     this.repositorioService.getRepositorios(this.idEvento).subscribe(
       response => {
         this.repositorio = response.repositorio;
+        console.log(this.repositorio);
       },
       error => {
         console.log(<any>error);
@@ -245,19 +260,45 @@ export class EventosDetallesComponent implements OnInit {
     })
   }
 
+  //eliminar el repositorio
+  deleteFile(id) {
+    console.log(id);
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar este archivo?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#03C303',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        this.repositorioService.deleteRepositorio(id).subscribe(
+          response => {
+            console.log(response);
+            // if (response.code == 200) {
+            //   Swal.fire(
+            //     '¡Eliminado!',
+            //     'El repositorio ha sido eliminado',
+            //     'success')
+            //   this.mostrarRepositorio();
+            // }
+          },
+          error => {
+            console.log(<any>error);
+          })
+      }
+    })
+  }
+
   agregarComision() {
     this.router.navigate(['/crearComision']);
   }
 
   //descargar el archivo, se le pasa el nombre del que se quiere descargar 
   downloadFile(archivo) {
-    console.log(archivo);
-    window.open('http://localhost:8000/api/downloadRepositorio/' + archivo, '_blank');
-  }
-
-  //eliminar el repositorio
-  deleteFile(archivo){
-    console.log(archivo);
+    // window.open('http://localhost:8000/api/downloadRepositorio/' + archivo, '_blank');
+    window.open('http://parra.chillan.ubiobio.cl:8090/~gaston.lara1401/eventosUBB-laravel/storage/app/repositorio/' + archivo, '_blank');
   }
 
 }

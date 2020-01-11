@@ -184,45 +184,9 @@ export class EventosDetallesPublicComponent implements OnInit {
     }
   }
 
-  // participarEvento() {
-  //   this.eventoUsersService.guardarEventoUser(this.eventoUsers, this.idUsuario).subscribe(
-  //     response => {
-  //       console.log(response);
-  //       if (response.code == 200) {
-  //         if (this.cupos == response.evento.capacidad) {
-  //           console.log('No quedan cupos');
-  //         } else {
-  //           Swal.fire({
-  //             type: 'success',
-  //             title: '¡Inscrito correctamente en este evento!'
-  //           })
-  //         }
-  //       }
-  //       if (response.code == 400) {
-  //         // response 400 indica que ya está participando en el evento
-  //         this.participando = 1;
-  //       }
-  //     }
-  //     ,
-  //     error => {
-  //       console.log(<any>error);
-  //     })
-  // }
-
   descargarMaterial(archivo) {
-    console.log('estoy en descargar !!');
-    console.log(archivo);
-    console.log('http://localhost:8000/api/downloadMaterial/'+archivo);
-    window.open('http://localhost:8000/api/downloadMaterial/'+archivo,'_blank' );
-    // this.materialService.downloadMaterial(archivo).subscribe(
-    //   response => {
-    //     console.log(response);
-    //   },
-    //   error => {
-    //     window.open('http://localhost:8000/api/downloadMaterial/'+archivo,'_blank' );
-    //     console.log(<any>error);
-    //   }
-    // )
+    // window.open('http://localhost:8000/api/downloadMaterial/'+archivo,'_blank' );
+    window.open('http://parra.chillan.ubiobio.cl:8090/~gaston.lara1401/eventosUBB-laravel/storage/app/material/' + archivo, '_blank');
   }
 
 }
