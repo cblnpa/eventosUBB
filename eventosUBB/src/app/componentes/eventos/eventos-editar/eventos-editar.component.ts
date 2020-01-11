@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { global } from '../../../servicios/global'
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-
+import Swal from 'sweetalert2';
 import { eventoPojo, ciudad, evento } from '../../../model/model.index';
 import {
   EventoPojoService, CiudadService, UserService, EventoService, TipoEventoService, CategoriaService
@@ -142,7 +142,49 @@ export class EventosEditarComponent implements OnInit {
       })
   }
 
-  guardarEvento(form) {
+  guardarEvento() {
+    Swal.showLoading();
+    this.eventoPojoService.updateEventoPojo(this.eventos, this.id).subscribe(
+      response => {
+        if (response.status == 'success') {
+          //Actualizar los datos que se ingresaron
+          if (response.changes.eventos.nombreEvento) {
+            this.eventos.nombreEvento = response.changes.eventos.nombreEvento;
+          }
+          if (response.changes.eventos.ubicacion) {
+            this.eventos.ubicacion = response.changes.eventos.ubicacion;
+          }
+          if (response.changes.eventos.direccion) {
+            this.eventos.direccion = response.changes.eventos.direccion;
+          }
+          if (response.changes.eventos.detalles) {
+            this.eventos.detalles = response.changes.eventos.detalles;
+          }
+          if (response.changes.eventos.imagen) {
+            this.eventos.imagen = response.changes.eventos.imagen;
+          }
+          if (response.changes.eventos.capacidad) {
+            this.eventos.capacidad = response.changes.eventos.capacidad;
+          }
+          if (response.changes.eventos.ciudad) {
+            this.eventos.ciudad_idCiudad = response.changes.eventos.ciudad;
+          }
+          if (response.changes.eventos.categoria_idCategoria) {
+            this.eventos.categoria_idCategoria = response.changes.eventos.categoria_idCategoria;
+          }
+          if (response.changes.eventos.visibilidad) {
+            this.eventos.visibilidad = response.changes.eventos.visibilidad;
+          }
+          if (response.changes.eventos.tipoEvento_idtipoEvento) {
+            this.eventos.tipoEvento_idtipoEvento = response.changes.eventos.tipoEvento_idtipoEvento;
+          }
+        }
+        Swal.fire('','Datos guardados','success');
+      }
+    )
+  }
+
+  guardarEventoySalir(form) {
     this.eventoPojoService.updateEventoPojo(this.eventos, this.id).subscribe(
       response => {
         if (response.status == 'success') {
