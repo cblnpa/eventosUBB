@@ -123,7 +123,6 @@ export class EventosEditarComponent implements OnInit {
         this.id = idEvento; //asignar el id del evento a la variable 
         this.eventoService.getEventoById(idEvento).subscribe(
           response => {
-            console.log(response);
             this.eventos = response.evento;
             //Mostrar los datos del evento en el stepper 
             this.eventos = new evento(this.eventos.nombreEvento, this.eventos.ubicacion, this.eventos.direccion,
@@ -179,7 +178,7 @@ export class EventosEditarComponent implements OnInit {
             this.eventos.tipoEvento_idtipoEvento = response.changes.eventos.tipoEvento_idtipoEvento;
           }
         }
-        Swal.fire('','Datos guardados','success');
+        Swal.fire('', 'Datos guardados', 'success');
       }
     )
   }
@@ -223,6 +222,22 @@ export class EventosEditarComponent implements OnInit {
       }
     )
     this.router.navigate(['/eventoDetalle/' + this.id]);
+  }
+
+  salir() {
+    Swal.fire({
+      title: '¿Desea salir de la edición del evento?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, quiero salir',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        this.router.navigate(['/eventoDetalle/' + this.id]);
+      }
+    })
   }
 
   //foto del evento

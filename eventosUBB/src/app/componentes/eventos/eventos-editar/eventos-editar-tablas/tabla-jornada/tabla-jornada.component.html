@@ -5,62 +5,68 @@
 </div>
 
 <mat-form-field>
-    <input matInput type="text" (keyup)="doFilterJornada($event.target.value)" placeholder="Buscar...">
+    <input matInput type="text" (keyup)="doFilterJornada($event.target.value)" placeholder="Buscar jornada">
 </mat-form-field>
 
 <div class="mat-elevation-z8">
-    <table id="table-sort" mat-table [dataSource]="dataSourceJornada" matSort>
+    <div class="table-responsive">
+        <table id="table-sort-cell" mat-table [dataSource]="dataSourceJornada" matSort>
 
-        <ng-container matColumnDef="nombreJornada">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.nombreJornada}} </td>
-        </ng-container>
+            <ng-container matColumnDef="nombreJornada">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                <td style="width: 150px;" id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.nombreJornada}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="fechaJornada">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.fechaJornada}} </td>
-        </ng-container>
+            <ng-container matColumnDef="fechaJornada">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+                <td style="width: 100px;" id="table-sort-cell" mat-cell *matCellDef="let jornada">
+                    {{jornada.fechaJornada | date:'dd/MM/yyyy'}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="horaInicioJornada">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora inicio</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.horaInicioJornada}} </td>
-        </ng-container>
+            <ng-container matColumnDef="horaInicioJornada">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora inicio</th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.horaInicioJornada | cambiarHora}}
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="horaFinJornada">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora término</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.horaFinJornada}} </td>
-        </ng-container>
+            <ng-container matColumnDef="horaFinJornada">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora término</th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.horaFinJornada | cambiarHora}}
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="ubicacionJornada">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Ubicación</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.ubicacionJornada}} </td>
-        </ng-container>
+            <ng-container matColumnDef="ubicacionJornada">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Ubicación</th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.ubicacionJornada}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="descripcionJornada">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.descripcionJornada}}
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="descripcionJornada">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Descripción</th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let jornada"> {{jornada.descripcionJornada}}
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="editJornada">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let jornada">
-              <button class="btn btn-block btn-warning" (click)="editarJornada(jornada.idJornada)"><i class="mdi mdi-pencil"></i>
-                
-              </button>
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="editJornada">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let jornada">
+                    <button class="btn btn-block btn-warning" (click)="editarJornada(jornada.idJornada)"><i
+                            class="mdi mdi-pencil"></i>
+                    </button>
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="deleteJornada">
-            <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-            <td id="table-sort-cell" mat-cell *matCellDef="let jornada"><button class="m-l-5 btn btn-block btn-danger" (click)="eliminarJornada(jornada.idJornada)"><i class="mdi mdi-delete"></i></button></td>
-        </ng-container>
+            <ng-container matColumnDef="deleteJornada">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let jornada"><button
+                        class="m-l-5 btn btn-block btn-danger" (click)="eliminarJornada(jornada.idJornada)"><i
+                            class="mdi mdi-delete"></i></button></td>
+            </ng-container>
 
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsJornada"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsJornada;"></tr>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsJornada"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsJornada;"></tr>
-
-    </table>
+        </table>
+    </div>
 
     <!-- paginador -->
     <mat-paginator [length]="cantJornadas" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">

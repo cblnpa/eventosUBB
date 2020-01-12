@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" style="overflow-y: scroll">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="text-primary text-center">Crear jornada</h4>
+                <h2 class="text-primary">Agregar jornada</h2>
                 <button type="button" class="close" (click)="salirModal()">×</button>
             </div>
             <div class="modal-body">
@@ -13,7 +13,7 @@
                     <div class="col-md-12 mr-2">
 
                         <div class="form-group row">
-                            <label class="col-sm-3 control-label">Nombre</label>
+                            <label class="col-sm-3 control-label">Nombre <span class="text-danger"> *</span> </label>
                             <mat-form-field class="col-sm-9">
                                 <input matInput #input1 type="text" name="nombreJornada" #nombreJornada="ngModel"
                                     [(ngModel)]="jornadaAdd.nombreJornada" maxlength="45" placeholder="Nombre" required>
@@ -25,7 +25,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 control-label">Fecha</label>
                             <mat-form-field class="col-sm-9">
-                                <input matInput type="date" data-autoclose="true" name="fechaJornada"
+                                <input matInput type="date" min="{{fechaActual}}" data-autoclose="true" name="fechaJornada"
                                     #fechaJornada="ngModel" [(ngModel)]="jornadaAdd.fechaJornada" required>
                                 <mat-hint align="start">
                                     <strong>Selecciona la fecha en que se desarrollará esta jornada</strong>

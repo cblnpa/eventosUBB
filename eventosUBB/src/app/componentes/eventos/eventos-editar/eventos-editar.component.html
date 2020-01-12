@@ -4,7 +4,7 @@
         <mat-step label="Step 1">
             <form #eventoPojoForm="ngForm" (ngSubmit)="guardarEvento(eventos)">
                 <ng-template matStepLabel>Datos básicos</ng-template>
-                
+
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="row">
@@ -115,11 +115,18 @@
 
                 <!-- div para los botones -->
                 <div class="row mt-4">
-                    <div class="col-md-6 col-sm-12">
-                        <button type="submit" (click)="guardarEvento(eventoPojoForm)" class="button btn btn-block btn-success"><i class="fa fa-save"></i> Guardar</button>
+                    <div class="col-md-3 col-sm-6">
+                        <button type="button" (click)="salir()" class="button btn btn-block btn-danger">
+                            <i class="fa fa-sign-out"></i> Salir
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <button type="submit" (click)="guardarEvento(eventoPojoForm)"
+                            class="button btn btn-block btn-success"><i class="fa fa-save"></i> Guardar</button>
                     </div>
                     <div class="col-md-6 col-sm-12">
-                        <button mat-button matStepperNext class="button btn-outline-primary btn-block" type="button">Siguiente</button>
+                        <button mat-button matStepperNext class="button btn-outline-primary btn-block"
+                            type="button">Siguiente</button>
                     </div>
                 </div>
             </form>
@@ -215,13 +222,6 @@
                 <hr>
 
                 <div class="col-12">
-                    <!-- <div class="form-group m-l-5">
-                        <p>Estado actual del evento:</p>
-                        <div class="col-sm-9">
-                            <span class="badge badge-primary m-l-5"> {{visibilidadEvento}} </span>
-                        </div>
-                    </div> -->
-
                     <div class="row">
                         <div class="col-md-7">
                             <mat-form-field>
