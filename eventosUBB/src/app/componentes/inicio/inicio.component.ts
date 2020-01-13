@@ -13,6 +13,8 @@ export class InicioComponent implements OnInit {
 
   public url;
   public eventos;
+  public eventos1;
+
 
   constructor( private eventoService: EventoService, private router: Router ) { 
     this.url = global.url;
@@ -27,12 +29,37 @@ export class InicioComponent implements OnInit {
       response => {
         if(response.status == 'success'){
           this.eventos = response.eventos;
+          this.eventos1 = response.eventos;
+
         }
       },
       error => {
         console.log(error);
       }
     );
+  }
+  buscarEvento(termino:string){
+    let eventoArr:any = [];
+    
+if(termino.length!=0){
+  termino = termino.toLowerCase();
+  for(let event of this.eventos1){
+    let nombre = event.nombreEvento.toLowerCase();
+    if (nombre.indexOf(termino)>=0 ){
+      eventoArr.push(event)
+      console.log("if" + termino.length);
+    }
+  }
+}else {
+          this.eventos = this.eventos1;
+          console.log("else" + termino.length);
+
+          return this.eventos;
+        }
+      
+   
+    this.eventos = eventoArr;
+    console.log(this.eventos);
   }
 
   eventosDetalles(idEvento: number){
