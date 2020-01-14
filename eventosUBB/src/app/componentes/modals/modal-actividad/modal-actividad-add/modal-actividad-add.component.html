@@ -12,10 +12,11 @@
                     <div class="col-md-12 mr-2">
 
                         <div class="form-group row">
-                            <label class="col-sm-3 control-label">Nombre</label>
+                            <label class="col-sm-3 control-label">Nombre <span class="text-danger"> *</span></label>
                             <mat-form-field class="col-sm-9">
                                 <input matInput #input1 type="text" name="nombreActividad" #nombreActividad="ngModel"
-                                    [(ngModel)]="actividadPojo.nombreActividad" maxlength="45" placeholder="Nombre">
+                                    [(ngModel)]="actividadPojo.nombreActividad" maxlength="45" placeholder="Nombre"
+                                    required>
                                 <mat-hint align="start"><strong>Ingresa el nombre de la actividad</strong> </mat-hint>
                                 <mat-hint align="end">{{input1.value.length}} / 45</mat-hint>
                             </mat-form-field>
@@ -68,7 +69,8 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-3 control-label">Cupos</label>
+                            <label class="col-sm-3 control-label">Cupos <span class="text-primary"> opcional</span>
+                            </label>
                             <mat-form-field class="col-sm-9">
                                 <input matInput type="number" name="cupos" #cupos="ngModel"
                                     [(ngModel)]="actividadPojo.cupos" maxlength="11">
@@ -78,13 +80,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-3 control-label">Actividad paralela</label>
-                            <mat-form-field class="col-sm-9">
-                                <input matInput type="text" name="actividadParalela" #actividadParalela="ngModel"
-                                    [(ngModel)]="actividadPojo.actividadParalela">
-                                <mat-hint align="start"><strong>Seleccione si esta actividad se realiza en paralelo
-                                        junto a otra actividad</strong> </mat-hint>
-                            </mat-form-field>
+                            <label class="col-sm-3 control-label">Actividad paralela <span class="text-primary">
+                                    opcional</span></label>
+                            <mat-checkbox name="actividadParalela" #actividadParalela="ngModel"
+                                [(ngModel)]="actividadPojo.actividadParalela"> Esta actividad se realiza en paralelo con
+                                otra actividad</mat-checkbox>
                         </div>
 
                         <div class="form-group row">
@@ -105,7 +105,8 @@
                                     [options]="optionsExpositores" [multiple]="true" name="expositor_idExpositor"
                                     #expositor_idExpositor="ngModel" [(ngModel)]="expositores">
                                 </ngx-select-dropdown>
-                                <span class="help-block"><small>Selecciona los expositores requeridos para esta actividad</small></span>
+                                <span class="help-block"><small>Selecciona los expositores requeridos para esta
+                                        actividad</small></span>
                             </div>
                         </div>
                     </div>
