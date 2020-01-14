@@ -2,29 +2,32 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ComponentesComponent } from './componentes.component';
 
-import { LoginComponent, EditLoginComponent, InicioComponent, EventosDetallesComponent,
-        EventosEditarComponent, EventosCrearComponent, GenerarUtilidadesComponent, 
-        EventosDetallesPublicComponent, ProgramaComponent, UnidadesCrearComponent, 
-        UnidadesVerComponent, ReportesGenerarComponent, ComisionVerComponent, ComisionCrearComponent, 
-        FormularioUtilidadesComponent, EventosAdministrarComponent, EventosInscritosComponent } from '../componentes/componentes.index';
+import {
+    LoginComponent, EditLoginComponent, InicioComponent, EventosDetallesComponent,
+    EventosEditarComponent, EventosCrearComponent, GenerarUtilidadesComponent,
+    EventosDetallesPublicComponent, ProgramaComponent, UnidadesCrearComponent,
+    UnidadesVerComponent, ReportesGenerarComponent, ComisionVerComponent, ComisionCrearComponent,
+    FormularioUtilidadesComponent, EventosAdministrarComponent, EventosInscritosComponent,
+    FormularioComponent, AcreditacionComponent
+} from '../componentes/componentes.index';
 
 import { LoginGuard } from '../servicios/guards/login.guard';
 
 const componentesRoutes: Routes = [
-    { path: '', component: LoginComponent, data: { titulo: 'Iniciar sesión'}},
+    { path: '', component: LoginComponent, data: { titulo: 'Iniciar sesión' } },
     {
         path: '',
         component: ComponentesComponent,
-        canActivate: [ LoginGuard ],
+        canActivate: [LoginGuard],
         children: [
-            { path: 'inicio', component: InicioComponent , data: { titulo: 'Inicio' } },
+            { path: 'inicio', component: InicioComponent, data: { titulo: 'Inicio' } },
             { path: 'eventoDetalle/:id', component: EventosDetallesComponent, data: { titulo: 'Detalles del evento' } },
             { path: 'programa/:id', component: ProgramaComponent, data: { titulo: 'Generar programa' } },
             { path: 'eventosInscritos', component: EventosInscritosComponent, data: { titulo: 'Eventos inscritos' } },
             { path: 'adminEventos', component: EventosAdministrarComponent, data: { titulo: 'Administrar eventos' } },
             { path: 'crearEvento', component: EventosCrearComponent, data: { titulo: 'Crear nuevo evento' } },
             { path: 'eventosEditar/:id/:idUsuario', component: EventosEditarComponent, data: { titulo: 'Editar el evento' } },
-            { path: 'editLogin', component: EditLoginComponent, data: { titulo: 'Editar mi perfil' }  },
+            { path: 'editLogin', component: EditLoginComponent, data: { titulo: 'Editar mi perfil' } },
             { path: 'crearUnidad', component: UnidadesCrearComponent, data: { titulo: 'Crear' } },
             { path: 'editarUnidad/:id', component: UnidadesCrearComponent, data: { titulo: 'Editar' } },
             { path: 'verUnidades', component: UnidadesVerComponent, data: { titulo: 'Unidades y ayudantes' } },
@@ -33,7 +36,9 @@ const componentesRoutes: Routes = [
             { path: 'crearComision', component: ComisionCrearComponent, data: { titulo: 'Crear comisión' } },
             { path: 'eventoDetallePublic/:id', component: EventosDetallesPublicComponent, data: { titulo: 'Detalles del evento' } },
             { path: 'generarUtilidades', component: FormularioUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },
-            { path: 'generarUtilidades/:id/:tipo', component: GenerarUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },   
+            { path: 'generarUtilidades/:id/:tipo', component: GenerarUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },
+            { path: 'eventoAcreditar', component: FormularioComponent, data: { titulo: 'Evento a acreditar' } },
+            { path: 'acreditar/:idEvento', component: AcreditacionComponent, data: { titulo: 'Acreditar participantes' } },
         ]
     }
 ];

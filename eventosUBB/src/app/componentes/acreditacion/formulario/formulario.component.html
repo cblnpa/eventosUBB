@@ -1,0 +1,41 @@
+<div class="col-lg-12">
+  <div class="card card-outline-info">
+    <div class="card-header">
+      <h1 class="text-center text-white">Acreditar participantes</h1>
+    </div>
+
+    <div class="card-body bordes-card">
+      <form class="form-horizontal" #acreditacionForm="ngForm" (ngSubmit)="acreditarEvento(acreditacionForm)">
+
+        <!-- Seleccionar el evento en el cual se quiere crear la utilidad -->
+        <div class="form-group row mt-3">
+          <label class="col-sm-4 control-label text-right">Seleccionar evento *</label>
+          <div class="col-sm-6">
+            <ngx-select-dropdown tabindex="0" [config]="configEvento" [options]="optionEvento" [multiple]="false"
+              name="evento_idEvento" #evento_idEvento="ngModel" [(ngModel)]="eventos" required></ngx-select-dropdown>
+          </div>
+
+          <div class="col-sm-1 mt-2">
+            <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
+              <span class="tooltip-content5">
+                <span class="tooltip-text3">
+                  <span class="tooltip-inner2"> Seleccione el evento para acreditar participantes.
+                  </span>
+                </span>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="form-group row m-b-0">
+          <div class="col-md-7"></div>
+          <div class="col-md-3 text-right">
+            <button type="submit" [disabled]="acreditacionForm.invalid"
+              class="btn btn-block btn-success">Acreditar</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

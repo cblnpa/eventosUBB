@@ -57,6 +57,8 @@ import { PipesModule } from '../pipes/pipes.module';
 
 //Generador de utilidades
 import { ColorPickerModule } from 'ngx-color-picker';
+import { AcreditacionComponent } from './acreditacion/acreditacion.component';
+import { FormularioComponent } from './acreditacion/formulario/formulario.component';
 
 @NgModule({
     declarations: [
@@ -101,6 +103,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
         TablaMaterialComponent,
         EventosInscritosComponent,
         EventosAdministrarComponent,
+        AcreditacionComponent,
+        FormularioComponent,
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [

@@ -12,6 +12,8 @@ export { EventosDetallesComponent } from './eventos/eventos-detalles/eventos-det
 export { EventosDetallesPublicComponent } from './eventos/eventos-detalles-public/eventos-detalles-public.component';
 export { EventosInscritosComponent } from './eventos/eventos-inscritos/eventos-inscritos.component';
 export { EventosAdministrarComponent } from './eventos/eventos-administrar/eventos-administrar.component';
+export { FormularioComponent } from './acreditacion/formulario/formulario.component';
+export { AcreditacionComponent } from './acreditacion/acreditacion.component';
 
 //Componentes de unidades
 export { UnidadesCrearComponent } from './unidades/unidades-crear/unidades-crear.component';
