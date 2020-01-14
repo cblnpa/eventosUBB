@@ -22,9 +22,11 @@ export class EventosDetallesComponent implements OnInit {
   public token;
   public identity;
   public rol; //almacena el rol del usuario activo
+  public idUsuario;
 
   public idEvento: number; /* este es el id del evento para el eventousers */
   public status;
+  public datosEventoUser = []; //almacena las tuplas relacionadas con el evento activo
 
   public eventoUsers: evento_users;
 
@@ -55,12 +57,20 @@ export class EventosDetallesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getIdUsuario();
     this.getIdEvento();
     this.getEventosDetalle();
     this.getEventoUsers();
     this.getRol();
     this.getComision();
     this.mostrarRepositorio();
+  }
+
+  getIdUsuario() {
+    if (!this.identity.id)
+      this.idUsuario = this.identity.sub;
+    else
+      this.idUsuario = this.identity.id;
   }
 
   getIdEvento() {
@@ -72,9 +82,13 @@ export class EventosDetallesComponent implements OnInit {
 
   //Obtener el rol del usuario
   getRol() {
-    this.eventoUsersService.getUsuarios(this.idEvento, this.identity.sub).subscribe(
+    this.eventoUsersService.getUsuarios(this.idEvento, this.idUsuario).subscribe(
       response => {
-        this.rol = response.evento[0].rol_idRol;
+        this.datosEventoUser = response.evento;
+        for (var i = 0; i < this.datosEventoUser.length; i++) {
+          if (this.datosEventoUser[i].users_id == this.idUsuario)
+            this.rol = this.datosEventoUser[i].rol_idRol;
+        }
       },
       error => {
         console.log(<any>error);
@@ -276,13 +290,13 @@ export class EventosDetallesComponent implements OnInit {
         this.repositorioService.deleteRepositorio(id).subscribe(
           response => {
             console.log(response);
-            // if (response.code == 200) {
-            //   Swal.fire(
-            //     '¡Eliminado!',
-            //     'El repositorio ha sido eliminado',
-            //     'success')
-            //   this.mostrarRepositorio();
-            // }
+            if (response.code == 200) {
+              Swal.fire(
+                '¡Eliminado!',
+                'El repositorio ha sido eliminado',
+                'success')
+              this.mostrarRepositorio();
+            }
           },
           error => {
             console.log(<any>error);
