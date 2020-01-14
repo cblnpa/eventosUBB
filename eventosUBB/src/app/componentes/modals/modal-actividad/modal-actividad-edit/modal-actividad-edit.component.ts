@@ -77,12 +77,14 @@ export class ModalActividadEditComponent implements OnInit {
   getDatosActividad() {
     this.actividadService.getActividadById(this.idActividadEdit).subscribe(
       response => {
+        console.log(response);
         this.actividadPojo = response.actividad;
         //Carga los datos de la actividad en el modal
         this.actividadPojo = new actividadPojo(this.actividadPojo.nombreActividad, this.actividadPojo.horaInicioActividad,
           this.actividadPojo.horaFinActividad, this.actividadPojo.ubicacionActividad, this.actividadPojo.descripcionActividad,
           this.actividadPojo.cupos, this.actividadPojo.actividadParalela, this.actividadPojo.jornada_idJornada,
           this.actividadPojo.expositor, this.actividadPojo.evento, this.idActividadEdit);
+          console.log(this.actividadPojo);
       }, error => {
         console.log(<any>error);
       }
