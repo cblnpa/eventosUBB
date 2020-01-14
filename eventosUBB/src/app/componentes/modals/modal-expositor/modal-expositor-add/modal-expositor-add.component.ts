@@ -42,6 +42,7 @@ export class ModalExpositorAddComponent implements OnInit {
     this.expositorAdd = new expositor('', '', '', '', '', '', '', null, null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
+    this.url = global.url;
   }
 
   ngOnInit() { }
