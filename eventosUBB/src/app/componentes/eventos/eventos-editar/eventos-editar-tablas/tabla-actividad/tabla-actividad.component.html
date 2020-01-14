@@ -1,82 +1,87 @@
 <div class="col-md-12 text-center">
-  <button type="button" class="btn btn-success" (click)="agregarActividadModal()">
-      <i class="mdi mdi-plus"></i> Agregar actividad
-  </button>
+    <button type="button" class="btn btn-success" (click)="agregarActividadModal()">
+        <i class="mdi mdi-plus"></i> Agregar actividad
+    </button>
 </div>
 
 <mat-form-field>
-    <input matInput type="text" (keyup)="doFilterActividad($event.target.value)" placeholder="Buscar...">
+    <input matInput type="text" (keyup)="doFilterActividad($event.target.value)" placeholder="Buscar actividad">
 </mat-form-field>
 
 <div class="mat-elevation-z8">
-  <table id="table-sort" mat-table [dataSource]="dataSourceActividad" matSort>
+    <div class="table-responsive">
+        <table id="table-sort" mat-table [dataSource]="dataSourceActividad" matSort>
 
-      <ng-container matColumnDef="nombreActividad">
-          <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-          <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.nombreActividad}}
-          </td>
-      </ng-container>
+            <ng-container matColumnDef="nombreActividad">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                <td style="width: 180px;" id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.nombreActividad}}
+                </td>
+            </ng-container>
 
-      <ng-container matColumnDef="horaInicioActividad">
-          <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora inicio</th>
-          <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.horaInicioActividad}}
-          </td>
-      </ng-container>
+            <ng-container matColumnDef="horaInicioActividad">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora inicio</th>
+                <td style="width: 150px;" id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.horaInicioActividad | cambiarHora}}
+                </td>
+            </ng-container>
 
-      <ng-container matColumnDef="horaFinActividad">
-          <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora término</th>
-          <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.horaFinActividad}}
-          </td>
-      </ng-container>
+            <ng-container matColumnDef="horaFinActividad">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Hora término</th>
+                <td style="width: 150px;" id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.horaFinActividad | cambiarHora}}
+                </td>
+            </ng-container>
 
-      <ng-container matColumnDef="ubicacionActividad">
-          <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Dependencia</th>
-          <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.ubicacionActividad}}
-          </td>
-      </ng-container>
+            <ng-container matColumnDef="ubicacionActividad">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Dependencia</th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.ubicacionActividad}}
+                </td>
+            </ng-container>
 
-      <ng-container matColumnDef="actividadParalela">
-          <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Actividad paralela
-          </th>
-          <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.actividadParalela}}
-          </td>
-      </ng-container>
+            <ng-container matColumnDef="actividadParalela">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Actividad paralela
+                </th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.actividadParalela | actividadParalela}}
+                </td>
+            </ng-container>
 
-      <ng-container matColumnDef="cupos">
-          <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Cupos</th>
-          <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.cupos}} </td>
-      </ng-container>
+            <ng-container matColumnDef="cupos">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Cupos</th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> {{actividad.cupos}} </td>
+            </ng-container>
 
-      <ng-container matColumnDef="descripcionActividad">
-          <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
-          <td id="table-sort-cell" mat-cell *matCellDef="let actividad">
-              {{actividad.descripcionActividad}}
-          </td>
-      </ng-container>
+            <ng-container matColumnDef="descripcionActividad">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let actividad">
+                    {{actividad.descripcionActividad}}
+                </td>
+            </ng-container>
 
-      <ng-container matColumnDef="editActividad">
-        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-        <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> <button class="btn btn-block btn-warning" (click)="editarActividad(actividad.idActividad)"><i class="mdi mdi-pencil"></i></button></td>
-    </ng-container>
+            <ng-container matColumnDef="editActividad">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> <button class="btn btn-block btn-warning"
+                        (click)="editarActividad(actividad.idActividad)"><i class="mdi mdi-pencil"></i></button></td>
+            </ng-container>
 
-      <ng-container matColumnDef="deleteActividad">
-          <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-          <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> <button class="m-l-5 btn btn-block btn-danger" (click)="eliminarActividad(actividad.idActividad)"><i class="mdi mdi-delete"></i></button></td>
-      </ng-container>
+            <ng-container matColumnDef="deleteActividad">
+                <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td id="table-sort-cell" mat-cell *matCellDef="let actividad"> <button
+                        class="m-l-5 btn btn-block btn-danger" (click)="eliminarActividad(actividad.idActividad)"><i
+                            class="mdi mdi-delete"></i></button></td>
+            </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumnsActividad"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumnsActividad;"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsActividad"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsActividad;"></tr>
 
-  </table>
+        </table>
+    </div>
 
-  <mat-paginator [length]="cantActividades" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
-  </mat-paginator>
+    <mat-paginator [length]="cantActividades" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">
+    </mat-paginator>
 </div>
 
 <div *ngIf="contModal == 4">
-  <app-modal-actividad-add></app-modal-actividad-add>
+    <app-modal-actividad-add></app-modal-actividad-add>
 </div>
 
 <div *ngIf="contModal == 5">
     <app-modal-actividad-edit [idActividadEdit]="idActividadEdit"></app-modal-actividad-edit>
-  </div>
+</div>
