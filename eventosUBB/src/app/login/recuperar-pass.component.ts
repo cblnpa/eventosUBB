@@ -15,7 +15,7 @@ export class RecuperarPassComponent implements OnInit {
   public notificacion = 0;
 
   constructor( private userService: UserService, private router: Router) { 
-    this.user = new users('', '', '', '', '', null, null);
+    this.user = new users('', '', '', '', '', null,null,'', null);
   }
 
   ngOnInit() {

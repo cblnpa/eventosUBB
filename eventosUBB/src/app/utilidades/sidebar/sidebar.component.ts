@@ -17,10 +17,22 @@ export class SidebarComponent implements OnInit {
   constructor(  public userService: UserService ) { 
     this.identity = this.userService.getIdentity();
     this.url = global.url;
+    this.userService.getGeneralEmitter().subscribe(usersEdit => {
+      console.log(usersEdit + 'usuario modificado');
+      this.identity = this.userService.getIdentity;
+    })
   }
 
   ngOnInit() {
     this.idPerfil = this.identity.perfil_idPerfil;
   }
+
+  llamarEventEmitter(){
+    this.userService.getGeneralEmitter().subscribe(usersEdit => {
+      console.log(usersEdit + 'usuario modificado');
+      this.identity = this.userService.getIdentity;
+    })
+  }
+
 
 }

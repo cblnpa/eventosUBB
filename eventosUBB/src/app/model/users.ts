@@ -8,6 +8,7 @@ export class users {
         public avatar: string,
         public perfil_idPerfil: number,
         public verified: number,
+        public tema_usuario: string,
         public id?: number
     ){} 
 }

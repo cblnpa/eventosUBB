@@ -11,47 +11,51 @@ import Swal from 'sweetalert2';
   selector: 'app-edit-login',
   templateUrl: './edit-login.component.html',
   styleUrls: ['./edit-login.component.css'],
-  providers: [ UserService, SettingsService ]
+  providers: [UserService, SettingsService]
 })
 export class EditLoginComponent implements OnInit {
-  
+
   public titulo: string;
   public user: users;
   public status: string;
+  public idUsuario;
   public identity;
   public url;
+
+
   public afuConfig = {
     multiple: false,
     formatsAllowed: ".jpg,.jpeg,.png,.gif",
     maxSize: "50",
-    uploadAPI:  {
-      url:global.url+'user/upload',
+    uploadAPI: {
+      url: global.url + 'user/upload',
       headers: {
-     "Authorization" : this.userService.getToken()
+        "Authorization": this.userService.getToken()
       }
     },
-     theme: "attachPin",
-     hideProgressBar: false,
-     hideResetBtn: true,
-     hideSelectBtn: false,
-     attachPinText: 'sube avatar',
-     replaceTexts: {
-       attachPinBtn: 'Seleccionar archivo',
-       afterUploadMsg_success: 'Archivo seleccionado exitosamente'
-     }
-};
+    theme: "attachPin",
+    hideProgressBar: false,
+    hideResetBtn: true,
+    hideSelectBtn: false,
+    attachPinText: 'sube avatar',
+    replaceTexts: {
+      attachPinBtn: 'Seleccionar archivo',
+      afterUploadMsg_success: 'Archivo seleccionado exitosamente'
+    }
+  };
 
-  constructor( private userService: UserService, private router: Router, private title: Title,
-    public _ajustes: SettingsService ) { 
+  constructor(private userService: UserService, private router: Router, private title: Title,
+    public _ajustes: SettingsService) {
     this.identity = this.userService.getIdentity();
-    this.user = new users('','','','','',null,1,null);
+    this.user = new users('', '', '', '', '', this.identity.perfil_idPerfil, 1, '', this.idUsuario);
     this.url = global.url;
+    this.getIdUsuario();
     //rellena objeto usuario
     this.user = new users(this.identity.nombreUsuario, this.identity.apellidoUsuario, this.identity.email,
-      this.identity.password, this.identity.avatar, this.identity.perfil_idPerfil, 1, this.identity.sub);
+      this.identity.password, this.identity.avatar, this.identity.perfil_idPerfil, 1, 'tema', this.idUsuario);
+
     //Obtener nombre de la página
-    this.getDataRoute()
-    .subscribe( data => {
+    this.getDataRoute().subscribe(data => {
       this.titulo = data.titulo;
       this.title.setTitle('EventosUBB - ' + this.titulo);
     });
@@ -59,56 +63,73 @@ export class EditLoginComponent implements OnInit {
 
   ngOnInit() {
     this.colocarCheck();
+    this.getIdUsuario();
   }
 
-  getDataRoute(){
+  getIdUsuario() {
+    if (!this.identity.id)
+      this.idUsuario = this.identity.sub;
+    else
+      this.idUsuario = this.identity.id;
+  }
+
+  getDataRoute() {
     return this.router.events.pipe(
-      filter(evento => evento instanceof ActivationEnd ),
-      filter( (evento:ActivationEnd) => evento.snapshot.firstChild === null ),
-      map( (evento:ActivationEnd) => evento.snapshot.data ))
+      filter(evento => evento instanceof ActivationEnd),
+      filter((evento: ActivationEnd) => evento.snapshot.firstChild === null),
+      map((evento: ActivationEnd) => evento.snapshot.data))
   }
 
-  onSubmit(form){
+  onSubmit(form) {
     this.userService.update(this.user, this.identity.sub).subscribe(
       response => {
-        if(response && response.status){
+        if (response.code == 200) {
+
+
           this.status = 'success';
 
           //Actualizar usuario de sesion
-          if(response.changes.nombreUsuario){
+          if (response.changes.nombreUsuario) {
             this.user.nombreUsuario = response.changes.nombreUsuario;
           }
-          if(response.changes.apellidoUsuario){
+          if (response.changes.apellidoUsuario) {
             this.user.apellidoUsuario = response.changes.apellidoUsuario;
           }
-          if(response.changes.avatar){
+          if (response.changes.avatar) {
             this.user.avatar = response.changes.avatar;
           }
+
           this.identity = this.user;
           localStorage.setItem('identity', JSON.stringify(this.identity));
 
           Swal.fire({
             type: 'success',
             title: 'Datos modificados correctamente'
+          });
+
+          this.userService.getGeneralEmitter().subscribe(edit => {
+            console.log(edit);
           })
+
           this.router.navigate(['/inicio']);
         }
       },
-      error =>{
-        this.status='error';
+      error => {
+        this.status = 'error';
         console.log(<any>error);
         Swal.fire({
           type: 'error',
           title: 'Error al editar perfil'
-        })});
+        })
+      });
   }
 
-  avatarUpload(datos){
-    let data =JSON.parse(datos.response);
+  avatarUpload(datos) {
+    let data = JSON.parse(datos.response);
     this.user.avatar = data.image;
   }
 
-  cambiarColor(tema: string, linkTema: any){
+  cambiarColor(tema: string, linkTema: any) {
     this.aplicarCheck(linkTema);
     this._ajustes.aplicarTema(tema);
   }
@@ -117,20 +138,22 @@ export class EditLoginComponent implements OnInit {
   aplicarCheck(linkTema: any) {
     //Arreglo de selectores
     let selectores: any = document.getElementsByClassName('selector');
-    for( let ref of selectores){
+    for (let ref of selectores) {
       ref.classList.remove('working');
     }
     linkTema.classList.add('working');
   }
 
   //muestra el check con el tema del usuario
-  colocarCheck(){
+  colocarCheck() {
     let selectores: any = document.getElementsByClassName('selector');
     let tema = this._ajustes.ajustes.tema;
-    for( let ref of selectores){
-      if( ref.getAttribute('data-theme') === tema ){
+    for (let ref of selectores) {
+      if (ref.getAttribute('data-theme') === tema) {
         ref.classList.add('working');
         break;
-      }}}
+      }
+    }
+  }
 
 }
