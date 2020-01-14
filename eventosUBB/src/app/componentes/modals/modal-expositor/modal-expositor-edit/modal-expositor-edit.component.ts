@@ -16,6 +16,7 @@ export class ModalExpositorEditComponent implements OnInit {
   public idEvento;
   public identity;
   public token;
+  public url;
 
   @Input() idExpositorEdit: number; //recibe el id del expositor a editar
 
@@ -44,6 +45,7 @@ export class ModalExpositorEditComponent implements OnInit {
     this.expositores = new expositor('', '', '', '', '', '', '', null, null, null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
+    this.url = global.url;
   }
 
   ngOnInit() {

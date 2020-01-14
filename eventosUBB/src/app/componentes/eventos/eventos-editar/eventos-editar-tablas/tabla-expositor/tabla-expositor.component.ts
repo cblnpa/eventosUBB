@@ -18,7 +18,7 @@ export class TablaExpositorComponent implements OnInit {
   public idExpositorEdit: number = 0;
 
   public dataSourceExpositor;
-  public displayedColumnsExpositor: string[] = ['nombreExpositor', 'apellidoExpositor', 'apellido2Expositor', 'correoExpositor', 'empresa', 'telefonoExpositor', 'foto', 'editExpositor', 'deleteExpositor'];
+  public displayedColumnsExpositor: string[] = ['nombreExpositor', 'correoExpositor', 'empresa', 'telefonoExpositor', 'sexo', 'editExpositor', 'deleteExpositor'];
   public cantExpositores: number;
 
   constructor(private expositorService: ExpositorService, private modalService: ModalService,
