@@ -18,7 +18,7 @@ export class TablaColaboradorComponent implements OnInit {
   public idColaboradorEdit: number = 0;
 
   public dataSourceColaborador;
-  public displayedColumnsColaborador: string[] = ['nombreColaborador', 'nombreRepresentante', 'telefonoColaborador', 'correoColaborador', 'tipoColaborador', 'sitioWeb', 'logo', 'editColaborador', 'deleteColaborador'];
+  public displayedColumnsColaborador: string[] = ['nombreColaborador', 'nombreRepresentante', 'telefonoColaborador', 'correoColaborador', 'tipoColaborador', 'sitioWeb', 'editColaborador', 'deleteColaborador'];
   public cantColaboradores: number;
 
   @ViewChild(MatSort) sort: MatSort;

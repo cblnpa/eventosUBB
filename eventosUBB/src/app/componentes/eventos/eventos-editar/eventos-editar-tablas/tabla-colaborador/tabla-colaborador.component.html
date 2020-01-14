@@ -5,75 +5,71 @@
 </div>
 
 <mat-form-field>
-  <input matInput type="text" (keyup)="doFilterColaborador($event.target.value)" placeholder="Buscar...">
+  <input matInput type="text" (keyup)="doFilterColaborador($event.target.value)" placeholder="Buscar colaborador">
 </mat-form-field>
 
 <div class="mat-elevation-z8">
-  <table id="table-sort" mat-table [dataSource]="dataSourceColaborador" matSort>
+  <div class="table-responsive">
+    <table id="table-sort" mat-table [dataSource]="dataSourceColaborador" matSort>
 
-    <ng-container matColumnDef="nombreColaborador">
-      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-      <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
-        {{colaborador.nombreColaborador}}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="nombreColaborador">
+        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
+          {{colaborador.nombreColaborador}}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="nombreRepresentante">
-      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Representante</th>
-      <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
-        {{colaborador.nombreRepresentante}}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="nombreRepresentante">
+        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Representante</th>
+        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
+          {{colaborador.nombreRepresentante}}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="telefonoColaborador">
-      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
-      <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
-        {{colaborador.telefonoColaborador}}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="telefonoColaborador">
+        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
+          {{colaborador.telefonoColaborador}}&nbsp;&nbsp;
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="correoColaborador">
-      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
-      <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
-        {{colaborador.correoColaborador}}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="correoColaborador">
+        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
+          {{colaborador.correoColaborador}}&nbsp;&nbsp;&nbsp;
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="tipoColaborador">
-      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Tipo colaboración
-      </th>
-      <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> {{colaborador.tipo_colaborador.tipoColaborador}}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="tipoColaborador">
+        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Tipo colaboración
+        </th>
+        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
+          &nbsp;{{colaborador.tipo_colaborador.tipoColaborador}}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="sitioWeb">
-      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Sitio web</th>
-      <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> {{colaborador.sitioWeb}} </td>
-    </ng-container>
+      <ng-container matColumnDef="sitioWeb">
+        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Sitio web</th>
+        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> {{colaborador.sitioWeb}}&nbsp;&nbsp;&nbsp; </td>
+      </ng-container>
 
-    <ng-container matColumnDef="logo">
-      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Logo</th>
-      <td id="table-sort-cell" mat-cell *matCellDef="let colaborador">
-        {{colaborador.logo}}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="editColaborador">
+        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> <button class="btn btn-block btn-warning"
+            (click)="editarColaborador(colaborador.idColaborador)"><i class="mdi mdi-pencil"></i></button> </td>
+      </ng-container>
 
-    <ng-container matColumnDef="editColaborador">
-      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-      <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> <button class="btn btn-block btn-warning"
-          (click)="editarColaborador(colaborador.idColaborador)"><i class="mdi mdi-pencil"></i></button> </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="deleteColaborador">
-      <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-      <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> <button class="m-l-5 btn btn-block btn-danger"
-          (click)="eliminarColaborador(colaborador.idColaborador)"><i class="mdi mdi-delete"></i></button> </td>
-    </ng-container>
+      <ng-container matColumnDef="deleteColaborador">
+        <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td id="table-sort-cell" mat-cell *matCellDef="let colaborador"> <button class="m-l-5 btn btn-block btn-danger"
+            (click)="eliminarColaborador(colaborador.idColaborador)"><i class="mdi mdi-delete"></i></button> </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumnsColaborador"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumnsColaborador;"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsColaborador"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsColaborador;"></tr>
 
-  </table>
+    </table>
+  </div>
 
   <!-- paginador -->
   <mat-paginator [length]="cantColaboradores" [pageSize]="5" [pageSizeOptions]="[5,10,15,25,50]">

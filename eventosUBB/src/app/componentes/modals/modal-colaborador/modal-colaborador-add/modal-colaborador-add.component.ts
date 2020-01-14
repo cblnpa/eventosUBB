@@ -14,9 +14,9 @@ export class ModalColaboradorAddComponent implements OnInit {
 
   public colaboradorAdd: colaborador;
   public tipoColaboradores;
-  private url;
-  private token;
-  private identity;
+  public url;
+  public token;
+  public identity;
 
   public afuConfig = {
     multiple: false,
@@ -43,6 +43,7 @@ export class ModalColaboradorAddComponent implements OnInit {
     this.colaboradorAdd = new colaborador('', '', null, '', '', '', null, null);
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
+    this.url = global.url;
   }
 
   ngOnInit() {

@@ -13,7 +13,7 @@
                     <div class="col-md-12 mr-2">
 
                         <div class="form-group row">
-                            <label class="col-sm-3 control-label">Nombre</label>
+                            <label class="col-sm-3 control-label">Nombre <span class="text-danger"> *</span></label>
                             <mat-form-field class="col-sm-9">
                                 <input matInput #input1 type="text" name="nombreColaborador"
                                     #nombreColaborador="ngModel" [(ngModel)]="colaboradorAdd.nombreColaborador"
@@ -28,7 +28,7 @@
                             <mat-form-field class="col-sm-9">
                                 <input matInput #input2 type="text" name="nombreRepresentante"
                                     #nombreRepresentante="ngModel" [(ngModel)]="colaboradorAdd.nombreRepresentante"
-                                    maxlength="45" placeholder="Nombre">
+                                    maxlength="45" placeholder="Nombre" pattern="[A-zÀ-ú\s]+">
                                 <mat-hint align="start"><strong>Ingresa el nombre del representante</strong> </mat-hint>
                                 <mat-hint align="end">{{input2.value.length}} / 45</mat-hint>
                             </mat-form-field>
@@ -37,8 +37,9 @@
                         <div class="form-group row">
                             <label class="col-sm-3 control-label">Teléfono</label>
                             <mat-form-field class="col-sm-9">
-                                <input matInput type="number" name="telefonoColaborador" #telefonoColaborador="ngModel"
-                                    [(ngModel)]="colaboradorAdd.telefonoColaborador" maxlength="11">
+                                <input matInput type="text" name="telefonoColaborador" #telefonoColaborador="ngModel"
+                                    [(ngModel)]="colaboradorAdd.telefonoColaborador" maxlength="9"
+                                    placeholder="Teléfono" pattern="^(?:9)[0-9]{8}">
                                 <mat-hint align="start"><strong>Ingresa el número de contacto del colaborador</strong>
                                 </mat-hint>
                             </mat-form-field>
@@ -49,7 +50,8 @@
                             <mat-form-field class="col-sm-9">
                                 <input matInput #input3 type="email" name="correoColaborador"
                                     #correoColaborador="ngModel" [(ngModel)]="colaboradorAdd.correoColaborador"
-                                    maxlength="60" placeholder="Correo">
+                                    maxlength="60" placeholder="Correo"
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                                 <mat-hint align="start"><strong>Ingresa el correo de contacto</strong> </mat-hint>
                                 <mat-hint align="end">{{input3.value.length}} / 45</mat-hint>
                             </mat-form-field>
@@ -59,8 +61,9 @@
                             <label class="col-sm-3 control-label">Sitio web</label>
                             <mat-form-field class="col-sm-9">
                                 <input matInput #input4 type="text" name="sitioWeb" #sitioWeb="ngModel"
-                                    [(ngModel)]="colaboradorAdd.sitioWeb" maxlength="100" placeholder="Correo">
-                                <mat-hint align="start"><strong>Ingresa el sitio web del colaborador</strong>
+                                    [(ngModel)]="colaboradorAdd.sitioWeb" maxlength="100" placeholder="Sitio web"
+                                    pattern="www?.+">
+                                <mat-hint align="start"><strong>Ingresa el sitio web en el formato www.sitio.cl</strong>
                                 </mat-hint>
                                 <mat-hint align="end">{{input4.value.length}} / 100</mat-hint>
                             </mat-form-field>
@@ -79,20 +82,24 @@
                             </div>
                         </div>
 
-                    </div>
-
-
-                    <div class="form-group row">
-                        <label for="logo" class="col-sm-3 control-label">Logo</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="mdi mdi-file"></i></div>
-                                <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="logoUpload($event)">
-                                </angular-file-uploader>
+                        <div class="form-group row">
+                            <label for="logo" class="col-sm-3 control-label">Logo</label>
+                            <div class="col-sm-9">
+                                <small class="mt-4">Vista previa</small>
+                                <div class="mt-2 mb-2" *ngIf="colaboradorAdd.logo">
+                                    <img src="{{ url + 'image/' + colaboradorAdd.logo}}" class="img-fluid">
+                                </div>
+                                <div class="input-group">
+                                    <angular-file-uploader #file1 [config]="afuConfig"
+                                        (ApiResponse)="logoUpload($event)">
+                                    </angular-file-uploader>
+                                </div>
                             </div>
-                            <span class="help-block"><small>Sube el logo del colaborador</small></span>
                         </div>
+
                     </div>
+
+
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger waves-effect"

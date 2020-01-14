@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ModalService, ColaboradorService, UserService } from '../../../../servicios/servicio.index';
-import { colaborador, tipoColaborador } from '../../../../model/model.index';
+import { colaborador } from '../../../../model/model.index';
 import { global } from '../../../../servicios/global';
 import Swal from 'sweetalert2';
 
@@ -13,6 +13,7 @@ export class ModalColaboradorEditComponent implements OnInit {
 
   public colaborador: colaborador;
   public tipoColaboradores;
+  public url;
 
   @Input() idColaboradorEdit: number; //recibe el id del colaborador a editar
 
@@ -39,6 +40,7 @@ export class ModalColaboradorEditComponent implements OnInit {
   constructor(private modalService: ModalService, private colaboradorService: ColaboradorService, 
     private userService: UserService) {
     this.colaborador = new colaborador('', '', null, '', '', '', null, null);
+    this.url = global.url;
   }
 
   ngOnInit() {
