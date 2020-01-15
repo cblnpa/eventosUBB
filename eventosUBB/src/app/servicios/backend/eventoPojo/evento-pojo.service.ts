@@ -34,6 +34,12 @@ export class EventoPojoService {
     return this.http.get(this.url+'eventoPojo/' + id, {headers: headers});
   }
 
+  //Obtener todlos los eventos con jornada
+  getAllEventoPojo(): Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(this.url+'getEventoPojo', {headers: headers});
+  }
+
   //Función para modificar los datos del evento (stepper 1) paso el id del evento
   updateEventoPojo(eventoPojo, id): Observable<any>{
     let json = JSON.stringify(eventoPojo);
