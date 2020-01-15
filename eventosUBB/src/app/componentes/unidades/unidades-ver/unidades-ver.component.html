@@ -1,6 +1,6 @@
 <body class="fix-header card-no-border card-outline-info fix-sidebar">
   <div class="row el-element-overlay">
-    <div class="col-md-12 mr-2 mt-2">
+    <div class="col-md-12 mr-2">
       <div class="card-header">
         <h1 class="m-t-15 text-center text-white" *ngIf="idPerfil == 1"> Unidades </h1>
         <h1 class="m-t-15 text-center text-white" *ngIf="idPerfil == 3"> Sub unidades</h1>
@@ -21,8 +21,8 @@
       <div *ngIf="idPerfil == 1" class="col-md-12 col-lg-12 col-xs-12">
 
         <!-- buscador -->
-        <div class="col-md-12">
-          <mat-form-field class="example-full-width">
+        <div class="m-t-5">
+          <mat-form-field class="example-full-width" id="buscador-mat">
             <input matInput [(ngModel)]="filtrar" (keyup)="applyFilter()" placeholder="Buscar unidad">
           </mat-form-field>
         </div>
@@ -47,14 +47,14 @@
             matSort class="mat-elevation-z8">
 
             <ng-container matColumnDef="created_at">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha creación</th>
-              <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.created_at | date:'shortDate'}}
+              <th id="table-sort-cell" class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha creación</th>
+              <td id="table-sort-cell" class="text-center" mat-cell *matCellDef="let unidades"> {{unidades.created_at | date:'dd/MM/yyyy'}}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="logoUnidad">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Logo</th>
-              <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
+              <th id="table-sort-cell" class="text-center" mat-header-cell *matHeaderCellDef>Logo</th>
+              <td style="width: 100px;" class="text-center" id="table-sort-cell" mat-cell *matCellDef="let unidades">
                 <img *ngIf="unidades.unidad.logoUnidad" class="imageLogo"
                   src="{{url + 'logoImage/' + unidades.unidad.logoUnidad}}" alt="logo-unidad">
                 <img *ngIf="!unidades.unidad.logoUnidad" class="imageLogo" src="../../../assets/images/sin-imagen.png"
@@ -63,7 +63,7 @@
             </ng-container>
 
             <ng-container matColumnDef="nombreUnidad">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Nombre unidad</th>
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre unidad</th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.unidad.nombreUnidad}} </td>
             </ng-container>
 
@@ -74,22 +74,22 @@
             </ng-container>
 
             <ng-container matColumnDef="sede">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header>Sede</th>
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef>Sede</th>
               <td id="table-sort-cell" mat-cell *matCellDef="let unidades"> {{unidades.unidad.sede}} </td>
             </ng-container>
 
             <ng-container matColumnDef="editUnidad">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-              <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
-                <button class="m-l-5 btn btn-block btn-warning" (click)="editarUnidad(unidades.unidad.idUnidad)">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef></th>
+              <td style="width: 30px;" id="table-sort-cell" mat-cell *matCellDef="let unidades">
+                <button class="btn btn-block btn-warning" (click)="editarUnidad(unidades.unidad.idUnidad)">
                   <i class="mdi mdi-pencil"></i>
                 </button>
               </td>
             </ng-container>
 
             <ng-container matColumnDef="deleteUnidad">
-              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-              <td id="table-sort-cell" mat-cell *matCellDef="let unidades">
+              <th id="table-sort-cell" mat-header-cell *matHeaderCellDef></th>
+              <td style="width: 30px;" id="table-sort-cell" mat-cell *matCellDef="let unidades">
                 <button class="btn btn-block btn-danger" (click)="eliminarUnidad(unidades.unidad.idUnidad)">
                   <i class="mdi mdi-delete"></i>
                 </button>

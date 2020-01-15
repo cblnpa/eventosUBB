@@ -1,181 +1,194 @@
-<body class="fix-header card-no-border fix-sidebar">
-    <div class="col-lg-12">
-        <div class="card card-outline-info">
-            <div class="card-header mt-3">
-                <h1 class="text-center text-white" *ngIf="idPerfil == 1 && tipoVista == 1">Crear una nueva unidad</h1>
-                <h1 class="text-center text-white" *ngIf="idPerfil == 1 && tipoVista == 2">Editar unidad</h1>
-                <h1 class="text-center text-white" *ngIf="idPerfil == 3 && tipoVista == 1">Agregar ayudante</h1>
-            </div>
-            <div class="card-body bordes-card">
-                <!-- Formulario para crear unidad -->
-                <form *ngIf="idPerfil == 1 && tipoVista == 1" class="form-horizontal p-t-20" #crearUnidadForm="ngForm"
-                    (ngSubmit)="guardarUnidad(crearUnidadForm)">
+<div class="col-lg-12">
+    <div class="card card-outline-info">
+        <div class="card-header">
+            <h1 class="text-center text-white" *ngIf="idPerfil == 1 && tipoVista == 1">Crear una nueva unidad</h1>
+            <h1 class="text-center text-white" *ngIf="idPerfil == 1 && tipoVista == 2">Editar unidad</h1>
+            <h1 class="text-center text-white" *ngIf="idPerfil == 3 && tipoVista == 1">Agregar ayudante</h1>
+        </div>
+        <div class="card-body bordes-card">
+            <!-- Formulario para crear unidad -->
+            <form *ngIf="idPerfil == 1 && tipoVista == 1" class="form-horizontal p-t-20" #crearUnidadForm="ngForm"
+                (ngSubmit)="guardarUnidad(crearUnidadForm)">
 
-                    <!-- logo de unidad -->
-                    <div class="form-group row">
-                        <label for="logoUnidad" class="col-sm-4 control-label text-right">Logo de unidad</label>
-                        <div class="col-sm-7">
-                            <div class="input-group">
-                                <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="logoUpload($event)">
-                                </angular-file-uploader>
-                            </div>
-                            <span class="help-block"><small>Agrega el logo correspondiente a la
-                                    unidad</small></span>
+                <!-- logo de unidad -->
+                <div class="form-group row">
+                    <label for="logoUnidad" class="col-sm-4 control-label text-right">Logo de unidad</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+                            <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="logoUpload($event)">
+                            </angular-file-uploader>
                         </div>
+                        <span class="help-block"><small>Agrega el logo correspondiente a la
+                                unidad</small></span>
+                    </div>
+                </div>
+
+                <!-- Nombre de la unidad -->
+                <div class="form-group row">
+                    <label for="nombreUnidad" class="col-sm-4 control-label text-right">Nombre unidad *</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="mdi mdi-city"></i></div>
+                            <input type="text" class="form-control" name="nombreUnidad" #nombreUnidad="ngModel"
+                                [(ngModel)]="unidad.nombreUnidad" required>
+                        </div>
+                        <span class="help-block"><small>Ingrese nombre correspondiente de la unidad</small></span>
+                    </div>
+                </div>
+
+                <!-- Seleccionar sede de la unidad -->
+                <div class="form-group row">
+                    <label for="nombreCiudad" class="col-sm-4 control-label text-right">Sede *</label>
+                    <div class="col-sm-7">
+                        <ngx-select-dropdown tabindex="0" [config]="configCiudad" [options]="optionsCiudad"
+                            [multiple]="false" name="nombreCiudad" #nombreCiudad="ngModel" [(ngModel)]="ciudades"
+                            required>
+                        </ngx-select-dropdown>
+                        <span class="help-block"><small>Selecciona la sede asociada a la unidad</small></span>
+                    </div>
+                </div>
+
+                <!-- Agregar el encargado de la unidad -->
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 control-label text-right">Encargado *</label>
+                    <div class="col-sm-7">
+                        <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="optionsUsuario"
+                            [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios" required>
+                        </ngx-select-dropdown>
+                        <span class="help-block"><small>Selecciona al representante de esta unidad</small></span>
+                        <h5 *ngIf="nombreUnidad.hasError('required') || nombreCiudad.hasError('required') || email.hasError('required')"
+                            class="mt-3 text-danger">* Estos campos son requeridos</h5>
+                    </div>
+                </div>
+
+                <div class="form-group row m-b-0">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-2 text-right">
+                        <button type="submit" class="btn btn-success btn-block waves-effect"
+                            [disabled]="crearUnidadForm.invalid">Crear</button>
+                    </div>
+                    <div class="col-md-2 text-left">
+                        <button type="button" class="btn btn-danger btn-block waves-effect"
+                            (click)="salirCrearUnidad()">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Formulario para editar unidad-->
+            <form *ngIf="idPerfil == 1 && tipoVista == 2" class="form-horizontal p-t-20" #editarUnidadForm="ngForm"
+                (ngSubmit)="editarUnidad(editarUnidadForm)">
+
+                <!-- logo de unidad -->
+                <div class="form-group row">
+                    <label for="logoUnidad" class="col-sm-3 control-label">Logo de unidad</label>
+                    <div class="col-sm-9">
+                        <small class="mt-4">Vista previa logo</small>
+                        <div class="mt-2 mb-2" *ngIf="unidad.logoUnidad">
+                            <img *ngIf="unidad.logoUnidad" class="imageLogo"
+                                src="{{url + 'logoImage/' + unidad.logoUnidad}}" alt="logo-unidad">
+                        </div>
+                        <div class="input-group">
+                            <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="logoUpload($event)">
+                            </angular-file-uploader>
+                        </div>
+                        <span class="help-block"><small>Agrega el logo correspondiente a la
+                                unidad</small></span>
+                    </div>
+                </div>
+
+                <!-- Nombre de la unidad -->
+                <div class="form-group row">
+                    <label for="nombreUnidad" class="col-sm-3 control-label">Nombre unidad <span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="mdi mdi-city"></i></div>
+                            <input type="text" class="form-control" name="nombreUnidad" #nombreUnidad="ngModel"
+                                [(ngModel)]="unidadEdit.nombreUnidad">
+                        </div>
+                        <span class="help-block"><small>Ingresa el nombre correspondiente de la
+                                unidad</small></span>
+                    </div>
+                </div>
+
+                <!-- Seleccionar sede de la unidad -->
+                <div class="form-group row">
+                    <label for="nombreCiudad" class="col-sm-3 control-label">Sede <span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <ngx-select-dropdown tabindex="0" [config]="configCiudad" [options]="optionsCiudad"
+                            [multiple]="false" name="nombreCiudad" #nombreCiudad="ngModel" [(ngModel)]="ciudades"
+                            required>
+                        </ngx-select-dropdown>
+                        <span class="help-block">
+                            <small>Selecciona la sede asociada a la unidad.
+                                Actualmente la sede es: <span
+                                    class="badge badge-primary m-l-5">{{unidadEdit.sede}}</span>
+                            </small></span>
+                        <h5 *ngIf="nombreUnidad.hasError('required') || nombreCiudad.hasError('required')"
+                            class="mt-3 text-danger">* Estos campos son requeridos</h5>
+                    </div>
+                </div>
+
+                <div class="form-group row m-b-0">
+                    <div class="col-md-6"></div>
+                    <div class="col-sm-12 col-md-3 text-right">
+                        <button type="button" class="btn btn-block btn-danger" (click)="salirEditarUnidad()">
+                            <i class="fa fa-sign-out"></i> Salir
+                        </button>
+                    </div>
+                    <div class="col-sm-12 col-md-3 text-left">
+                        <button type="submit" class="btn btn-block btn-success"
+                            [disabled]="editarUnidadForm.invalid">
+                            <i class="fa fa-edit"></i> Guardar</button>
+                    </div>
+                </div>
+
+            </form>
+
+            <!-- Formulario para agregar sub unidad -->
+            <form *ngIf="idPerfil == 3" class="form-horizontal p-t-20" #crearSubUnidadForm="ngForm"
+                (ngSubmit)="guardarSubUnidad(crearSubUnidadForm)">
+
+                <!-- Agregar el encargado de la unidad -->
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 control-label text-right">Ayudante *</label>
+                    <div class="col-sm-6">
+                        <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="optionsUsuario"
+                            [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios" required>
+                        </ngx-select-dropdown>
+                        <span class="help-block"><small>Selecciona un ayudante para tu unidad</small></span>
                     </div>
 
-                    <!-- Nombre de la unidad -->
-                    <div class="form-group row">
-                        <label for="nombreUnidad" class="col-sm-4 control-label text-right">Nombre unidad *</label>
-                        <div class="col-sm-7">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="mdi mdi-city"></i></div>
-                                <input type="text" class="form-control" name="nombreUnidad" #nombreUnidad="ngModel"
-                                    [(ngModel)]="unidad.nombreUnidad" required>
-                            </div>
-                            <span class="help-block"><small>Ingrese nombre correspondiente de la unidad</small></span>
-                        </div>
-                    </div>
-
-                    <!-- Seleccionar sede de la unidad -->
-                    <div class="form-group row">
-                        <label for="nombreCiudad" class="col-sm-4 control-label text-right">Sede *</label>
-                        <div class="col-sm-7">
-                            <ngx-select-dropdown tabindex="0" [config]="configCiudad" [options]="optionsCiudad"
-                                [multiple]="false" name="nombreCiudad" #nombreCiudad="ngModel" [(ngModel)]="ciudades"
-                                required>
-                            </ngx-select-dropdown>
-                            <span class="help-block"><small>Selecciona la sede asociada a la unidad</small></span>
-                        </div>
-                    </div>
-
-                    <!-- Agregar el encargado de la unidad -->
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-4 control-label text-right">Encargado *</label>
-                        <div class="col-sm-7">
-                            <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="optionsUsuario"
-                                [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios" required>
-                            </ngx-select-dropdown>
-                            <span class="help-block"><small>Selecciona al representante de esta unidad</small></span>
-                            <h5 *ngIf="nombreUnidad.hasError('required') || nombreCiudad.hasError('required') || email.hasError('required')"
-                                class="mt-3 text-danger">* Estos campos son requeridos</h5>
-                        </div>
-                    </div>
-
-                    <div class="form-group row m-b-0">
-                        <div class="col-md-8"></div>
-                        <div class="col-md-2 text-right">
-                            <button type="submit" class="btn btn-success btn-block waves-effect"
-                                [disabled]="crearUnidadForm.invalid">Crear</button>
-                        </div>
-                        <div class="col-md-2 text-left">
-                            <button type="button" class="btn btn-danger btn-block waves-effect"
-                                (click)="salirCrearUnidad()">Cancelar</button>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- Formulario para editar unidad-->
-                <form *ngIf="idPerfil == 1 && tipoVista == 2" class="form-horizontal p-t-20" #editarUnidadForm="ngForm"
-                    (ngSubmit)="editarUnidad(editarUnidadForm)">
-
-                    <!-- logo de unidad -->
-                    <div class="form-group row">
-                        <label for="logoUnidad" class="col-sm-3 control-label">Logo de unidad</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="logoUpload($event)">
-                                </angular-file-uploader>
-                            </div>
-                            <span class="help-block"><small>Agrega el logo correspondiente a la
-                                    unidad</small></span>
-                        </div>
-                    </div>
-
-                    <!-- Nombre de la unidad -->
-                    <div class="form-group row">
-                        <label for="nombreUnidad" class="col-sm-3 control-label">Nombre unidad *</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="mdi mdi-city"></i></div>
-                                <input type="text" class="form-control" name="nombreUnidad" #nombreUnidad="ngModel"
-                                    [(ngModel)]="unidadEdit.nombreUnidad">
-                            </div>
-                            <span class="help-block"><small>Ingresa el nombre correspondiente de la
-                                    unidad</small></span>
-                        </div>
-                    </div>
-
-                    <!-- Seleccionar sede de la unidad -->
-                    <div class="form-group row">
-                        <label for="nombreCiudad" class="col-sm-3 control-label">Sede *</label>
-                        <div class="col-sm-9">
-                            <ngx-select-dropdown tabindex="0" [config]="configCiudad" [options]="optionsCiudad"
-                                [multiple]="false" name="nombreCiudad" #nombreCiudad="ngModel" [(ngModel)]="ciudades"
-                                required>
-                            </ngx-select-dropdown>
-                            <span class="help-block">
-                                <small>Selecciona la sede asociada a la unidad.
-                                    Actualmente la sede es: <span
-                                        class="badge badge-primary m-l-5">{{unidadEdit.sede}}</span>
-                                </small></span>
-                            <h5 *ngIf="nombreUnidad.hasError('required') || nombreCiudad.hasError('required')"
-                                class="mt-3 text-danger">* Estos campos son requeridos</h5>
-                        </div>
-                    </div>
-
-                    <div class="form-group row m-b-0">
-                        <div class="offset-sm-3 col-sm-12">
-                            <button type="submit" class="btn btn-block btn-success waves-effect waves-light"
-                                [disabled]="editarUnidadForm.invalid">Guardar</button>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- Formulario para agregar sub unidad -->
-                <form *ngIf="idPerfil == 3" class="form-horizontal p-t-20" #crearSubUnidadForm="ngForm"
-                    (ngSubmit)="guardarSubUnidad(crearSubUnidadForm)">
-
-                    <!-- Agregar el encargado de la unidad -->
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-4 control-label text-right">Ayudante *</label>
-                        <div class="col-sm-6">
-                            <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="optionsUsuario"
-                                [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios" required>
-                            </ngx-select-dropdown>
-                            <span class="help-block"><small>Selecciona un ayudante para tu unidad</small></span>
-                        </div>
-
-                        <div class="col-sm-1 mt-2">
-                            <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
-                                <span class="tooltip-content5">
-                                    <span class="tooltip-text3">
-                                        <span class="tooltip-inner2">
-                                            Un ayudante de unidad tiene como función agilizar el proceso
-                                            de creación de eventos. Este usuario no podrá visualizar los
-                                            otros ayudantes que existan en la unidad.
-                                        </span>
+                    <div class="col-sm-1 mt-2">
+                        <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
+                            <span class="tooltip-content5">
+                                <span class="tooltip-text3">
+                                    <span class="tooltip-inner2">
+                                        Un ayudante de unidad tiene como función agilizar el proceso
+                                        de creación de eventos. Este usuario no podrá visualizar los
+                                        otros ayudantes que existan en la unidad.
                                     </span>
                                 </span>
-                            </a>
-                        </div>
+                            </span>
+                        </a>
                     </div>
+                </div>
 
-                    <div class="form-group row m-b-0">
-                        <div class="col-md-8"></div>
-                        <div class="col-md-2 text-left">
-                            <button type="button" class="btn btn-danger btn-block"
-                                (click)="salirCrearSubUnidad()">Cancelar</button>
-                        </div>
-                        <div class="col-md-2 text-right">
-                            <button type="submit" class="btn btn-block btn-success"
-                                [disabled]="crearSubUnidadForm.invalid">Agregar</button>
-                        </div>
+                <div class="form-group row m-b-0">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-2 text-left">
+                        <button type="button" class="btn btn-danger btn-block"
+                            (click)="salirCrearSubUnidad()">Cancelar</button>
                     </div>
+                    <div class="col-md-2 text-right">
+                        <button type="submit" class="btn btn-block btn-success"
+                            [disabled]="crearSubUnidadForm.invalid">Agregar</button>
+                    </div>
+                </div>
 
-                </form>
+            </form>
 
-            </div>
         </div>
     </div>
-</body>
+</div>

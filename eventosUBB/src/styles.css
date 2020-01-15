@@ -45,3 +45,7 @@ body {
 #table-sort-cell-miseventos {
   font-size: 12pt;
 }
+
+#buscador-mat {
+  width: 60%;
+}

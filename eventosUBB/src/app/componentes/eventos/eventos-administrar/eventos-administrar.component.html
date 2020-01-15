@@ -15,8 +15,8 @@
             <div class="tab-pane active" id="eventos-admin" role="tabpanel">
               <div class="p-20">
                 <p>
-                  La siguiente tabla muestra información de los eventos en los que se encuentra inscrito como
-                  también en los eventos que ha participado previamente.
+                  La siguiente tabla muestra información de los eventos que tiene a cargo ya sea como Encargado o como 
+                  parte de la Comisión. 
                 </p>
 
                 <!-- mensaje indicando que no participa en nada aún -->
@@ -29,9 +29,9 @@
                   </div>
                 </div>
 
-                <mat-form-field>
+                <mat-form-field id="buscador-mat">
                   <input matInput type="text" (keyup)="doFilterMisEventosAdmin($event.target.value)"
-                    placeholder="Buscar...">
+                    placeholder="Buscar evento">
                 </mat-form-field>
 
                 <div class="table-responsive">

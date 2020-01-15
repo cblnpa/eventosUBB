@@ -241,6 +241,24 @@ export class UnidadesCrearComponent implements OnInit {
     )
   }
 
+  //Salir de editar unidad
+  salirEditarUnidad(){
+    Swal.fire({
+      title: '¿Está seguro que desea salir?',
+      text: "Al salir, la unidad no se editará",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#03C303',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, quiero salir',
+      cancelButtonText: 'No, no quiero salir'
+    }).then((result) => {
+      if (result.value) {
+        this.router.navigate(['/verUnidades']);
+      }
+    })
+  }
+
   //Obtener los datos de la unidad del usuario para crear su subunidad
   getDataUnidad() {
     this.unidadService.getUnidad(this.idUsuario).subscribe(
