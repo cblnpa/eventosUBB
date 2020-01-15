@@ -50,41 +50,26 @@
 
   <!-- Cartas con expositores del evento -->
   <div *ngIf="arrExpositores.length > 0" class="row">
-    <div class="row el-element-overlay">
-      <div class="col-md-12 m-t-20">
-        <div class="card">
-          <div class="box bg-info text-center">
-            <h1 class="font-light text-white">Expositores</h1>
-          </div>
+
+    <div class="col-md-12 m-t-20">
+      <div class="card">
+        <div class="box bg-info text-center">
+          <h1 class="font-light text-white">Expositores</h1>
         </div>
       </div>
-      <!-- expositores del evento -->
-      <div *ngFor="let expositor of arrExpositores" class="col-lg-4 col-xlg-3 col-md-3">
+    </div>
+
+    <!-- expositores del evento -->
+    <div class="row el-element-overlay">
+      <div class="col-md-4 col-sm-12" *ngFor="let expositor of arrExpositores">
         <div class="card">
           <div class="el-card-item">
             <div class="el-card-avatar el-overlay-1">
               <!-- expositor.foto -->
               <img *ngIf="!expositor.foto" src="../../../assets/images/user.png" alt="Card image" />
               <img *ngIf="expositor.foto" src="{{url + 'image/' + expositor.foto}}" alt="user" />
-
               <div class="el-overlay">
-                <!-- overlay son efectos al pasar sobre la foto -->
-                <ul class="el-info">
-                  <li>
-                    <!-- <a *ngIf="!expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
-                        href="../../../assets/images/user.png">
-                        <i class="icon-magnifier"></i>
-                    </a> -->
-                    <!-- <a *ngIf="expositor.foto" class="btn default btn-outline image-popup-vertical-fit"
-                        href="{{url + 'image/' + expositor.foto}}">
-                        <i class="icon-magnifier"></i>
-                    </a> -->
-                  </li>
-                  <!-- este li contiene el link -->
-                  <!-- expositor.empresa -->
-                </ul>
               </div>
-
             </div>
             <div class="el-card-content">
               <h3 class="box-tittle"> {{expositor.empresa}} </h3>
@@ -150,27 +135,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div *ngFor="let actividad of arrActividades" class="col-md-6">
-      <div class="card card-outline-warning">
-        <div class="card-header">
-          <h4 class="m-b-0 text-white"> {{actividad.nombreActividad}} </h4>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table color-table muted-table">
-              <tbody class="text-center">
-                <tr> {{actividad.descripcionActividad}} </tr>
-                <tr><i class="mdi mdi-clock"></i> {{actividad.horaInicioActividad}} </tr>
-                <tr><i class="mdi mdi-clock"></i> {{actividad.horaFinActividad}} </tr>
-                <tr><i class="mdi mdi-map-marker"></i> {{actividad.ubicacionActividad}} </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
   </div>
 
   <!-- Colaboradores del evento -->
@@ -185,7 +149,7 @@
     </div>
 
     <div class="row el-element-overlay">
-      <div *ngFor="let colaborador of arrColaboradores" class="col-lg-6 col-xlg-4 col-md-4">
+      <div *ngFor="let colaborador of arrColaboradores" class="col-md-4 col-sm-12">
         <div class="card">
           <div class="el-card-item">
             <div class="el-card-avatar el-overlay-1">

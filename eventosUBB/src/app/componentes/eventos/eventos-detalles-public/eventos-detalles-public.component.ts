@@ -81,6 +81,7 @@ export class EventosDetallesPublicComponent implements OnInit {
                   this.arrActividades.push(response.actividad[i]);
               }
             }
+            console.log(this.arrActividades);
             //Almacenar los colaboradores
             if (response.colaborador.length > 0) {
               for (var i = 0; i < response.colaborador.length; i++) {
@@ -88,6 +89,7 @@ export class EventosDetallesPublicComponent implements OnInit {
                   this.arrColaboradores.push(response.colaborador[i]);
               }
             }
+            console.log(this.arrColaboradores);
             //Almacenar jornadas
             var primeraFecha = '';
             if (response.Jornada.length > 0) {
@@ -98,6 +100,7 @@ export class EventosDetallesPublicComponent implements OnInit {
                 }
               }
             }
+            console.log(this.arrJornadas);
             //Almacenar expositores
             if (response.expositor.length > 0) {
               for (var i = 0; i < response.expositor.length; i++) {
@@ -105,6 +108,7 @@ export class EventosDetallesPublicComponent implements OnInit {
                   this.arrExpositores.push(response.expositor[i]);
               }
             }
+            console.log(this.arrExpositores);
             //Almacenar los materiales
             if (response.material.length > 0) {
               for (var i = 0; i < response.material.length; i++) {
@@ -112,6 +116,7 @@ export class EventosDetallesPublicComponent implements OnInit {
                   this.arrMateriales.push(response.material[i]);
               }
             }
+            console.log(this.arrMateriales);
             //Seleccionar la fecha más pronta de las jornadas
             for (var i = 0; i < this.fechas.length; i++) {
               if (primeraFecha < this.fechas[i])
