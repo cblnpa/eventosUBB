@@ -1,73 +1,71 @@
-<body class="fix-header card-no-border fix-sidebar">
-    <div class="col-lg-12">
-        <div class="card card-outline-info">
+<div class="col-lg-12">
+    <div class="card card-outline-info">
 
-            <div class="card-header mt-3">
-                <h1 class="text-center text-white">Crear un nuevo evento</h1>
-            </div>
+        <div class="card-header mt-3">
+            <h1 class="text-center text-white">Crear un nuevo evento</h1>
+        </div>
 
-            <div class="card-body bordes-card">
-                <form class="form-horizontal p-t-20" #crearEventoForm="ngForm"
-                    (ngSubmit)="guardarEvento(crearEventoForm)">
+        <div class="card-body bordes-card">
+            <form class="form-horizontal p-t-20" #crearEventoForm="ngForm" (ngSubmit)="guardarEvento(crearEventoForm)">
 
-                    <!-- Nombre del evento-->
-                    <div class="form-group row">
-                        <label for="nombreUnidad" class="col-sm-4 control-label text-right">Unidad asociada *</label>
-                        <div class="col-sm-6">
-                            <ngx-select-dropdown tabindex="0" [config]="configUnidad" [options]="optionsUnidad"
-                                [multiple]="false" name="nombreUnidad" #nombreUnidad="ngModel" [(ngModel)]="unidades" required>
-                            </ngx-select-dropdown>
-                            <span class="help-block"><small>Seleccionar persona encargada del evento</small></span>
-                        </div>
-                        <div class="col-sm-1 mt-2">
-                            <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
-                                <span class="tooltip-content5">
-                                    <span class="tooltip-text3">
-                                        <span class="tooltip-inner2"> Seleccione la unidad asociada al evento.
-                                            Esta unidad es la que está a cargo de la organización.
-                                            Por ejemplo: "Facultad de Ciencias Empresariales"
-                                        </span>
+                <!-- Nombre del evento-->
+                <div class="form-group row">
+                    <label for="nombreUnidad" class="col-sm-4 control-label text-right">Unidad asociada *</label>
+                    <div class="col-sm-6">
+                        <ngx-select-dropdown tabindex="0" [config]="configUnidad" [options]="optionsUnidad"
+                            [multiple]="false" name="nombreUnidad" #nombreUnidad="ngModel" [(ngModel)]="unidades"
+                            required>
+                        </ngx-select-dropdown>
+                        <span class="help-block"><small>Seleccionar persona encargada del evento</small></span>
+                    </div>
+                    <div class="col-sm-1 mt-2">
+                        <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
+                            <span class="tooltip-content5">
+                                <span class="tooltip-text3">
+                                    <span class="tooltip-inner2"> Seleccione la unidad asociada al evento.
+                                        Esta unidad es la que está a cargo de la organización.
+                                        Por ejemplo: "Facultad de Ciencias Empresariales"
                                     </span>
                                 </span>
-                            </a>
-                        </div>
+                            </span>
+                        </a>
                     </div>
+                </div>
 
-                    <!-- Agregar el encargado del evento -->
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-4 control-label text-right">Encargado *</label>
-                        <div class="col-sm-6">
-                            <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="optionsUsuario"
-                                [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios" required>
-                            </ngx-select-dropdown>
-                            <span class="help-block"><small>Seleccionar persona encargada del evento</small></span>
-                        </div>
-                        <div class="col-sm-1 mt-2">
-                            <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
-                                <span class="tooltip-content5">
-                                    <span class="tooltip-text3">
-                                        <span class="tooltip-inner2"> Selecciona al encargado del evento que estás
-                                            creando.</span>
-                                    </span>
+                <!-- Agregar el encargado del evento -->
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 control-label text-right">Encargado *</label>
+                    <div class="col-sm-6">
+                        <ngx-select-dropdown tabindex="0" [config]="configUsuario" [options]="optionsUsuario"
+                            [multiple]="false" name="email" #email="ngModel" [(ngModel)]="usuarios" required>
+                        </ngx-select-dropdown>
+                        <span class="help-block"><small>Seleccionar persona encargada del evento</small></span>
+                    </div>
+                    <div class="col-sm-1 mt-2">
+                        <a class="mytooltip" href="javascript:void(0)"> <i class="fa fa-question-circle"></i>
+                            <span class="tooltip-content5">
+                                <span class="tooltip-text3">
+                                    <span class="tooltip-inner2"> Selecciona al encargado del evento que estás
+                                        creando.</span>
                                 </span>
-                            </a>
-                        </div>
+                            </span>
+                        </a>
                     </div>
+                </div>
 
-                    <div class="form-group row m-b-0">
-                        <div class="col-md-8"></div>
-                        <div class="col-md-2 text-right">
-                            <button type="submit" class="btn btn-block btn-success waves-effect waves-light"
-                                [disabled]="crearEventoForm.invalid">Crear</button>
-                        </div>
-                        <div class="col-md-2 text-left">
-                            <button type="button" class="btn btn-danger btn-block waves-effect"
-                                (click)="salirCrearEvento()">Cancelar</button>
-                        </div>
+                <div class="form-group row m-b-0">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-3 col-sm-12 text-left">
+                        <button type="button" class="btn btn-danger btn-block waves-effect"
+                            (click)="salirCrearEvento()"><i class="fa fa-sign-out"></i> Salir</button>
                     </div>
+                    <div class="col-md-3 col-sm-12 text-right">
+                        <button type="submit" class="btn btn-block btn-success waves-effect waves-light"
+                            [disabled]="crearEventoForm.invalid"><i class="fa fa-save"></i> Guardar</button>
+                    </div>
+                </div>
 
-                </form>
-            </div>
+            </form>
         </div>
     </div>
-</body>
+</div>
