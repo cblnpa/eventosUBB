@@ -72,6 +72,11 @@ export class ReportesGenerarComponent implements OnInit {
   }
 
   downloadAdminUBB() {
+    var today = new Date();
+    var date = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var fecha = 'Reporte generado el ' + date + ' a las ' + time;
+
     let columns = [
       { title: 'Unidad', dataKey: 'unidad' },
       { title: 'Encargado unidad', dataKey: 'encargadoU' },
@@ -105,32 +110,51 @@ export class ReportesGenerarComponent implements OnInit {
 
     //acá va la configuración del PDF
     var docAdminUBB = new jsPDF({ orientation: 'landscape', format: 'letter', putOnlyUsedFonts: true });
+    var totalPagesExp = '{total_pages_count_string}'
 
     //agregar logo
     let logoUBB = document.getElementById('logoUBB');
-    docAdminUBB.addImage(logoUBB,'PNG',120,5);
+    docAdminUBB.addImage(logoUBB, 'PNG', 120, 5);
 
     //configuración título
     docAdminUBB.setFontSize(16);
-    docAdminUBB.text(this.tituloUBB,95,45);
+    docAdminUBB.text(this.tituloUBB, 95, 45);
 
     //SplitText separa las frases extensas para dejarlas como párrafos
     var lines = docAdminUBB.splitTextToSize(this.subtituloUBB, 400);
     docAdminUBB.setFontSize(10);
-    docAdminUBB.text(lines,15,52);
+    docAdminUBB.text(lines, 15, 52);
 
     //configuración de la tabla
     docAdminUBB.setFontSize(12);
     docAdminUBB.autoTable(columns, dataUBB, {
       margin: { top: 60 },
       didDrawPage: function (data) {
-        data.settings.margin.top = 10;
+        data.settings.margin.top = 15; //resetea el margen de la siguiente página
+
+        var pageSize = docAdminUBB.internal.pageSize;
+        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+
+        //header
+        docAdminUBB.setFontSize(9);
+        docAdminUBB.text(fecha, data.settings.margin.left, pageHeight - 205);
+
+        //footer
+        var str = 'Página ' + docAdminUBB.internal.getNumberOfPages();
+        if (typeof docAdminUBB.putTotalPages === 'function') {
+          str = str + ' de ' + totalPagesExp;
+        }
+        docAdminUBB.setFontSize(9);
+
+        //Agrega el footer
+        docAdminUBB.text(str, data.settings.margin.left, pageHeight - 10);
       }
     });
 
-    //pies de página
-    docAdminUBB.setFontSize(9);
-    docAdminUBB.text('fechaCreacion',14,200);
+    //Obtiene el total de páginas
+    if (typeof docAdminUBB.putTotalPages === 'function') {
+      docAdminUBB.putTotalPages(totalPagesExp)
+    }
 
     docAdminUBB.save('reporte.pdf');
   }
