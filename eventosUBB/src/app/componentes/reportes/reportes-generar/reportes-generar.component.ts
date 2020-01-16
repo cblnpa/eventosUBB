@@ -17,14 +17,16 @@ export class ReportesGenerarComponent implements OnInit {
   // public sinComision; //variable que muestra el texto cuando no existe una comisión en el evento
   public perfil; // id del perfil del usuario activo
   public idPerfil; //almacena el id del usuario para mostrar la tabla correspondiente
-  public tituloUBB = 'Reportes Administrador UBB';
-  public subtituloUBB = 'El reporte generado contiene la información asociada a todos los eventos realizados en la Universidad del Bío-Bío sede Chillán, se listan todas las unidades con sus eventos correspondientes, indicando el encargado del evento, la fecha de realización y la cantidad de participantes';
+  public tituloUBB = 'REPORTES UNIVERSIDAD DEL BÍO-BÍO';
+  public subtituloUBB = 'El reporte generado contiene la información asociada a todos los eventos realizados en la Universidad del Bío-Bío, se listan todas las unidades con sus eventos correspondientes, indicando el encargado del evento, la fecha de realización y la cantidad de participantes';
   public tituloUnidad = 'Reportes Administrador Unidad';
   public subtituloUnidad = 'El reporte generado contiene la información asociada a todos los eventos realizados en la unidad de Ingeniería Civil en Informática, se listan todos los eventos correspondientes, indicando el encargado del evento, la fecha de realización, la cantidad de participantes, dependencia e integrantes de la comisión.'
 
   public dataAdminUBB = [];
   public dataAdminUnidad = [];
   public dataComision = [];
+
+  public logo = "../../../../assets/images/logo-completo-ubb.png";
 
   constructor(private userService: UserService, private reporteService: ReportesService) {
     this.token = this.userService.getToken();
@@ -67,8 +69,6 @@ export class ReportesGenerarComponent implements OnInit {
           }
         }
       })
-    console.log(this.dataAdminUnidad);
-    console.log(this.dataComision);
   }
 
   downloadAdminUBB() {
@@ -105,26 +105,32 @@ export class ReportesGenerarComponent implements OnInit {
 
     //acá va la configuración del PDF
     var docAdminUBB = new jsPDF({ orientation: 'landscape', format: 'letter', putOnlyUsedFonts: true });
-    docAdminUBB.setFontSize(22);
-    docAdminUBB.text(this.tituloUBB,100,20, {align: 'center'});
+
+    //agregar logo
+    let logoUBB = document.getElementById('logoUBB');
+    docAdminUBB.addImage(logoUBB,'PNG',120,5);
+
+    //configuración título
+    docAdminUBB.setFontSize(16);
+    docAdminUBB.text(this.tituloUBB,95,45);
 
     //SplitText separa las frases extensas para dejarlas como párrafos
-    var lines = docAdminUBB.splitTextToSize(this.subtituloUBB, 550);
+    var lines = docAdminUBB.splitTextToSize(this.subtituloUBB, 400);
     docAdminUBB.setFontSize(10);
-    docAdminUBB.text(lines,14,30);
+    docAdminUBB.text(lines,15,52);
 
     //configuración de la tabla
     docAdminUBB.setFontSize(12);
     docAdminUBB.autoTable(columns, dataUBB, {
-      margin: { top: 40 }
+      margin: { top: 60 },
+      didDrawPage: function (data) {
+        data.settings.margin.top = 10;
+      }
     });
 
+    //pies de página
     docAdminUBB.setFontSize(9);
     docAdminUBB.text('fechaCreacion',14,200);
-
-    // var str = "Hola";
-    // docAdminUBB.setFontSize(8);
-    // docAdminUBB.text(str, 50, docAdminUBB.internal.pageSize.heigh - 10);
 
     docAdminUBB.save('reporte.pdf');
   }

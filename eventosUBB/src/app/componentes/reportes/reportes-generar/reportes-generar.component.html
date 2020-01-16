@@ -5,11 +5,14 @@
       <!-- Reportes del AdminUBB -->
       <div *ngIf="idPerfil == 1" class="card">
         <div class="card-body">
-          <h2 class="card-title text-center"> {{tituloUBB}} </h2>
+          <div class="text-center">
+            <img id="logoUBB" style="width: 170px; height: 110px;" src="{{logo}}">
+          </div>
+          <h2 class="card-title text-center m-t-15"> {{tituloUBB}} </h2>
           <h5 class="card-subtitle"> {{subtituloUBB}} </h5>
           <div class="mb-3 text-right">
             <button type="button" class="btn btn-success btn-rounded" (click)="downloadAdminUBB();"><i
-                class="fa fa-download"></i> Exportar PDF</button>
+                class="fa fa-download"></i> Generar reporte</button>
           </div>
           <div class="table-responsive">
             <table class="display nowrap table table-hover table-striped table-bordered">
@@ -24,13 +27,13 @@
                   <th>Ciudad</th>
                 </tr>
               </thead>
-              <tbody *ngFor="let dataUBB of dataAdminUBB">
+              <tbody *ngFor="let dataUBB of dataAdminUBB | paginate: { itemsPerPage: 10, currentPage: p }">
                 <tr>
                   <td> {{dataUBB?.nombreUnidad}} </td>
                   <td> {{dataUBB?.encargadoUnidad}} </td>
                   <td> {{dataUBB.nombreEvento}} </td>
                   <td> {{dataUBB?.encargadoEvento}} </td>
-                  <td> {{dataUBB.fechaEvento.created_at | date: 'shortDate'}} </td>
+                  <td> {{dataUBB.fechaEvento.created_at | date: 'dd/MM/yyyy'}} </td>
                   <td> {{dataUBB?.cantidadParticipante}} </td>
                   <td> {{dataUBB?.ciudad.ciudad.nombreCiudad}} </td>
                 </tr>
@@ -38,7 +41,12 @@
             </table>
           </div>
           <div>
-            <p>Acá hacer un paginador</p>
+            <div class="col-md-12">
+              <ul class="pagination justify-content-center">
+                <pagination-controls responsive="true" previousLabel="Anterior" nextLabel="Siguiente" autoHide="true"
+                  (pageChange)="p = $event"></pagination-controls>
+              </ul>
+            </div>
           </div>
 
         </div>
