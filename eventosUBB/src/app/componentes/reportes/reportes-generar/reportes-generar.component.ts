@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, ReportesService } from '../../../servicios/servicio.index';
+import { UserService, ReportesService, UnidadService } from '../../../servicios/servicio.index';
+import { unidad } from 'src/app/model/model.index';
 
 declare const require: any;
 const jsPDF = require('jspdf');
@@ -19,8 +20,11 @@ export class ReportesGenerarComponent implements OnInit {
   public idPerfil; //almacena el id del usuario para mostrar la tabla correspondiente
   public tituloUBB = 'REPORTES UNIVERSIDAD DEL BÍO-BÍO';
   public subtituloUBB = 'El reporte generado contiene la información asociada a todos los eventos realizados en la Universidad del Bío-Bío, se listan todas las unidades con sus eventos correspondientes, indicando el encargado del evento, la fecha de realización y la cantidad de participantes';
-  public tituloUnidad = 'Reportes Administrador Unidad';
+  public tituloUnidad = 'REPORTES UNIDAD';
   public subtituloUnidad = 'El reporte generado contiene la información asociada a todos los eventos realizados en la unidad de Ingeniería Civil en Informática, se listan todos los eventos correspondientes, indicando el encargado del evento, la fecha de realización, la cantidad de participantes, dependencia e integrantes de la comisión.'
+
+  public hideTable; // oculta la tabla y el botón exportar para escoger primero un evento
+  public nombreUnidad;
 
   public dataAdminUBB = [];
   public dataAdminUnidad = [];
@@ -28,21 +32,48 @@ export class ReportesGenerarComponent implements OnInit {
 
   public logo = "../../../../assets/images/logo-completo-ubb.png";
 
-  constructor(private userService: UserService, private reporteService: ReportesService) {
+  //variables para el select unidad 
+  public unidad: unidad;
+  public unidades: any = []; //almacena las unidades encontradas 
+  public optionsUnidad;
+
+  //Configuraciones del ngx-select-dropdown para la unidad
+  configUnidad = {
+    displayKey: 'nombreUnidad', //if objects array passed which key to be displayed defaults to description
+    search: true, //true/false for the search functionlity defaults to false,
+    height: '100px', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
+    placeholder: 'Seleccionar unidad', // text to be displayed when no item is selected defaults to Select,
+    noResultsFound: '¡No se encuentra la unidad!', // text to be displayed when no items are found while searching
+    searchPlaceholder: 'Buscar unidad', // label thats displayed in search input,
+    searchOnKey: 'nombreUnidad' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
+  }
+
+  constructor(private userService: UserService, private reporteService: ReportesService,
+    private unidadService: UnidadService) {
     this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();
+    this.hideTable = 0;
   }
 
   ngOnInit() {
     this.perfil = this.identity.perfil_idPerfil;
     this.getPerfil();
     this.getReportesUBB();
-    this.getReportesUnidad();
+    this.getUnidades();
   }
 
   getPerfil() {
     this.idPerfil = this.identity.perfil_idPerfil;
-    console.log(this.idPerfil);
+  }
+
+  getUnidades() {
+    this.unidadService.getUnidades2().subscribe(
+      response => {
+        this.optionsUnidad = response.unidades;
+      },
+      error => {
+        console.log(<any>error);
+      })
   }
 
   getReportesUBB() {
@@ -55,19 +86,35 @@ export class ReportesGenerarComponent implements OnInit {
       })
   }
 
+  seleccionarUnidad() {
+    this.hideTable = 1;
+    this.nombreUnidad = this.unidades.nombreUnidad;
+    this.dataAdminUnidad = [];
+    this.getReportesUnidad();
+  }
+
+  seleccionarUnidad2() {
+    this.hideTable = 0;
+    this.dataAdminUnidad = [];
+    this.getReportesUnidad();
+  }
+
   getReportesUnidad() {
-    let nombreUnidad = 'Facultad de Ciencias Empresariales';
-    this.reporteService.getReporteAdminUnidad(nombreUnidad).subscribe(
+    this.reporteService.getReporteAdminUnidad(this.nombreUnidad).subscribe(
       response => {
         console.log(response);
         for (var i = 0; i < response.reporte.length; i++) {
-          if (response.reporte[i] != null && response.reporte[i].evento.nombreEvento != null)
+          if (response.reporte[i] != null && response.reporte[i].evento.nombreEvento != null) {
             this.dataAdminUnidad.push(response.reporte[i]);
-          for (var j = 0; j < response.reporte[i].comision.length; j++) {
-            if (response.reporte[i] != null && response.reporte[i].comision.length > 0 && response.reporte[i].evento.nombreEvento != null)
-              this.dataComision.push(response.reporte[i].comision[j]);
           }
+          // for (var j = 0; j < response.reporte[i].comision.length; j++) {
+          //   if (response.comision[i] == null)
+          //     this.dataComision.push('');
+          //   this.dataComision.push(response.reporte[i].comision[j].users);
+          // }
         }
+        console.log(this.dataAdminUnidad);
+        console.log(this.dataComision);
       })
   }
 
@@ -160,6 +207,11 @@ export class ReportesGenerarComponent implements OnInit {
   }
 
   downloadAdminUnidad() {
+    var today1 = new Date();
+    var date1 = today1.getFullYear() + '/' + (today1.getMonth() + 1) + '/' + today1.getDate();
+    var time1 = today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds();
+    var fecha1 = 'Reporte generado el ' + date1 + ' a las ' + time1;
+
     let columnsUnidad = [
       { title: 'Encargado', dataKey: 'encargado' },
       { title: 'Evento', dataKey: 'evento' },
@@ -175,7 +227,7 @@ export class ReportesGenerarComponent implements OnInit {
     let rowsAdminUnidad = { encargado: '', evento: '', fecha: '', comision: '', cupos: '', dependencia: '', ciudad: '' };
 
     for (var i = 0; i < this.dataAdminUnidad.length; i++) {
-      rowsAdminUnidad.encargado = this.dataAdminUnidad[i].encargado;
+      rowsAdminUnidad.encargado = this.dataAdminUnidad[i].encargado.nombreUsuario + ' ' + this.dataAdminUnidad[i].encargado.apellidoUsuario;
       rowsAdminUnidad.evento = this.dataAdminUnidad[i].evento.nombreEvento;
       rowsAdminUnidad.fecha = this.dataAdminUnidad[i].evento.created_at;
       rowsAdminUnidad.comision = 'comision'; //*
@@ -193,17 +245,52 @@ export class ReportesGenerarComponent implements OnInit {
 
     //acá va la configuración del PDF
     var docAdminUnidad = new jsPDF({ orientation: 'landscape', format: 'letter', putOnlyUsedFonts: true });
-    docAdminUnidad.setFontSize(22);
-    docAdminUnidad.text(this.tituloUnidad);
+    var totalPagesExp = '{total_pages_count_string}'
 
+    //agregar logo
+    let logoUBB = document.getElementById('logoUBB');
+    docAdminUnidad.addImage(logoUBB, 'PNG', 120, 5);
+
+    //título
     docAdminUnidad.setFontSize(16);
-    docAdminUnidad.text(this.subtituloUnidad);
+    docAdminUnidad.text(this.tituloUnidad, 115, 45);
+    
+    docAdminUnidad.setFontSize(14);
+    docAdminUnidad.text(this.nombreUnidad,15,50);
+
+    //subtitulo
+    var line1 = docAdminUnidad.splitTextToSize(this.subtituloUnidad, 350);
+    docAdminUnidad.setFontSize(10);
+    docAdminUnidad.text(line1,15,55);
 
     //configuración de la tabla
     docAdminUnidad.setFontSize(12);
     docAdminUnidad.autoTable(columnsUnidad, dataUnidad, {
-      margin: { top: 50 }
+      margin: { top: 65 },
+      didDrawPage: function (data) {
+        data.settings.margin.top = 15;
+
+        var pageSize = docAdminUnidad.internal.pageSize;
+        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+
+        //header
+        docAdminUnidad.setFontSize(9);
+        docAdminUnidad.text(fecha1, data.settings.margin.left, pageHeight - 205);
+
+        //footer
+        var str = 'Página ' + docAdminUnidad.internal.getNumberOfPages();
+        if(typeof docAdminUnidad.putTotalPages === 'function') {
+          str = str + ' de ' + totalPagesExp;
+        }
+        docAdminUnidad.setFontSize(9);
+        docAdminUnidad.text(str, data.settings.margin.left, pageHeight - 10);
+      }
     });
+
+    //Obtiene el total de páginas
+    if (typeof docAdminUnidad.putTotalPages === 'function') {
+      docAdminUnidad.putTotalPages(totalPagesExp)
+    }
 
     docAdminUnidad.save('reporte.pdf');
   }

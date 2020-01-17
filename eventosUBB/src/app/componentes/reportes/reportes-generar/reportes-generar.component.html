@@ -54,45 +54,82 @@
 
       <!-- Reportes del AdminUnidad -->
       <div *ngIf="idPerfil == 3" class="card">
+
         <div class="card-body">
+          <div class="text-center">
+            <img id="logoUBB" style="width: 170px; height: 110px;" src="{{logo}}">
+          </div>
           <h2 class="card-title text-center"> {{tituloUnidad}} </h2>
           <h5 class="card-subtitle"> {{subtituloUnidad}} </h5>
-          <div class="mb-3 text-right">
-            <button type="button" class="btn btn-success btn-rounded" (click)="downloadAdminUnidad();"><i
-                class="fa fa-download"></i> Descargar PDF</button>
-          </div>
-          <div class="table-responsive">
-            <table class="display nowrap table table-hover table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th>Encargado</th>
-                  <th>Evento</th>
-                  <th>Fecha del evento</th>
-                  <th>Comisión</th>
-                  <th>Cupos</th>
-                  <th>Dependencia</th>
-                  <th>Ciudad</th>
-                </tr>
-              </thead>
-              <tbody *ngFor="let dataUnidad of dataAdminUnidad">
-                <tr>
-                  <td> {{dataUnidad?.encargado}} </td>
-                  <td> {{dataUnidad?.evento.nombreEvento}} </td>
-                  <td> {{dataUnidad.evento.created_at | date: 'shortDate'}} </td>
-                  <td> <span *ngFor="let comision of dataComision">
-                      {{comision?.nombreUsuario + ' ' + comision?.apellidoUsuario}}<br> </span>
-                  </td>
-                  <td> {{dataUnidad?.evento.capacidad}} </td>
-                  <td> {{dataUnidad?.evento.ubicacion}} </td>
-                  <td> {{dataUnidad?.evento.ciudad.nombreCiudad}} </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div>
-            <p>Acá hacer un paginador</p>
+          Unidad seleccionada: <span class="badge badge-primary m-l-5"> {{nombreUnidad}} </span>
+
+          <div *ngIf="hideTable == 0" class="col-md-12">
+            <form class="form-horizontal" #unidadForm="ngForm" (ngSubmit)="seleccionarUnidad()">
+              <div class="form-group row mt-3">
+                <label class="col-sm-4 control-label text-right"> Seleccionar unidad <span
+                    class="text-warning">*</span></label>
+                <div class="col-sm-6">
+                  <ngx-select-dropdown tabindex="0" [config]="configUnidad" [options]="optionsUnidad" [multiple]="false"
+                    name="nombreUnidad" #nombreUnidad="ngModel" [(ngModel)]="unidades" required></ngx-select-dropdown>
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <div class="col-md-7"></div>
+                <div class="col-md-3 text-right">
+                  <button type="submit" [disabled]="unidadForm.invalid" class="btn btn-block btn-success">
+                    Seleccionar
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
 
+          <div *ngIf="hideTable == 1" class="col-md-12 m-t-15">
+            <div class="mb-3 text-right">
+              <button type="button" class="btn btn-info btn-rounded" (click)="seleccionarUnidad2()"> Seleccionar
+                unidad</button>
+              <button type="button" class="btn btn-success btn-rounded" (click)="downloadAdminUnidad();"><i
+                  class="fa fa-download"></i> Generar reporte </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="display nowrap table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Encargado</th>
+                    <th>Evento</th>
+                    <th>Fecha del evento</th>
+                    <th>Comisión</th>
+                    <th>Cupos</th>
+                    <th>Dependencia</th>
+                    <th>Ciudad</th>
+                  </tr>
+                </thead>
+                <tbody
+                  *ngFor="let dataUnidad of dataAdminUnidad | paginate: { itemsPerPage: 10, currentPage: p}; let i = index">
+                  <tr>
+                    <td> {{dataUnidad?.encargado.nombreUsuario + ' ' + dataUnidad?.encargado.apellidoUsuario}} </td>
+                    <td> {{dataUnidad?.evento.nombreEvento}} </td>
+                    <td> {{dataUnidad.evento.created_at | date: 'dd/MM/yyyy'}} </td>
+                    <td> </td>
+                    <!-- <td> <span *ngFor="let comision of dataComision">
+                        {{comision?.nombreUsuario + ' ' + comision?.apellidoUsuario}}<br> </span>
+                    </td> -->
+                    <td> {{dataUnidad?.evento.capacidad}} </td>
+                    <td> {{dataUnidad?.evento.ubicacion}} </td>
+                    <td> {{dataUnidad?.evento.ciudad.nombreCiudad}} </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-md-12">
+              <ul class="pagination justify-content-center">
+                <pagination-controls responsive="true" previousLabel="Anterior" nextLabel="Siguiente" autoHide="true"
+                  (pageChange)="p = $event"></pagination-controls>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
