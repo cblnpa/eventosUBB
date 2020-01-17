@@ -3,9 +3,13 @@
         <div class="login-box card">
             <div class="card-body">
 
-                <form class="form-horizontal form-material" #emailForm="ngForm" (ngSubmit)="onSubmit(emailForm)">
+                <form class="form-horizontal form-material" id="loginform" #emailForm="ngForm" (ngSubmit)="onSubmit(emailForm)">
 
-                    <h2 class="box-title text-center text-dark m-b-15">Recuperar contraseña</h2>
+                    <h2 class="box-title text-center text-dark m-b-15">Cambiar contraseña</h2>
+                    <div class="alert alert-info">
+                        Para cambiar tu contraseña ingresa el correo asociado a tu cuenta.
+                        Te enviaremos un correo para que sigas los pasos necesarios.
+                    </div>
 
                     <div class="login">
                         <mat-form-field appearance="outline">

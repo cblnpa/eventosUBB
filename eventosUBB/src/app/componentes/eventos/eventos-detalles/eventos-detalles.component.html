@@ -264,7 +264,7 @@
                                 <h1>Comisión</h1>
                             </div>
 
-                            <div class="row">
+                            <div *ngIf="rol == 1" class="row">
                                 <div class="col-md-12 text-right">
                                     <button type="button" class="btn btn-success" (click)="agregarComision()"><i
                                             class="fa fa-plus"></i> Agregar integrante </button>

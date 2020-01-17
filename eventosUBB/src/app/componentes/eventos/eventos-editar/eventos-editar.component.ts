@@ -178,9 +178,9 @@ export class EventosEditarComponent implements OnInit {
             this.eventos.tipoEvento_idtipoEvento = response.changes.eventos.tipoEvento_idtipoEvento;
           }
         }
-        Swal.fire('', 'Datos guardados', 'success');
       }
-    )
+      )
+      Swal.fire('', 'Datos guardados', 'success');
   }
 
   guardarEventoySalir(form) {
