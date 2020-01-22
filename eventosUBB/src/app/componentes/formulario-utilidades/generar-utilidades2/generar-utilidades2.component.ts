@@ -11,11 +11,11 @@ import { $ } from 'protractor';
 declare const fabric: any;
 
 @Component({
-  selector: 'app-generar-utilidades',
-  templateUrl: './generar-utilidades.component.html',
-  styleUrls: ['./generar-utilidades.component.css']
+  selector: 'app-generar-utilidades2',
+  templateUrl: './generar-utilidades2.component.html',
+  styleUrls: ['./generar-utilidades2.component.css']
 })
-export class GenerarUtilidadesComponent implements OnInit {
+export class GenerarUtilidades2Component implements OnInit {
 
   public canvas: any;
   public props: any = {
@@ -574,7 +574,7 @@ export class GenerarUtilidadesComponent implements OnInit {
     var letra = this.participantes;
     // console.log("prueba");
     // console.log(this.canvas);
-    const doc = new jsPDF('p', 'mm', [216, 279]);
+    const doc = new jsPDF('l', 'mm', [216, 279]);
 
     if (this.canvas._iTextInstances != null) {
       for (let i = 0; i < letra.length; i++) {

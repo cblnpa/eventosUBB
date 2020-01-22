@@ -16,7 +16,7 @@ import {
     ComisionCrearComponent, GenerarUtilidadesComponent, FormularioUtilidadesComponent,
     ProgramaComponent, TablaJornadaComponent, TablaExpositorComponent, TablaActividadComponent,
     TablaColaboradorComponent, TablaMaterialComponent, EventosAdministrarComponent,
-    EventosInscritosComponent
+    EventosInscritosComponent, GenerarUtilidades2Component
 } from '../componentes/componentes.index';
 
 // Componentes modals
@@ -76,6 +76,7 @@ import { FormularioComponent } from './acreditacion/formulario/formulario.compon
         ComisionVerComponent,
         ComisionCrearComponent,
         GenerarUtilidadesComponent,
+        GenerarUtilidades2Component,
         FormularioUtilidadesComponent,
         ProgramaComponent,
         EventosAdministrarComponent,
@@ -105,6 +106,7 @@ import { FormularioComponent } from './acreditacion/formulario/formulario.compon
         EventosAdministrarComponent,
         AcreditacionComponent,
         FormularioComponent,
+        GenerarUtilidades2Component,
     ],
     //exports es para poder utilizar estos componentes fuera de esta carpeta 
     exports: [

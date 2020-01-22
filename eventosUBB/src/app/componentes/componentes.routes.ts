@@ -8,7 +8,7 @@ import {
     EventosDetallesPublicComponent, ProgramaComponent, UnidadesCrearComponent,
     UnidadesVerComponent, ReportesGenerarComponent, ComisionVerComponent, ComisionCrearComponent,
     FormularioUtilidadesComponent, EventosAdministrarComponent, EventosInscritosComponent,
-    FormularioComponent, AcreditacionComponent
+    FormularioComponent, AcreditacionComponent, GenerarUtilidades2Component
 } from '../componentes/componentes.index';
 
 import { LoginGuard } from '../servicios/guards/login.guard';
@@ -37,6 +37,7 @@ const componentesRoutes: Routes = [
             { path: 'eventoDetallePublic/:id', component: EventosDetallesPublicComponent, data: { titulo: 'Detalles del evento' } },
             { path: 'generarUtilidades', component: FormularioUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },
             { path: 'generarUtilidades/:id/:tipo', component: GenerarUtilidadesComponent, data: { titulo: 'Generar utilidades para el evento' } },
+            { path: 'generarUtilidades2/:id/:tipo', component: GenerarUtilidades2Component, data: { titulo: 'Generar utilidades para el evento' } },
             { path: 'eventoAcreditar', component: FormularioComponent, data: { titulo: 'Evento a acreditar' } },
             { path: 'acreditar/:idEvento', component: AcreditacionComponent, data: { titulo: 'Acreditar participantes' } },
         ]

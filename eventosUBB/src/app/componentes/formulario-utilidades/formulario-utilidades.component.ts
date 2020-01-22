@@ -29,8 +29,8 @@ export class FormularioUtilidadesComponent implements OnInit {
     searchOnKey: 'evento_idEvento' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
 
-  constructor( private userService: UserService, private eventoUsersService: EventoUsersService,
-    private router: Router ) {
+  constructor(private userService: UserService, private eventoUsersService: EventoUsersService,
+    private router: Router) {
     this.identity = this.userService.getIdentity();
   }
 
@@ -51,10 +51,13 @@ export class FormularioUtilidadesComponent implements OnInit {
   //Cargar parámetros de lo seleccionado
   cargarContenido(form) {
     this.idEvento = this.eventos.idEvento;
-    if(this.selectUtilidad == 'programa') {
-      this.router.navigate(['/programa/'+ this.idEvento]);
-    } else {
-      this.router.navigate(['/generarUtilidades/'+ this.idEvento + '/' + this.selectUtilidad]);
-    }
+    if (this.selectUtilidad == 'programa')
+      this.router.navigate(['/programa/' + this.idEvento]);
+    if (this.selectUtilidad == 'diploma')
+      this.router.navigate(['/generarUtilidades2/' + this.idEvento + '/' + this.selectUtilidad]);
+    if (this.selectUtilidad == 'certificado')
+      this.router.navigate(['/generarUtilidades/' + this.idEvento + '/' + this.selectUtilidad]);
+    if (this.selectUtilidad == 'credencial')
+      this.router.navigate(['/generarUtilidades/' + this.idEvento + '/' + this.selectUtilidad]);
   }
 }

@@ -27,6 +27,7 @@ export { ComisionCrearComponent } from './comisiones/comision-crear/comision-cre
 export { ReportesGenerarComponent } from './reportes/reportes-generar/reportes-generar.component';
 export { FormularioUtilidadesComponent } from './formulario-utilidades/formulario-utilidades.component';
 export { GenerarUtilidadesComponent } from './formulario-utilidades/generar-utilidades/generar-utilidades.component';
+export { GenerarUtilidades2Component} from './formulario-utilidades/generar-utilidades2/generar-utilidades2.component';
 export { ProgramaComponent } from './programa/programa.component';
 
 // Componentes del eventos-editar-tablas
