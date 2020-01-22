@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventoPojoService, ExpositorService } from '../../servicios/servicio.index';
+import { CambiarHoraPipe } from '../../pipes/cambiar_hora/cambiar-hora.pipe';
 
 declare const require: any;
 const jsPDF = require('jspdf');
@@ -27,6 +28,8 @@ export class ProgramaComponent implements OnInit {
   public fechas = [];
   public fechaEvento;
 
+  public logo = "../../../../assets/images/logo-completo-ubb.png";
+
   constructor(private eventoPojoService: EventoPojoService, private route: ActivatedRoute,
     private expositorService: ExpositorService) { }
 
@@ -38,10 +41,8 @@ export class ProgramaComponent implements OnInit {
     this.route.params.subscribe(params => {
       //Obtener el id del evento que viene por URL
       let idEvento = +params['id'];
-
       this.eventoPojoService.getEventoPojoById(idEvento).subscribe(
         response => {
-          console.log(response);
           if (response.code == 200) {
             //Almacenar las actividades 
             if (response.actividad.length > 0) {
@@ -50,8 +51,6 @@ export class ProgramaComponent implements OnInit {
                   this.arrActividades.push(response.actividad[i]);
               }
             }
-            console.log(this.arrActividades);
-
             //Almacenar los colaboradores
             if (response.colaborador.length > 0) {
               for (var i = 0; i < response.colaborador.length; i++) {
@@ -59,7 +58,6 @@ export class ProgramaComponent implements OnInit {
                   this.arrColaboradores.push(response.colaborador[i]);
               }
             }
-
             //Almacenar las jornadas
             var primeraFecha = '';
             if (response.Jornada.length > 0) {
@@ -75,7 +73,6 @@ export class ProgramaComponent implements OnInit {
               if (primeraFecha < this.fechas[i])
                 this.fechaEvento = this.fechas[i];
             }
-
             //Almacenar los expositores
             if (response.expositor.length > 0) {
               for (var i = 0; i < response.expositor.length; i++) {
@@ -83,25 +80,23 @@ export class ProgramaComponent implements OnInit {
                   this.arrExpositores.push(response.expositor[i]);
               }
             }
-
             //Almacenar los datos del evento
             this.evento.push(response.evento);
           }
         },
         error => {
-          console.log(error);
+          console.log(<any>error);
         })
 
+      //Función para asignar a la actividad el expositor correspondiente 
       this.expositorService.getExpositorActividad(idEvento).subscribe(
         response => {
-          console.log(response);
           if (response.code == 200) {
             for (var i = 0; i < response.expositor.length; i++) {
               if (response.expositor[i] != null)
                 this.arrExpositorActividad.push(response.expositor[i]);
             }
           }
-          console.log(this.arrExpositorActividad);
         },
         error => {
           console.log(<any>error);
@@ -116,34 +111,39 @@ export class ProgramaComponent implements OnInit {
       { title: 'Actividad', dataKey: 'nombre' },
       { title: 'Descripción', dataKey: 'descripcion' }
     ]
-
     //data o contenido de la tabla
     let data = [];
     let rows = { horaInicio: '', horaFin: '', nombre: '', descripcion: '' };
 
     for (var i = 0; i < this.arrActividades.length; i++) {
-      rows.horaInicio = this.arrActividades[i].horaInicioActividad;
-      rows.horaFin = this.arrActividades[i].horaFinActividad;
+      rows.horaInicio = CambiarHoraPipe.prototype.transform(this.arrActividades[i].horaInicioActividad);
+      rows.horaFin = CambiarHoraPipe.prototype.transform(this.arrActividades[i].horaFinActividad);
       rows.descripcion = this.arrActividades[i].descripcionActividad;
-      
-      if(this.arrActividades[i].idActividad == this.arrExpositorActividad[i].actividad_idActividad){
-        rows.nombre = this.arrActividades[i].nombreActividad + ' ' + this.arrExpositorActividad[i].expositor.nombreExpositor + ' ' + this.arrExpositorActividad[i].expositor.apellidoExpositor;
-      } else {
-        rows.nombre = this.arrActividades[i].nombreActividad + ' ';
-      }
+      rows.nombre = this.arrActividades[i].nombreActividad;
+
+      //Función para asignar a la actividad el expositor correspondiente 
+      // if (this.arrActividades[i].idActividad == this.arrExpositorActividad[i].actividad_idActividad) {
+      //   rows.nombre = this.arrActividades[i].nombreActividad + ' ' + this.arrExpositorActividad[i].expositor.nombreExpositor + ' ' + this.arrExpositorActividad[i].expositor.apellidoExpositor;
+      // } else {
+      //   rows.nombre = this.arrActividades[i].nombreActividad + 'Nada';
+      // }
 
       data.push({ 'hora': rows.horaInicio + ' - ' + rows.horaFin, 'nombre': rows.nombre, 'descripcion': rows.descripcion });
-      // data.push(rows.horaInicio, rows.horaFin, rows.descripcion);
     }
     var doc = new jsPDF({ orientation: 'p', format: 'letter', putOnlyUsedFonts: true });
+
+    //agregar logo
+    let logoUBB = document.getElementById('logoUBB');
+    doc.addImage(logoUBB, 'PNG', 100, 5);
+
     //Configuracion para el nombre del evento
     doc.setFontSize(22);
-    doc.text(this.evento[0].nombreEvento, 14, 20);
+    doc.text(this.evento[0].nombreEvento, 14, 40);
 
     //Configuracion para los datos del evento
-    doc.setFontSize(16);
-    doc.text('Fecha: ' + this.fechaEvento, 14, 30);
-    doc.text('Ubicación: ' + this.evento[0].ubicacion + ', ' + this.evento[0].direccion + ', ' + this.evento[0].ciudad.nombreCiudad, 14, 40);
+    doc.setFontSize(14);
+    doc.text('Fecha: ' + this.fechaEvento, 14, 50);
+    doc.text('Ubicación: ' + this.evento[0].ubicacion + ', ' + this.evento[0].direccion + ', ' + this.evento[0].ciudad.nombreCiudad, 14, 60);
 
     //Configuracion para la tabla con las actividades
     doc.setFontSize(12);
@@ -153,7 +153,10 @@ export class ProgramaComponent implements OnInit {
         nombre: { cellWidth: 30 },
         descripcion: { cellWidth: 'auto' }
       },
-      margin: { top: 50 }
+      margin: { top: 65 },
+      didDrawPage: function (data) {
+        data.settings.margin.top = 15; //resetea el margen de la siguiente página
+      }
     });
 
     //Exportar a pdf

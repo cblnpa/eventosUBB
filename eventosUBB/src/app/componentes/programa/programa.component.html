@@ -1,43 +1,49 @@
-<div class="col-md-12 text-right">
-    <button type="button" class="btn btn-success m-t-15" (click)="downloadPDF();">Generar PDF</button>
-</div>
+<body class="fix-header card-no-border fix-sidebar">
 
-<div class="col-md-12 content" #content>
+    <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-success m-t-15" (click)="downloadPDF();"><i class="fa fa-file-pdf-o"></i>
+            Generar PDF</button>
+    </div>
 
-    <div class="col-md-12">
+    <div class="col-md-12 content" #content>
+
+        <div class="text-center m-b-20">
+            <img id="logoUBB" style="width: 110px; height: 90px;" src="{{logo}}">
+        </div>
         <h1 class="text-center"> {{evento[0]?.nombreEvento}} </h1>
-        <div class="table table-responsive">
-            <table class="table text-center">
-                <tr>
-                    <td>Fecha</td>
-                    <td> {{fechaEvento | date: 'fullDate'}} </td>
-                </tr>
-                <tr>
-                    <td>Ubicación</td>
-                    <td> {{evento[0]?.ubicacion}}, {{evento[0]?.direccion}},{{evento[0]?.ciudad.nombreCiudad}} </td>
-                </tr>
-            </table>
-        </div>
-    </div>
 
-    <div class="col-md-12">
-
-        <div class="table-responsive">
-            <table class="table">
-                <thead class="text-center">
-                    <th scope="col-md-4"><b>Hora</b></th>
-                    <th scope="col"><b>Descripción</b></th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let actividades of arrActividades">
-                        <td> {{actividades.horaInicioActividad + ' - ' + actividades.horaFinActividad }} </td>
-                        <td> {{actividades.descripcionActividad}} </td>
+        <div class="col-md-12">
+            <div class="table table-responsive">
+                <table class="table">
+                    <tr>
+                        <td>Fecha</td>
+                        <td> {{fechaEvento | date: 'fullDate'}} </td>
                     </tr>
-                </tbody>
-            </table>
+                    <tr>
+                        <td>Ubicación</td>
+                        <td> {{evento[0]?.ubicacion}}, {{evento[0]?.direccion}},{{evento[0]?.ciudad.nombreCiudad}} </td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
-        <section style="text-align: center">
-            Contacto: <span style="color: blue">seminarioicichillan@ubiobio.cl</span> </section>
+        <div class="col-md-12">
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="text-center">
+                        <th scope="col-md-4"><b>Hora</b></th>
+                        <th scope="col"><b>Descripción</b></th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let actividades of arrActividades">
+                            <td> {{actividades.horaInicioActividad + ' - ' + actividades.horaFinActividad }} </td>
+                            <td> {{actividades.descripcionActividad}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
+
+</body>
