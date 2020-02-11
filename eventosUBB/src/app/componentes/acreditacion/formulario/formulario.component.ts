@@ -48,7 +48,7 @@ export class FormularioComponent implements OnInit {
 
   listarEventos() {
     console.log(this.idUsuario);
-    this.eventoUsersService.getMisEventosAdmin(this.idUsuario).subscribe(
+    this.eventoUsersService.getMisEventosAdmin2(this.idUsuario).subscribe(
       response => {
         this.optionEvento = response.eventos;
       },

@@ -39,7 +39,7 @@ export class FormularioUtilidadesComponent implements OnInit {
   }
 
   listarEventos() {
-    this.eventoUsersService.getMisEventosAdmin(this.identity.sub).subscribe(
+    this.eventoUsersService.getMisEventosAdmin2(this.identity.sub).subscribe(
       response => {
         this.optionEvento = response.eventos;
       },

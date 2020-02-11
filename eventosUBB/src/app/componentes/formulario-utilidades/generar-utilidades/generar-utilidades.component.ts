@@ -583,11 +583,11 @@ export class GenerarUtilidadesComponent implements OnInit {
         doc.addImage(imgData, 'JPGE', 0, 0, 216, 279);
         doc.addPage();
       }
-      doc.save("prueba.pdf");
+      doc.save("utilidad.pdf");
     } else {
       let imgData = this.canvas.toDataURL('image/jpeg', 1.0);
       doc.addImage(imgData, 'JPGE', 0, 0, 216, 279);
-      doc.save("prueba.pdf");
+      doc.save("utilidad.pdf");
     }
   }
 

@@ -184,6 +184,7 @@ export class EventosEditarComponent implements OnInit {
   }
 
   guardarEventoySalir(form) {
+    Swal.showLoading();
     this.eventoPojoService.updateEventoPojo(this.eventos, this.id).subscribe(
       response => {
         if (response.status == 'success') {
@@ -221,6 +222,7 @@ export class EventosEditarComponent implements OnInit {
         }
       }
     )
+    Swal.fire('', 'Datos guardados', 'success');
     this.router.navigate(['/eventoDetalle/' + this.id]);
   }
 

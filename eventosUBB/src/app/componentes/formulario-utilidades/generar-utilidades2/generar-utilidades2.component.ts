@@ -568,26 +568,27 @@ export class GenerarUtilidades2Component implements OnInit {
     }
   }
 
-
-  //vertical
   downloadPDF() {
     var letra = this.participantes;
-    // console.log("prueba");
-    // console.log(this.canvas);
-    const doc = new jsPDF('l', 'mm', [216, 279]);
-
+    console.log("prueba");
+    console.log(this.canvas);
+    const doc = new jsPDF('l', 'mm', [216 ,279]);
+  
     if (this.canvas._iTextInstances != null) {
       for (let i = 0; i < letra.length; i++) {
         this.canvas._iTextInstances[0].text = letra[i].users.nombreUsuario + ' ' + letra[i].users.apellidoUsuario;
         let imgData = this.canvas.toDataURL('image/jpeg', 1.0);
-        doc.addImage(imgData, 'JPGE', 0, 0, 216, 279);
+        doc.addImage(imgData, 'JPGE', 0, 0, 279, 216);
         doc.addPage();
       }
-      doc.save("prueba.pdf");
+      doc.save("utilidad.pdf");
     } else {
+    
       let imgData = this.canvas.toDataURL('image/jpeg', 1.0);
-      doc.addImage(imgData, 'JPGE', 0, 0, 216, 279);
-      doc.save("prueba.pdf");
+      //
+      doc.addImage(imgData, 'JPGE', 0, 0, 279, 216);
+      
+      doc.save("utilidad.pdf");
     }
   }
 
