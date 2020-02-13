@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../servicios/servicio.index';
-import {global} from '../../servicios/global'
+import { global } from '../../servicios/global'
 import { users } from 'src/app/model/users';
 
 @Component({
@@ -13,18 +13,19 @@ export class HeaderComponent implements OnInit {
   public identity;
   public url;
 
-  public idUsuario; 
+  public idUsuario;
   public tipoUsuario; //almacena el perfil del usuario activo
 
   public usuario: users;
 
-  constructor( public userService: UserService ) { 
+  public newIdentity;
+
+  constructor(public userService: UserService) {
     this.identity = this.userService.getIdentity();
     this.url = global.url;
   }
 
   ngOnInit() {
-    this.usuario = this.userService.getIdentity();
     this.getIdUsuario();
     this.getInfoUsuario();
   }
@@ -36,12 +37,13 @@ export class HeaderComponent implements OnInit {
       this.idUsuario = this.identity.id;
   }
 
-  getInfoUsuario() { 
+  getInfoUsuario() {
     this.userService.getDataUser(this.idUsuario).subscribe(
       response => {
         this.tipoUsuario = response.user[0].perfil.nombrePerfil;
       },
       error => {
         console.log(<any>error);
-      })}
+      })
   }
+}

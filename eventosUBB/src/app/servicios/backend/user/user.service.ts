@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { global } from '../../global';
@@ -12,8 +12,6 @@ export class UserService {
   public url: string;
   public identity;
   public token;
-
-  public general = new EventEmitter();
 
   constructor(private http: HttpClient, private router: Router) {
     this.url = global.url;
@@ -95,8 +93,6 @@ export class UserService {
     let params = "json=" + json;
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
-    this.general.emit('Estoy en editar usuario');
-
     return this.http.put(this.url + 'user/update/' + idUsuario, params, { headers: headers });
   }
 
@@ -143,9 +139,4 @@ export class UserService {
   statusLogin() {
     return (this.token.length > 5) ? true : false;
   }
-
-  getGeneralEmitter(){
-    return this.general;
-  }
-
 }

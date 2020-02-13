@@ -84,8 +84,6 @@ export class EditLoginComponent implements OnInit {
     this.userService.update(this.user, this.identity.sub).subscribe(
       response => {
         if (response.code == 200) {
-
-
           this.status = 'success';
 
           //Actualizar usuario de sesion
@@ -106,10 +104,6 @@ export class EditLoginComponent implements OnInit {
             type: 'success',
             title: 'Datos modificados correctamente'
           });
-
-          this.userService.getGeneralEmitter().subscribe(edit => {
-            console.log(edit);
-          })
 
           this.router.navigate(['/inicio']);
         }
