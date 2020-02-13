@@ -43,6 +43,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(registerForm) {
+    let aux = document.getElementsByName('nombreUsuario');
+    let nombre = aux["0"].value;
+    nombre.replace(/\s/g, "");
+    console.log(nombre);
     Swal.fire({
       title: 'Espere un momento'
     })
@@ -61,7 +65,7 @@ export class RegisterComponent implements OnInit {
             Swal.fire({
               type: 'success',
               title: '¡Registro exitoso!',
-              text: 'Te has registrado exitosamente, inicia sesión con tus datos para ingresar a la página',
+              text: 'Antes de iniciar sesión verifica tu cuenta mediante el correo que te hemos enviado',
             })
 
             this.router.navigate(['/login']);
