@@ -10,12 +10,10 @@
                         <mat-form-field hintLabel="Máximo 190 caracteres">
                             <mat-label for="nombreUsuario">Modifica tu nombre</mat-label>
                             <input #input1 matInput maxlength="190" placeholder="Ingresa tu nombre" type="text"
-                                name="nombreUsuario" #nombreUsuario="ngModel" [(ngModel)]="user.nombreUsuario" required>
+                                name="nombreUsuario" #nombreUsuario="ngModel" [(ngModel)]="user.nombreUsuario"
+                                pattern="[A-zÀ-ú\s]+" required>
                             <mat-hint align="end">{{input1.value?.length || 0}}/190</mat-hint>
-                            <small *ngIf="!nombreUsuario.valid && nombreUsuario.touched"
-                                class="invalid-feedback d-block">
-                                El nombre no es valido
-                            </small>
+                            <mat-error>Ingrese un nombre válido</mat-error>
                         </mat-form-field>
                     </div>
 
@@ -24,12 +22,9 @@
                             <mat-label for="apellidoUsuario">Modifica tu apellido</mat-label>
                             <input matInput #input2 maxlength="190" placeholder="Ingresa tu apellido" type="text"
                                 name="apellidoUsuario" #apellidoUsuario="ngModel" [(ngModel)]="user.apellidoUsuario"
-                                required>
+                                pattern="[A-zÀ-ú\s]+" required>
                             <mat-hint align="end">{{input2.value?.length || 0}}/190</mat-hint>
-                            <small *ngIf="!apellidoUsuario.valid && apellidoUsuario.touched"
-                                class="invalid-feedback d-block">
-                                El apellido no es valido
-                            </small>
+                            <mat-error>Ingrese un nombre válido</mat-error>
                         </mat-form-field>
                     </div>
 
