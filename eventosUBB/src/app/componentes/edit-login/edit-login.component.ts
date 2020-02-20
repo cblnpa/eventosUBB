@@ -22,6 +22,8 @@ export class EditLoginComponent implements OnInit {
   public identity;
   public url;
 
+  public tema; //almacena el nombre del tema 
+
 
   public afuConfig = {
     multiple: false,
@@ -83,10 +85,10 @@ export class EditLoginComponent implements OnInit {
   onSubmit(form) {
     this.userService.update(this.user, this.identity.sub).subscribe(
       response => {
+        console.log(response);
         if (response.code == 200) {
           this.status = 'success';
-
-          //Actualizar usuario de sesion
+          
           if (response.changes.nombreUsuario) {
             this.user.nombreUsuario = response.changes.nombreUsuario;
           }
@@ -96,6 +98,10 @@ export class EditLoginComponent implements OnInit {
           if (response.changes.avatar) {
             this.user.avatar = response.changes.avatar;
           }
+          
+          this.user.tema_usuario = this.tema;
+
+          console.log(this.user);
 
           this.identity = this.user;
           localStorage.setItem('identity', JSON.stringify(this.identity));
@@ -126,6 +132,24 @@ export class EditLoginComponent implements OnInit {
   cambiarColor(tema: string, linkTema: any) {
     this.aplicarCheck(linkTema);
     this._ajustes.aplicarTema(tema);
+    this.tema = tema;
+  }
+
+  salir(){
+    Swal.fire({
+      title: '¿Está seguro que desea salir?',
+      text: "Al salir, no se guardará ningún cambio",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#03C303',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, quiero salir',
+      cancelButtonText: 'No, no quiero salir'
+    }).then((result) => {
+      if (result.value) {
+        this.router.navigate(['/inicio']);
+      }
+    })
   }
 
   //muestra el chek en la caja que selecciono

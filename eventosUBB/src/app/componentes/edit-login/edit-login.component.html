@@ -1,87 +1,97 @@
 <body class="fix-header card-no-border">
     <div class="row">
-        <div class="col-md-6 col-xl-6 col-xs-12">
-            <div class="card-body">
-                <form class="form-horizontal form-material" id="loginform" #editForm="ngForm"
-                    (ngSubmit)="onSubmit(editForm)">
-                    <h3 class="box-title m-b-20">Modificar usuario</h3>
+        <div class="col-md-12">
+            <form class="form-horizontal form-material" id="loginform" #editForm="ngForm"
+                (ngSubmit)="onSubmit(editForm)">
+                <div class="row">
+                    <div class="col-md-6 col-xl-6 col-xs-12">
+                        <div class="card-body">
+                            <h3 class="box-title m-b-20">Modificar usuario</h3>
+                            <div class="register">
+                                <mat-form-field hintLabel="Máximo 190 caracteres">
+                                    <mat-label for="nombreUsuario">Modifica tu nombre</mat-label>
+                                    <input #input1 matInput maxlength="190" placeholder="Ingresa tu nombre" type="text"
+                                        name="nombreUsuario" #nombreUsuario="ngModel" [(ngModel)]="user.nombreUsuario"
+                                        pattern="[A-zÀ-ú\s]+" required>
+                                    <mat-hint align="end">{{input1.value?.length || 0}}/190</mat-hint>
+                                    <mat-error>Ingrese un nombre válido</mat-error>
+                                </mat-form-field>
+                            </div>
 
-                    <div class="register">
-                        <mat-form-field hintLabel="Máximo 190 caracteres">
-                            <mat-label for="nombreUsuario">Modifica tu nombre</mat-label>
-                            <input #input1 matInput maxlength="190" placeholder="Ingresa tu nombre" type="text"
-                                name="nombreUsuario" #nombreUsuario="ngModel" [(ngModel)]="user.nombreUsuario"
-                                pattern="[A-zÀ-ú\s]+" required>
-                            <mat-hint align="end">{{input1.value?.length || 0}}/190</mat-hint>
-                            <mat-error>Ingrese un nombre válido</mat-error>
-                        </mat-form-field>
-                    </div>
+                            <div class="register mt-4">
+                                <mat-form-field hintLabel="Máximo 190 caracteres">
+                                    <mat-label for="apellidoUsuario">Modifica tu apellido</mat-label>
+                                    <input matInput #input2 maxlength="190" placeholder="Ingresa tu apellido"
+                                        type="text" name="apellidoUsuario" #apellidoUsuario="ngModel"
+                                        [(ngModel)]="user.apellidoUsuario" pattern="[A-zÀ-ú\s]+" required>
+                                    <mat-hint align="end">{{input2.value?.length || 0}}/190</mat-hint>
+                                    <mat-error>Ingrese un nombre válido</mat-error>
+                                </mat-form-field>
+                            </div>
 
-                    <div class="register mt-4">
-                        <mat-form-field hintLabel="Máximo 190 caracteres">
-                            <mat-label for="apellidoUsuario">Modifica tu apellido</mat-label>
-                            <input matInput #input2 maxlength="190" placeholder="Ingresa tu apellido" type="text"
-                                name="apellidoUsuario" #apellidoUsuario="ngModel" [(ngModel)]="user.apellidoUsuario"
-                                pattern="[A-zÀ-ú\s]+" required>
-                            <mat-hint align="end">{{input2.value?.length || 0}}/190</mat-hint>
-                            <mat-error>Ingrese un nombre válido</mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="register mt-4">
-                        <label for="avatar">Imagen de perfil (vista previa)</label>
-                        <div class="mt-2 mb-2" *ngIf="identity && identity.avatar">
-                            <img src="{{url + 'user/avatar/' + identity.avatar}}" class="img-fluid"
-                                alt="Responsive image">
+                            <div class="register mt-4">
+                                <label for="avatar">Imagen de perfil (vista previa)</label>
+                                <div class="mt-2 mb-2" *ngIf="identity && identity.avatar">
+                                    <img src="{{url + 'user/avatar/' + identity.avatar}}" class="img-fluid"
+                                        alt="Responsive image">
+                                </div>
+                                <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="avatarUpload($event)">
+                                </angular-file-uploader>
+                            </div>
                         </div>
-                        <angular-file-uploader #file1 [config]="afuConfig" (ApiResponse)="avatarUpload($event)">
-                        </angular-file-uploader>
                     </div>
-                    <br><br>
-                    <div class="text-center col-12">
-                        <button class="btn btn-info btn-lg btn-block btn-rounded waves-effect waves-light" type="submit"
-                            [disabled]="editForm.invalid">Guardar cambios</button>
+
+                    <div class="col-md-6 col-xl-6 col-xs-12">
+                        <div class="card-body">
+                            <h3 class="box-title m-b-20">Selecciona tu tema favorito</h3>
+                            <div class="r-panel-body">
+                                <ul id="themecolors" class="m-t-20">
+                                    <li><b>Con el sidebar claro</b></li>
+                                    <li><a #linkTema1 (click)="cambiarColor('default', linkTema1)" data-theme="default"
+                                            class="selector default-theme pointer">1</a></li>
+                                    <li><a #linkTema2 (click)="cambiarColor('green',linkTema2)" data-theme="green"
+                                            class="selector green-theme pointer">2</a></li>
+                                    <li><a #linkTema3 (click)="cambiarColor('red', linkTema3)" data-theme="red"
+                                            class="selector red-theme pointer">3</a></li>
+                                    <li><a #linkTema4 (click)="cambiarColor('blue', linkTema4)" data-theme="blue"
+                                            class="selector blue-theme pointer">4</a></li>
+                                    <li><a #linkTema5 (click)="cambiarColor('purple', linkTema5)" data-theme="purple"
+                                            class="selector purple-theme pointer">5</a></li>
+                                    <li><a #linkTema6 (click)="cambiarColor('megna', linkTema6)" data-theme="megna"
+                                            class="selector megna-theme pointer">6</a></li>
+                                    <li class="d-block m-t-30"><b>Con el sidebar oscuro</b></li>
+                                    <li><a #linkTema7 (click)="cambiarColor('default-dark', linkTema7)"
+                                            data-theme="default-dark" class="selector default-dark-theme pointer">7</a>
+                                    </li>
+                                    <li><a #linkTema8 (click)="cambiarColor('green-dark', linkTema8)"
+                                            data-theme="green-dark" class="selector green-dark-theme pointer">8</a></li>
+                                    <li><a #linkTema9 (click)="cambiarColor('red-dark', linkTema9)"
+                                            data-theme="red-dark" class="selector red-dark-theme pointer">9</a></li>
+                                    <li><a #linkTema10 (click)="cambiarColor('blue-dark', linkTema10)"
+                                            data-theme="blue-dark" class="selector blue-dark-theme pointer">10</a></li>
+                                    <li><a #linkTema11 (click)="cambiarColor('purple-dark', linkTema11)"
+                                            data-theme="purple-dark" class="selector purple-dark-theme pointer">11</a>
+                                    </li>
+                                    <li><a #linkTema12 (click)="cambiarColor('megna-dark', linkTema12)"
+                                            data-theme="megna-dark" class="selector megna-dark-theme pointer">12</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-xl-6 col-xs-12">
-            <div class="card-body">
-                <h3 class="box-title m-b-20">Selecciona tu tema favorito</h3>
-                <div class="r-panel-body">
-                    <ul id="themecolors" class="m-t-20">
-                        <li><b>Con el sidebar claro</b></li>
-                        <li><a #linkTema1 (click)="cambiarColor('default', linkTema1)" data-theme="default"
-                                class="selector default-theme pointer">1</a></li>
-                        <li><a #linkTema2 (click)="cambiarColor('green',linkTema2)" data-theme="green"
-                                class="selector green-theme pointer">2</a></li>
-                        <li><a #linkTema3 (click)="cambiarColor('red', linkTema3)" data-theme="red"
-                                class="selector red-theme pointer">3</a></li>
-                        <li><a #linkTema4 (click)="cambiarColor('blue', linkTema4)" data-theme="blue"
-                                class="selector blue-theme pointer">4</a></li>
-                        <li><a #linkTema5 (click)="cambiarColor('purple', linkTema5)" data-theme="purple"
-                                class="selector purple-theme pointer">5</a></li>
-                        <li><a #linkTema6 (click)="cambiarColor('megna', linkTema6)" data-theme="megna"
-                                class="selector megna-theme pointer">6</a></li>
-
-                        <li class="d-block m-t-30"><b>Con el sidebar oscuro</b></li>
-                        <li><a #linkTema7 (click)="cambiarColor('default-dark', linkTema7)" data-theme="default-dark"
-                                class="selector default-dark-theme pointer">7</a></li>
-                        <li><a #linkTema8 (click)="cambiarColor('green-dark', linkTema8)" data-theme="green-dark"
-                                class="selector green-dark-theme pointer">8</a></li>
-                        <li><a #linkTema9 (click)="cambiarColor('red-dark', linkTema9)" data-theme="red-dark"
-                                class="selector red-dark-theme pointer">9</a></li>
-                        <li><a #linkTema10 (click)="cambiarColor('blue-dark', linkTema10)" data-theme="blue-dark"
-                                class="selector blue-dark-theme pointer">10</a></li>
-                        <li><a #linkTema11 (click)="cambiarColor('purple-dark', linkTema11)" data-theme="purple-dark"
-                                class="selector purple-dark-theme pointer">11</a></li>
-                        <li><a #linkTema12 (click)="cambiarColor('megna-dark', linkTema12)" data-theme="megna-dark"
-                                class="selector megna-dark-theme pointer">12</a></li>
-                    </ul>
                 </div>
-            </div>
-        </div>
 
+                <div class="form-group row m-b-0">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-3 text-left">
+                        <button type="button" class="btn btn-danger btn-block m-b-15" (click)="salir()">Cancelar</button>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <button class="btn btn-block btn-success m-b-15" type="submit" [disabled]="editForm.invalid">Guardar
+                            cambios</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
