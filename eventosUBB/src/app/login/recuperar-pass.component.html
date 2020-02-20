@@ -1,9 +1,10 @@
 <section id="wrapper">
-    <div class="login-register" style="background-image:url(../assets/images/fondo-login.jpg);">
+    <div class="login-register" style="background-image:url(../assets/images/fondo.png);">
         <div class="login-box card">
             <div class="card-body">
 
-                <form class="form-horizontal form-material" id="loginform" #emailForm="ngForm" (ngSubmit)="onSubmit(emailForm)">
+                <form class="form-horizontal form-material" id="loginform" #emailForm="ngForm"
+                    (ngSubmit)="onSubmit(emailForm)">
 
                     <h2 class="box-title text-center text-dark m-b-15">Cambiar contraseña</h2>
                     <div class="alert alert-info">
@@ -30,7 +31,7 @@
 
                     <div class="form-group text-center m-b-5">
                         <div class="col-xs-12">
-                            <button class="btn btn-block waves-effect btn-lg btn-info btn-rounded" type="submit"
+                            <button class="btn btn-block waves-effect btn-lg btn-info" type="submit"
                                 [disabled]="emailForm.invalid">Enviar</button>
                         </div>
                     </div>
